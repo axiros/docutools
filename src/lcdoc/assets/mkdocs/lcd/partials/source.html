@@ -1,0 +1,35 @@
+{#-
+  This file was automatically generated - do not edit
+-#}
+{% import "partials/language.html" as lang with context %}
+<a href="{{ config.repo_url }}" title="{{ lang.t('source.link.title') }}" class="md-source">
+  <div class="md-source__icon md-icon">
+    {% set icon = config.theme.icon.repo or "fontawesome/brands/git-alt" %}
+    {% include ".icons/" ~ icon ~ ".svg" %}
+  </div>
+  <div class="md-source__repository">
+    {{ config.repo_name }}
+  </div>
+
+
+<script>
+    function display_home_logo(x) {
+          if (x.matches) { // If media query matches
+            document.getElementById('lc_home_logo').style['visibility'] = 'visible'
+          } else {
+            document.getElementById('lc_home_logo').style['visibility'] = 'hidden'
+          }
+    }
+
+    var x = window.matchMedia("(min-width: 800px)")
+    display_home_logo(x)
+    x.addListener(display_home_logo) // Attach listener function on state changes
+</script>
+
+
+
+  <a href="http://github.pages.com/lc-home/">
+      <img id="lc_home_logo" src="{{ config.site_url }}/lcd/assets/logo_devapps.svg"
+           style="position: fixed; top:10px; left:40%"/></a>
+</a>
+

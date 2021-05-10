@@ -1,0 +1,31 @@
+
+
+
+#
+#     <type>[(scope)]: Subject
+#     [Body]
+#
+# **Subject (and body) must be valid Markdown.**
+# Scope and body are optional. Type can be:
+
+# - build: About packaging, building wheels, etc.
+# - chore: About packaging or repo/files management.
+# - ci: About Continuous Integration.
+# - docs: About documentation.
+# - feat: New feature.
+# - fix: Bug fix.
+# - perf: About performance.
+# - refactor: Changes which are not features nor bug fixes.
+# - style: A change in code style/format.
+# - tests: About tests.
+
+# If you write a body, please add issues references at the end:
+
+# ```
+# Body.
+
+# References: #10, #11.
+# Fixes #15.
+# ```
+# https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit
+# Activation: git config --global commit.template ~/.gitmessage

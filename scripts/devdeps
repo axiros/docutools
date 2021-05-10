@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+dev=true # always for docutools - we don't have lc-devapp in pyproejct
+devdeps="${devdeps:-lc-devapp}"
+devpips="absl-py structlog Rx inflection gevent ujson"
+
