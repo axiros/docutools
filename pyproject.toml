@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "docutools"
-version = "2021.5.13"
+version = "2021.5.14"
 description = "Documentation Tools for the Devapp Framework"
 authors = ["Gunther Klessinger <gunther.klessinger@axiros.com>"]
 license = "BSD 2-Clause Simplified License"
@@ -39,29 +39,10 @@ discusshome = "https://join.skype.com/krSNYZqvEmJm"
 python = "^3.6"
 anybadge = "^1.7.0"
 devapps = "^2021.5.10"
-
-
-# this would require to  export POETRY_HTTP_BASIC_AX_USERNAME=klessinger and pw on gitlab runner
-# since we are on same gitlab server for lc-devapp we install from there using the token, see below
-[tool.poetry.dev-dependencies]
-autoflake = "^1.4"
-axblack = "^20201010"
-# one of last versions with site-packages/black.py - overridden by axblack:
-black = "18.6b4"
-duty = "^0.5.0"
-flakehell = "^0.6.0"
-flake8-black = "^0.2.1"
-flake8-builtins = "^1.5.3"
-flake8-tidy-imports = "^4.1.0"
-flake8-variables-names = "^0.0.3"
-flake8-pytest-style = "^1.3.0"
 git-changelog = "^0.4.0"
 # for duty (an invoke clone) pulling async pypi data
 httpx = "^0.17.1"
-ipython = "^7.2"
 # TODO: accept v5 once https://github.com/wemake-services/wemake-python-styleguide/issues/1584 is resolved
-isort = {version = "<5", extras = ["pyproject"]}
-jinja2-cli = "^0.7.0"
 # making trouble when poetry installing lc-devapp with us as depency. Unsure why a dev dep matters ...
 # lc-devapp = { path = "build/lc-devapp" } # see above and .gitlab-ci.yaml
 markdown-include = "^0.6.0"
@@ -78,6 +59,25 @@ pytest-randomly = "^3.4.1"
 pytest-sugar = "^0.9.4"
 pytest-xdist = "^2.1.0"
 toml = "^0.10.1"
+
+
+# this would require to  export POETRY_HTTP_BASIC_AX_USERNAME=klessinger and pw on gitlab runner
+# since we are on same gitlab server for lc-devapp we install from there using the token, see below
+[tool.poetry.dev-dependencies]
+autoflake = "^1.4"
+axblack = "^20201010"
+# one of last versions with site-packages/black.py - overridden by axblack:
+isort = {version = "<5", extras = ["pyproject"]}
+jinja2-cli = "^0.7.0"
+black = "18.6b4"
+duty = "^0.5.0"
+ipython = "^7.2"
+flakehell = "^0.6.0"
+flake8-black = "^0.2.1"
+flake8-builtins = "^1.5.3"
+flake8-tidy-imports = "^4.1.0"
+flake8-variables-names = "^0.0.3"
+flake8-pytest-style = "^1.3.0"
 wemake-python-styleguide = "^0.14.1"
 
 [tool.poetry.scripts]
