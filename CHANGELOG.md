@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@gkarco (Thu May 13 00:17:24 2021)
+By: gk@axgk (Tue Jul 27 16:17:56 2021)
 Command Line (see duties.py):
 
     /home/gk/repos/docutools/.venv/bin/doc pre_process \
@@ -21,6 +21,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.0M.0D-22bfda.svg)
+
+## [2021.5.15](https://github.com/AXGKl/docutools/releases/tag/2021.5.15)
+<small>[Compare with 2021.5.14](https://github.com/AXGKl/docutools/compare/2021.5.14...2021.5.15)</small>
+
 
 ## [2021.5.14](https://github.com/AXGKl/docutools/releases/tag/2021.5.14)
 <small>[Compare with 2021.5.13](https://github.com/AXGKl/docutools/compare/2021.5.13...2021.5.14)</small>
