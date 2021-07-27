@@ -133,13 +133,13 @@ function setup_termcasts(window, document) {
         <div class="term_controls">
         <i class="term_info fa fa-info-circle"     title ="info"></i>
         <i class="term_play_btn fa fa-play"        title ="play/resume"></i>
-        <i class="term_loop fa fa-circle-o-notch"  title ="loop"></i>
+        <i class="term_loop fa fa-circle-notch"  title ="loop"></i>
         <i class="term_rewind fa fa-fast-backward" title ="rewind"></i>
 
         <span class="right_float" style="position  : relative;
                                         float      : right;
                                         font-family: monospace" />
-            <i class="fa fa-tachometer" title ="playback speed multiplier"></i>
+            <i class="fa fa-tachometer-alt" title ="playback speed multiplier"></i>
             <span class="term_play_speed">1</span></i>
             <span class="term_timer"></span>
             <i class="term_maxmin fa fa-expand" title ="toggle height"></i>
@@ -344,7 +344,7 @@ function setup_termcasts(window, document) {
     if (r.frames) return r;
     if (r.ev.key != "c") r.ev.preventDefault();
     let func, funcs, inp;
-    if (contained(r.ev.type, ["keyup", "keydown"])) {
+    if (contained(r.ev.type, ["keyup", "keypress"])) {
       r["ev_type"] = "key";
       inp = r.ev.user_input;
       if (inp && inp.length > 0) func = "do_search_terms";
@@ -573,7 +573,7 @@ function setup_termcasts(window, document) {
     while (i--) to_tag.style["overflow-" + os.charAt(i)] = "scroll";
   }
 
-  function setup_loaded(tag, shotmode) {
+  function setup_loaded_termcast_tag(tag, shotmode) {
     /* setting up the terminal tag after page load.  The tag itself is our
      * global store for state which we may only change before the event stream
      * and in its subscription */
@@ -584,9 +584,8 @@ function setup_termcasts(window, document) {
     let term_wrap = get_elmt("term_wrap", tag);
     set_scrolls(tag, "outer_scrolls", term_wrap);
 
-    let rows = 20,
-      cols = 80;
     let rec = tag.recording_data;
+
     tag.term.open(term_el, (focus = true));
     //
     //   tag.term.insertMode = true
@@ -605,6 +604,8 @@ function setup_termcasts(window, document) {
     // first item of the json is the meta definitions (rows, colors, kb, ...)
     let meta;
 
+    // defaults of recorder:
+    let rows = 24, cols = 80;
     if (rec[0].rows) {
       meta = rec.shift();
       let author = meta.by || "n.a.";
@@ -696,34 +697,39 @@ function setup_termcasts(window, document) {
 
     tag.sh_play_time = get_elmt("term_timer", tag);
     tag.term.textarea.focus();
-    tag.term.linkifier._linkMatchers = [];
+    //tag.term.linkifier._linkMatchers = [];
 
     do_update_controls_view(tag);
     run_main_stream(tag, init_intent);
   }
 
   function run_main_stream(tag, init_intent) {
-    is_text_input = (ev) => ev.target.classList.contains("has_user_input");
+    is_text_input  = (ev) => ev.target.classList.contains('has_user_input')
     key_up$ = stream.fromEvent(tag, "keyup");
     esc$ = key_up$.filter((ev) => ev.key == "Escape");
     // Esc has no keydown
-
     user_text_inp$ = key_up$
       .filter(is_text_input)
       .filter((ev) => ev.key != "/") // opens search
       .filter((ev) => ev.key != "Escape")
       .filter((ev) => ev.key != "Meta")
       .map((ev) => {
+          debugger
         ev.user_input = ev.target.value;
         return ev;
       })
       // 0 -> we search every character:
       .filter((ev) => ev.user_input.length > 0);
-
+    // 2021: this was keydown but Rx does not fire anymore an keydown
+    // maybe because of a global non bubbling keydown for the search of mkdocs?
     user_ctrl_key$ = stream
-      .fromEvent(tag, "keydown")
+      .fromEvent(tag, "keyup")
       .filter((ev) => ev.key != "Meta")
-      .filter((ev) => !is_text_input(ev));
+      .filter((ev) => !is_text_input(ev))
+      .map((ev) => {
+          console.log("control key", ev.key)
+          return ev
+      });
 
     user_intent$ = stream
       .fromEvent(tag, "click")
@@ -797,17 +803,16 @@ function setup_termcasts(window, document) {
       .subscribe((i) => (s += i));
     return s;
   };
-
-  function setup_tag(tag) {
+  function setup_termcast_tag(tag) {
     /* add the player icons, register an observable data stream */
     console.log("setting up", tag);
     tag.s = {}; // the global state, like a redux store
     let src = attr("content", tag);
-    if (!src) src = tag.innerHTML.trim();
+    if (!src && tag.innerText) src = tag.innerHTML.trim();
     if (!src) src = tag.recording_data;
     if (src) {
       tag.recording_data = src;
-      setup_loaded(tag, true);
+      setup_loaded_termcast_tag(tag, true);
     } else {
       tag.innerHTML = tag_html("loading", tag);
       let src = attr("src", tag);
@@ -817,7 +822,7 @@ function setup_termcasts(window, document) {
           return;
         }
         tag.recording_data = json;
-        setup_loaded(tag);
+        setup_loaded_termcast_tag(tag);
       }
       fetch_term_json(src, run_json);
     }
@@ -1059,7 +1064,7 @@ function setup_termcasts(window, document) {
 
   window.TermCast = {
       stream: stream,
-      setup_tag: setup_tag,
+      setup_termcast_tag: setup_termcast_tag,
       all_casts: all_casts,
       all_xterms: all_xterms,
       all_xterm_fetchs: all_xterm_fetchs,
@@ -1075,7 +1080,7 @@ console.log('href', location.href)
 window.addEventListener("load", function () {
   TC.stream.from(TC.all_xterm_fetchs()).subscribe(TC.render_xterm);
   TC.stream.from(TC.all_xterms()).subscribe(TC.render_xterm);
-  TC.stream.from(TC.all_casts()).subscribe(TC.setup_tag);
+  TC.stream.from(TC.all_casts()).subscribe(TC.setup_termcast_tag);
   TC.stream.from(TC.all_callflows).subscribe(TC.linkify_callflow);
 
 });

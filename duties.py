@@ -140,6 +140,7 @@ def docs_regen(ctx):
     cmd = [
         'doc',
         'pre_process',
+        '--patch_mkdocs_filewatch_ign_lp',
         '--gen_theme_link',
         '--gen_last_modify_date',
         '--gen_change_log',

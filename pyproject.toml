@@ -9,7 +9,7 @@ description = "Documentation Tools for the Devapp Framework"
 authors = ["Gunther Klessinger <gunther.klessinger@axiros.com>"]
 license = "BSD 2-Clause Simplified License"
 readme = "README.md"
-repository = "https://axiros.github.com/devapps/docutools"
+repository = "https://github.com/AXGKl/docutools"
 homepage = "http://github.pages.com/docutools/"
 keywords = []
 packages = [ { include = "lcdoc", from = "src" } ]

@@ -1,7 +1,11 @@
 # Literate Programming
 
+!!! note
+    This is a feature of `doctools`, not a third party plugin. It is inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
 
-The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows to embed code within markdown sources and insert into the rendering result the evaluated output, before html build time.
+The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows to embed executable **code** within markdown sources and insert into the rendering result the **evaluated** output, before html build time. This is done through a preprocessor, offered by the `doc` script (`doc pre_process`).
+
+It uses either python's `subprocess`, for single shot executables or tmux, when there needs to be a session.
 
 ## Features
 
@@ -148,9 +152,14 @@ Primary markdown sources with lp statements must have a special extension `<name
     $ mkdocs serve --livereload
 
     $ # in another - the touch is required since we write the primary first, causing mkdocs to start building:
-    $ find -name *.lp | entr -s 'bash -c "doc pp -glpe $0"'
+    $ find -name *.lp | entr -s 'bash -c "doc pp -lpe $0"'
 
     ```
+
+    This patches the live reloader of mkdocs to only reload on changes of `.md` files, i.e. no premature building
+    will be triggered when you save an `.lp` file:
+
+    `doc pp --patch_mkdocs_filewatch_ign_lp`
 
 
 ### Command Runtime Environment: `subprocess.check_output` or tmux

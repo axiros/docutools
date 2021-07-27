@@ -1,6 +1,5 @@
 # Installation
 
-
 This repo is intended as a dev dependency of other repos which want mkdocs
 compatible documentation.
 

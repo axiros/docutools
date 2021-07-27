@@ -337,6 +337,8 @@ class cache:
 
 
 def init_prompt(n):
+    """run before each command"""
+    # -R reset terminal state:
     sprun('tmux send-keys -R -t %s:1' % n)
     # if not mode == 'python':
     #     sprun('tmux send-keys -t %s:1 "clear" Enter' % n)
@@ -358,6 +360,7 @@ class session:
         """
         s = '\n' + os.popen('tmux ls').read()
         if not '\n%s:' % session_name in s:
+            # new session:
             s = session_name
             # path is set new. bash (if executing user's shell is fish we'd be screwed)
             sprun('export SHELL=/bin/bash; export p="$PATH"; tmux new -s %s -d' % s)
@@ -366,6 +369,10 @@ class session:
             for i in (1, 2):
                 try:
                     sprun(a % b)
+                    # the reset in init prompt needs thate time before
+                    # otherwise you have the command 2 times in
+                    time.sleep(0.2)
+                    break
                 except Exception as ex:
                     # on new systems it maybe just missing and the user / runner does not caser. Lets do it:
                     fn = env.get('HOME', '') + '/.tmux.conf'

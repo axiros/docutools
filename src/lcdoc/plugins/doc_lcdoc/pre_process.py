@@ -42,6 +42,15 @@ class Flags:
 
     autoshort = ''
 
+    class patch_mkdocs_filewatch_ign_lp:
+        """Prevent mkdocs live reload server to rebuild on .lp changes
+
+        Enables an entr handler to first rebuild the .md files then serve them.
+        We brutally overwrite the mkdocs/commands/serve.py for this.
+        """
+
+        d = False
+
     class gen_theme_link:
         """Link additional assets (e.g. termcast) to docs/theme"""
 
@@ -606,6 +615,30 @@ def add_theme_link():
     app.warn('mkdocs add. themes enabled via link', frm=f, to=to)
 
 
+def patch_mkdocs_filewatch_ign_lp():
+    import mkdocs
+
+    fn = mkdocs.__file__.rsplit('/', 1)[0]
+    fn += '/commands/serve.py'
+    s = read_file(fn).splitlines()
+    r = []
+    while s:
+        l = s.pop(0)
+        if 'server.watch' in l and 'docs_dir' in l:
+            if '**/*.md' in l:
+                return app.info('Already patched', fn=fn)
+            msg = '    # !! patched by docutools to just watch .md files - not all:'
+            r.append('\n')
+            r.append(msg.upper())
+            r.append("    server.watch(config['docs_dir'] + '/**/*.md', builder)")
+            r.append('\n')
+
+        else:
+            r.append(l)
+    write_file(fn, '\n'.join(r))
+    app.warn('Have patched to only watch .md files', fn=fn)
+
+
 import importlib, inspect
 
 
@@ -1027,6 +1060,8 @@ def run():
 
     if FLG.gen_theme_link:
         do(add_theme_link, track=1)
+    if FLG.patch_mkdocs_filewatch_ign_lp:
+        do(patch_mkdocs_filewatch_ign_lp)
     if FLG.gen_change_log:
         do(gen_change_log, track=1)
     if FLG.gen_last_modify_date:

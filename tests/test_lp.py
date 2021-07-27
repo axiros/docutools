@@ -225,7 +225,7 @@ class embedded_sessions(unittest.TestCase):
 
     def test_with_paths(self):
         for k in 'PATH', 'PYTHONPATH':
-            os.environ[k] = os.environ[k] + ':/bin/baz/foobar' + k
+            os.environ[k] = os.environ.get(k, '') + ':/bin/baz/foobar' + k
         md = '''
         ```bash lp new_session=test with_paths
         echo $PATH
