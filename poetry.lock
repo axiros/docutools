@@ -129,7 +129,6 @@ python-versions = ">=3.6"
 appdirs = "*"
 attrs = ">=18.1.0"
 click = ">=6.5"
-dataclasses = {version = ">=0.6", markers = "python_version < \"3.7\""}
 mypy-extensions = ">=0.4.3"
 pathspec = ">=0.6,<1"
 regex = "*"
@@ -179,11 +178,11 @@ toml = ">=0.9.4"
 
 [[package]]
 name = "bpytop"
-version = "1.0.54"
+version = "1.0.67"
 description = "Resource monitor that shows usage and stats for processor, memory, disks, network and processes."
 category = "main"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
 psutil = ">=5.7.0,<6.0.0"
@@ -250,17 +249,6 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
-name = "contextvars"
-version = "2.4"
-description = "PEP 567 Backport"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-immutables = ">=0.9"
-
-[[package]]
 name = "coverage"
 version = "5.5"
 description = "Code coverage measurement for Python"
@@ -278,14 +266,6 @@ description = "A utility for ensuring Google-style docstrings stay up to date wi
 category = "dev"
 optional = false
 python-versions = ">=3.6,<4.0"
-
-[[package]]
-name = "dataclasses"
-version = "0.8"
-description = "A backport of the dataclasses module for Python 3.6"
-category = "dev"
-optional = false
-python-versions = ">=3.6, <3.7"
 
 [[package]]
 name = "decorator"
@@ -805,17 +785,6 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
-name = "immutables"
-version = "0.15"
-description = "Immutable Collections"
-category = "main"
-optional = false
-python-versions = ">=3.5"
-
-[package.extras]
-test = ["flake8 (>=3.8.4,<3.9.0)", "pycodestyle (>=2.6.0,<2.7.0)"]
-
-[[package]]
 name = "importlib-metadata"
 version = "4.6.1"
 description = "Read metadata from Python packages"
@@ -850,26 +819,27 @@ python-versions = "*"
 
 [[package]]
 name = "ipython"
-version = "7.16.1"
+version = "7.25.0"
 description = "IPython: Productive Interactive Computing"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 appnope = {version = "*", markers = "sys_platform == \"darwin\""}
 backcall = "*"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
 decorator = "*"
-jedi = ">=0.10"
-pexpect = {version = "*", markers = "sys_platform != \"win32\""}
+jedi = ">=0.16"
+matplotlib-inline = "*"
+pexpect = {version = ">4.3", markers = "sys_platform != \"win32\""}
 pickleshare = "*"
 prompt-toolkit = ">=2.0.0,<3.0.0 || >3.0.0,<3.0.1 || >3.0.1,<3.1.0"
 pygments = "*"
 traitlets = ">=4.2"
 
 [package.extras]
-all = ["Sphinx (>=1.3)", "ipykernel", "ipyparallel", "ipywidgets", "nbconvert", "nbformat", "nose (>=0.10.1)", "notebook", "numpy (>=1.14)", "pygments", "qtconsole", "requests", "testpath"]
+all = ["Sphinx (>=1.3)", "ipykernel", "ipyparallel", "ipywidgets", "nbconvert", "nbformat", "nose (>=0.10.1)", "notebook", "numpy (>=1.17)", "pygments", "qtconsole", "requests", "testpath"]
 doc = ["Sphinx (>=1.3)"]
 kernel = ["ipykernel"]
 nbconvert = ["nbconvert"]
@@ -877,7 +847,7 @@ nbformat = ["nbformat"]
 notebook = ["notebook", "ipywidgets"]
 parallel = ["ipyparallel"]
 qtconsole = ["qtconsole"]
-test = ["nose (>=0.10.1)", "requests", "testpath", "pygments", "nbformat", "ipykernel", "numpy (>=1.14)"]
+test = ["nose (>=0.10.1)", "requests", "testpath", "pygments", "nbformat", "ipykernel", "numpy (>=1.17)"]
 
 [[package]]
 name = "ipython-genutils"
@@ -1011,6 +981,17 @@ description = "Safely add untrusted strings to HTML/XML markup."
 category = "main"
 optional = false
 python-versions = ">=3.6"
+
+[[package]]
+name = "matplotlib-inline"
+version = "0.1.2"
+description = "Inline Matplotlib backend for Jupyter"
+category = "dev"
+optional = false
+python-versions = ">=3.5"
+
+[package.dependencies]
+traitlets = "*"
 
 [[package]]
 name = "mccabe"
@@ -1257,11 +1238,11 @@ dev = ["pre-commit", "tox"]
 
 [[package]]
 name = "prompt-toolkit"
-version = "3.0.3"
+version = "3.0.19"
 description = "Library for building powerful interactive command lines in Python"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.6.1"
 
 [package.dependencies]
 wcwidth = "*"
@@ -1599,9 +1580,6 @@ category = "main"
 optional = false
 python-versions = ">=3.5"
 
-[package.dependencies]
-contextvars = {version = ">=2.1", markers = "python_version < \"3.7\""}
-
 [[package]]
 name = "snoop"
 version = "0.2.5"
@@ -1698,19 +1676,17 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "traitlets"
-version = "4.3.3"
-description = "Traitlets Python config system"
+version = "5.0.5"
+description = "Traitlets Python configuration system"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 
 [package.dependencies]
-decorator = "*"
 ipython-genutils = "*"
-six = "*"
 
 [package.extras]
-test = ["pytest", "mock"]
+test = ["pytest"]
 
 [[package]]
 name = "typed-ast"
@@ -1845,8 +1821,8 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.6"
-content-hash = "ad752ae7a41602a64bc72c0ee7caa33415601707563c4ad71f1dbe21d2c527fe"
+python-versions = "^3.7"
+content-hash = "21b09a910f08b9ad11834db8645805a33bf0c819cc7a3d0e2e0315e60ab1c709"
 
 [metadata.files]
 absl-py = [
@@ -1909,8 +1885,8 @@ black = [
     {file = "black-18.6b4.tar.gz", hash = "sha256:22158b89c1a6b4eb333a1e65e791a3f8b998cf3b11ae094adb2570f31f769a44"},
 ]
 bpytop = [
-    {file = "bpytop-1.0.54-py3-none-any.whl", hash = "sha256:8b5b6b5b36a7b9821bd883ceb5462afa3a3a44690499e63196aebbd209b2aa4a"},
-    {file = "bpytop-1.0.54.tar.gz", hash = "sha256:a25665e71627a5ec918e6ecf4422bea1ba449069958f64c3879029cfb58a0ac1"},
+    {file = "bpytop-1.0.67-py3-none-any.whl", hash = "sha256:a2082c4a28b7dc443ebe53c164b0f2bc56b82f71984f456ffb081fd21235f9f5"},
+    {file = "bpytop-1.0.67.tar.gz", hash = "sha256:8b338e3627fa6e991e836bee61ef38988f6a7a3a37dc05c757a92ba4378f95bb"},
 ]
 certifi = [
     {file = "certifi-2021.5.30-py2.py3-none-any.whl", hash = "sha256:50b1e4f8446b06f41be7dd6338db18e0990601dce795c2b1686458aa7e8fa7d8"},
@@ -1978,9 +1954,6 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
-contextvars = [
-    {file = "contextvars-2.4.tar.gz", hash = "sha256:f38c908aaa59c14335eeea12abea5f443646216c4e29380d7bf34d2018e2c39e"},
-]
 coverage = [
     {file = "coverage-5.5-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:b6d534e4b2ab35c9f93f46229363e17f63c53ad01330df9f2d6bd1187e5eaacf"},
     {file = "coverage-5.5-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:b7895207b4c843c76a25ab8c1e866261bcfe27bfaa20c192de5190121770672b"},
@@ -2038,10 +2011,6 @@ coverage = [
 darglint = [
     {file = "darglint-1.8.0-py3-none-any.whl", hash = "sha256:ac6797bcc918cd8d8f14c168a4a364f54e1aeb4ced59db58e7e4c6dfec2fe15c"},
     {file = "darglint-1.8.0.tar.gz", hash = "sha256:aa605ef47817a6d14797d32b390466edab621768ea4ca5cc0f3c54f6d8dcaec8"},
-]
-dataclasses = [
-    {file = "dataclasses-0.8-py3-none-any.whl", hash = "sha256:0201d89fa866f68c8ebd9d08ee6ff50c0b255f8ec63a71c16fda7af82bb887bf"},
-    {file = "dataclasses-0.8.tar.gz", hash = "sha256:8479067f342acf957dc82ec415d355ab5edb7e7646b90dc6e2fd1d96ad084c97"},
 ]
 decorator = [
     {file = "decorator-4.4.2-py2.py3-none-any.whl", hash = "sha256:41fa54c2a0cc4ba648be4fd43cff00aedf5b9465c9bf18d64325bc225f08f760"},
@@ -2273,23 +2242,6 @@ idna = [
     {file = "idna-3.2-py3-none-any.whl", hash = "sha256:14475042e284991034cb48e06f6851428fb14c4dc953acd9be9a5e95c7b6dd7a"},
     {file = "idna-3.2.tar.gz", hash = "sha256:467fbad99067910785144ce333826c71fb0e63a425657295239737f7ecd125f3"},
 ]
-immutables = [
-    {file = "immutables-0.15-cp35-cp35m-macosx_10_14_x86_64.whl", hash = "sha256:6728f4392e3e8e64b593a5a0cd910a1278f07f879795517e09f308daed138631"},
-    {file = "immutables-0.15-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:f0836cd3bdc37c8a77b192bbe5f41dbcc3ce654db048ebbba89bdfe6db7a1c7a"},
-    {file = "immutables-0.15-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:8703d8abfd8687932f2a05f38e7de270c3a6ca3bd1c1efb3c938656b3f2f985a"},
-    {file = "immutables-0.15-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:b8ad986f9b532c026f19585289384b0769188fcb68b37c7f0bd0df9092a6ca54"},
-    {file = "immutables-0.15-cp36-cp36m-win_amd64.whl", hash = "sha256:6f117d9206165b9dab8fd81c5129db757d1a044953f438654236ed9a7a4224ae"},
-    {file = "immutables-0.15-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:b75ade826920c4e490b1bb14cf967ac14e61eb7c5562161c5d7337d61962c226"},
-    {file = "immutables-0.15-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:b7e13c061785e34f73c4f659861f1b3e4a5fd918e4395c84b21c4e3d449ebe27"},
-    {file = "immutables-0.15-cp37-cp37m-win_amd64.whl", hash = "sha256:3035849accee4f4e510ed7c94366a40e0f5fef9069fbe04a35f4787b13610a4a"},
-    {file = "immutables-0.15-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:b04fa69174e0c8f815f9c55f2a43fc9e5a68452fab459a08e904a74e8471639f"},
-    {file = "immutables-0.15-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:141c2e9ea515a3a815007a429f0b47a578ebeb42c831edaec882a245a35fffca"},
-    {file = "immutables-0.15-cp38-cp38-win_amd64.whl", hash = "sha256:cbe8c64640637faa5535d539421b293327f119c31507c33ca880bd4f16035eb6"},
-    {file = "immutables-0.15-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:a0a4e4417d5ef4812d7f99470cd39347b58cb927365dd2b8da9161040d260db0"},
-    {file = "immutables-0.15-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:3b15c08c71c59e5b7c2470ef949d49ff9f4263bb77f488422eaa157da84d6999"},
-    {file = "immutables-0.15-cp39-cp39-win_amd64.whl", hash = "sha256:2283a93c151566e6830aee0e5bee55fc273455503b43aa004356b50f9182092b"},
-    {file = "immutables-0.15.tar.gz", hash = "sha256:3713ab1ebbb6946b7ce1387bb9d1d7f5e09c45add58c2a2ee65f963c171e746b"},
-]
 importlib-metadata = [
     {file = "importlib_metadata-4.6.1-py3-none-any.whl", hash = "sha256:9f55f560e116f8643ecf2922d9cd3e1c7e8d52e683178fecd9d08f6aa357e11e"},
     {file = "importlib_metadata-4.6.1.tar.gz", hash = "sha256:079ada16b7fc30dfbb5d13399a5113110dab1aa7c2bc62f66af75f0b717c8cac"},
@@ -2303,8 +2255,8 @@ iniconfig = [
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
 ]
 ipython = [
-    {file = "ipython-7.16.1-py3-none-any.whl", hash = "sha256:2dbcc8c27ca7d3cfe4fcdff7f45b27f9a8d3edfa70ff8024a71c7a8eb5f09d64"},
-    {file = "ipython-7.16.1.tar.gz", hash = "sha256:9f4fcb31d3b2c533333893b9172264e4821c1ac91839500f31bd43f2c59b3ccf"},
+    {file = "ipython-7.25.0-py3-none-any.whl", hash = "sha256:aa21412f2b04ad1a652e30564fff6b4de04726ce875eab222c8430edc6db383a"},
+    {file = "ipython-7.25.0.tar.gz", hash = "sha256:54bbd1fe3882457aaf28ae060a5ccdef97f212a741754e420028d4ec5c2291dc"},
 ]
 ipython-genutils = [
     {file = "ipython_genutils-0.2.0-py2.py3-none-any.whl", hash = "sha256:72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8"},
@@ -2429,6 +2381,10 @@ markupsafe = [
     {file = "MarkupSafe-2.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:693ce3f9e70a6cf7d2fb9e6c9d8b204b6b39897a2c4a1aa65728d5ac97dcc1d8"},
     {file = "MarkupSafe-2.0.1.tar.gz", hash = "sha256:594c67807fb16238b30c44bdf74f36c02cdf22d1c8cda91ef8a0ed8dabf5620a"},
 ]
+matplotlib-inline = [
+    {file = "matplotlib-inline-0.1.2.tar.gz", hash = "sha256:f41d5ff73c9f5385775d5c0bc13b424535c8402fe70ea8210f93e11f3683993e"},
+    {file = "matplotlib_inline-0.1.2-py3-none-any.whl", hash = "sha256:5cf1176f554abb4fa98cb362aa2b55c500147e4bdbb07e3fda359143e1da0811"},
+]
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
@@ -2549,8 +2505,8 @@ pluggy = [
     {file = "pluggy-0.13.1.tar.gz", hash = "sha256:15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"},
 ]
 prompt-toolkit = [
-    {file = "prompt_toolkit-3.0.3-py3-none-any.whl", hash = "sha256:c93e53af97f630f12f5f62a3274e79527936ed466f038953dfa379d4941f651a"},
-    {file = "prompt_toolkit-3.0.3.tar.gz", hash = "sha256:a402e9bf468b63314e37460b68ba68243d55b2f8c4d0192f85a019af3945050e"},
+    {file = "prompt_toolkit-3.0.19-py3-none-any.whl", hash = "sha256:7089d8d2938043508aa9420ec18ce0922885304cddae87fb96eebca942299f88"},
+    {file = "prompt_toolkit-3.0.19.tar.gz", hash = "sha256:08360ee3a3148bdb5163621709ee322ec34fc4375099afa4bbf751e9b7b7fa4f"},
 ]
 psutil = [
     {file = "psutil-5.8.0-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:0066a82f7b1b37d334e68697faba68e5ad5e858279fd6351c8ca6024e8d6ba64"},
@@ -2793,8 +2749,8 @@ toml = [
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
 traitlets = [
-    {file = "traitlets-4.3.3-py2.py3-none-any.whl", hash = "sha256:70b4c6a1d9019d7b4f6846832288f86998aa3b9207c6821f3578a6a6a467fe44"},
-    {file = "traitlets-4.3.3.tar.gz", hash = "sha256:d023ee369ddd2763310e4c3eae1ff649689440d4ae59d7485eb4cfbbe3e359f7"},
+    {file = "traitlets-5.0.5-py3-none-any.whl", hash = "sha256:69ff3f9d5351f31a7ad80443c2674b7099df13cc41fc5fa6e2f6d3b0330b0426"},
+    {file = "traitlets-5.0.5.tar.gz", hash = "sha256:178f4ce988f69189f7e523337a3e11d91c786ded9360174a3d9ca83e79bc5396"},
 ]
 typed-ast = [
     {file = "typed_ast-1.4.3-cp35-cp35m-manylinux1_i686.whl", hash = "sha256:2068531575a125b87a41802130fa7e29f26c09a2833fea68d9a40cf33902eba6"},

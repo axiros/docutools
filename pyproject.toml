@@ -36,7 +36,7 @@ discusshome = "https://join.skype.com/krSNYZqvEmJm"
 [tool.poetry.dependencies]
 #python = "^3.6"
 #python = "~3.8"
-python = "^3.6"
+python = "^3.7"
 anybadge = "^1.7.0"
 devapps = "^2021.5.10"
 git-changelog = "^0.4.0"

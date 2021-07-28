@@ -4,27 +4,43 @@ Add various autogeneratable pages to the docs
 
 See the Flags (-h) regarding possibilities.
 """
+import importlib
+import inspect
+import json
 import os
+import shutil
+import sys
+import time
+import traceback
+from ast import literal_eval
+from contextlib import contextmanager
 from functools import partial
+from hashlib import md5
 
-
-import time, json
-from devapp.tools import FLG, project, gitcmd, parse_kw_str
-from devapp.app import app, run_app, system, do as app_do
-
-from pymdownx import slugs
-from theming.formatting import markdown
-from inflection import humanize
-from devapp.tools import deindent, cast
-from lcdoc.auto_docs import mark_auto_created
-
+import toml
+from devapp.app import app
+from devapp.app import do as app_do
+from devapp.app import run_app, system
 from devapp.testing.auto_docs import func_title
 
-
 # from operators.testing.auto_docs import dir_pytest_base
-from devapp.tools import project, read_file, write_file
-from hashlib import md5
-import shutil
+from devapp.tools import (
+    FLG,
+    cast,
+    deindent,
+    gitcmd,
+    parse_kw_str,
+    project,
+    read_file,
+    walk_dir,
+    write_file,
+)
+from inflection import humanize
+from pymdownx import slugs
+from theming.formatting import markdown
+
+from lcdoc import lp as lit_prog
+from lcdoc.auto_docs import mark_auto_created
 
 
 def do(action, *a, track=False, **kw):
@@ -59,6 +75,16 @@ class Flags:
     class gen_change_log:
         n = 'Create a changelog (using git-changelog)'
         d = False
+
+    class gen_change_log_commit_style:
+        n = 'argument for git-changelog'
+        d = 'angular'
+        t = ['angular', 'basic', 'atom']
+
+    class gen_change_log_versioning_stanza:
+        n = 'Header message in changelog'
+        d = 'calver'
+        t = ['calver', 'semver']
 
     class gen_mod_docs:
         n = 'Supply list of module files to insert into "# :automodocs:" block in mkdocs.yml'
@@ -233,14 +259,10 @@ class Credits:
             direct_dependencies = {dep.lower() for dep in project.dependencies()}
             dev_dependencies = {dep.lower() for dep in project.dev_dependencies()}
             'python' in direct_dependencies and direct_dependencies.remove('python')
-            indirect_dependencies = {
-                pkg['name'].lower() for pkg in lock_data['package']
-            }
+            indirect_dependencies = {pkg['name'].lower() for pkg in lock_data['package']}
             indirect_dependencies -= direct_dependencies
             indirect_dependencies -= dev_dependencies
-            dependencies = (
-                direct_dependencies | dev_dependencies | indirect_dependencies
-            )
+            dependencies = direct_dependencies | dev_dependencies | indirect_dependencies
 
             packages = {}
             attrs = ('name', 'home-page', 'license', 'version', 'summary')
@@ -304,8 +326,6 @@ class Credits:
 
 Credits.TP = deindent(Credits.TP)
 Credits.TC = deindent(Credits.TC)
-import sys
-from devapp.tools import walk_dir
 
 d_autodocs = lambda: project.root() + '/docs/autodocs'
 fn_autodocs_refs = lambda: d_autodocs() + '/references.md'
@@ -315,9 +335,6 @@ def scan_d_autodocs(typ):
     files = walk_dir(d_autodocs(), crit=lambda d, fn: fn.endswith(typ))
     app.info('have %s files' % typ, json=files)
     return files
-
-
-from contextlib import contextmanager
 
 
 class SVGs:
@@ -397,9 +414,7 @@ class SVGs:
                     #    FLG.kroki_server + '/plantuml/svg/' + g.decode('utf-8')
                     # )
                     if not res.status_code < 300:
-                        raise Exception(
-                            'kroki_server: [%s] not [200]' % res.status_code
-                        )
+                        raise Exception('kroki_server: [%s] not [200]' % res.status_code)
                 except Exception as ex:
                     app.die(
                         'No svg from kroki', exc=ex, resp=getattr(res, 'text', 'n.a.')
@@ -619,27 +634,21 @@ def patch_mkdocs_filewatch_ign_lp():
     import mkdocs
 
     fn = mkdocs.__file__.rsplit('/', 1)[0]
-    fn += '/commands/serve.py'
-    s = read_file(fn).splitlines()
-    r = []
-    while s:
-        l = s.pop(0)
-        if 'server.watch' in l and 'docs_dir' in l:
-            if '**/*.md' in l:
-                return app.info('Already patched', fn=fn)
-            msg = '    # !! patched by docutools to just watch .md files - not all:'
-            r.append('\n')
-            r.append(msg.upper())
-            r.append("    server.watch(config['docs_dir'] + '/**/*.md', builder)")
-            r.append('\n')
+    fn += '/livereload/__init__.py'
 
-        else:
-            r.append(l)
-    write_file(fn, '\n'.join(r))
-    app.warn('Have patched to only watch .md files', fn=fn)
+    if not exists(fn):
+        return app.warn('Cannot patch mkdocs - version mismatch', missing=fn)
 
-
-import importlib, inspect
+    s = read_file(fn)
+    S = 'event.is_directory'
+    if not S in s:
+        return app.warn('Cannot patch mkdocs - version mismatch', missing=fn)
+    if not "'.lp'" in s:
+        new = S + " or event.src_path.endswith('.lp')"
+        s = s.replace(S, new)
+        write_file(fn, s)
+        return app.warn('Have patched to only watch .md files', fn=fn)
+    app.info('Already patched', fn=fn)
 
 
 def is_func(obj, fn, src):
@@ -733,10 +742,30 @@ class ModDocs:
 
 
 def gen_change_log():
-    dr, d = S.d_root, dirname
-    cmd = 'cd "%s"; git-changelog -t "path:%s" . > CHANGELOG.md'
+    """
+    Problem: The git-changelog cmd uses Jinja and wants .md sources.
+    mkdocs macros also, different contexts though -> crash.
+    So we cannot have .md sources in the docs folder -> have to change on the fly when
+    using git-changelog. Here we do that. Also we dyn set the versioning message.
+    """
+    dr, d, dtmp = S.d_root, dirname, S.d_root + '/tmp/changelog_tmpl'
+
+    def set_version_scheme(fn):
+        CV = 'This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).'
+        SV = 'This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).'
+        VSM = CV if FLG.gen_change_log_versioning_stanza == 'calver' else SV
+        s = read_file(fn).replace('_VERSION_SCHEME_MSG_', VSM)
+        write_file(fn, s)
+
     dcl = d_assets() + '/mkdocs/lcd/src/md/keepachangelog'
-    cmd = cmd % (dr, dcl)
+    os.makedirs(dtmp, exist_ok=True)
+    for k in os.listdir(dcl):
+        fn = dtmp + '/' + k.replace('.tmpl', '')
+        shutil.copyfile(dcl + '/' + k, fn)
+        if k == 'changelog.md.tmpl':
+            set_version_scheme(fn)
+    cmd = 'cd "%s"; git-changelog -s %s -t "path:%s" . > CHANGELOG.md'
+    cmd = cmd % (dr, FLG.gen_change_log_commit_style, dtmp)
     err = os.system(cmd)
     if err:
         app.die('changelog creation failed', fn=dcl, cmd=cmd)
@@ -783,9 +812,6 @@ def gen_modify_date():
     write_file(fn, r)
 
 
-import toml
-
-
 def add_pyproject_infos_to_mkdocs():
     # TODO
     raise Exception('TODO: Convert to pdm!')
@@ -806,13 +832,6 @@ def add_pyproject_infos_to_mkdocs():
     m = into(m, 'repo_url', p.get('repository'))
     app.info('Have written', file=fnm)
     write_file(fnm, m)
-
-
-from lcdoc import lp as lit_prog
-
-import traceback
-
-from ast import literal_eval
 
 
 class LP:
