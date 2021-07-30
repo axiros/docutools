@@ -306,7 +306,8 @@ When easy args parsing fails, then python signature mode is tried.
 
 | arg           |S |C|value        | Meaning
 | -             |- | |-            | - 
-| `assert`      |x |x| match string| Except if the expected string is not found in the result of an evaluation
+| `assert`      |  |x| match string| Except if the expected string is not found in the result of an evaluation
+| `asserts`     |  |x| match strings| Alias for assert, which can be used as keyword in python style signatures, thus allowing to supply lists of assertions to be checked
 | `cwd`         |  | |directory    | chdir before running
 | `cmd_prepare` |  | |cmd string   | Run this before the (output recorded) commands
 | `dt_cache`    |  | |seconds      | Only evaluate when run time is later than age of last result
@@ -326,7 +327,7 @@ When easy args parsing fails, then python signature mode is tried.
 | `with_paths`  |x | |true         | Before a sequence of commands is run, we export invoking process' `$PATH` and `$PYTHONPATH` within tmux
 
 !!! note "Columns"
-    - "S": Only supported for tmux/session mode" (with n: NOT supported in session mode)
+    - "S": **Only** supported for tmux/session mode" (with n: NOT supported in session mode)
     - "C": Also supported per command when given as dict"
 
 !!! note "`cwd` behaviour"

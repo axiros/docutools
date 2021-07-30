@@ -89,7 +89,6 @@ def check_assert(ass, res):
         ass = [ass]
     for a in ass:
         if not a in s:
-            breakpoint()  # FIXME BREAKPOINT
             msg = 'Assertion failed: Expected string "%s" not found in result (\n%s)'
             raise Exception(msg % (a, s))
 
@@ -432,7 +431,7 @@ class session:
         if isinstance(cmd, dict):
             timeout = cmd.get('timeout', timeout)
             expect = cmd.get('expect', expect)
-            assert_ = cmd.get('asserts') or cmd.get('asserts', assert_)
+            assert_ = cmd.get('asserts') or cmd.get('assert', assert_)
             silent = cmd.get('silent', silent)
             cmd = cmd.get('cmd')  # if not given: only produce output
         if cmd.startswith('wait '):

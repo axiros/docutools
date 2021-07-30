@@ -4,22 +4,23 @@
 We turn code tags with lp as argument after the language into evaluated result blocks incl Ansi Escape sequences, which are processed by xterm on the client, possibly remote fetched.
 
 """
-import pytest
-
-import lcdoc.call_flow_logging as cfl
-from lcdoc.auto_docs import mod_doc
-
-# from lcdoc.py_test.auto_docs import gen_mod_doc, wrap_funcs_for_call_flow_docs
-from devapp.tools import project, exists, read_file, write_file, define_flags
-import shutil, json, os
-from lcdoc import lp
+import json
+import os
+import shutil
+import sys
+import time
 import unittest
 
-from devapp.tools import deindent
+import pytest
 from devapp.app import init_app_parse_flags
-from lcdoc.plugins.doc_lcdoc.pre_process import LP, Flags, FLG
-import time
 
+# from lcdoc.py_test.auto_docs import gen_mod_doc, wrap_funcs_for_call_flow_docs
+from devapp.tools import define_flags, deindent, exists, project, read_file, write_file
+
+import lcdoc.call_flow_logging as cfl
+from lcdoc import lp
+from lcdoc.auto_docs import mod_doc
+from lcdoc.plugins.doc_lcdoc.pre_process import FLG, LP, Flags
 
 define_flags(Flags)
 init_app_parse_flags('pytest')
@@ -40,15 +41,12 @@ fn_test = lambda: d_test() + '/test.md.lp'
 test_content = '\n'.join(['line0', ' \x1b[38;5;124mline1\x1b[0m', 'line2'])
 
 
-def run_lp(md):
+def run_lp(md, raise_on_errs=None):
     dw, fn = d_test(), fn_test()
     shutil.rmtree(dw, ignore_errors=True)
     os.makedirs(dw, exist_ok=True)
     write_file(dw + '/test_content', test_content)
-    return LP.run_md((md), fn)
-
-
-import sys
+    return LP.run_md((md), fn, raise_on_errs=raise_on_errs)
 
 
 def err_msg(l, res):
@@ -175,7 +173,7 @@ class embedded_no_sessions(unittest.TestCase):
         """First a test w/o sessions"""
         run = 'head %s/test_content |grep --color=never line' % d_test()
         md = '''
-        ```bash lp 
+        ```bash lp
         %s
         ```
         '''
@@ -194,6 +192,52 @@ class embedded_no_sessions(unittest.TestCase):
         '''
         res = run_lp(md % run)
         check_lines_in(res, cmd % run, out)
+
+    def test_assert(self):
+        run = 'head %s/test_content |grep --color=never line' % d_test()
+        md = '''
+        ```bash lp assert=line1
+        %s
+        ```
+        '''
+        cmd = '''
+        === "Cmd"
+            ```console
+            $ %s
+            ```
+        '''
+        out = '''
+        === "Output"
+            <xterm />
+                line0
+                 \x1b[38;5;124mline1\x1b[0m
+                line2
+        '''
+        res = run_lp(md % run)
+        check_lines_in(res, cmd % run, out)
+
+    def test_assert_fail(self):
+        run = 'head %s/test_content |grep --color=never line' % d_test()
+        md = '''
+        ```bash lp assert=XXXX
+        %s
+        ```
+        '''
+        cmd = '''
+        === "Cmd"
+            ```console
+            $ %s
+            ```
+        '''
+        out = '''
+        === "Output"
+            <xterm />
+                line0
+                 \x1b[38;5;124mline1\x1b[0m
+                line2
+        '''
+        with pytest.raises(Exception, match='XXX'):
+            res = run_lp(md % run, raise_on_errs=True)
 
     def test_escape(self):
         """Single Escapes Working?"""
@@ -346,7 +390,7 @@ class embedded_sessions(unittest.TestCase):
         # cmd output was skipped since result had it anyway:
         assert len(res.split('$ sleep 5')) == 2
 
-    def test_assert(self):
+    def test_assert_inline(self):
         """Use the documentation tool as a little test framework"""
         md1 = '''
 
@@ -376,6 +420,22 @@ class embedded_sessions(unittest.TestCase):
             '!!! error "LP error: Assertion failed: Expected string "XXX" not found in result'
             in res
         )
+
+        md1 = '''
+        ```bash lp session=test1 assert=foo
+        ['echo foo', {'cmd': 'echo bar', 'asserts': ['XXX', 'bar']}]
+        ```
+        '''
+
+        with pytest.raises(Exception, match='XXX'):
+            res = run_lp(md1, raise_on_errs=True)
+
+        md1 = '''
+        ```bash lp session=test1 assert=foo
+        ['echo foo', {'cmd': 'echo bar', 'asserts': ['b', 'bar']}]
+        ```
+        '''
+        res = run_lp(md1, raise_on_errs=False)
 
 
 class embedded_multiline(unittest.TestCase):

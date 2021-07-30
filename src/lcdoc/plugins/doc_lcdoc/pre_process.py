@@ -859,8 +859,11 @@ class LP:
 
     run_file = lambda fn_lp: LP.run_md(read_file(fn_lp), fn_lp, write=True)
 
-    def run_md(md, fn_lp, write=False):
-        """fn_lp required for filenames of async lp results"""
+    def run_md(md, fn_lp, write=False, raise_on_errs=None):
+        """fn_lp required for filenames of async lp results
+        raise_on_errs intended for temporarily changing behviour, e.g. for tests
+        Else use the FLG.
+        """
         S.cur_fn_lp = fn_lp
         lp_blocks, dest = do(LP.extract_lp_blocks, md=md, fn_lp=fn_lp)
         app.info('---------- %s --------------' % fn_lp)
@@ -868,7 +871,10 @@ class LP:
         res = []
         # the doc file:
         fnd = LP.fn_lp(fn_lp)
-        [res.append(LP.run_block(block, fnd)) for block in lp_blocks]
+        [
+            res.append(LP.run_block(block, fnd, raise_on_errs=raise_on_errs))
+            for block in lp_blocks
+        ]
         md = '\n'.join(dest)
         for nr in range(len(res)):
             md = md.replace(LP.PH(nr), res[nr])
@@ -883,7 +889,7 @@ class LP:
             print('(Evaluated LP Blocks: %s)\n\n' % len(lp_blocks))
         return md
 
-    def run_block(block, fnd):
+    def run_block(block, fnd, raise_on_errs=None):
         cmd, kw = '', ''
         try:
             args, kw = block['args'], block['kwargs']
@@ -907,7 +913,9 @@ class LP:
             S.stats.count_lp_blocks += 1
             res = run_lp(cmd, *args, **kw)
         except Exception as e:
-
+            # intended for pytesting lp itself:
+            if raise_on_errs:
+                raise
             if not S.lp_on_err_keep_running:
                 app.die('Could not eval', exc=e)
             if LP.interrupted in str(e):
