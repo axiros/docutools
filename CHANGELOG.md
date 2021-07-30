@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Fri Jul 30 09:59:13 2021)
+By: gk@axgk (Fri Jul 30 11:05:34 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -22,6 +22,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).
+
+## [2021.8.0](https://github.com/AXGKl/docutools/releases/tag/2021.8.0)
+<small>[Compare with 2021.7.29](https://github.com/AXGKl/docutools/compare/2021.7.29...2021.8.0)</small>
+
+### Features
+- Better assertions, also lists and also for any mode, not only sessions ([6610a7a](https://github.com/AXGKl/docutools/commit/6610a7ac32166d4087b6355af68b4939a18941d5) by Gunther Klessinger).
+- Assert and asserts on all lp modes ([ed7b449](https://github.com/AXGKl/docutools/commit/ed7b449935db8d880fc3af0551b4d024ee385fb8) by Gunther Klessinger).
+
 
 ## [2021.7.29](https://github.com/AXGKl/docutools/releases/tag/2021.7.29)
 <small>[Compare with 2021.7.28](https://github.com/AXGKl/docutools/compare/2021.7.28...2021.7.29)</small>
