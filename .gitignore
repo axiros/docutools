@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 dist/
+public
+tmp
 docs/theme
 *.egg-info/
 build/
@@ -17,3 +19,9 @@ docs/autodocs
 # lp:
 docs/features/literate_programming.md
 *.ansi
+
+docs/lcd
+CREDITS.md
+foo
+r
+r.py

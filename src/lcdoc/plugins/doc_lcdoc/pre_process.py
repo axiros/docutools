@@ -947,10 +947,15 @@ class LP:
             return (), parse_kw_str(H, header_kws, try_json=False)
         except Exception as ex:
             ex1 = ex
-            try:
-                return eval('get_args(%s)' % H, header_kws, {})
-            except Exception as ex:
-                ex2 = ex
+            # evaling now.
+            # still - we supply only a minimum eval ctx and prevent
+            # imports. But still this won't be totally safe.
+            # BUT: Hey - we are about to run code *anyway*, this is LP in the end!
+            if not 'import' in H:
+                try:
+                    return eval('get_args(%s)' % H, header_kws, {})
+                except Exception as ex:
+                    ex2 = ex
         return LP.header_parse_err, {LP.py_err: ex2, LP.easy_args_err: ex1, 'header': H}
 
     get_args = lambda *a, **kw: [a, kw]  # trick to get python sig args

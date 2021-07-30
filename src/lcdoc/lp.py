@@ -54,14 +54,15 @@ root([
 You can invoke the methods also from here, via __main__
 """
 
-import subprocess as sp
-import string
 import hashlib
-import os
 import json
-from functools import partial as p
-from ast import literal_eval
+import os
+import string
+import subprocess as sp
+import sys
 import time
+from functools import partial as p
+from io import StringIO
 
 env = os.environ
 wait = time.sleep
@@ -78,6 +79,20 @@ mk_console = '''
 %(res)s
 ```
 '''
+
+
+def check_assert(ass, res):
+    if ass is None:
+        return
+    s = str(res)
+    if not isinstance(ass, (list, tuple)):
+        ass = [ass]
+    for a in ass:
+        if not a in s:
+            breakpoint()  # FIXME BREAKPOINT
+            msg = 'Assertion failed: Expected string "%s" not found in result (\n%s)'
+            raise Exception(msg % (a, s))
+
 
 # seems we don't need the stupid dot anymore for the javascript xterm part (?)
 # mk_cmd_out = '''
@@ -412,13 +427,12 @@ class session:
         n = session_name
 
         # TODO: clean up
-
-        assert_ = kw.get('assert')
+        assert_ = None
         silent = kw.get('silent')
         if isinstance(cmd, dict):
             timeout = cmd.get('timeout', timeout)
             expect = cmd.get('expect', expect)
-            assert_ = cmd.get('assert', assert_)
+            assert_ = cmd.get('asserts') or cmd.get('asserts', assert_)
             silent = cmd.get('silent', silent)
             cmd = cmd.get('cmd')  # if not given: only produce output
         if cmd.startswith('wait '):
@@ -468,12 +482,7 @@ class session:
         else:
             # the tmux window contains a lot of white space after the last output when short cmd
             res = res.strip()
-        if assert_ is not None:
-            if not assert_ in res:
-                msg = (
-                    'Assertion failed: Expected string "%s" not found in result (\n%s)'
-                )
-                raise Exception(msg % (assert_, res,))
+        check_assert(assert_, res)
 
         print('----------')
         print(res)
@@ -564,10 +573,6 @@ def env_cmds(kw, when):
             raise Exception('%s run failed: %s. kw: %s' % (when, cmd, str(kw)))
 
 
-import sys
-from io import StringIO
-
-
 def run_as_python(cmd, kw):
     """
     interpret the command as python:
@@ -638,6 +643,8 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     rpl: global post run replacement
     fn_doc: required: location of source file (async flow links contain its name)
     """
+    # in python sigature format assert would be forbidden, so we allow asserts=...
+    assert_ = kw.get('asserts') or kw.get('assert')
     repl_dollar_var_with_env_vals(kw, 'fn', 'cwd')
     # you could set this to org:
     kw['fetched_block_fmt'] = kw.get('fetched_block_fmt', 'mkdocs')
@@ -713,7 +720,7 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
             # res = '%s %s\n' % (prompt, cmd) + res
 
             res.append({'cmd': c1, 'res': r})
-
+    check_assert(assert_, res)
     # cwd header only for the current block:
     if cwd:
         os.chdir(here)
@@ -743,9 +750,7 @@ def test():
     )
     return
 
-    print(
-        run('ls -lta', fmt='mk_cmd_out', fetch='program_verb2', fn_doc='/tmp/foo.org')
-    )
+    print(run('ls -lta', fmt='mk_cmd_out', fetch='program_verb2', fn_doc='/tmp/foo.org'))
     return
     print(run('m info', fetch='info', fn_doc='/tmp/foo.org'))
     return
@@ -769,11 +774,7 @@ def test():
 
     print(
         root(
-            [
-                {'cmd': 'm registry_login', 'cmt': 'foo'},
-                'm -l pull lnr',
-                'm -l pull lp',
-            ],
+            [{'cmd': 'm registry_login', 'cmt': 'foo'}, 'm -l pull lnr', 'm -l pull lp',],
             new_session='root',
             cache='foo',
         )

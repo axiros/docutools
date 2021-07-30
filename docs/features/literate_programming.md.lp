@@ -1,11 +1,23 @@
 # Literate Programming
 
 !!! note
-    This is a feature of `doctools`, not a third party plugin. It is inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
+    This is a feature of `docutools`, not a third party plugin. It is inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
 
 The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows to embed executable **code** within markdown sources and insert into the rendering result the **evaluated** output, before html build time. This is done through a preprocessor, offered by the `doc` script (`doc pre_process`).
 
 It uses either python's `subprocess`, for single shot executables or tmux, when there needs to be a session.
+
+## Security
+
+Evaluation is triggered (only) by supplying the flag '--lit_prog_evaluation=md' to `doc pre_process`.
+
+!!! danger "Documentation Building Runs Arbitrary Code"
+
+    Documentation is source code.
+
+    Consequence: Treat other people's documentation sources with the same care than you treat e.g.
+    their test code: **Untrusted sources should be built only within proper sandboxes!**
+
 
 ## Features
 
@@ -20,9 +32,18 @@ Adding this into your markdown...
 ```
 ...generates this in the rendered result (both tabs):
 
-```bash lp
+```bash lp asserts=['root', 'rwx']
 ls -lta --color=always /etc | head -n 15; echo -e "With \x1b[1;38;5;124mAnsi Colors"
 ```
+
+### Assertions
+
+You can avoid publishing broken docu by asserting on the evaluation results like that:
+
+`bash lp assert dwrx` or `bash lp asserts=['root', 'dwrx']`
+
+Your docu build will exit with error on an assertion failure.
+
 
 ### Multiple Commands
 
@@ -261,7 +282,7 @@ To have `docs pre_process` find the code to evaluate append the term "lp" behind
 
 Those parametrize the lp run.
 
-### Syntax
+#### Syntax
 
 They may either be delivered python signature compliant or "easy args" style:
 
@@ -271,10 +292,15 @@ They may either be delivered python signature compliant or "easy args" style:
 
 ```
 
-!!! caution "Easy Args Conventions and Restrictions
+When easy args parsing fails, then python signature mode is tried.
+
+!!! caution "Easy Args Conventions and Restrictions"
     - No spaces in `key=value` allowed for easy args
     - `mykey` allowed, identical to `mykey=true`
     - Casting canonical: 1.123 considered float, 42 considered int, true considered bool, else string
+
+
+
 
 ### Reference Table
 
