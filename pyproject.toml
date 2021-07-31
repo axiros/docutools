@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "docutools"
-version = "2021.7.30"
+version = "2021.7.31"
 description = "Documentation Tools for the Devapp Framework"
 authors = ["Gunther Klessinger <gunther.klessinger@axiros.com>"]
 license = "BSD 2-Clause Simplified License"
