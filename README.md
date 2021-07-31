@@ -23,8 +23,10 @@
 
 ## Documentation building tools
 
-!!! caution "Work in Progress"
-    The termcast feature is heavily W.I.P!
+Notes:
+
+- "Work in Progress" The termcast feature is heavily W.I.P!
+- Many feats not yet documented
 
 
 ![](img/page-teaser.png){: style="width:1550px" }
@@ -43,4 +45,4 @@ pulling in all the necessary dependencies plus adding a few strong features as w
 ----
 
 
-Last modified: Fri Jul 30 09:59:13 2021
+Last modified: Sat Jul 31 11:07:20 2021
