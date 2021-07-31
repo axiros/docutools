@@ -263,6 +263,11 @@ class Credits:
             indirect_dependencies -= direct_dependencies
             indirect_dependencies -= dev_dependencies
             dependencies = direct_dependencies | dev_dependencies | indirect_dependencies
+            app.info(
+                'Generating credits',
+                dependencies=dependencies,
+                indirect_dependencies=indirect_dependencies,
+            )
 
             packages = {}
             attrs = ('name', 'home-page', 'license', 'version', 'summary')
@@ -275,7 +280,7 @@ class Credits:
                     pkg = Credits.fetch_pypi(dependency, attrs)
                     packages[pkg['name'].lower()] = pkg
                 else:
-                    app.info('found', dependency=dependency)
+                    app.debug('found', dependency=dependency)
 
             for d in indirect_dependencies:
                 if not d in packages:

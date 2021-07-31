@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Sat Jul 31 11:07:20 2021)
+By: gk@axgk (Sat Jul 31 19:51:44 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -22,6 +22,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).
+
+## [2021.7.31](https://github.com/AXGKl/docutools/releases/tag/2021.7.31)
+<small>[Compare with 2021.7.30](https://github.com/AXGKl/docutools/compare/2021.7.30...2021.7.31)</small>
+
+### Features
+- Pycond based assertion matching ([2a185ec](https://github.com/AXGKl/docutools/commit/2a185ecbf423b1603f92947b17287b3066fa64ba) by Gunther Klessinger).
+
 
 ## [2021.7.30](https://github.com/AXGKl/docutools/releases/tag/2021.7.30)
 <small>[Compare with 2021.7.29](https://github.com/AXGKl/docutools/compare/2021.7.29...2021.7.30)</small>
