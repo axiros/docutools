@@ -40,7 +40,12 @@ ls -lta --color=always /etc | head -n 15; echo -e "With \x1b[1;38;5;124mAnsi Col
 
 You can avoid publishing broken docu by asserting on the evaluation results like that:
 
-`bash lp assert dwrx` or `bash lp asserts=['root', 'dwrx']`
+- `bash lp asserts dwrx` or
+- `bash lp asserts=['root', 'dwrx']` or even
+- `bash lp asserts='[root and dwrx] and not fubar' (see [here](https://github.com/axiros/pycond) for valid expressions)
+
+
+
 
 Your docu build will exit with error on an assertion failure.
 
@@ -57,7 +62,7 @@ Supply an array of strings (or dicts for more control, e.g. supplying a timeout)
 
 generates:
 
-```bash lp new_session=test
+```bash lp new_session='test', asserts='[foo and oo] and not fuubar'
 [{'cmd': 'n=foo', 'timeout':1}, 'echo $n']
 ```
 
@@ -343,6 +348,14 @@ When easy args parsing fails, then python signature mode is tried.
 
 !!! note "`timeout`"
     Can be set away from the default of 1 sec per command, per block but also globally via a flag (see `doc -hf timeout`)
+
+!!! note "`asserts`"
+
+    - single string: substring match in result
+    - list of strings: substring match in result combined with `and`
+    - valid [pycond](https://github.com/axiros/pycond) expression: Evaluated using string matching
+      of pycond keys, via a custom lookup function
+
 
 
 ### Presets

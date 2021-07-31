@@ -390,6 +390,42 @@ class embedded_sessions(unittest.TestCase):
         # cmd output was skipped since result had it anyway:
         assert len(res.split('$ sleep 5')) == 2
 
+    def test_assert_pycond(self):
+        md1 = '''
+
+        ```bash lp session='test1', asserts='bar and foo'
+        ['echo foo', {'cmd': 'echo bar'}]
+        ```
+        '''
+
+        res = run_lp(md1)
+        out = '''
+        === "Output"
+            <xterm />
+                $ echo foo
+                foo
+                $ echo bar
+                bar
+        '''
+        check_lines_in(res, out)
+        md1 = '''
+
+        ```bash lp session='test1', asserts='[bar and not foo] or echo'
+        ['echo foo', {'cmd': 'echo bar'}]
+        ```
+        '''
+        res = run_lp(md1)
+        check_lines_in(res, out)
+        md1 = '''
+
+        ```bash lp session='test1', asserts='[bar and not foo]'
+        ['echo foo', {'cmd': 'echo bar'}]
+        ```
+        '''
+
+        with pytest.raises(Exception, match='foo'):
+            res = run_lp(md1, raise_on_errs=True)
+
     def test_assert_inline(self):
         """Use the documentation tool as a little test framework"""
         md1 = '''
@@ -417,7 +453,7 @@ class embedded_sessions(unittest.TestCase):
         '''
         res = run_lp(md1)
         assert (
-            '!!! error "LP error: Assertion failed: Expected string "XXX" not found in result'
+            '!!! error "LP error: Assertion failed: Expected "XXX" not found in result'
             in res
         )
 

@@ -64,6 +64,8 @@ import time
 from functools import partial as p
 from io import StringIO
 
+import pycond
+
 env = os.environ
 wait = time.sleep
 now = time.time
@@ -82,14 +84,32 @@ mk_console = '''
 
 
 def check_assert(ass, res):
+    msg = 'Assertion failed: Expected "%s" not found in result (\n%s)'
     if ass is None:
         return
     s = str(res)
+    is_pycond = False
+    if isinstance(ass, str) and ' and ' in ass or ' or ' in ass:
+        is_pycond = True
+    elif isinstance(ass, list) and ass[1] in {'and', 'or'}:
+        is_pycond = True
+    if is_pycond:
+
+        def f(k, v, state, **kw):
+            return (k in state['res'], v)
+
+        r = pycond.pycond(ass, f)
+        a = r(state={'res': s})
+        if not a:
+            raise Exception(msg % (ass, s))
+        return
+
     if not isinstance(ass, (list, tuple)):
         ass = [ass]
+
     for a in ass:
+
         if not a in s:
-            msg = 'Assertion failed: Expected string "%s" not found in result (\n%s)'
             raise Exception(msg % (a, s))
 
 
