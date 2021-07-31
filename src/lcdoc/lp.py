@@ -679,7 +679,11 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     cwd = kw.get('cwd')
     if cwd:
         here = os.getcwd()
-        os.chdir(cwd)
+        try:
+            os.chdir(cwd)
+        except Exception as ex:
+            ex.args += ('dest dir: "%s"' % cwd,)
+            raise
 
     # mode = kw.get('xmode')
     # # in python we need tmux session (to start python first):
