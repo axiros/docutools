@@ -869,6 +869,9 @@ class LP:
         raise_on_errs intended for temporarily changing behviour, e.g. for tests
         Else use the FLG.
         """
+        if os.path.exists(fn_lp):
+            os.environ['DT_DOCU'] = os.path.dirname(fn_lp)
+            os.environ['DT_DOCU_FILE'] = fn_lp
         S.cur_fn_lp = fn_lp
         lp_blocks, dest = do(LP.extract_lp_blocks, md=md, fn_lp=fn_lp)
         app.info('---------- %s --------------' % fn_lp)
@@ -1059,6 +1062,7 @@ class LP:
         os.makedirs(project.root() + '/tmp/tmux', exist_ok=True)
         files = walk_dir(docs, crit=partial(LP.is_lp, match=file_match))
         do_files = []
+        os.environ['DT_PROJECT_ROOT'] = project.root()
         for fn in files:
             t = os.stat(fn)[8]
             if t == S.lp_files.get(fn):

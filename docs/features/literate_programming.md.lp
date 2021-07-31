@@ -268,8 +268,6 @@ We support via the `fmt` parameter
     Due to a technical restriction you currently cannot hide embedded or fetched xt_flat output within closed admonitions. You may use `???+ note "title"` style closeable admonitions though.
 
 
-
-
 ## Syntax
 
 lp statements are to be enclosed in fenced code fragments, to still allow code
@@ -373,6 +371,15 @@ Example:
 ```
 
 
+### Available Environment Variables
+
+If you want to work with/generate assets relative to your docu, these should be practical: 
+
+```bash lp fmt=xt_flat assert=DT_DOCU_FILE and DT_PROJECT_ROOT and DT_DOCU and docutools
+env | grep DT_
+```
+
+You can reference any env var as a dollar var within your header args.
 
 ### Commands
 

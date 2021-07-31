@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Sat Jul 31 19:51:44 2021)
+By: gk@axgk (Sat Jul 31 23:04:27 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -22,6 +22,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).
+
+## [2021.7.32](https://github.com/AXGKl/docutools/releases/tag/2021.7.32)
+<small>[Compare with 2021.7.31](https://github.com/AXGKl/docutools/compare/2021.7.31...2021.7.32)</small>
+
 
 ## [2021.7.31](https://github.com/AXGKl/docutools/releases/tag/2021.7.31)
 <small>[Compare with 2021.7.30](https://github.com/AXGKl/docutools/compare/2021.7.30...2021.7.31)</small>
