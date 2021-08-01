@@ -398,8 +398,13 @@ class session:
             s = session_name
             # path is set new. bash (if executing user's shell is fish we'd be screwed)
             sprun('export SHELL=/bin/bash; export p="$PATH"; tmux new -s %s -d' % s)
-            a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p"; export PS1="%(prompt)s" \' Enter'
-            b = {'prompt': kw.get('prompt', '$ '), 'session': s}
+            dt = []
+            for k in [i for i in env if i[:3] == 'DT_']:
+                dt.append('%s="%s"' % (k, env[k]))
+            dt = ' '.join(dt)
+            a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p" PS1="%(prompt)s" %(dt)s\' Enter'
+
+            b = {'prompt': kw.get('prompt', '$ '), 'session': s, 'dt': dt}
             for i in (1, 2):
                 try:
                     sprun(a % b)
@@ -423,6 +428,7 @@ class session:
                             'configured with base index 1? 0 is default but will NOT work!!'
                         )
                     )
+
             init_prompt(s)
             if kw.get('root'):
                 sprun('tmux send-keys -t %s "sudo bash" Enter' % s)

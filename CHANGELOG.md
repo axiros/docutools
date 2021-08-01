@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Sat Jul 31 23:04:27 2021)
+By: gk@axgk (Sun Aug  1 11:55:36 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -23,8 +23,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).
 
-## [2021.7.32](https://github.com/AXGKl/docutools/releases/tag/2021.7.32)
-<small>[Compare with 2021.7.31](https://github.com/AXGKl/docutools/compare/2021.7.31...2021.7.32)</small>
+## [2021.8.0](https://github.com/AXGKl/docutools/releases/tag/2021.8.0)
+<small>[Compare with 2021.7.31](https://github.com/AXGKl/docutools/compare/2021.7.31...2021.8.0)</small>
+
+### Features
+- Better error msg on failing cwd ([8c7382a](https://github.com/AXGKl/docutools/commit/8c7382a36cf5126cfec3ef1ac0560647def38121) by Gunther Klessinger).
+- Dt_... environ vars in all lit prog exec envs ([966c323](https://github.com/AXGKl/docutools/commit/966c323aa751d1de1b03e9231050306f2492b37c) by Gunther Klessinger).
 
 
 ## [2021.7.31](https://github.com/AXGKl/docutools/releases/tag/2021.7.31)
