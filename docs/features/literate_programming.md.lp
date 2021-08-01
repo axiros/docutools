@@ -509,7 +509,29 @@ print the generated markdown, with all other blocks not evaluated, to stdout.
 !!! hint
     To cause more than one block evaluated simply add a "bogus" keyword argument in the header which matches.
 
+## Here Docs
 
+Like this, i.e. use `expect=` to have no assertion added to the EOF statement:
+
+```bash
+ ```bash lp session=DO expect= asserts=foo bar baz
+ foo () { echo bar; }
+ cat << EOF > test.pyc
+ foo $(foo) baz
+ EOF
+ cat test.pyc | grep 'foo bar baz'
+ ```
+```
+
+```bash lp session=DO expect= asserts=foo bar baz
+foo () { echo bar; }
+cat << EOF > test.pyc
+foo $(foo) baz
+EOF
+cat test.pyc | grep 'foo bar baz'
+```
+
+They won't work in structured command mode. 
 
 
 ## CI/CD

@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Sun Aug  1 11:55:36 2021)
+By: gk@axgk (Mon Aug  2 00:00:40 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -25,6 +25,9 @@ This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.s
 
 ## [2021.8.0](https://github.com/AXGKl/docutools/releases/tag/2021.8.0)
 <small>[Compare with 2021.7.31](https://github.com/AXGKl/docutools/compare/2021.7.31...2021.8.0)</small>
+
+### Bug Fixes
+- Dt vars now also in tmux, as promised ([540d33b](https://github.com/AXGKl/docutools/commit/540d33b1ceb4e12bb59c42f9995b837397d1a612) by Gunther Klessinger).
 
 ### Features
 - Better error msg on failing cwd ([8c7382a](https://github.com/AXGKl/docutools/commit/8c7382a36cf5126cfec3ef1ac0560647def38121) by Gunther Klessinger).

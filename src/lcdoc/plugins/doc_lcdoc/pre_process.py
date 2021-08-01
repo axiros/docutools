@@ -131,7 +131,15 @@ class Flags:
         d = False
 
     class lit_prog_skip_existing:
-        n = 'Intended for CI: When seconary .md pages had been committed, e.g. built while authoring, CI will not re-evaluate those pages at presence of that flag'
+        """Intended for CI or to prevent unwanted re-evaluation in general:
+        When secondary .md pages had been committed, i.e. are present on the filesystem
+        (built while authoring), we will NOT re-evaluate those pages at presence of that
+        flag.
+        In order to get on-demand eval, just run lp w/o that flag and possibly a match
+        on your source file (-lpe=mysourcefile instead -lpe=md). Or delete the md.
+        """
+
+        n = 'Only eval when there are no .md files'
         d = False
 
     class lit_prog_on_err_keep_running:
@@ -911,8 +919,16 @@ class LP:
             if (cmd.strip() + ' ')[0] in ('[', '{'):
                 try:
                     cmd = literal_eval(cmd)
-                except:
-                    cmd = json.loads(cmd)
+                except Exception as exle:
+                    try:
+                        cmd = json.loads(cmd)
+                    except Exception as ex:
+                        ex.args += ('LP: Expression to deserialize was: %s' % cmd,)
+                        ex.args += (
+                            'LP: Before json.loads we tried literal eval but got Exception: %s'
+                            % exle,
+                        )
+                        raise
             # cmd = block['code']
             kw['lang'] = block.get('lang')
             S.lp_stepmode and LP.confirm('Before running', page=fnd, cmd=cmd, **kw)
@@ -1036,12 +1052,24 @@ class LP:
         return lps, dest
 
     def is_lp(d, fn, match=''):
+        """
+        We get all files in the docs dir matching match (md)
+
+        """
         # and fm in fn
-        # and not fn.endswith('.lp.md')Arbeitsweise
+        # and not fn.endswith('.lp.md')
         # and LP.fn_lp(fn) in mkdocs
-        if S.lp_evaluation_skip_existing and exists(fn.rsplit('.lp', 1)[0]):
+        if not fn.endswith('.md.lp'):
             return
-        return fn.endswith('.md.lp') and match in (d + '/' + fn)
+        r = ''
+        if S.lp_evaluation_skip_existing and exists(d + '/' + fn.rsplit('.lp', 1)[0]):
+            r = '.md exists, skip_existing set'
+        if not match in (d + '/' + fn):
+            r = 'Not matching %s' % match
+        if r:
+            app.info('LP: skipping %s' % fn, reason=r)
+            return
+        return True
 
     def verify_no_errors(files):
         errs = []

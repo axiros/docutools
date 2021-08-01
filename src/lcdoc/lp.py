@@ -669,6 +669,7 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     fn_doc: required: location of source file (async flow links contain its name)
     """
     # in python sigature format assert would be forbidden, so we allow asserts=...
+
     assert_ = kw.get('asserts') or kw.get('assert')
     repl_dollar_var_with_env_vals(kw, 'fn', 'cwd')
     # you could set this to org:
@@ -709,6 +710,9 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
 
     session_name = kw.pop('session', 0)
     if session_name:
+        if kw.get('mode'):
+            msg = 'modes are not supported with session (got mode=%(mode)s)'
+            raise Exception(msg % kw)
         res = session.srun(cmd, session_name=session_name, **kw)
         if cwd:
             os.chdir(here)

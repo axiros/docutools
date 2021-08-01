@@ -277,35 +277,35 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 
 [[package]]
 name = "devapps"
-version = "2021.5.10"
+version = "2021.8.1"
 description = "Apps - End to End."
 category = "main"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
-absl-py = ">=0.10.0,<0.11.0"
-bpytop = ">=1.0.50,<2.0.0"
-decorator = ">=4.4.2,<5.0.0"
-gevent = ">=20.9.0,<21.0.0"
-httpx = ">=0.17.1,<0.18.0"
-humanize = ">=3.0.1,<4.0.0"
-inflection = ">=0.5.1,<0.6.0"
-jsondiff = ">=1.2.0,<2.0.0"
-lz4 = ">=3.1.0,<4.0.0"
-msgpack = ">=1.0.0,<2.0.0"
-psutil = ">=5.7.2,<6.0.0"
-pycond = ">=20200730,<20200731"
-Pygments = ">=2.7.1,<3.0.0"
-PyJWT = ">=1.7.1,<2.0.0"
-PyYAML = ">=5.3.1,<6.0.0"
-requests = ">=2.24.0,<3.0.0"
-Rx = ">=3.1.1,<4.0.0"
-snoop = ">=0.2.5,<0.3.0"
-structlog = ">=20.1.0,<21.0.0"
-tabulate = ">=0.8.7,<0.9.0"
-toml = ">=0.10.1,<0.11.0"
-ujson = ">=4.0.1,<5.0.0"
+absl-py = "*"
+bpytop = "*"
+decorator = "*"
+gevent = "*"
+httpx = "*"
+humanize = "*"
+inflection = "*"
+jsondiff = "*"
+lz4 = "*"
+msgpack = "*"
+psutil = "*"
+pycond = "*"
+Pygments = "*"
+PyJWT = "*"
+PyYAML = "*"
+requests = "*"
+Rx = "*"
+snoop = "*"
+structlog = "*"
+tabulate = "*"
+toml = "*"
+ujson = "*"
 
 [[package]]
 name = "docutils"
@@ -1822,7 +1822,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "21b09a910f08b9ad11834db8645805a33bf0c819cc7a3d0e2e0315e60ab1c709"
+content-hash = "a9e0c63f17722d50a72d4929e023fe1c27571526761ddb50bee84de4879e7ce2"
 
 [metadata.files]
 absl-py = [
@@ -2017,8 +2017,8 @@ decorator = [
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
 ]
 devapps = [
-    {file = "devapps-2021.5.10-py3-none-any.whl", hash = "sha256:11629080719da2750ddd318615987c3be7eaf21d1b9f4cda08b6df8bcb3343a0"},
-    {file = "devapps-2021.5.10.tar.gz", hash = "sha256:c3ef20da6b96dd842ffdd81222a612a0dae9b88799641f2a5b5355d5b6ed9cdd"},
+    {file = "devapps-2021.8.1-py3-none-any.whl", hash = "sha256:e7fc08458b28e6b14b0ed6ceb4ad2cff1464a0ab3fd0ee52bc8d49ab9cce0de2"},
+    {file = "devapps-2021.8.1.tar.gz", hash = "sha256:85908b23627480aaf911c6425106d29771ead9686d6dd63542b03359255e3f7c"},
 ]
 docutils = [
     {file = "docutils-0.17.1-py2.py3-none-any.whl", hash = "sha256:cf316c8370a737a022b72b56874f6602acf974a37a9fba42ec2876387549fc61"},
