@@ -28,10 +28,11 @@ export -f say_hello
 /bin/sh # lp: expect=
 echo $0 # lp: expect=/bin/sh
 say_hello
+R="\x1b["; r="${R}1;31m"
 echo -e "Means: We have
-> - \x1b[1;31mCross block sessions\x1b[0m
-> - \x1b[1;31mBlocking commands\x1b[0m
-> - and...\x1b[1;4;31mFull Ansi\x1b[0m
+> - $r Cross block sessions  ${R}0m
+> - $r Blocking commands     ${R}0m
+> - and...${R}4m$r Full Ansi
 > "
 ```
 
