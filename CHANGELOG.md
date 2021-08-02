@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Mon Aug  2 20:11:17 2021)
+By: gk@axgk (Tue Aug  3 00:00:33 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -23,8 +23,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).
 
-## [2021.8.3](https://github.com/AXGKl/docutools/releases/tag/2021.8.3)
-<small>[Compare with 2021.8.2](https://github.com/AXGKl/docutools/compare/2021.8.2...2021.8.3)</small>
+## [2021.9.0](https://github.com/AXGKl/docutools/releases/tag/2021.9.0)
+<small>[Compare with 2021.8.2](https://github.com/AXGKl/docutools/compare/2021.8.2...2021.9.0)</small>
+
+### Features
+- Source code block output ([2983917](https://github.com/AXGKl/docutools/commit/29839171becf4f48f696bf5a9c2881a319ac1880) by Gunther Klessinger).
 
 
 ## [2021.8.2](https://github.com/AXGKl/docutools/releases/tag/2021.8.2)

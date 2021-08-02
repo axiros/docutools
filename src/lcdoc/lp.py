@@ -234,7 +234,10 @@ def spresc(cmd):
 
 def sprun(*a, **kw):
     """Running a command as subprocess"""
-    print('--> ', a, kw)  # for the user (also in view messages)
+    if not kw and len(a) == 1:
+        print('', a[0])
+    else:
+        print('', a, kw)  # for the user (also in view messages)
     return p(sp.check_output, shell=True, stderr=sp.STDOUT)(*a, **kw)
 
 
@@ -534,14 +537,18 @@ class session:
             expectb = expect.encode('utf-8')
         if cmd:
             init_prompt(n)
-            # EOF Convention for Here Docs: Use "EOF". Then we send enters:
-            if is_multiline:
-                [
-                    spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, line))
-                    for line in cmd.splitlines()
-                ]
-            else:
-                spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
+            # send the sequence as hex (-H):
+            seq = ' '.join([hex(ord(b))[2:] for b in cmd])
+            seq += ' a'
+            # if is_multiline:
+            #     breakpoint()  # FIXME BREAKPOINT
+            #     for line in cmd.splitlines():
+            #         spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, line))
+            # else:
+            #     spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
+            print(' cmd to tmux: ', cmd)
+            spresc('tmux send-keys -t %s:1 -H %s' % (n, seq))
+
         t0 = now()
         wait_dt = 0.1
         while True:

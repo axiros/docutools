@@ -1034,7 +1034,6 @@ class LP:
                 'source': source,
             }
 
-            breakpoint()  # FIXME BREAKPOINT
             lps.append(spec)
         return lps, dest
 
