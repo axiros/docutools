@@ -65,6 +65,7 @@ from functools import partial as p
 from io import StringIO
 
 import pycond
+from devapp.tools import parse_kw_str
 
 env = os.environ
 wait = time.sleep
@@ -386,6 +387,51 @@ def init_prompt(n):
     sprun("tmux send-keys -t %s:1 '' Enter" % n)
 
 
+def check_inline_lp(cmd, fn_lp):
+    if not isinstance(cmd, str):
+        return
+    l = cmd.rsplit(' # lp: ', 1)
+    if len(l) == 1 or '\n' in l[1]:
+        return
+    err, res = parse_header_args(l[1], fn_lp=fn_lp)
+    if err:
+        raise Exception(
+            'Inline lp construct wrong: %s. Valid e.g.: "ls -lta /etc # lp: expect=hosts timeout=10". Got: %s %s'
+            % (cmd, res[0], res[1])
+        )
+    res[1]['cmd'] = res[1].get('cmd', l[0])
+    return res[1]
+
+
+def parse_header_args(header, **ctx):
+    """Parsing either python or easy format
+    CAUTION: This is used in doc.pre_process as well, to parse markdown headers
+    """
+    ctx['dir_repo'] = ctx['fn_lp'].split('/docs/', 1)[0]
+    ctx['get_args'] = get_args
+
+    # the only function from devapp. For standalone you'd need to supply it:
+    from devapp.tools import parse_kw_str
+
+    try:
+        if header.rstrip().endswith('"'):
+            raise Exception('Not tried (apostrophe at end)')
+        return 0, ((), parse_kw_str(header, ctx, try_json=False))
+    except Exception as ex:
+        ex1 = ex
+        # evaling now.
+        # still - we supply only a minimum eval ctx and prevent
+        # imports. But still this won't be totally safe.
+        # BUT: Hey - we are about to run code *anyway*, this is LP in the end!
+        if not 'import' in header:
+            try:
+                m = eval('get_args(%s)' % header, ctx, {})
+                return 0, (m['args'], m['kw'])
+            except Exception as ex:
+                ex2 = ex
+        return 1, (ex2, ex1)
+
+
 class session:
     def get(session_name, **kw):
         """
@@ -454,6 +500,10 @@ class session:
         # TODO: clean up
         assert_ = None
         silent = kw.get('silent')
+
+        c = check_inline_lp(cmd, fn_lp=kw.get('fn_doc'))
+        if c:
+            cmd = c
         if isinstance(cmd, dict):
             timeout = cmd.get('timeout', timeout)
             expect = cmd.get('expect', expect)
@@ -513,7 +563,9 @@ class session:
             # when expect was given we include it (expect="Ready to accept Connections")
             # expect_echo_out_cmd is empty then
             res = res.split(expect, 1)[0].strip()
-            res = res.replace(expect_echo_out_cmd, '')
+            a = expect_echo_out_cmd
+            a = a[1:] if a.startswith('\n') else a  # when \n is the sep we won't see it
+            res = res.replace(a, '')
         else:
             # the tmux window contains a lot of white space after the last output when short cmd
             res = res.strip()
@@ -765,6 +817,7 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
 
         res = []
         for c in cmd:
+            c = check_inline_lp(c, fn_lp=fn_doc) or c
             c1 = c['cmd'] if isinstance(c, dict) else c
             rcmd = c1
             prompt = '$'
@@ -778,10 +831,13 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
             # return sp.check_output(['sudo podman ps -a'], shell=True)
             r = sprun(rcmd)
             r = r.decode('utf-8').rstrip()
+            if isinstance(c, dict):
+                check_assert(c.get('assert', c.get('asserts')), r)
             r = ''.join([prompt, ' ', c1, '\n', r])
             # res = '%s %s\n' % (prompt, cmd) + res
 
             res.append({'cmd': c1, 'res': r})
+
     check_assert(assert_, res)
     # cwd header only for the current block:
     if cwd:
@@ -797,7 +853,47 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     # if now() - t0 > dt_cache:
     cache.add(cmd, res, kw)
     last_result[0] = res
+
+    i = int(kw.get('addsrc', 0))
+    if i:
+        b = '\n' + kw.get('sourceblock', 'n.a.')
+        m = {
+            'blocksource1': b.replace('\n', '\n '),
+            'blocksource4': b.replace('\n', '\n    '),
+            'res': res,
+            'res4': ('\n' + res).replace('\n', '\n    '),
+        }
+        f = getattr(BlockSrc, 'fmt_%s' % i, BlockSrc.fmt_1)
+        res = f % m
     return res
+
+
+class BlockSrc:
+    fmt_1 = '''
+
+LP Source:
+
+```bash
+%(blocksource1)s
+```
+
+Result: 
+
+%(res)s
+'''
+
+    fmt_2 = '''
+
+=== "LP Source"
+
+    ```bash
+    %(blocksource4)s
+    ```
+
+=== "Result" 
+
+    %(res4)s
+'''
 
 
 def test():

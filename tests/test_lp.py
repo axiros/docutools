@@ -193,11 +193,11 @@ class embedded_no_sessions(unittest.TestCase):
         res = run_lp(md % run)
         check_lines_in(res, cmd % run, out)
 
-    def test_assert(self):
+    def test_asserts_work(self):
         run = 'head %s/test_content |grep --color=never line' % d_test()
         md = '''
         ```bash lp assert=line1
-        %s
+        %s # lp: expect=line
         ```
         '''
         cmd = '''
@@ -216,7 +216,7 @@ class embedded_no_sessions(unittest.TestCase):
         res = run_lp(md % run)
         check_lines_in(res, cmd % run, out)
 
-    def test_assert_fail(self):
+    def test_asserts_fail(self):
         run = 'head %s/test_content |grep --color=never line' % d_test()
         md = '''
         ```bash lp assert=XXXX

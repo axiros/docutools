@@ -931,6 +931,7 @@ class LP:
                         raise
             # cmd = block['code']
             kw['lang'] = block.get('lang')
+            kw['sourceblock'] = block.get('source')
             S.lp_stepmode and LP.confirm('Before running', page=fnd, cmd=cmd, **kw)
             run_lp = partial(lit_prog.run, fn_doc=fnd)
             kw['timeout'] = kw.get('timeout', S.lp_evaluation_timeout)
@@ -973,32 +974,14 @@ class LP:
 
     def extract_header_args(lp_header, fn_lp):
         H = ' '.join(lp_header.split()[2:])
-        header_kws = LP.header_kws(fn_lp)
+        err, res = lit_prog.parse_header_args(H, fn_lp=fn_lp, dir_project=project.root())
+        if not err:
+            return res
 
-        try:
-            return (), parse_kw_str(H, header_kws, try_json=False)
-        except Exception as ex:
-            ex1 = ex
-            # evaling now.
-            # still - we supply only a minimum eval ctx and prevent
-            # imports. But still this won't be totally safe.
-            # BUT: Hey - we are about to run code *anyway*, this is LP in the end!
-            if not 'import' in H:
-                try:
-                    return eval('get_args(%s)' % H, header_kws, {})
-                except Exception as ex:
-                    ex2 = ex
-        return LP.header_parse_err, {LP.py_err: ex2, LP.easy_args_err: ex1, 'header': H}
-
-    get_args = lambda *a, **kw: [a, kw]  # trick to get python sig args
-
-    def header_kws(fn_lp):
-        """constants you can use in headers"""
-        return {
-            'get_args': LP.get_args,
-            'dir_repo': fn_lp.split('/docs/', 1)[0],
-            'dir_project': project.root(),
-        }
+        return (
+            LP.header_parse_err,
+            {LP.py_err: res[0], LP.easy_args_err: res[1], 'header': H},
+        )
 
     def extract_lp_blocks(md, fn_lp):
         s = md.splitlines()
@@ -1031,10 +1014,12 @@ class LP:
                     break
             if add:
                 continue
+            src_header = dest[-1].strip()
             lpnr += 1
             lp_header = dest.pop(-1)
             dest.append(LP.PH(lpnr))  # placeholder
             n = [l[len(ind) :] for l in n[:-1]]
+            source = src_header + '\n' + '\n'.join(n) + '\n```'
             l = fragm[0].split('```', 1)[1].strip()
             if not FLG.lit_prog_debug_matching_blocks in lp_header:
                 continue
@@ -1046,8 +1031,10 @@ class LP:
                 'args': a,
                 'kwargs': kw,
                 'indent': ind,
+                'source': source,
             }
 
+            breakpoint()  # FIXME BREAKPOINT
             lps.append(spec)
         return lps, dest
 
