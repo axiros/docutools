@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Mon Aug  2 10:55:11 2021)
+By: gk@axgk (Mon Aug  2 11:00:12 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -30,6 +30,7 @@ This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.s
 - Dt vars now also in tmux, as promised ([540d33b](https://github.com/AXGKl/docutools/commit/540d33b1ceb4e12bb59c42f9995b837397d1a612) by Gunther Klessinger).
 
 ### Features
+- Multiline handling much smarter, with '> ' indicator line starts ([e8d60f9](https://github.com/AXGKl/docutools/commit/e8d60f9f825ddff8232abcd5916384db5ffb181f) by Gunther Klessinger).
 - Better error msg on failing cwd ([8c7382a](https://github.com/AXGKl/docutools/commit/8c7382a36cf5126cfec3ef1ac0560647def38121) by Gunther Klessinger).
 - Dt_... environ vars in all lit prog exec envs ([966c323](https://github.com/AXGKl/docutools/commit/966c323aa751d1de1b03e9231050306f2492b37c) by Gunther Klessinger).
 
