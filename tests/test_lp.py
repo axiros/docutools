@@ -305,6 +305,44 @@ class embedded_sessions(unittest.TestCase):
         res = run_lp(md)
         check_lines_in(res, cmd)
 
+    def test_multiline(self):
+        """ With the '> ' at the beginning, we send those blocks as one command
+        the other lines are run one by one, for results per command.
+        """
+        md = '''
+        ```bash lp new_session=test asserts=foobarbaz and line2
+
+        ip () { echo bar; }
+        cat << FOO > test.pyc
+        > foo$(ip)baz
+        > line2 
+        > FOO
+        cat test.pyc
+        ```
+        '''
+        res = run_lp(md, raise_on_errs=True)
+        with open('test.pyc') as fd:
+            assert fd.read().strip() == 'foobarbaz\nline2'
+        os.unlink('test.pyc')
+
+    def test_multiline_struct(self):
+        """ No '> ' required here"""
+        md = '''
+        ```bash lp new_session=test expect= asserts=foobarbaz and line2
+        [{'cmd': 'ip () { echo bar; }'},
+        {'cmd': """cat << FOO > test.pyc
+        foo$(ip)baz
+        line2 
+        FOO"""},
+        {'cmd': 'cat test.pyc'}]
+
+        ```
+        '''
+        res = run_lp(md, raise_on_errs=True)
+        with open('test.pyc') as fd:
+            assert fd.read().strip() == 'foobarbaz\nline2'
+        os.unlink('test.pyc')
+
     def test_cmd_out(self):
         md = '''
         ```bash lp new_session=test

@@ -493,6 +493,7 @@ Resulting Markdown:
 
 # Tips
 
+
 ## Developping LP Blocks
 
 When you want to test only certain blocks within a longer document, then set:
@@ -509,29 +510,38 @@ print the generated markdown, with all other blocks not evaluated, to stdout.
 !!! hint
     To cause more than one block evaluated simply add a "bogus" keyword argument in the header which matches.
 
-## Here Docs
+## Multiline Commands / Here Docs in Sessions
 
-Like this, i.e. use `expect=` to have no assertion added to the EOF statement:
+!!! tip 
+Here Docs come handy when you have dynamic variable from a previous command, which you need to set into a file.
+
+Like this, i.e. use the '> ' indicator at beginning of lines, which should be run as single
+commands.
+
 
 ```bash
- ```bash lp session=DO expect= asserts=foo bar baz
+ ```bash lp session=DO asserts=foobarbazXsecond_line
  foo () { echo bar; }
  cat << EOF > test.pyc
- foo $(foo) baz
- EOF
- cat test.pyc | grep 'foo bar baz'
+ > foo$(foo)baz
+ > second_line
+ > EOF
+ cat test.pyc | sed -z "s/\n/X/g" | grep 'foobarbazXsecond_line'
  ```
 ```
 
-```bash lp session=DO expect= asserts=foo bar baz
+```bash lp session=DO asserts=foobarbazXsecond_line
 foo () { echo bar; }
 cat << EOF > test.pyc
-foo $(foo) baz
-EOF
-cat test.pyc | grep 'foo bar baz'
+> foo$(foo)baz
+> second_line
+> EOF
+cat test.pyc | sed -z "s/\n/X/g" | grep 'foobarbazXsecond_line'
 ```
 
-They won't work in structured command mode. 
+!!! warning "Picky Syntax"
+    - The second space is requred after the '>'
+    - No lines with content may start with a space
 
 
 ## CI/CD

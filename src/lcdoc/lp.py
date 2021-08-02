@@ -470,9 +470,12 @@ class session:
             return 'silent'
 
         expect_echo_out_cmd = ''
+        is_multiline = '\n' in cmd
         if expect is None:
+            sep = '\n' if is_multiline else ';'
+            # here docs can't have ';echo -n... at last line:
             # not match on the issuing cmd
-            expect_echo_out_cmd = ';echo -n ax_; echo -n done'
+            expect_echo_out_cmd = sep + 'echo -n ax_; echo -n done'
             cmd += expect_echo_out_cmd
             expect = 'ax_done'
         if expect is False:
@@ -481,7 +484,14 @@ class session:
             expectb = expect.encode('utf-8')
         if cmd:
             init_prompt(n)
-            spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
+            # EOF Convention for Here Docs: Use "EOF". Then we send enters:
+            if is_multiline:
+                [
+                    spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, line))
+                    for line in cmd.splitlines()
+                ]
+            else:
+                spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
         t0 = now()
         wait_dt = 0.1
         while True:
@@ -649,17 +659,36 @@ def repl_dollar_var_with_env_vals(kw, *keys):
 
 
 def multi_line_to_list(cmd):
+    """
+
+    ```bash lp session=DO asserts=loadbalancer.tf
+    ip () { echo 1.2.3.4; }
+    cat << FOO > loadbalancer.tf
+    > resource "digitalocean_loadbalancer" "www-lb" {
+    >     ipv4 = $(ip)
+    >     (...)
+    >}
+    >FOO
+    ls -l
+    ```
+
+    """
     if not isinstance(cmd, str):
         return cmd
-    try:
-        l = cmd.split('\n')
-    except Exception as ex:
-        print('breakpoint set')
-        breakpoint()
-        keep_ctx = True
-    if len(l) == len([i for i in l if not i.startswith(' ')]):
-        return l
-    return cmd
+    lines = cmd.split('\n')
+    # when some lines start with ' ' we send the whole cmd as one string:
+    if any([l for l in lines if l.strip() and l.startswith(' ')]):
+        # echo 'foo
+        #      bar' > baz
+        return cmd
+    r = []
+    while lines:
+        l = lines.pop(0)
+        r.append(l)
+        while lines and lines[0].startswith('> '):
+            l = lines.pop(0)
+            r[-1] += '\n' + l[2:]
+    return [cmd for cmd in r if cmd.strip()]
 
 
 def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
