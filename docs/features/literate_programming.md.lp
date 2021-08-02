@@ -491,10 +491,29 @@ Resulting Markdown:
      ```
 
 
-# Tips
+## Tips
+
+### Developing Long Running Multiple Command Sequences
+
+Say in the final .lp source we want to document how you set up a complete cloud system. Alone the initial node
+creation takes minutes. It would take ages to always restart from scratch and fix command by
+command.
+
+Here sessions and testbeds are very practical:
+
+- Kick off a tmux session with e.g. `new_session=AWS` in the real .lp file. 
+- Evaluate: `doc pp -lpe mycloud_tutorial` -> tmux is running the session
+- In a terminal attach: `tmux att -t AWS`. You can now fix broken command residues and always start
+  over at any point of the sequence.
+- In a helper page, say `test.md.lp` then try the next commands, e.g. droplet creation, then
+  configuration, ... all one by one - and evaluate via `doc pp -lpe test`
+- **Interactively** you can manually fix broken commands, look around, test. 
+- Evaluate `test.md.lp` until the next command is working
+- Copy it over into `mycloud_tutorial.md.lp`
+- Rinse and repeat until all is working.
 
 
-## Developping LP Blocks
+### Evaluating Single LP Blocks
 
 When you want to test only certain blocks within a longer document, then set:
 
@@ -510,7 +529,11 @@ print the generated markdown, with all other blocks not evaluated, to stdout.
 !!! hint
     To cause more than one block evaluated simply add a "bogus" keyword argument in the header which matches.
 
-## Multiline Commands / Here Docs in Sessions
+
+
+
+
+### Multiline Commands / Here Docs in Sessions
 
 !!! tip 
 Here Docs come handy when you have dynamic variable from a previous command, which you need to set into a file.
@@ -548,8 +571,10 @@ cat test.pyc | sed -z "s/\n/X/g" | grep 'foobarbazXsecond_line'
 
 When building pages on CI/CD servers, keep in mind that builds which may succeed on your local machine may fail on clean
 CI/CD environments due to timeouts, building e.g. caches. Consider the pros and cons of keeping those caches present
-over repeated builds versus longer build times but higher reproducability. You can adjust the timeout of commands as shown above.
-
+over repeated builds versus longer build times but higher reproducability.
+- You can adjust the timeout of commands as shown above.
+- You can have hyprid setups, partially created by CI/CD, partiall locally, via the
+  `lit_prog_skip_existing` FLAG
 
 
 

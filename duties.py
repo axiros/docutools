@@ -293,6 +293,7 @@ def release(ctx, version=os.environ.get('version')):
     ctx.run('git push --tags', title='Pushing tags', pty=False)
     ctx.run('poetry build', title='Building dist/wheel', pty=PTY)
     ctx.run('poetry publish', title='Publishing dist/wheel', pty=PTY)
+    ctx.run('mkdocs gh-deploy', title='Publishing docs', pty=PTY)
     # user, pw = os.environ.get('user'), os.environ.get('pass')
     # import getpass
 
