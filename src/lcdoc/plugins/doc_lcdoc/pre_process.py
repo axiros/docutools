@@ -945,7 +945,8 @@ class LP:
                 )
             # filter comments:
             cmd = '\n'.join([l for l in block['code'] if not l.startswith('# ')])
-            if (cmd.strip() + ' ')[0] in ('[', '{'):
+            j = cmd.strip()
+            if j and (j[0] + j[-1]) in ('[]', '{}'):
                 try:
                     cmd = literal_eval(cmd)
                 except Exception as exle:
