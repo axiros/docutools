@@ -968,12 +968,14 @@ class LP:
             res = run_lp(cmd, *args, **kw)
 
             # inteded for the last block of a big e.g. cluster setup page:
-            if kw.get('lock_page'):
+            if kw.get('lock_page') and not kw.get('skip_this'):
                 with open(fnd + '.lp' + LP.eval_lock, 'w') as fd:
                     s = 'A "lock_page" attribute was set in a successfully evaluated '
                     s += 'literate programming block - this file prevents automatic '
                     s += 're-evaluation.\n\nRemove file to re-evaluate.'
                     fd.write(s)
+                app.warn('Successful evaluation - page locked.', details=s)
+                app.info('(This is NOT an error)')
 
         except Exception as e:
             # intended for pytesting lp itself:
