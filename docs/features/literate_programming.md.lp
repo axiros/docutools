@@ -177,6 +177,13 @@ ls -lta /
 The header exclusive argument `bash lp skip_<this|other|below|above>` will skip block execution accordingly.
 
 
+### Page Locks
+
+The header exclusive argument `bash lp lock_page` will create a lock file after successful
+evaluation of a block. Page won't be re-evaluated unless the lock file is removed.
+
+Prevents unwanted auto-eval of e.g. cluster destroy/setup triggering pages.
+
 
 ## Design
 
@@ -367,6 +374,7 @@ When easy args parsing fails, then python signature mode is tried.
 | `fn_doc`      |  | |filepath     | Filename of markdown document containing the block. Automatically set by  `doc pre_process`. Determines location of files created for async fetching.
 | `hide_cmd`    |  | |bool         | When set to `True` then command wont' be displayed. 
 | `kill_session`|x | |bool         | tmux session killed after last command output collected
+| `lock_page`   |x | |bool         | Writes lock file, preventing re-evaluation of the page.
 | `make_file`   |  | |filename     | Create a file with given name. See below for details. fn req, chmod supported.
 | `mode`        |n | |(multiple)   | See mode section below
 | `new_session` |x | |session name | Spawn a new tmux terminal to run the command. Kill any existing one with that name

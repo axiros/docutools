@@ -850,6 +850,7 @@ def add_pyproject_infos_to_mkdocs():
 class LP:
     """literate programming feature"""
 
+    eval_lock = '.evaluation_locked'
     PH = lambda nr: 'LP_PH: %s.' % nr
     # fn_lp = lambda fn: fn.rsplit('.md', 1)[0] + '.lp.md'
     fn_lp = lambda fn: fn.rsplit('.lp', 1)[0]
@@ -911,7 +912,7 @@ class LP:
         lp_blocks, dest = do(LP.extract_lp_blocks, md=md, fn_lp=fn_lp)
         LP.handle_skips(lp_blocks)
         app.warn(fn_lp)
-        app.info('% lit prog blocks' % len(lp_blocks))
+        app.info('%s lit prog blocks' % len(lp_blocks))
         res = []
         # the doc file:
         fnd = LP.fn_lp(fn_lp)
@@ -965,6 +966,15 @@ class LP:
             kw['timeout'] = kw.get('timeout', S.lp_evaluation_timeout)
             S.stats.count_lp_blocks += 1
             res = run_lp(cmd, *args, **kw)
+
+            # inteded for the last block of a big e.g. cluster setup page:
+            if kw.get('lock_page'):
+                with open(fnd + '.lp' + LP.eval_lock, 'w') as fd:
+                    s = 'A "lock_page" attribute was set in a successfully evaluated '
+                    s += 'literate programming block - this file prevents automatic '
+                    s += 're-evaluation.\n\nRemove file to re-evaluate.'
+                    fd.write(s)
+
         except Exception as e:
             # intended for pytesting lp itself:
             if raise_on_errs:
@@ -1081,6 +1091,10 @@ class LP:
         ffn = d + '/' + fn
         if not match in ffn:
             r = 'Not matching %s' % match
+
+        l = ffn + LP.eval_lock
+        if exists(l):
+            r = 'Evaluation lockfile present (%s). Remove to re-eval.' % l
         if r:
             if not ffn in _msged:
                 app.info('LP: skipping %s' % fn, reason=r, dir=d)
