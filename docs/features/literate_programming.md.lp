@@ -174,7 +174,7 @@ ls -lta /
 
 ### Skips
 
-The header exclusive argument `bash lp skip_<this|other|below|above>` will skip block execution accordingly.
+The header exclusive argument `<lang> lp skip_<this|other|below|above>` will skip block execution accordingly.
 
 
 ### Page Locks
@@ -564,9 +564,9 @@ Resulting Markdown:
 
 ### Developing Long Running Multiple Command Sequences
 
-Say in the final .lp source we want to document how you set up a complete cloud system. Alone the initial node
-creation takes minutes. It would take ages to always restart from scratch and fix command by
-command.
+Say in the final .lp source we want to document how you set up a complete cloud system. Alone the
+initial node creation takes minutes. It would take ages to always restart from scratch and fix
+command by command.
 
 Here sessions and testbeds are very practical:
 
@@ -581,6 +581,10 @@ Here sessions and testbeds are very practical:
 - Copy it over into `mycloud_tutorial.md.lp`
 - Rinse and repeat until all is working.
 
+!!! tip "Alternative: Use block level skips"
+
+    The header exclusive argument `<lang> lp skip_<this|other|below|above>` will skip block execution
+    accordingly, i.e. you can also work from within the original page, from block to block. 
 
 ### Evaluating Single LP Blocks
 
@@ -598,7 +602,8 @@ print the generated markdown, with all other blocks not evaluated, to stdout.
 !!! hint
     To cause more than one block evaluated simply add a "bogus" keyword argument in the header which matches.
 
-
+For consecutive or single blocks please mind the `<lang> lp skip_<this|other|below|above>` header
+argument.
 
 
 
