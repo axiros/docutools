@@ -863,6 +863,32 @@ class LP:
     header_parse_err = 'Header_parse_error'
     # fmt:on
 
+    def handle_skips(blocks):
+        def skip(b):
+            b['kwargs']['skip_this'] = True
+
+        for b in blocks:
+            if b['kwargs'].get('skip_other'):
+                for c in blocks:
+                    skip(c)
+                b['kwargs'].pop('skip_this')
+                return
+            if b['kwargs'].get('skip_below'):
+                s = False
+                for c in blocks:
+                    if c == b:
+                        s = True
+                        continue
+                    if s:
+                        skip(c)
+                return
+
+            if b['kwargs'].get('skip_above'):
+                for c in blocks:
+                    if c == b:
+                        return
+                    skip(c)
+
     def exception(cmd, exc, tb, kw):
         c = markdown.Mkdocs.py % {'cmd': cmd, 'kw': kw, 'trb': str(tb)}
         app.error('LP evaluation error', exc=exc)
@@ -880,10 +906,12 @@ class LP:
         if os.path.exists(fn_lp):
             os.environ['DT_DOCU'] = os.path.dirname(fn_lp)
             os.environ['DT_DOCU_FILE'] = fn_lp
+            a = partial(fn_lp.rsplit, '/')
         S.cur_fn_lp = fn_lp
         lp_blocks, dest = do(LP.extract_lp_blocks, md=md, fn_lp=fn_lp)
-        app.info('---------- %s --------------' % fn_lp)
-        app.info('Found lit prog stanzas', count=len(lp_blocks))
+        LP.handle_skips(lp_blocks)
+        app.warn(fn_lp)
+        app.info('% lit prog blocks' % len(lp_blocks))
         res = []
         # the doc file:
         fnd = LP.fn_lp(fn_lp)
@@ -1037,7 +1065,7 @@ class LP:
             lps.append(spec)
         return lps, dest
 
-    def is_lp(d, fn, match=''):
+    def is_lp(d, fn, match='', _msged=set()):
         """
         We get all files in the docs dir matching match (md)
 
@@ -1050,11 +1078,15 @@ class LP:
         r = ''
         if S.lp_evaluation_skip_existing and exists(d + '/' + fn.rsplit('.lp', 1)[0]):
             r = '.md exists, skip_existing set'
-        if not match in (d + '/' + fn):
+        ffn = d + '/' + fn
+        if not match in ffn:
             r = 'Not matching %s' % match
         if r:
-            app.info('LP: skipping %s' % fn, reason=r)
+            if not ffn in _msged:
+                app.info('LP: skipping %s' % fn, reason=r, dir=d)
+                _msged.add(ffn)
             return
+
         return True
 
     def verify_no_errors(files):
@@ -1084,7 +1116,7 @@ class LP:
             do_files.append(fn)
             S.lp_files[fn] = t
         if do_files:
-            app.debug('Re-evaluating lp files', files=do_files, of=files)
+            app.info('Re-evaluating lp files', files=do_files, of=files)
         [do(LP.run_file, fn_lp=fn) for fn in do_files]
         return do_files
 

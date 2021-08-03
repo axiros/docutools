@@ -172,6 +172,11 @@ ls -lta /
 
 
 
+### Skips
+
+The header exclusive argument `bash lp skip_<this|other|below|above>` will skip block execution accordingly.
+
+
 
 ## Design
 
@@ -368,6 +373,10 @@ When easy args parsing fails, then python signature mode is tried.
 | `nocache`     |  | |`True/False` | Never cache, always run
 | `prompt`      |x | |`'$ '`       | `$PS1` (set at session init)
 | `session`     |x | |session name | Run the command in this tmux session (create it when not present  - otherwise attach)
+| `skip_above`  |x | |bool         | skip all blocks before this one when executing the page
+| `skip_below`  |x | |bool         | skip all blocks after this one when executing the page
+| `skip_other`  |x | |bool         | skip all other blocks when executing the page
+| `skip_this`   |x | |bool         | skip this block when executing the page
 | `silent`      |  |x|True         | Run the command(s) normally but do not create any markdown
 | `timeout`     |x |x|float        | Time until timeout error is raised. 
 | `with_paths`  |x | |true         | Before a sequence of commands is run, we export invoking process' `$PATH` and `$PYTHONPATH` within tmux

@@ -503,6 +503,8 @@ class session:
         # TODO: clean up
         assert_ = None
         silent = kw.get('silent')
+        # undocumented
+        wait_after = kw.get('wait_after')
 
         c = check_inline_lp(cmd, fn_lp=kw.get('fn_doc'))
         if c:
@@ -512,6 +514,7 @@ class session:
             expect = cmd.get('expect', expect)
             assert_ = cmd.get('asserts') or cmd.get('assert', assert_)
             silent = cmd.get('silent', silent)
+            wait_after = cmd.get('wait_after', wait_after)
             cmd = cmd.get('cmd')  # if not given: only produce output
         if cmd.startswith('wait '):
             time.sleep(float(cmd.split()[1]))
@@ -547,10 +550,15 @@ class session:
             # else:
             #     spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
             print(' cmd to tmux: ', cmd)
+            print('\x1b[38;5;250m', end='')
             spresc('tmux send-keys -t %s:1 -H %s' % (n, seq))
+            print('\x1b[0m', end='')
 
         t0 = now()
         wait_dt = 0.1
+        last_msg = 0
+        max_wait = 2
+
         while True:
             res = sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
             if expectb in res:
@@ -563,8 +571,14 @@ class session:
                     'Command %s: Timeout (> %s sec) expecting "%s"'
                     % (cmd, timeout, expectb.decode('utf-8'))
                 )
+
+            if now() - last_msg > 5:
+                print('Inspect:  tmux att -t %s' % n)
+                lst_msg = now()
             wait(wait_dt)  # fast first
-            wait_dt = timeout / 10.0
+            wait_dt = min(timeout / 10.0, max_wait)
+            max_wait += 2
+
         res = res.decode('utf-8')
         if expect_echo_out_cmd:
             # when expect was given we include it (expect="Ready to accept Connections")
@@ -576,6 +590,8 @@ class session:
         else:
             # the tmux window contains a lot of white space after the last output when short cmd
             res = res.strip()
+        if wait_after:
+            time.sleep(float(wait_after))
         check_assert(assert_, res)
 
         print('----------')
@@ -750,6 +766,16 @@ def multi_line_to_list(cmd):
     return [cmd for cmd in r if cmd.strip()]
 
 
+skipped = '''
+
+
+```
+%s
+```
+
+'''
+
+
 def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     """
     dt_cache: Only cache when runtime is greater than this:
@@ -757,6 +783,8 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     fn_doc: required: location of source file (async flow links contain its name)
     """
     # in python sigature format assert would be forbidden, so we allow asserts=...
+    if kw.get('skip_this'):
+        return skipped % cmd
 
     assert_ = kw.get('asserts') or kw.get('assert')
     repl_dollar_var_with_env_vals(kw, 'fn', 'cwd')
