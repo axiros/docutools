@@ -334,8 +334,13 @@ def fmt(res, **kw):
         if kw.get('hide_cmd'):
             c['cmd'] = ''
 
-    fmt = kw.get('fmt', dflt_fmt)
-    fmt = getattr(T, fmt)
+    fmt = f = kw.get('fmt', dflt_fmt)
+    fmt = getattr(T, fmt, None)
+    if not fmt:
+        raise Exception(
+            'Format not found (%s) - have: %s'
+            % (f, [k for k in dir(T) if not k[0] == '_'])
+        )
     return fmt(res, **kw)
 
 
@@ -782,10 +787,14 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     rpl: global post run replacement
     fn_doc: required: location of source file (async flow links contain its name)
     """
-    # in python sigature format assert would be forbidden, so we allow asserts=...
+
+    # when already run before this will be replaced by the result from previous
+    # by preproc, before sending here
+    # but when we have never produced an .md we add this:
     if kw.get('skip_this'):
         return skipped % cmd
 
+    # in python sigature format assert would be forbidden, so we allow asserts=...
     assert_ = kw.get('asserts') or kw.get('assert')
     repl_dollar_var_with_env_vals(kw, 'fn', 'cwd')
     # you could set this to org:

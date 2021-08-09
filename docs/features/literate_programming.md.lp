@@ -182,7 +182,25 @@ The header exclusive argument `<lang> lp skip_<this|other|below|above>` will ski
 The header exclusive argument `bash lp lock_page` will create a lock file after successful
 evaluation of a block. Page won't be re-evaluated unless the lock file is removed.
 
-Prevents unwanted auto-eval of e.g. cluster destroy/setup triggering pages.
+Prevents unwanted auto-eval of e.g. cluster destroy/setup triggering pages, while running e.g. `doc
+pp -lpe=md` (matching all source files).
+
+!!! warning
+
+    When you say `doc pp -lpe=<**unique** match of source file`, then the evaluation DOES happen
+    again, nevertheless -> you can still work on a single page as usual, w/o removing the lock files
+    all the time.
+
+
+#### Source File Changes in MD
+
+When a page lock file exists but the source changed outside of LP blocks, then we write the
+destination LP accordingly, but replace the LP blocks with the results of the previous run.
+
+!!! tip
+    This means you can still change text in sources and get it rendered on `doc pp -lpe=...` but w/o
+    new eval runs of its LP blocks.
+
 
 
 ## Design

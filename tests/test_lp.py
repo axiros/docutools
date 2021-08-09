@@ -619,6 +619,15 @@ class multi(unittest.TestCase):
         check_lines_in(res, cmd, out)
 
 
+def strip_id(s):
+    r, l = [], s.splitlines()
+    while l:
+        line = l.pop(0)
+        if not '<!-- id: ' in line:
+            r.append(line)
+    return '\n'.join(line)
+
+
 class mode(unittest.TestCase):
     def test_mode_python(self):
         md = '''
@@ -659,7 +668,8 @@ class mode(unittest.TestCase):
             ```
             '''
         res = run_lp(md)
-        assert not res.strip()
+        assert len(res.split('<!-- id: ')) == 3
+        assert not strip_id(res).strip()
 
     def test_mode_make_file(self):
         fn = '/tmp/test_lp_file_%s' % os.environ['USER']

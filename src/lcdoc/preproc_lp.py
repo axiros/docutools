@@ -269,6 +269,9 @@ class LP:
         return res
 
     def write_lock_file(fnd, have=set()):
+        """When we hit a lock_page header arg, we write this file with a timestamp of
+        the source in first line. That prevents re-eval of LP blocks. On md changes of
+        the .lp file we transfer the previous result"""
         if fnd in have:
             return
         have.add(fnd)

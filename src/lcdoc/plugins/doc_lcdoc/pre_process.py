@@ -9,47 +9,34 @@ import inspect
 import json
 import os
 import shutil
-import sys
 import time
-import traceback
-from ast import literal_eval
 from contextlib import contextmanager
 from functools import partial
 from hashlib import md5
 
 import toml
-from devapp.app import app
-from devapp.app import do as app_do
-from devapp.app import run_app, system
-from devapp.testing.auto_docs import func_title
+from devapp.app import app, run_app, system
 
 # from operators.testing.auto_docs import dir_pytest_base
 from devapp.tools import (
     FLG,
-    cast,
     deindent,
     gitcmd,
-    parse_kw_str,
     project,
     read_file,
     walk_dir,
     write_file,
 )
 from inflection import humanize
-from pymdownx import slugs
 from theming.formatting import markdown
 
-from lcdoc import lp as lit_prog
+from lcdoc import preproc_lp as lppre
 from lcdoc.auto_docs import mark_auto_created
 
-
-def do(action, *a, track=False, **kw):
-    if track:
-        S.actions.add(action.__qualname__)
-    return app_do(action, *a, **kw)
+do = lppre.do
 
 
-class Flags:
+class Flags(lppre.Flags):
     """After test runs with write_build_log on we create images and copy to docs folder
     See the duties of this repo regarding usage.
     """
@@ -117,46 +104,6 @@ class Flags:
         n = 'scan build/autodocs directory for pytest result pages, link to docs, add to mkdocs.yml'
         d = False
 
-    class lit_prog_evaluation:
-        n = 'Evaluate literal programming stanzas in all matching md.lp source files, generating secondary .md files. Say md to match all.'
-        d = ''
-
-    class lit_prog_evaluation_step_mode:
-        n = 'Pause before and after each evaluation block, waiting for user input'
-        d = False
-
-    class lit_prog_evaluation_monitor:
-        'Sets lit_prog_on_err_keep_running to True'
-        n = 'Enable the file monitor for re-eval runs of any matching changed .mp.lp file'
-        d = False
-
-    class lit_prog_skip_existing:
-        """Intended for CI or to prevent unwanted re-evaluation in general:
-        When secondary .md pages had been committed, i.e. are present on the filesystem
-        (built while authoring), we will NOT re-evaluate those pages at presence of that
-        flag.
-        In order to get on-demand eval, just run lp w/o that flag and possibly a match
-        on your source file (-lpe=mysourcefile instead -lpe=md). Or delete the md.
-        """
-
-        n = 'Only eval when there are no .md files'
-        d = False
-
-    class lit_prog_on_err_keep_running:
-        'default is to exit and analyse errors in terminal'
-        n = 'Set this to True if you want rendering errors to be displayed in the markdown file'
-        d = False
-
-    class lit_prog_evaluation_timeout:
-        n = 'Global evaluation timeout. On busy build servers  you might want to set higher, e.g. 5'
-        d = 1
-
-    class lit_prog_debug_matching_blocks:
-        """Hint: You can add a matching not interpreted keyword with that value at every block you want to have run."""
-
-        n = 'Evaluate only blocks whose headers contain given subtring and print eval result on stdout'
-        d = ''
-
     class add_pyproject_infos_to_mkdocs:
         n = 'Repository and homepage from pyproject.toml into mkdocs.yml'
         d = False
@@ -167,35 +114,36 @@ class Flags:
 
 
 # --------------------------------------------------------------------- tools/  actions
+class stats:
+    count_plantuml = 0
+    count_graph_easy = 0
+    count_built = 0
+    count_operators = 0
+    count_lp_blocks = 0
+    build_time = 0
+
+
 class S:
-    d_root = None
-    graph_easy = None
-    operators = {}
-    actions = set()
-    lp_files = {}
-    lp_stepmode = False
-    lp_evaluation_timeout = 1
-    lp_on_err_keep_running = True
-
-    class stats:
-        count_plantuml = 0
-        count_graph_easy = 0
-        count_built = 0
-        count_operators = 0
-        count_lp_blocks = 0
-        build_time = 0
+    pass
 
 
+S.d_root = None
+S.graph_easy = None
+S.operators = {}
+S.actions = set()
+S.stats = stats
 stats = lambda: {k: getattr(S.stats, k) for k in dir(S.stats) if not k.startswith('_')}
 hsh = lambda src: md5(src.encode('utf-8')).hexdigest()
+
 exists = os.path.exists
-
-
 now = time.time
 dirname = os.path.dirname
 
 
 get_graph_easy = lambda: 'graph-easy'  # must be in path
+
+LP = lppre.LP
+lppre.S.actions = S.actions
 
 
 class Credits:
@@ -847,297 +795,6 @@ def add_pyproject_infos_to_mkdocs():
     write_file(fnm, m)
 
 
-class LP:
-    """literate programming feature"""
-
-    eval_lock = '.evaluation_locked'
-    PH = lambda nr: 'LP_PH: %s.' % nr
-    # fn_lp = lambda fn: fn.rsplit('.md', 1)[0] + '.lp.md'
-    fn_lp = lambda fn: fn.rsplit('.lp', 1)[0]
-
-    # fmt:off
-    texc             = '!!! error "LP exception"'
-    py_err           = 'Python args parse error'
-    err_admon        = 'LP error'
-    interrupted      = 'LP continuation stopped by user'
-    easy_args_err    = 'Easy args parse error'
-    header_parse_err = 'Header_parse_error'
-    # fmt:on
-
-    def handle_skips(blocks):
-        def skip(b):
-            b['kwargs']['skip_this'] = True
-
-        for b in blocks:
-            if b['kwargs'].get('skip_other'):
-                for c in blocks:
-                    skip(c)
-                b['kwargs'].pop('skip_this')
-                return
-            if b['kwargs'].get('skip_below'):
-                s = False
-                for c in blocks:
-                    if c == b:
-                        s = True
-                        continue
-                    if s:
-                        skip(c)
-                return
-
-            if b['kwargs'].get('skip_above'):
-                for c in blocks:
-                    if c == b:
-                        return
-                    skip(c)
-
-    def exception(cmd, exc, tb, kw):
-        c = markdown.Mkdocs.py % {'cmd': cmd, 'kw': kw, 'trb': str(tb)}
-        app.error('LP evaluation error', exc=exc)
-        if not S.lp_on_err_keep_running:
-            app.die(LP.err_admon, cmd=cmd, lp_file=S.cur_fn_lp, exc=exc, **kw)
-        return markdown.Mkdocs.admon(LP.err_admon + ': %s' % str(exc), c, 'error')
-
-    run_file = lambda fn_lp: LP.run_md(read_file(fn_lp), fn_lp, write=True)
-
-    def run_md(md, fn_lp, write=False, raise_on_errs=None):
-        """fn_lp required for filenames of async lp results
-        raise_on_errs intended for temporarily changing behviour, e.g. for tests
-        Else use the FLG.
-        """
-        if os.path.exists(fn_lp):
-            os.environ['DT_DOCU'] = os.path.dirname(fn_lp)
-            os.environ['DT_DOCU_FILE'] = fn_lp
-            a = partial(fn_lp.rsplit, '/')
-        S.cur_fn_lp = fn_lp
-        lp_blocks, dest = do(LP.extract_lp_blocks, md=md, fn_lp=fn_lp)
-        LP.handle_skips(lp_blocks)
-        app.warn(fn_lp)
-        app.info('%s lit prog blocks' % len(lp_blocks))
-        res = []
-        # the doc file:
-        fnd = LP.fn_lp(fn_lp)
-        [
-            res.append(LP.run_block(block, fnd, raise_on_errs=raise_on_errs))
-            for block in lp_blocks
-        ]
-        md = '\n'.join(dest)
-        for nr in range(len(res)):
-            md = md.replace(LP.PH(nr), res[nr])
-        if FLG.lit_prog_debug_matching_blocks:
-            fnd = project.root() + '/tmp/lp_debug.md'
-        if write:
-            write_file(fnd, md)
-        if FLG.lit_prog_debug_matching_blocks:
-            print('<! ------- Start Debug Matching Blocks Output ------------------->')
-            os.system('cat "%s"' % fnd)
-            print('<! -------- End Debug Matching Blocks Output -------------------->')
-            print('(Evaluated LP Blocks: %s)\n\n' % len(lp_blocks))
-        return md
-
-    def run_block(block, fnd, raise_on_errs=None):
-        cmd, kw = '', ''
-        try:
-            args, kw = block['args'], block['kwargs']
-            if args == LP.header_parse_err:
-                raise Exception(
-                    '%s %s %s. Failed header: "%s"'
-                    % (args, kw[LP.py_err], kw[LP.easy_args_err], kw['header'])
-                )
-            # filter comments:
-            cmd = '\n'.join([l for l in block['code'] if not l.startswith('# ')])
-            j = cmd.strip()
-            if j and (j[0] + j[-1]) in ('[]', '{}'):
-                try:
-                    cmd = literal_eval(cmd)
-                except Exception as exle:
-                    try:
-                        cmd = json.loads(cmd)
-                    except Exception as ex:
-                        ex.args += ('LP: Expression to deserialize was: %s' % cmd,)
-                        ex.args += (
-                            'LP: Before json.loads we tried literal eval but got Exception: %s'
-                            % exle,
-                        )
-                        raise
-            # cmd = block['code']
-            kw['lang'] = block.get('lang')
-            kw['sourceblock'] = block.get('source')
-            S.lp_stepmode and LP.confirm('Before running', page=fnd, cmd=cmd, **kw)
-            run_lp = partial(lit_prog.run, fn_doc=fnd)
-            kw['timeout'] = kw.get('timeout', S.lp_evaluation_timeout)
-            S.stats.count_lp_blocks += 1
-            res = run_lp(cmd, *args, **kw)
-
-            # inteded for the last block of a big e.g. cluster setup page:
-            if kw.get('lock_page') and not kw.get('skip_this'):
-                with open(fnd + '.lp' + LP.eval_lock, 'w') as fd:
-                    s = 'A "lock_page" attribute was set in a successfully evaluated '
-                    s += 'literate programming block - this file prevents automatic '
-                    s += 're-evaluation.\n\nRemove file to re-evaluate.'
-                    fd.write(s)
-                app.warn('Successful evaluation - page locked.', details=s)
-                app.info('(This is NOT an error)')
-
-        except Exception as e:
-            # intended for pytesting lp itself:
-            if raise_on_errs:
-                raise
-            if not S.lp_on_err_keep_running:
-                app.die('Could not eval', exc=e)
-            if LP.interrupted in str(e):
-                app.die('Unconfirmed')
-            tb = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
-            res = LP.exception(cmd, e, tb, kw=kw)
-        S.lp_stepmode and LP.confirm(
-            'After running', page=fnd, cmd=cmd, json=res.splitlines()
-        )
-        ind = block.get('indent')
-        if ind:
-            res = ('\n' + res).replace('\n', '\n' + ind)
-        return res
-
-    def confirm(msg, page, cmd, **kw):
-        if not sys.stdin.isatty():
-            app.die('Must have stdin in interactive mode')
-        app.info(msg, page=page, cmd=cmd, **kw)
-        print('b=break to enter a pdb debugging session')
-        print('c=continue to continue non-interactively')
-        i = input('Continue [Y|n/q|b|c]? ').lower()
-        if i in ('n', 'q'):
-            app.die(LP.interrupted)
-        if i == 'c':
-            app.info('Continuing without break')
-            FLG.lit_prog_evaluation_step_mode = False
-            return
-        if i == 'b':
-            print('Entering pdb...')
-            return breakpoint()
-
-    def extract_header_args(lp_header, fn_lp):
-        H = ' '.join(lp_header.split()[2:])
-        err, res = lit_prog.parse_header_args(H, fn_lp=fn_lp, dir_project=project.root())
-        if not err:
-            return res
-
-        return (
-            LP.header_parse_err,
-            {LP.py_err: res[0], LP.easy_args_err: res[1], 'header': H},
-        )
-
-    def extract_lp_blocks(md, fn_lp):
-        s = md.splitlines()
-
-        lps = []
-        end = '```'
-        lpnr = -1
-        dest = []
-
-        def pop(s, add=True):
-            line = s.pop(0)
-            dest.append(line) if add else 0
-            return line
-
-        while s:
-            line = pop(s)
-            ls = line.lstrip()
-            if not ls.startswith('```'):
-                continue
-            # code. Normal or lp
-            ind = ' ' * (len(line) - len(ls))
-            fragm = (ls + '  ').split(' ', 2)
-            # normal code?
-            add = not fragm[1] == 'lp'
-            n = []
-            while True and s:
-                n.append(pop(s, add))
-                # within code a "```xxx" is not a closer, must be clean
-                if n[-1].startswith(ind + '```') and n[-1].strip() == '```':
-                    break
-            if add:
-                continue
-            src_header = dest[-1].strip()
-            lpnr += 1
-            lp_header = dest.pop(-1)
-            dest.append(LP.PH(lpnr))  # placeholder
-            n = [l[len(ind) :] for l in n[:-1]]
-            source = src_header + '\n' + '\n'.join(n) + '\n```'
-            l = fragm[0].split('```', 1)[1].strip()
-            if not FLG.lit_prog_debug_matching_blocks in lp_header:
-                continue
-            a, kw = LP.extract_header_args(lp_header, fn_lp)
-            spec = {
-                'nr': lpnr,
-                'code': n,
-                'lang': l,
-                'args': a,
-                'kwargs': kw,
-                'indent': ind,
-                'source': source,
-            }
-
-            lps.append(spec)
-        return lps, dest
-
-    def is_lp(d, fn, match='', _msged=set()):
-        """
-        We get all files in the docs dir matching match (md)
-
-        """
-        # and fm in fn
-        # and not fn.endswith('.lp.md')
-        # and LP.fn_lp(fn) in mkdocs
-        if not fn.endswith('.md.lp'):
-            return
-        r = ''
-        if S.lp_evaluation_skip_existing and exists(d + '/' + fn.rsplit('.lp', 1)[0]):
-            r = '.md exists, skip_existing set'
-        ffn = d + '/' + fn
-        if not match in ffn:
-            r = 'Not matching %s' % match
-
-        l = ffn + LP.eval_lock
-        if exists(l):
-            r = 'Evaluation lockfile present (%s). Remove to re-eval.' % l
-        if r:
-            if not ffn in _msged:
-                app.info('LP: skipping %s' % fn, reason=r, dir=d)
-                _msged.add(ffn)
-            return
-
-        return True
-
-    def verify_no_errors(files):
-        errs = []
-        for f in files:
-            fn = f.rsplit('.lp', 1)[0]
-            if not exists(fn):
-                errs.append(['lp result file missing', fn, []])
-            s = read_file(fn)
-            e = LP.err_admon
-            if e in read_file(fn):
-                errs.append(['lp errors', fn, [i for i in s.splitlines() if e in i]])
-        return errs
-
-    def gen_evaluation(file_match):
-        """Runs in a loop when monitor is set"""
-        docs = project.root() + '/docs'
-        # just in case he wants only lp without any project mkdocs = read_file(docs + '/../mkdocs.yml')
-        os.makedirs(project.root() + '/tmp/tmux', exist_ok=True)
-        files = walk_dir(docs, crit=partial(LP.is_lp, match=file_match))
-        do_files = []
-        os.environ['DT_PROJECT_ROOT'] = project.root()
-        for fn in files:
-            t = os.stat(fn)[8]
-            if t == S.lp_files.get(fn):
-                continue
-            do_files.append(fn)
-            S.lp_files[fn] = t
-        if do_files:
-            app.info('Re-evaluating lp files', files=do_files, of=files)
-        [do(LP.run_file, fn_lp=fn) for fn in do_files]
-        return do_files
-
-
 # ------------------------------------------------------------------------- end actions
 def run():
     """Entry point after flags parsing"""
@@ -1147,10 +804,11 @@ def run():
     if FLG.lit_prog_evaluation_monitor:
         FLG.lit_prog_on_err_keep_running = True
     # no flags in the lp code (usable from outside devapp or tests w/o init)
-    S.lp_stepmode = FLG.lit_prog_evaluation_step_mode
-    S.lp_on_err_keep_running = FLG.lit_prog_on_err_keep_running
-    S.lp_evaluation_timeout = FLG.lit_prog_evaluation_timeout
-    S.lp_evaluation_skip_existing = FLG.lit_prog_skip_existing
+    L = lppre.S
+    L.lp_stepmode = FLG.lit_prog_evaluation_step_mode
+    L.lp_on_err_keep_running = FLG.lit_prog_on_err_keep_running
+    L.lp_evaluation_timeout = FLG.lit_prog_evaluation_timeout
+    L.lp_evaluation_skip_existing = FLG.lit_prog_skip_existing
     lp = FLG.lit_prog_evaluation
     if lp:
         while True:
