@@ -119,7 +119,6 @@ class stats:
     count_graph_easy = 0
     count_built = 0
     count_operators = 0
-    count_lp_blocks = 0
     build_time = 0
 
 
@@ -132,7 +131,15 @@ S.graph_easy = None
 S.operators = {}
 S.actions = set()
 S.stats = stats
-stats = lambda: {k: getattr(S.stats, k) for k in dir(S.stats) if not k.startswith('_')}
+S.stats.LP = lppre.S.stats
+
+
+def stats(c=S.stats):
+    r = lambda v: stats(v) if isinstance(v, type) else v
+    r = {k: r(getattr(c, k)) for k in dir(c) if not k.startswith('_')}
+    return {k: v for k, v in r.items() if v}
+
+
 hsh = lambda src: md5(src.encode('utf-8')).hexdigest()
 
 exists = os.path.exists

@@ -81,7 +81,15 @@ class Flags:
 # --------------------------------------------------------------------- tools/  actions
 class S:
     class stats:
-        count_lp_blocks = 0
+        blocks_total = 0
+        blocks_skipped_transferred_previous_res = 0
+        blocks_skipped_no_previous_res = 0
+        blocks_evaled = 0
+        blocks_max_time = 0
+        blocks_longer_2_sec = 0
+        blocks_longer_10_sec = 0
+        pages_evaluated = 0
+        pages_transferred = 0
 
 
 S.lp_files = {}
@@ -231,19 +239,32 @@ class LP:
             S.lp_stepmode and LP.confirm('Before running', page=fnd, cmd=cmd, **kw)
             run_lp = partial(lit_prog.run, fn_doc=fnd)
             kw['timeout'] = kw.get('timeout', S.lp_evaluation_timeout)
-            S.stats.count_lp_blocks += 1
+            S.stats.blocks_total += 1
             id = '<!-- id: %(source_id)s -->' % block
             res = None
             if kw.get('skip_this'):
                 m = LP.current_dest_md
                 l = m.split(id)
                 if len(l) == 3:
-                    res = l[1]
+                    res = l[1][:-1]
+                    S.stats.blocks_skipped_transferred_previous_res += 1
+                else:
+                    S.stats.blocks_skipped_no_previous_res += 1
 
             if not res:
+                if not kw.get('skip_this'):
+                    S.stats.blocks_evaled += 1
+                t0 = now()
                 res = run_lp(cmd, *args, **kw)
+                dt = now() - t0
+                if dt > S.stats.blocks_max_time:
+                    S.stats.blocks_max_time = round(dt, 3)
+                if dt > 2:
+                    S.stats.blocks_longer_2_sec += 1
+                if dt > 10:
+                    S.stats.blocks_longer_10_sec += 1
 
-            res = '%s\n%s\n%s' % (id, res, id)
+            res = '%s%s\n%s' % (id, res, id)
 
             # inteded for the last block of a big e.g. cluster setup page:
             sol = block['fn'] in LP.skipped_on_lock
@@ -442,16 +463,20 @@ class LP:
                 app.warn('Removing skip on locked file, due to single match', fn=fn)
                 do_files.append(fn)
 
+        S.stats.pages_evaluated = len(do_files)
         [do(LP.run_file, fn_lp=fn) for fn in do_files]
 
         if skips:
             app.info('Handling skipped on lock files', fns=skips)
+
         for f in skips:
             h = str(int(os.stat(f).st_mtime))
             l = f + LP.eval_lock
             s = read_file(l).split('\n', 1)[0].strip()
             if str(h) != s and s.isnumeric():
-                app.info('Source changed, md present, transferring new content', fn=f)
+                S.stats.pages_transferred += 1
+                msg = 'Source changed, md present, transferring updated md content'
+                app.warn(msg, fn=f)
                 do(LP.run_file, fn_lp=f)
             else:
                 app.info('Source unchanged, leaving', fn=f)
