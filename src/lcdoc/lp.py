@@ -539,7 +539,10 @@ class session:
         expect_echo_out_cmd = ''
         is_multiline = '\n' in cmd
         if expect is None:
-            sep = '\n' if is_multiline else ';'
+            # we do NOT fail on exit codes, just want to know if the command completed,
+            # by scraping the tmux output for a string:
+            # if you want the first send set -e
+            sep = '\n' if (is_multiline or ' # ' in cmd) else ';'
             # here docs can't have ';echo -n... at last line:
             # not match on the issuing cmd
             expect_echo_out_cmd = sep + 'echo -n ax_; echo -n done'

@@ -124,10 +124,18 @@ class LP:
     # fmt:on
 
     def handle_skips(blocks):
+        def check_skip_syntax(b):
+            h = set('skip_this', 'skip_other', 'skip_below', 'skip_above')
+            l = [k for k in b['kwargs'].keys() if k.starts_with('skip_')]
+            n = [k for k in l if not k in h]
+            if n:
+                app.die('Not understood skip statment', unknown=n, allowed=h)
+
         def skip(b):
             b['kwargs']['skip_this'] = True
 
         for b in blocks:
+            check_skip_syntax(b)
             if b['kwargs'].get('skip_other'):
                 for c in blocks:
                     skip(c)
