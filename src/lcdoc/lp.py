@@ -441,6 +441,12 @@ def parse_header_args(header, **ctx):
 
 
 class session:
+    def get_cwd(session_name):
+        res = session.srun_in_tmux('echo "::$(pwd)::"', session_name=session_name)
+        res = res.rsplit('::')[-2]
+        assert os.path.exists(res)
+        return res
+
     def get(session_name, **kw):
         """
         Starts tmux if not running and delivers a srun_in_tmux function,
@@ -568,7 +574,8 @@ class session:
             res = sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
             if expectb in res:
                 break
-            if now() - t0 > timeout:
+            dt = now() - t0
+            if dt > timeout:
                 if expect is False:
                     # wanted then:
                     break
@@ -578,7 +585,7 @@ class session:
                 )
 
             if now() - last_msg > 5:
-                print('Inspect:  tmux att -t %s' % n)
+                print('%ss[%s] Inspect:  tmux att -t %s' % (round(dt, 1), timeout, n))
                 lst_msg = now()
             wait(wait_dt)  # fast first
             wait_dt = min(timeout / 10.0, max_wait)
@@ -647,26 +654,43 @@ def flog(*s):
 flog(os.getcwd())
 
 
-class file_:
-    def create(kw):
-        fn = kw['fn']
-        c = kw['content']
-        if kw.get('lang') in ('js', 'javascript', 'json'):
-            if isinstance(c, (dict, list, tuple)):
-                c = json.dumps(c, indent=4)
-        with open(fn, 'w') as fd:
-            fd.write(str(c))
-        os.system('chmod %s %s' % (kw.get('chmod', 660), fn))
-        return file_.show(kw)
+def within_session_dir(session_name, func):
+    if not session_name:
+        return func()
+    here = os.getcwd()
+    try:
+        os.chdir(session.get_cwd(session_name))
+        return func()
+    finally:
+        os.chdir(here)
 
-    def show(kw):
-        fn = kw['fn']
-        with open(fn, 'r') as fd:
-            c = fd.read()
-        res = {'cmd': 'cat %s' % fn, 'res': c}
-        if kw.get('lang') not in ['sh', 'bash']:
-            res['cmd'] = '$ ' + res['cmd']
-        return res
+
+class file_:
+    def create(kw, session_name=None):
+        def f(kw=kw):
+            fn = kw['fn']
+            c = kw['content']
+            if kw.get('lang') in ('js', 'javascript', 'json'):
+                if isinstance(c, (dict, list, tuple)):
+                    c = json.dumps(c, indent=4)
+            with open(fn, 'w') as fd:
+                fd.write(str(c))
+            os.system('chmod %s %s' % (kw.get('chmod', 660), fn))
+            return file_.show(kw)
+
+        return within_session_dir(session_name, f)
+
+    def show(kw, session_name=None):
+        def f(kw=kw):
+            fn = kw['fn']
+            with open(fn, 'r') as fd:
+                c = fd.read()
+            res = {'cmd': 'cat %s' % fn, 'res': c}
+            if kw.get('lang') not in ['sh', 'bash']:
+                res['cmd'] = '$ ' + res['cmd']
+            return res
+
+        return within_session_dir(session_name, f)
 
     def write_fetchable(cont, fetch, **kw):
         """write .ansi XTF files"""
@@ -834,7 +858,16 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
         cmd = multi_line_to_list(cmd)
 
     session_name = kw.pop('session', 0)
-    if session_name:
+    if mode == 'make_file':
+        kw['content'] = cmd
+        kw['fmt'] = kw.get('fmt', 'mk_console')
+        res = file_.create(kw, session_name=session_name)
+
+    elif mode == 'show_file':
+        kw['fmt'] = kw.get('fmt', 'mk_console')
+        res = file_.show(kw, session_name=session_name)
+
+    elif session_name:
         if kw.get('mode'):
             msg = 'modes are not supported with session (got mode=%(mode)s)'
             raise Exception(msg % kw)
@@ -844,15 +877,6 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
 
     elif mode == 'python':
         res = run_as_python(cmd, kw)
-
-    elif mode == 'make_file':
-        kw['content'] = cmd
-        kw['fmt'] = kw.get('fmt', 'mk_console')
-        res = file_.create(kw)
-
-    elif mode == 'show_file':
-        kw['fmt'] = kw.get('fmt', 'mk_console')
-        res = file_.show(kw)
 
     else:
         # os.system style:
