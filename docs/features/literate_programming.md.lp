@@ -171,6 +171,27 @@ ls -lta /
 ```
 
 
+### Page Level Header Arguments
+
+This:
+
+```
+ ```page lp foo=bar bar=baz
+ ```
+```
+
+will never be skipped and results in those arguments begin inserted into any LP header throughout
+the page, except if given. It will not be rendered into anything.
+
+Typical use case:
+
+
+```
+ ```page lp session=my_session
+ ```
+```
+
+
 
 ### Skips
 

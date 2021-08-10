@@ -46,7 +46,7 @@ def run_lp(md, raise_on_errs=None):
     shutil.rmtree(dw, ignore_errors=True)
     os.makedirs(dw, exist_ok=True)
     write_file(dw + '/test_content', test_content)
-    return LP.run_md((md), fn, raise_on_errs=raise_on_errs)
+    return LP.run_md_page(md, fn, raise_on_errs=raise_on_errs)
 
 
 def err_msg(l, res):

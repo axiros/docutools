@@ -120,6 +120,7 @@ class LP:
     easy_args_err    = 'Easy args parse error'
     header_parse_err = 'Header_parse_error'
     ids_by_fn        = {}
+    page_level_headers = {}
     # fmt:on
 
     def handle_skips(blocks):
@@ -155,14 +156,17 @@ class LP:
             app.die(LP.err_admon, cmd=cmd, lp_file=S.cur_fn_lp, exc=exc, **kw)
         return markdown.Mkdocs.admon(LP.err_admon + ': %s' % str(exc), c, 'error')
 
-    run_file = lambda fn_lp: LP.run_md(read_file(fn_lp), fn_lp, write=True)
+    run_file = lambda fn_lp: LP.run_md_page(read_file(fn_lp), fn_lp, write=True)
 
-    def run_md(md, fn_lp, write=False, raise_on_errs=None):
+    def run_md_page(md, fn_lp, write=False, raise_on_errs=None):
         """
         fn_lp required for filenames of async lp results
         raise_on_errs intended for temporarily changing behviour, e.g. for tests
         Else use the FLG.
+
+        Also for tests(where often no fn_lp exists) we allow pass already the source md
         """
+        LP.page_level_headers.clear()
         if os.path.exists(fn_lp):
             os.environ['DT_DOCU'] = os.path.dirname(fn_lp)
             os.environ['DT_DOCU_FILE'] = fn_lp
@@ -209,6 +213,10 @@ class LP:
         fnd: '/home/gk/repos/blog/docs/ll/vim/vim.md'
         block.keys: ['nr', 'code', 'lang', 'args', 'kwargs', 'indent', 'source', 'source_id', 'fn']
         """
+        if block['lang'] == 'page':
+            m = {k: v for k, v in block['kwargs'].items() if not k.startswith('skip_')}
+            LP.page_level_headers.update(m)
+            return ''
         cmd, kw = '', ''
         try:
             args, kw = block['args'], block['kwargs']
@@ -234,6 +242,9 @@ class LP:
                         )
                         raise
             # cmd = block['code']
+            for k, v in LP.page_level_headers.items():
+                if not k in kw:
+                    kw[k] = v
             kw['lang'] = block.get('lang')
             kw['sourceblock'] = block.get('source')
             S.lp_stepmode and LP.confirm('Before running', page=fnd, cmd=cmd, **kw)
