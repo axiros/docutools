@@ -200,7 +200,7 @@ class Badges:
             fn,
             'code style',
             'axblack',
-            'https://github.com/axiros/axblack',
+            'https://www.bing.com/search?q=axblack+github',
             '#222222',
         )
 
@@ -291,9 +291,7 @@ def run():
             app.error('Could not build', badge=k, exc=ex)
     do(Repo.commit_and_push_if_repo)
     if FLG.print_out:
-        app.info(
-            'printing markdown', json={'links': S.markdown, 'refs': S.markdown_refs}
-        )
+        app.info('printing markdown', json={'links': S.markdown, 'refs': S.markdown_refs})
         print('')
         print(gen_markdown())
 

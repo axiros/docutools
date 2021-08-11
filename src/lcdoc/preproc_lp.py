@@ -125,8 +125,8 @@ class LP:
 
     def handle_skips(blocks):
         def check_skip_syntax(b):
-            h = set('skip_this', 'skip_other', 'skip_below', 'skip_above')
-            l = [k for k in b['kwargs'].keys() if k.starts_with('skip_')]
+            h = ['skip_this', 'skip_other', 'skip_below', 'skip_above']
+            l = [k for k in b['kwargs'].keys() if k.startswith('skip_')]
             n = [k for k in l if not k in h]
             if n:
                 app.die('Not understood skip statment', unknown=n, allowed=h)
@@ -481,7 +481,9 @@ class LP:
                 skips.remove(fn)
                 app.warn('Removing skip on locked file, due to single match', fn=fn)
                 do_files.append(fn)
-
+        # that whay user has some control over session re-use in other pages (i.e. use
+        # subdirs):
+        do_files = sorted(do_files)
         S.stats.pages_evaluated = len(do_files)
         [do(LP.run_file, fn_lp=fn) for fn in do_files]
 

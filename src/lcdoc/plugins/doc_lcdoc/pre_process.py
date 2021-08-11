@@ -18,15 +18,7 @@ import toml
 from devapp.app import app, run_app, system
 
 # from operators.testing.auto_docs import dir_pytest_base
-from devapp.tools import (
-    FLG,
-    deindent,
-    gitcmd,
-    project,
-    read_file,
-    walk_dir,
-    write_file,
-)
+from devapp.tools import FLG, deindent, gitcmd, project, read_file, walk_dir, write_file
 from inflection import humanize
 from theming.formatting import markdown
 
@@ -44,6 +36,11 @@ class Flags(lppre.Flags):
     # activated via: main = partial(run_app, run, flags=Flags)
 
     autoshort = ''
+
+    class fail_on_blacklisted_words:
+        n = 'When any word of $blacklisted_words (e.g. "mypass::mycompany::myuser") '
+        n += 'occurs in non git ignored sources, we die'
+        d = False
 
     class patch_mkdocs_filewatch_ign_lp:
         """Prevent mkdocs live reload server to rebuild on .lp changes
@@ -802,12 +799,31 @@ def add_pyproject_infos_to_mkdocs():
     write_file(fnm, m)
 
 
+def fail_on_blacklisted_words():
+    l = os.environ.get('blacklisted_words')
+    if not l:
+        return app.info('No $blacklisted_words to check for')
+    here = os.getcwd()
+    os.chdir(S.d_root)
+    try:
+        for w in [s.strip() for s in l.split('::')]:
+            h = os.popen("/usr/bin/rg -i '%s'" % w).read()
+            if h.strip():
+                print(h)
+                app.die('Found blacklisted word', word=w)
+        app.info('Passed: No blacklisted words')
+    finally:
+        os.chdir(here)
+
+
 # ------------------------------------------------------------------------- end actions
 def run():
     """Entry point after flags parsing"""
     t0 = now()
     S.d_root = project.root()
     S.proj_config = project.load_config()
+    if FLG.fail_on_blacklisted_words:
+        do(fail_on_blacklisted_words)
     if FLG.lit_prog_evaluation_monitor:
         FLG.lit_prog_on_err_keep_running = True
     # no flags in the lp code (usable from outside devapp or tests w/o init)

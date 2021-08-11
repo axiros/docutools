@@ -6,7 +6,7 @@ build-backend = "poetry.masonry.api"
 name = "docutools"
 version = "2021.8.9"
 description = "Documentation Tools for the Devapp Framework"
-authors = ["Gunther Klessinger <gunther.klessinger@axiros.com>"]
+authors = ["Gunther Klessinger <gkle_ss_ing_er@gmx.de>"]
 license = "BSD 2-Clause Simplified License"
 readme = "README.md"
 repository = "https://github.com/AXGKl/docutools"
@@ -63,7 +63,7 @@ pytest-xdist = "^2.1.0"
 toml = "^0.10.1"
 
 
-# this would require to  export POETRY_HTTP_BASIC_AX_USERNAME=klessinger and pw on gitlab runner
+# this would require to  export POETRY_HTTP_BASIC_AX_USERNAME=... and pw on gitlab runner
 # since we are on same gitlab server for lc-devapp we install from there using the token, see below
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"

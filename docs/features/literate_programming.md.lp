@@ -85,7 +85,7 @@ You can avoid publishing broken docu by asserting on the evaluation results like
 
 - `bash lp asserts dwrx` or
 - `bash lp asserts=['root', 'dwrx']` or even
-- `bash lp asserts='[root and dwrx] and not fubar' (see [here](https://github.com/axiros/pycond) for valid expressions)
+- `bash lp asserts='[root and dwrx] and not fubar' (see [here][pycond] for valid expressions)
 
 
 
@@ -206,7 +206,7 @@ evaluation of a block. Page won't be re-evaluated unless the lock file is remove
 Prevents unwanted auto-eval of e.g. cluster destroy/setup triggering pages, while running e.g. `doc
 pp -lpe=md` (matching all source files).
 
-!!! warning
+!!! warning "Re-Eval on Unique Matches"
 
     When you say `doc pp -lpe=<**unique** match of source file`, then the evaluation DOES happen
     again, nevertheless -> you can still work on a single page as usual, w/o removing the lock files
@@ -218,10 +218,18 @@ pp -lpe=md` (matching all source files).
 When a page lock file exists but the source changed outside of LP blocks, then we write the
 destination LP accordingly, but replace the LP blocks with the results of the previous run.
 
-!!! tip
-    This means you can still change text in sources and get it rendered on `doc pp -lpe=...` but w/o
-    new eval runs of its LP blocks.
 
+This means you can still change text in sources and get it rendered on `doc pp -lpe=...` but w/o
+new eval runs of its LP blocks.
+
+!!! warning
+
+    Avoid lp source block changes in such "post eval markdown edit runs": Their
+    evaluation results are extracted from the `.md` files via their "id",
+    which in turn is built from the md5 hash of their content, incl. header args!
+
+    If you do change, then only the source will be put into the rendered
+    result `.md` file - and previous evaluation result is lost.
 
 
 ## Design
@@ -453,7 +461,7 @@ When easy args parsing fails, then python signature mode is tried.
     
     - single string: substring match in result
     - list of strings: substring match in result combined with `and`
-    - valid [pycond](https://github.com/axiros/pycond) expression: Evaluated using string matching
+    - valid [pycond][pycond] expression: Evaluated using string matching
       of pycond keys, via a custom lookup function
 
     If given per command, their output is asserted on. Additionally the complete output of a command
@@ -741,5 +749,5 @@ If you use vim, here a few tips on config.
 
     ```
 
-
+[pycond]: https://www.bing.com/search?q=pycond+github+condition+parsing
 

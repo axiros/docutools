@@ -67,6 +67,9 @@ from io import StringIO
 import pycond
 from devapp.tools import parse_kw_str
 
+
+I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
+
 env = os.environ
 wait = time.sleep
 now = time.time
@@ -563,7 +566,7 @@ class session:
             #         spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, line))
             # else:
             #     spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
-            print(' cmd to tmux: ', cmd)
+            print(' cmd to tmux: ', I(cmd))
             print('\x1b[38;5;250m', end='')
             spresc('tmux send-keys -t %s:1 -H %s' % (n, seq))
             print('\x1b[0m', end='')
@@ -592,7 +595,7 @@ class session:
                 lst_msg = now()
             wait(wait_dt)  # fast first
             wait_dt = min(timeout / 10.0, max_wait)
-            max_wait += 2
+            max_wait = min(5, max_wait + 2)
 
         res = res.decode('utf-8')
         if expect_echo_out_cmd:
@@ -673,6 +676,14 @@ class file_:
         def f(kw=kw):
             fn = kw['fn']
             c = kw['content']
+            if kw.get('replace'):
+                d = dict(os.environ)
+                d.update(kw)
+                if '%(' in c and ')s' in c:
+                    c = c % d
+                else:
+                    c = c.format(**d)
+
             if kw.get('lang') in ('js', 'javascript', 'json'):
                 if isinstance(c, (dict, list, tuple)):
                     c = json.dumps(c, indent=4)
@@ -840,6 +851,8 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
         here = os.getcwd()
         try:
             os.chdir(cwd)
+            # so that replace works in make_file:
+            os.environ['PWD'] = cwd
         except Exception as ex:
             ex.args += ('dest dir: "%s"' % cwd,)
             raise

@@ -296,19 +296,3 @@ def release(ctx, version=os.environ.get('version')):
     ctx.run('mkdocs gh-deploy', title='Publishing docs', pty=PTY)
     # user, pw = os.environ.get('user'), os.environ.get('pass')
     # import getpass
-
-    # # poetry config repositories.ax https://artifacts-internal.axiros.com/artifactory/api/pypi/pypi-ax-sources
-    # # (goes to ~/.config/pypoetry/config.toml)
-    # print('all repos')
-    # print('https://artifacts.github.com/artifactory/pypi-ax-sources/')
-    # print('Hint: A conflict error is normal - the file is uploaded then.')
-    # # repo up is WITHOUT simple at the end: https://github.com/python-poetry/poetry/issues/708
-    # user = user or input('artifacts username > ')
-    # pw = pw or getpass.getpass('artifacts-internal password > ')
-    # ctx.run(
-    #     'poetry publish -r axup -u "%s" -p "%s"' % (user, pw),
-    #     title='Publishing version',
-    #     fmt='custom={{command.split(' ')[0:-1]}}',  # prevent pw display
-    #     pty=PTY,
-    #     capture=False,
-    # )
