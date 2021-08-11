@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Tue Aug  3 00:48:02 2021)
+By: gk@axgk (Wed Aug 11 15:58:28 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -24,7 +24,31 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).
 
 ## [2021.9.0](https://github.com/AXGKl/docutools/releases/tag/2021.9.0)
-<small>[Compare with 2021.8.2](https://github.com/AXGKl/docutools/compare/2021.8.2...2021.9.0)</small>
+<small>[Compare with 2021.8.9](https://github.com/AXGKl/docutools/compare/2021.8.9...2021.9.0)</small>
+
+### Features
+- Checking skip syntax and allowing commented lines w/o expect= ([51af4a1](https://github.com/AXGKl/docutools/commit/51af4a1457efe5d706aba869981a9760bee0ec93) by Gunther Klessinger).
+- Page level header args with `page lp foo=bar` ([71ec316](https://github.com/AXGKl/docutools/commit/71ec316fa01ae66c42566e7c8baf13e2089e708d) by Gunther Klessinger).
+- Supporting make_file and read_file also with session ([4561097](https://github.com/AXGKl/docutools/commit/45610976eb7b67aa191b61e8fa38d3e0d1b7bc9e) by Gunther Klessinger).
+
+
+## [2021.8.9](https://github.com/AXGKl/docutools/releases/tag/2021.8.9)
+<small>[Compare with 2021.8.3](https://github.com/AXGKl/docutools/compare/2021.8.3...2021.8.9)</small>
+
+### Bug Fixes
+- Json detection save for ini files ([c11fac7](https://github.com/AXGKl/docutools/commit/c11fac7ac3440bcdf5e5a72ef143e56c63b8b227) by Gunther Klessinger).
+- No locks when skipped ([67490ad](https://github.com/AXGKl/docutools/commit/67490ad7364795fa287f18ad615e33470e2b9a7c) by Gunther Klessinger).
+
+### Features
+- Better stats ([3aa56ae](https://github.com/AXGKl/docutools/commit/3aa56ae55f60467dd2e5f68fd6ad988a4584430f) by Gunther Klessinger).
+- Skips, transfer of old eval results, allowing md change w/o re-eval ([2f14dea](https://github.com/AXGKl/docutools/commit/2f14dea6287a0245b2ae3e8a76b12a0682233751) by Gunther Klessinger).
+- Skips, transfer of old eval runs, allowing change of .lp w/o eval ([e38d075](https://github.com/AXGKl/docutools/commit/e38d075912b565704f1d2b94990f69a94bd0f8cf) by Gunther Klessinger).
+- Lock_page header argument ([7f72159](https://github.com/AXGKl/docutools/commit/7f7215947f783b1c2bd2521160112ffcf2e66898) by Gunther Klessinger).
+- Skips ([85abb23](https://github.com/AXGKl/docutools/commit/85abb232eaae2bded3c4bdb9349885f50132de5e) by Gunther Klessinger).
+
+
+## [2021.8.3](https://github.com/AXGKl/docutools/releases/tag/2021.8.3)
+<small>[Compare with 2021.8.2](https://github.com/AXGKl/docutools/compare/2021.8.2...2021.8.3)</small>
 
 ### Bug Fixes
 - Sending hex to tmux ([2091804](https://github.com/AXGKl/docutools/commit/2091804a647ae454cc4cc36520c098b60491fdfc) by Gunther Klessinger).
