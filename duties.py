@@ -136,10 +136,13 @@ def docs_regen(ctx):
     Arguments:
         ctx: The [context][duty.logic.Context] instance (passed automatically).
     """
+    if os.system('type pass >/dev/null') == 0:
+        os.environ['blacklisted_words'] = os.popen('pass show sensitive/pypi').read()
 
     cmd = [
         'doc',
         'pre_process',
+        '--fail_on_blacklisted_words',
         '--patch_mkdocs_filewatch_ign_lp',
         '--gen_theme_link',
         '--gen_last_modify_date',

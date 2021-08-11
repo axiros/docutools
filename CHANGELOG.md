@@ -1,10 +1,11 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Wed Aug 11 15:58:28 2021)
+By: gk@axgk (Wed Aug 11 16:04:09 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
+     --fail_on_blacklisted_words \
      --patch_mkdocs_filewatch_ign_lp \
      --gen_theme_link \
      --gen_last_modify_date \

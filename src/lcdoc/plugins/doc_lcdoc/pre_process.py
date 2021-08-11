@@ -806,12 +806,13 @@ def fail_on_blacklisted_words():
     here = os.getcwd()
     os.chdir(S.d_root)
     try:
-        for w in [s.strip() for s in l.split('::')]:
+        words = [s.strip() for s in l.split('::')]
+        for w in words:
             h = os.popen("/usr/bin/rg -i '%s'" % w).read()
             if h.strip():
                 print(h)
                 app.die('Found blacklisted word', word=w)
-        app.info('Passed: No blacklisted words')
+        app.info('Passed: No occurrance of %s blacklisted words' % len(words))
     finally:
         os.chdir(here)
 
