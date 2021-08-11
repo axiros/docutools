@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Wed Aug 11 16:04:09 2021)
+By: gk@axgk (Wed Aug 11 16:06:00 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -28,6 +28,7 @@ This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.s
 <small>[Compare with 2021.8.9](https://github.com/AXGKl/docutools/compare/2021.8.9...2021.9.0)</small>
 
 ### Features
+- Checking blacklisted words ([e7d258f](https://github.com/AXGKl/docutools/commit/e7d258f481cf7600ba85f55dfc38f8082c01eaf6) by Gunther Klessinger).
 - Checking skip syntax and allowing commented lines w/o expect= ([51af4a1](https://github.com/AXGKl/docutools/commit/51af4a1457efe5d706aba869981a9760bee0ec93) by Gunther Klessinger).
 - Page level header args with `page lp foo=bar` ([71ec316](https://github.com/AXGKl/docutools/commit/71ec316fa01ae66c42566e7c8baf13e2089e708d) by Gunther Klessinger).
 - Supporting make_file and read_file also with session ([4561097](https://github.com/AXGKl/docutools/commit/45610976eb7b67aa191b61e8fa38d3e0d1b7bc9e) by Gunther Klessinger).
