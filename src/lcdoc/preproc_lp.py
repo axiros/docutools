@@ -124,6 +124,9 @@ class LP:
     # fmt:on
 
     def handle_skips(blocks):
+        """Returning true when there are skips - telling LP that we need to check the
+        .md for old results"""
+
         def check_skip_syntax(b):
             h = ['skip_this', 'skip_other', 'skip_below', 'skip_above']
             l = [k for k in b['kwargs'].keys() if k.startswith('skip_')]
@@ -156,6 +159,9 @@ class LP:
                     if c == b:
                         return True
                     skip(c)
+
+            if b['kwargs'].get('skip_this'):
+                return True
 
     def exception(cmd, exc, tb, kw):
         c = markdown.Mkdocs.py % {'cmd': cmd, 'kw': kw, 'trb': str(tb)}
