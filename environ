@@ -1,0 +1,11 @@
+#!/usr/bin/sh
+
+git config user.email "g_kl_es_sing_er@gmx.de"
+google_analytics_key="$(pass show google/analytics_key_blog)"
+versioning=calver
+#lit_prog_eval_match="on_demand" # we use locks
+# list of '::' seperated words to fail when occurring in committed files:
+blacklisted_words="$(pass show sensitive/axgkl)"
+conda_env="~/miniconda3/envs/docutools_py37"
+# giving us make docs, make tests, ..:
+source ./make

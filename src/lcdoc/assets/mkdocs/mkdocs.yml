@@ -105,6 +105,8 @@ extra_javascript:
 
 plugins:
   - search
+  - page-tree:
+      join_string: " - "
   - macros:
        j2_variable_start_string: '<{'
        j2_variable_end_string: '}>'
