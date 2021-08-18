@@ -2,8 +2,15 @@ from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
 
+def url(p):
+    try:
+        return p.url
+    except Exception as ex:
+        return url(p.children[0])
+
+
 class PageTreePlugin(BasePlugin):
-    config_scheme = (('join_string', config_options.Type(str, default=' ')),)
+    config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
 
     def __init__(self):
         self.enabled = True
@@ -15,11 +22,13 @@ class PageTreePlugin(BasePlugin):
             return page
 
         join_str = self.config['join_string']
-
+        me = [[page.title, url(page)]]
         if page.ancestors:
-            tree_titles = [x.title for x in page.ancestors[::-1]] + [page.title]
-            page.tree_title = join_str.join(tree_titles)
+            tree_titles = [(x.title, url(x)) for x in page.ancestors[::-1]] + me
+            page.parent_titles = join_str.join([x[0] for x in tree_titles])
+            page.parent_links = tree_titles
         else:
-            page.tree_title = page.title
+            page.parent_titles = page.title
+            page.parent_links = me
 
         return page

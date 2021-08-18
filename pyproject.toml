@@ -18,11 +18,6 @@ include = [
     "pyproject.toml"
 ]
 
-[[tool.poetry.source]]
-name = "ax"
-url = "https://artifacts.github.com/artifactory/api/pypi/pypi-ax-sources/simple"
-secondary = true
-
 
 [[tool.poetry.source]]
 name = "ax"
@@ -81,6 +76,7 @@ flake8-tidy-imports = "^4.1.0"
 flake8-variables-names = "^0.0.3"
 flake8-pytest-style = "^1.3.0"
 #wemake-python-styleguide = "^0.14.1"
+
 
 [tool.poetry.plugins."mkdocs.plugins"]
 "page-tree" = "lcdoc.mkdocs.page_tree:PageTreePlugin"

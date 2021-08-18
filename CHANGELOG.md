@@ -1,7 +1,7 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Wed Aug 11 16:06:00 2021)
+By: gk@axgk (Wed Aug 18 17:33:49 2021)
 Command Line (see duties.py):
 
     /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
@@ -10,6 +10,7 @@ Command Line (see duties.py):
      --gen_theme_link \
      --gen_last_modify_date \
      --gen_change_log \
+     --gen_change_log_versioning_stanza=calver \
      --gen_credits_page \
      --gen_auto_docs \
      --lit_prog_evaluation=md \
@@ -25,7 +26,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.shields.io/badge/calver-YYYY.M.D-22bfda.svg).
 
 ## [2021.9.0](https://github.com/AXGKl/docutools/releases/tag/2021.9.0)
-<small>[Compare with 2021.8.9](https://github.com/AXGKl/docutools/compare/2021.8.9...2021.9.0)</small>
+<small>[Compare with 2021.8.10](https://github.com/AXGKl/docutools/compare/2021.8.10...2021.9.0)</small>
+
+### Bug Fixes
+- Setting have skips when there is only a skip_this ([16083f4](https://github.com/AXGKl/docutools/commit/16083f4279ac93a6e21878144e908bac4ae68a10) by Gunther Klessinger).
+
+### Features
+- New "make system", first plugin ([c10fb84](https://github.com/AXGKl/docutools/commit/c10fb84addeae211fa3afdc0b5cef37f6909ad7a) by Gunther Klessinger).
+
+
+## [2021.8.10](https://github.com/AXGKl/docutools/releases/tag/2021.8.10)
+<small>[Compare with 2021.8.9](https://github.com/AXGKl/docutools/compare/2021.8.9...2021.8.10)</small>
 
 ### Features
 - Checking blacklisted words ([e7d258f](https://github.com/AXGKl/docutools/commit/e7d258f481cf7600ba85f55dfc38f8082c01eaf6) by Gunther Klessinger).

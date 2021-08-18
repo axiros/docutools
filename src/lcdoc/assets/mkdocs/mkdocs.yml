@@ -5,7 +5,6 @@ repo_url: "https://github.com/name/docutools"
 repo_name: "devapps/docutools"
 edit_uri: edit/master/docs
 
-
 copyright: |
   Copyright &copy; 2012 - 2021 Gunther Klessinger
 
@@ -13,25 +12,28 @@ copyright: |
 nav:
   - Overview: index.md
   - Installation:
-    - install.md
+      - install.md
   - Features:
-    - Darkmode: features/darkmode.md
-    - Plugins: features/plugins.md
-    - Mermaid: features/mermaid.md
-    - "Literate Programming": features/literate_programming.md
-    - "TermCasts": features/termcasts/index.md
-    # :autodocs:
-    - "Creating The Repo Badges SVGs": autodocs/src/lcdoc/plugins/doc_lcdoc/lcdoc.plugins.doc_lcdoc.make_badges.md
+      - Darkmode: features/darkmode.md
+      - Plugins: features/plugins.md
+      - Mermaid: features/mermaid.md
+      - "Literate Programming": features/literate_programming.md
+      - "TermCasts": features/termcasts/index.md
+      # :autodocs:
+      - "Index": autodocs/index.md
     # :autodocs:
   - About:
-    - Contributing: about/contributing.md
-    - Changelog: about/changelog.md
-    - Credits: about/credits.md
-    - TODO: about/todo.md
+      - Contributing: about/contributing.md
+      - Changelog: about/changelog.md
+      - Credits: about/credits.md
+      - TODO: about/todo.md
 
 theme:
   features:
-      - navigation.instant
+    - navigation.instant
+    - navigation.top
+    - navigation.tabs
+    - navigation.expand
   name: material
   custom_dir: docs/lcd
   icon:
@@ -43,45 +45,43 @@ theme:
   font:
     text: Roboto
     code: Roboto Mono
-  features:
-    - tabs
     #- toc.autohide
-    
+
 # extra_css:
 #   - theme/src/css/mkdocstrings.css
 
 markdown_extensions:
-   - admonition
-   - attr_list # {: style="height: ..."}
-   - markdown_include.include
-   - pymdownx.emoji:
-       emoji_index: !!python/name:materialx.emoji.twemoji
-       emoji_generator: !!python/name:materialx.emoji.to_svg
-   - pymdownx.critic:
-       mode: view
-   - pymdownx.caret
-   - pymdownx.mark
-   - pymdownx.tilde
-   - pymdownx.magiclink
-   - pymdownx.superfences
-   - pymdownx.tabbed
-   - pymdownx.tasklist:
-       custom_checkbox: true
-   - pymdownx.details
-   - markdown.extensions.tables
-   - markdown.extensions.footnotes
-   - markdown.extensions.md_in_html:
-   - pymdownx.superfences:
-       preserve_tabs: true
-       custom_fences:
-         - name: mermaid
-           class: mermaid
-           format: !!python/name:pymdownx.superfences.fence_code_format
-   - toc:
-       permalink: "¤"
-   - pymdownx.snippets:
-       base_path:
-         - docs/lcd/src/_snippets
+  - admonition
+  - attr_list # {: style="height: ..."}
+  - markdown_include.include
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.critic:
+      mode: view
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.magiclink
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.details
+  - markdown.extensions.tables
+  - markdown.extensions.footnotes
+  - markdown.extensions.md_in_html:
+  - pymdownx.superfences:
+      preserve_tabs: true
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - toc:
+      permalink: "¤"
+  - pymdownx.snippets:
+      base_path:
+        - docs/lcd/src/_snippets
 
 extra:
   social:
@@ -105,8 +105,7 @@ extra_javascript:
 
 plugins:
   - search
-  - page-tree:
-      join_string: " - "
+  - page-tree
   - macros:
-       j2_variable_start_string: '<{'
-       j2_variable_end_string: '}>'
+      j2_variable_start_string: "<{"
+      j2_variable_end_string: "}>"
