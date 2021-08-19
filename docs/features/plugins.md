@@ -143,12 +143,12 @@ links.txt
 ## Style Attributes / Images
 
 
-![](images/linux.png){: style="height:200px" align=right loading=lazy .zoom }
+![](img/linux.png){: style="height:200px" align=right loading=lazy .zoom }
 
 
 === "Source"
     ```
-    ![](images/linux.png){: style="height:200px" align=right loading=lazy .zoom }
+    ![](img/linux.png){: style="height:200px" align=right loading=lazy .zoom }
     ```
 
 

@@ -25,31 +25,58 @@
           </div>
         </div>
       </a>
-      {% endif %}
-      <!-- -->
-      {% for p in page.next_page.parent_links %}
-      <span><a href="{{p[1]}}"> {{ p[0] }} </a></span>{% endfor %}
-
-      <!-- -->
-      {% if page.next_page %}
-
-      <a
-        href="{{ page.next_page.url | url }}"
-        class="md-footer-nav__link md-footer-nav__link--next"
-        rel="next"
-      >
-        <div class="md-footer-nav__title">
-          <div class="md-ellipsis">
-            <span class="md-footer-nav__direction">
-              {{ lang.t("footer.next") }}
-            </span>
-            {{ page.next_page.title }}
+      {% endif %} {% if page.next_page %}
+      <div class="md-footer-nav__link md-footer-nav__link--next">
+        {# https://bdwm.be/html5-alternative-nested-anchor-tags/ + 4(!) hours of
+        fiddling...: We absolutely wanted to broad links area but also the
+        parent links #}
+        <div class="overlay_block">
+          <a
+            class="overlay_link"
+            href="{{ page.next_page.url | url }}"
+            rel="next"
+          ></a>
+          <div class="overlay_inner">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  {{ lang.t("footer.next") }}
+                </span>
+                {% for p in page.next_page.parent_links %}
+                <a href="{{p[1]}}">
+                  {% if loop.last %} {{ p[0] }} {% else %}
+                  <small>{{ p[0] }}</small> - {% endif %}
+                </a>
+                {% endfor %}
+              </div>
+            </div>
           </div>
         </div>
-        <div class="md-footer-nav__button md-icon">
+        <div style="margin-left: -2rem" class="md-footer-nav__button md-icon">
           {% include ".icons/material/arrow-right.svg" %}
         </div>
-      </a>
+      </div>
+      <style>
+        .overlay_block {
+          position: relative;
+          width: 100%;
+        }
+        .overlay_block .overlay_link {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          right: 0;
+        }
+        .overlay_block .overlay_inner {
+          position: relative;
+          pointer-events: none;
+          z-index: 1;
+        }
+        .overlay_block .overlay_inner a {
+          pointer-events: all;
+        }
+      </style>
       {% endif %}
     </nav>
   </div>

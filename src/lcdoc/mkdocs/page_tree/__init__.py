@@ -2,11 +2,11 @@ from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
 
-def url(p):
+def url(base, p):
     try:
-        return p.url
+        return '/' + base + '/' + p.url
     except Exception as ex:
-        return url(p.children[0])
+        return url(base, p.children[0])
 
 
 class PageTreePlugin(BasePlugin):
@@ -20,15 +20,15 @@ class PageTreePlugin(BasePlugin):
         # skip if pages are not yet included in the mkdocs config file
         if not page.title:
             return page
-
+        base = page.canonical_url.split('/', 4)[3]
         join_str = self.config['join_string']
-        me = [[page.title, url(page)]]
+        me = [[page.title, url(base, page)]]
         if page.ancestors:
-            tree_titles = [(x.title, url(x)) for x in page.ancestors[::-1]] + me
+            tree_titles = [(x.title, url(base, x)) for x in page.ancestors[::-1]] + me
             page.parent_titles = join_str.join([x[0] for x in tree_titles])
             page.parent_links = tree_titles
         else:
             page.parent_titles = page.title
-            page.parent_links = me
+            page.parent_links = []
 
         return page
