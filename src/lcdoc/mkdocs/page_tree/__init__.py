@@ -1,5 +1,5 @@
 from mkdocs.config import config_options
-from mkdocs.plugins import BasePlugin
+from lcdoc.mkdocs.tools import MDPlugin, app
 
 
 def url(base, p):
@@ -9,12 +9,8 @@ def url(base, p):
         return url(base, p.children[0])
 
 
-class PageTreePlugin(BasePlugin):
+class PageTreePlugin(MDPlugin):
     config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
-
-    def __init__(self):
-        self.enabled = True
-        self.total_time = 0
 
     def on_pre_page(self, page, config, files):
         # skip if pages are not yet included in the mkdocs config file

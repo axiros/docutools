@@ -34,10 +34,4 @@ Notes:
 This library is meant to be used as a development dependency for projects which want [mkdocs/material](https://squidfunk.github.io/mkdocs-material/) based documentation,
 pulling in all the necessary dependencies plus adding a few strong features as well, which were to hard / did not make sense to realize as mkdocs plugins.
 
-<!-- pre_proc_marker -->
 
-
-----
-
-
-Last modified: Wed Aug 18 17:33:49 2021

@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 dist/
+docs/lcd*
 public
 tmp
 docs/theme

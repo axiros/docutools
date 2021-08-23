@@ -43,7 +43,9 @@ test_content = '\n'.join(['line0', ' \x1b[38;5;124mline1\x1b[0m', 'line2'])
 
 def run_lp(md, raise_on_errs=None):
     dw, fn = d_test(), fn_test()
-    shutil.rmtree(dw, ignore_errors=True)
+    breakpoint()  # FIXME BREAKPOINT
+    # FUCK
+    # shutil.rmtree(dw, ignore_errors=True)
     os.makedirs(dw, exist_ok=True)
     write_file(dw + '/test_content', test_content)
     return LP.run_md_page(md, fn, raise_on_errs=raise_on_errs)

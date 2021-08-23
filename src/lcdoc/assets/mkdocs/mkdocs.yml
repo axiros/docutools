@@ -15,13 +15,13 @@ nav:
       - install.md
   - Features:
       - Darkmode: features/darkmode.md
-      - Plugins: features/plugins.md
       - Mermaid: features/mermaid.md
-      - "Literate Programming": features/literate_programming.md
+      - Literate_Programming: features/literate_programming.md
       - "TermCasts": features/termcasts/index.md
       # :autodocs:
       - "Index": autodocs/index.md
     # :autodocs:
+  - Plugins: plugins/index.md
   - About:
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md
@@ -33,9 +33,10 @@ theme:
     - navigation.instant
     - navigation.top
     - navigation.tabs
+    - navigation.sections
     - navigation.expand
   name: material
-  custom_dir: docs/lcd
+  custom_dir: bar
   icon:
     logo: material/book-open-page-variant
   palette:
@@ -53,6 +54,8 @@ theme:
 markdown_extensions:
   - admonition
   - attr_list # {: style="height: ..."}
+  - footnotes # foo[^1] is ...(start with ^)
+  - meta
   - markdown_include.include
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
@@ -87,25 +90,18 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/AXGKl
-extra_css:
-  - assets/css/xterm.min.css
-  - assets/css/asciinema-player.css
-
-extra_javascript:
-  - assets/javascript/tables.js
-  - assets/javascript/tablesort.min.js
-    # 4.9.0 -> TODO: rename
-  - assets/javascript/Rx.min.js
-  - assets/javascript/xterm.4.9.0.min.js
-  - assets/javascript/xterm-addon-fit.min.js
-  - assets/javascript/xterm-addon-search.min.js
-  - assets/javascript/lc.js
-  - assets/javascript/fa_all.js
-  - assets/javascript/asciinema-player.js
 
 plugins:
   - search
-  - page-tree
+  - lcd-blacklist
+  - lcd-changelog
+  - lcd-credits
+  - lcd-lp
+  - lcd-md-replace
+  - lcd-page-tree
+  - lcd-stats
   - macros:
+      j2_block_start_string: "<%{"
+      j2_block_end_string: "}%>"
       j2_variable_start_string: "<{"
       j2_variable_end_string: "}>"

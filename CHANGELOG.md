@@ -1,21 +1,10 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
-By: gk@axgk (Wed Aug 18 17:33:49 2021)
-Command Line (see duties.py):
+By: gk@axgk (Mon Aug 23 16:46:29 2021)
+Command Line:
 
-    /home/gk/miniconda3/envs/docutools_py37/bin/doc pre_process \
-     --fail_on_blacklisted_words \
-     --patch_mkdocs_filewatch_ign_lp \
-     --gen_theme_link \
-     --gen_last_modify_date \
-     --gen_change_log \
-     --gen_change_log_versioning_stanza=calver \
-     --gen_credits_page \
-     --gen_auto_docs \
-     --lit_prog_evaluation=md \
-     --lit_prog_evaluation_timeout=5 \
-     --lit_prog_on_err_keep_running=false
+    /home/gk/miniconda3/envs/docutools_py37/bin/mkdocs build
 -->
 
 # Changelog
@@ -32,6 +21,8 @@ This project adheres to [CalVer Versioning](http://calver.org) ![](https://img.s
 - Setting have skips when there is only a skip_this ([16083f4](https://github.com/AXGKl/docutools/commit/16083f4279ac93a6e21878144e908bac4ae68a10) by Gunther Klessinger).
 
 ### Features
+- Page tree now completed ([15226b5](https://github.com/AXGKl/docutools/commit/15226b56cd75e99ef898868b84b4ab4b68be835a) by Gunther Klessinger).
+- Breakcrumb (first success) ([7b6c2ab](https://github.com/AXGKl/docutools/commit/7b6c2aba488f212fe4ad69aa3a60e422b8b0f7ed) by Gunther Klessinger).
 - New "make system", first plugin ([c10fb84](https://github.com/AXGKl/docutools/commit/c10fb84addeae211fa3afdc0b5cef37f6909ad7a) by Gunther Klessinger).
 
 

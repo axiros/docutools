@@ -418,6 +418,7 @@ class LP:
                 'fn': fn_lp,
             }
 
+            breakpoint()  # FIXME BREAKPOINT
             lps.append(spec)
         return lps, dest
 
