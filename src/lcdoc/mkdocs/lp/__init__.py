@@ -1,11 +1,16 @@
-from mkdocs.config import config_options
-from ast import literal_eval
+import contextlib
 import json
-from functools import partial
-from lcdoc.mkdocs import markdown
-from lcdoc.mkdocs.tools import MDPlugin, app, link_assets, split_off_fenced_blocks, now
-from lcdoc.tools import dirname, os, project, sys
 import traceback
+from ast import literal_eval
+from functools import partial
+from hashlib import md5
+
+from mkdocs.config import config_options
+
+from lcdoc import lp as lit_prog
+from lcdoc.mkdocs import markdown
+from lcdoc.mkdocs.tools import MDPlugin, app, link_assets, now, split_off_fenced_blocks
+from lcdoc.tools import dirname, os, project, sys
 
 
 def on_config_add_extra_css_and_js(plugin, config):
@@ -37,10 +42,6 @@ def on_config_add_extra_css_and_js(plugin, config):
         app.debug('Added assets', typ=da, count=i, dir=d)
 
 
-from hashlib import md5
-from lcdoc import lp as lit_prog
-
-
 class LP:
     lpnr = 0
     page = None
@@ -68,6 +69,8 @@ class LP:
         LP.page_initted = True
         LP.hash_by_id = {}
         LP.stats = s = LP.page.stats
+        os.environ['DT_DOCU_FILE'] = LP.fn_lp
+        os.environ['DT_DOCU'] = os.path.dirname(LP.fn_lp)
         s['blocks_total'] = 0
         s['blocks_evaled'] = 0
         s['blocks_max_time'] = 0
@@ -186,25 +189,25 @@ class LP:
         ]
         return res
 
-    def run_block(block, fnd, raise_on_errs=None):
+    def run_block(spec, fnd, raise_on_errs=None):
         """
         fnd: '/home/gk/repos/blog/docs/ll/vim/vim.md'
         block.keys: ['nr', 'code', 'lang', 'args', 'kwargs', 'indent', 'source', 'source_id', 'fn']
         """
-        if block['lang'] == 'page':
-            m = {k: v for k, v in block['kwargs'].items() if not k.startswith('skip_')}
+        if spec['lang'] == 'page':
+            m = {k: v for k, v in spec['kwargs'].items() if not k.startswith('skip_')}
             LP.page_level_headers.update(m)
             return ''
         cmd, kw = '', ''
         try:
-            args, kw = block['args'], block['kwargs']
+            args, kw = spec['args'], spec['kwargs']
             if args == LP.header_parse_err:
                 raise Exception(
                     '%s %s %s. Failed header: "%s"'
                     % (args, kw[LP.py_err], kw[LP.easy_args_err], kw['header'])
                 )
             # filter comments:
-            cmd = '\n'.join([l for l in block['code'] if not l.startswith('# ')])
+            cmd = '\n'.join([l for l in spec['code'] if not l.startswith('# ')])
             j = cmd.strip()
             if j and (j[0] + j[-1]) in ('[]', '{}'):
                 try:
@@ -223,14 +226,14 @@ class LP:
             for k, v in LP.page_level_headers.items():
                 if not k in kw:
                     kw[k] = v
-            kw['lang'] = block.get('lang')
-            kw['sourceblock'] = block.get('source')
+            kw['lang'] = spec.get('lang')
+            kw['sourceblock'] = spec.get('source')
             # S.lp_stepmode and LP.confirm('Before running', page=fnd, cmd=cmd, **kw)
             run_lp = partial(lit_prog.run, fn_doc=fnd)
             kw['timeout'] = kw.get('timeout', LP.lp_evaluation_timeout)
             stats = LP.stats
             stats['blocks_total'] += 1
-            id = '<!-- id: %(source_id)s -->' % block
+            id = '<!-- id: %(source_id)s -->' % spec
             res = None
 
             # if kw.get('skip_this'):
@@ -267,6 +270,7 @@ class LP:
             if raise_on_errs:
                 raise
             if not LP.lp_on_err_keep_running:
+                breakpoint()  # FIXME BREAKPOINT
                 app.die('Could not eval', exc=e)
             if LP.interrupted in str(e):
                 app.die('Unconfirmed')
@@ -275,7 +279,7 @@ class LP:
         LP.lp_stepmode and LP.confirm(
             'After running', page=fnd, cmd=cmd, json=res.splitlines()
         )
-        ind = block.get('indent')
+        ind = spec.get('indent')
         if ind:
             res = ('\n' + res).replace('\n', '\n' + ind)
         return res
@@ -303,9 +307,6 @@ class LP:
         if i == 'b':
             print('Entering pdb...')
             return breakpoint()
-
-
-import contextlib
 
 
 class LPPlugin(MDPlugin):

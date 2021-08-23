@@ -45,23 +45,32 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
     while lines:
         l = lines.pop(0)
         ls = l.lstrip()
-        if not ls.startswith(fcb) or not fc_crit(ls):
+        if not ls.startswith(fcb):
             mds[-1].append(l)
+            continue
+        beg = (' ' * (len(l) - len(l.lstrip()))) + fcb
+        if not fc_crit(ls):
+            # an fc but crit is not met (e.g. not lp) -> ignore all till closed:
+            while lines:
+                mds[-1].append(l)
+                l = lines.pop(0)
+                if l.startswith(beg):
+                    mds[-1].append(l)
+                    break
             continue
 
         fc = []
         mds.append([])
-        beg = (' ' * (len(l) - len(l.lstrip()))) + fcb
         fc.append(l)
         while lines:
             l = lines.pop(0)
             fc.append(l)
             if l.startswith(beg):
                 break
-        if not lines:
-            msg = 'Closing fenced block. Your markdown will not be correctly rendered'
-            app.warn(msg, block=fc)
-            fc.append(beg)
+            elif not lines:
+                msg = 'Closing fenced block. Your markdown will not be correctly rendered'
+                app.warning(msg, block=fc)
+                lines.append(beg)
         if fc_process:
             fc = fc_process(fc)
         fcs.append(fc)
