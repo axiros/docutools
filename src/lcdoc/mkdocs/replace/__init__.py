@@ -1,0 +1,155 @@
+"""
+## Markdown Replace
+
+Allows to add replacements into the markdown source, which are replaced by values given
+by a python module.
+
+The python module (default is: docs/mdreplace.py) must have a table attribute, either
+dict or callable.
+
+When callable it will be called with the mkdocs config and it must replace a dict with
+replacements.
+
+
+### Features
+
+- The replace values can themselves be callable, and if so, are called at replacement
+  time with contextual information: 
+
+  ```python
+    replace(
+                mdblock=md,
+                plugin=self,
+                plugin_file=__file__,
+                config=config,
+                page=page,
+                markdown=markdown,
+            )
+  ```
+
+- If the callable does not require kw args (e.g. time.ctime) we will not pass them
+
+- If the replace values are lists (also as returned by the callable), they will be
+  properly indented as multiline text.
+
+- fenced blocks are omitted
+
+### Config
+
+- `seperator`: ':' by default.  
+    Example: `':curtime:'`, for `{"cur_time": time.ctime}` based replacements.
+- `replacement_file`: when not starting with '/' we'll prefix with docs_dir. Default: "mdreplace.py"
+"""
+
+
+import importlib
+
+from mkdocs.config import config_options
+
+from lcdoc.mkdocs.tools import MDPlugin, app, split_off_fenced_blocks
+from lcdoc.tools import exists, now, os, read_file, sys
+
+fn_ts = [0]
+last_check = [0]
+
+
+def load_replacement_file(plugin, config):
+    fn = plugin.config['replacement_file']
+    if now() - last_check[0] < 2:
+        return
+    try:
+        fnmod = fn.rsplit('.py', 1)[0]
+        if not fn[0] == '/':
+            fn = config['docs_dir'] + '/' + fn
+        if fn_ts[0] and os.stat(fn)[7] != fn_ts[0]:
+            app.info('Change detected - reloading', fn=fn)
+            # cannot reload - have to exec second time. No breaks work then with linenr
+            s = read_file(fn)
+            m = {}
+            exec(s, globals(), m)
+            table = m.get('table')
+        elif plugin.table:
+            return
+        else:
+            app.info('Loading replacement file', fn=fn)
+            if not exists(fn):
+                app.warn('Cannot replace, no lookup file found', fn=fn)
+            sys.path.append(os.path.dirname(fn))
+            mod = importlib.import_module(fnmod)
+            table = getattr(mod, 'table', None)
+        fn_ts[0] = os.stat(fn)[7]
+        if not table:
+            app.warn(
+                'Replacement mod requires table attribute', fn=fn, err='no md-replace'
+            )
+            plugin.table = {}
+            return
+        d = table(config) if callable(table) else table
+        s = plugin.config['seperator']
+        l = lambda v: v.splitlines() if isinstance(v, str) and '\n' in v else v
+        plugin.table = dict([('%s%s%s' % (s, k, s), l(v)) for k, v in d.items()])
+    except Exception as ex:
+        app.warning('replacement table load error', exc=ex)
+        plugin.table = {}
+
+
+def replace(**kw):
+    r = []
+    t = kw['plugin'].table
+    mdlines = kw['mdblock']
+    stats = kw['page'].stats
+    stats['total'] = 0
+    while mdlines:
+        l = mdlines.pop(0)
+        # if 'plugin_do' in str(l): breakpoint()  # FIXME BREAKPOINT
+        for k in t:
+            if not k in l:
+                continue
+            stats['total'] += 1
+            v = t[k]
+            if callable(v):
+                stats['func'] = stats.get('func', 0) + 1
+                try:
+                    v = v(line=l, **kw)
+                except:
+                    v = v()  # simple funcs like time.ctime
+            if isinstance(v, list):
+                stats['multiline'] = stats.get('multiline', 0) + 1
+                ind = ' ' * len(l.split(k, 1)[0])
+                v = ind.join([i for i in v])
+            l = l.replace(k, v)
+        r.append(l)
+    return '\n'.join(r)
+
+
+class MDReplacePlugin(MDPlugin):
+    table = None
+    fn_replace = None
+    fn_replace_ts = None
+
+    config_scheme = (
+        ('seperator', config_options.Type(str, default=':')),
+        ('replacement_file', config_options.Type(str, default='mdreplace.py')),
+    )
+
+    def on_pre_build(self, config):
+        load_replacement_file(self, config)
+
+    def on_page_markdown(self, markdown, page, config, files):
+        # hot reload feature:
+        load_replacement_file(self, config)
+        # if 'features' in page.url: breakpoint()  # FIXME BREAKPOINT
+        mds, fcs = split_off_fenced_blocks(markdown)
+        MD = ''
+        for md in mds:
+            MD += replace(
+                mdblock=md,
+                plugin=self,
+                plugin_file=__file__,
+                config=config,
+                page=page,
+                markdown=markdown,
+            )
+            if fcs:
+                MD += '\n' + '\n'.join(fcs.pop(0)) + '\n'
+        return MD
