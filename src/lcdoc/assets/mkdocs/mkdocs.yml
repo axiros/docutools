@@ -36,7 +36,7 @@ theme:
     - navigation.sections
     - navigation.expand
   name: material
-  custom_dir: bar
+  #custom_dir: <yours>
   icon:
     logo: material/book-open-page-variant
   palette:

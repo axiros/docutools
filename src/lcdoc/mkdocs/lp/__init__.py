@@ -305,6 +305,9 @@ class LP:
             return breakpoint()
 
 
+import contextlib
+
+
 class LPPlugin(MDPlugin):
     config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
 
@@ -321,7 +324,8 @@ class LPPlugin(MDPlugin):
         )
         if not lp_blocks:
             return
-        blocks = LP.run_blocks(lp_blocks)
+        with contextlib.redirect_stdout(sys.stderr):
+            blocks = LP.run_blocks(lp_blocks)
 
         MD = ''
         for md in mds:

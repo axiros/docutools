@@ -10,24 +10,37 @@ Intended for piping into / consolidation with [jq](https://stedolan.github.io/jq
     config_scheme = (('round_digits', config_options.Type(int, default=4)),)
 
 """
-from lcdoc.const import Stats, LogStats, PageStats
-from mkdocs.config import config_options
-from lcdoc.mkdocs.tools import MDPlugin, app
 import json
+
+from mkdocs.config import config_options
+
+from lcdoc.const import LogStats, PageStats, Stats
+from lcdoc.mkdocs.tools import MDPlugin, app
 
 
 class StatsPlugin(MDPlugin):
-    config_scheme = (('round_digits', config_options.Type(int, default=4)),)
+    config_scheme = (
+        ('round_digits', config_options.Type(int, default=4)),
+        ('filter_0', config_options.Type(bool, default=True)),
+    )
 
     def on_post_build(self, config):
         from lcdoc.tools import flatten
 
         rd = self.config['round_digits']
+        filter_0 = self.config['filter_0']
 
         s = {'Global': Stats, 'Pages': PageStats, 'Log': LogStats}
         s = flatten(s, sep='.', tpljoin='')
-        for k, v in s.items():
-            if type(v) == float:
-                s[k] = round(v, rd)
+        if rd:
+            r = lambda v: round(v, rd) if type(v) == float else v
+            s = dict([(k, r(v)) for k, v in s.items()])
+        l = len(s)
+        if filter_0:
+            s = dict(filter(lambda x: x[1] != 0, s.items()))
+        f = l - len(s)
+        if f:
+            s['Filtered_0s'] = f
+
         app.info('Collected Stats', hint='pipe into jq to format / consolidate')
         print(json.dumps(s))
