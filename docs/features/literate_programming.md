@@ -340,7 +340,7 @@ In non session mode the executing process is a child of the process in which the
 
 Via a flag you can instruct `doc pre_process` to enter an interactive mode:
 
-```bash lp fmt=xt_flat assert=step_mode
+```bash fmt=xt_flat assert=step_mode
 doc pp -hf lit_prog
 ```
 
@@ -486,14 +486,14 @@ Example:
 
 If you want to work with/generate assets relative to your docu, these should be practical: 
 
-```bash lp fmt=xt_flat assert=DT_DOCU_FILE and DT_PROJECT_ROOT and DT_DOCU and docutools
-env | grep DT_
+```bash lp fmt=xt_flat assert=LP_DOCU_FILE and LP_PROJECT_ROOT and LP_DOCU and docutools
+env | grep LP_
 ```
 These are also put into new tmux sessions (at `new_session`):
 
-<!-- grep colorizes the match, can only match on DT_ -->
-```bash lp fmt=xt_flat new_session=dt_test assert=DT_ and DOCU_FILE and PROJECT_ROOT and DOCU and docutools
-env | grep DT_
+<!-- grep colorizes the match, can only match on LP_ -->
+```bash lp fmt=xt_flat new_session=dt_test assert=LP_ and DOCU_FILE and PROJECT_ROOT and DOCU and docutools
+env | grep LP_
 env | grep TMUX
 ```
 

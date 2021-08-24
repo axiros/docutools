@@ -182,8 +182,8 @@ class LP:
         """
         LP.page_level_headers.clear()
         if os.path.exists(fn_lp):
-            os.environ['DT_DOCU'] = os.path.dirname(fn_lp)
-            os.environ['DT_DOCU_FILE'] = fn_lp
+            os.environ['LP_DOCU'] = os.path.dirname(fn_lp)
+            os.environ['LP_DOCU_FILE'] = fn_lp
         S.cur_fn_lp = fn_lp
         lp_blocks, dest = LP.extract_lp_blocks(md=md, fn_lp=fn_lp)
         have_skips = LP.handle_skips(lp_blocks)

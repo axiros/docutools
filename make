@@ -72,27 +72,10 @@ function coverage {
 }
 
 function docs {
-    docs_regen
-    sh mkdocs build
-}
-
-function docs_regen {
-    sh doc pre_process \
-        --fail_on_blacklisted_words \
-        --patch_mkdocs_filewatch_ign_lp \
-        --gen_theme_link \
-        --gen_last_modify_date \
-        --gen_change_log \
-        --gen_change_log_versioning_stanza="${versioning:-calver}" \
-        --gen_credits_page \
-        --gen_auto_docs \
-        --lit_prog_evaluation="${lit_prog_eval_match:-md}" \
-        --lit_prog_evaluation_timeout="${lit_prog_eval_match:-5}" \
-        --lit_prog_on_err_keep_running=false || exit 1 # fail build on error
+    sh mkdocs build "$@"
 }
 
 function docs_serve {
-    docs_regen
     sh mkdocs serve
 }
 

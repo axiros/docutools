@@ -65,23 +65,23 @@ from io import StringIO
 
 import pycond
 
-I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
+I = lambda s: s if not sys.stdout.isatty() else "\x1b[1;32m%s\x1b[0m" % s
 
 env = os.environ
 wait = time.sleep
 now = time.time
 exists = os.path.exists
-user = env['USER']
-d_cache = '/tmp/lp_py_cache_files_%s/' % user
-env['PATH'] = 'bin:%s' % env.get('PATH', '')
+user = env["USER"]
+d_cache = "/tmp/lp_py_cache_files_%s/" % user
+env["PATH"] = "bin:%s" % env.get("PATH", "")
 
 cfg = {}
-mk_console = '''
+mk_console = """
 ```%(lang)s
 %(cmd)s
 %(res)s
 ```
-'''
+"""
 
 
 def check_assert(ass, res):
@@ -90,17 +90,17 @@ def check_assert(ass, res):
         return
     s = str(res)
     is_pycond = False
-    if isinstance(ass, str) and ' and ' in ass or ' or ' in ass:
+    if isinstance(ass, str) and " and " in ass or " or " in ass:
         is_pycond = True
-    elif isinstance(ass, list) and ass[1] in {'and', 'or'}:
+    elif isinstance(ass, list) and ass[1] in {"and", "or"}:
         is_pycond = True
     if is_pycond:
 
         def f(k, v, state, **kw):
-            return (k in state['res'], v)
+            return (k in state["res"], v)
 
         r = pycond.pycond(ass, f)
-        a = r(state={'res': s})
+        a = r(state={"res": s})
         if not a:
             raise Exception(msg % (ass, s))
         return
@@ -132,7 +132,7 @@ def check_assert(ass, res):
 # '''
 
 
-mk_cmd_out = '''
+mk_cmd_out = """
 
 === "Cmd"
     
@@ -144,11 +144,11 @@ mk_cmd_out = '''
 
     %(ress)s
 
-'''
+"""
 
 
 class mk_cmd_out_fetch:
-    org = '''
+    org = """
 
 
 #+begin_tab:Command
@@ -168,24 +168,24 @@ class mk_cmd_out_fetch:
 
 #+end_tab:Output
 
-'''
+"""
     mkdocs = mk_cmd_out
 
 
-xt_flat = '''
+xt_flat = """
 <xterm %(root)s/>
 
     %(ress)s
 
-'''
+"""
 
-xt_flat_fetch = '''
+xt_flat_fetch = """
     <xterm />
 
          remote_content
 
     ![](%(fn_frm)s)
-'''
+"""
 
 
 # xt_flat_fetch_test = """
@@ -208,7 +208,7 @@ xt_flat_fetch = '''
 ##+end_tab:foo
 
 
-dflt_fmt = 'mk_cmd_out'
+dflt_fmt = "mk_cmd_out"
 aliases = {}
 to_list = lambda s: s if isinstance(s, list) else [s]
 
@@ -217,153 +217,153 @@ last_ansi_file = [None]
 
 
 def repl_dollar_var_with_env_val(s, die_on_fail=True):
-    if not '$' in s:
+    if not "$" in s:
         return s
     for k in env:
         if k in s:
-            s = s.replace('$' + k, env[k])
-    if '$' in s:
-        print('Not defined in environ: $%s' % s)
+            s = s.replace("$" + k, env[k])
+    if "$" in s:
+        print("Not defined in environ: $%s" % s)
     return s
 
 
 def spresc(cmd):
     """subprocess run - with escape sequences escaped (for tmux)"""
-    return sprun(cmd.encode('unicode-escape'))
+    return sprun(cmd.encode("unicode-escape"))
 
 
 def sprun(*a, **kw):
     """Running a command as subprocess"""
     if not kw and len(a) == 1:
-        print('', a[0])
+        print("", a[0])
     else:
-        print('', a, kw)  # for the user (also in view messages)
+        print("", a, kw)  # for the user (also in view messages)
     return p(sp.check_output, shell=True, stderr=sp.STDOUT)(*a, **kw)
 
 
 class T:
     def xt_flat(resl, **kw):
-        add_cmd = kw.get('add_cmd', True)
-        root = '' if not kw.get('root') else 'root'
+        add_cmd = kw.get("add_cmd", True)
+        root = "" if not kw.get("root") else "root"
         r = []
         for cr in resl:
-            cmdstr, res = get_cmd(cr), cr.get('res')
+            cmdstr, res = get_cmd(cr), cr.get("res")
             if add_cmd and not cmdstr in res:
-                res = cmdstr + '\n' + res
+                res = cmdstr + "\n" + res
             r.append(res)
-        ress = '\n'.join(r)
-        fetch = kw.get('fetch')
+        ress = "\n".join(r)
+        fetch = kw.get("fetch")
         if fetch:
-            fn_frm = kw['fn_frm'] = file_.write_fetchable(ress, **kw)
+            fn_frm = kw["fn_frm"] = file_.write_fetchable(ress, **kw)
             t = xt_flat_fetch
             ress = t % locals()
         else:
-            ress = ress.replace('\n', '\n    ')
+            ress = ress.replace("\n", "\n    ")
             ress = xt_flat % locals()
         return ress
 
     def mk_cmd_out(res, **kw):
-        root = '' if not kw.get('root') else 'root'
+        root = "" if not kw.get("root") else "root"
 
         def add_prompt(c, r):
             """
             We don't do it since console rendering requires $ or # only for syn hilite
             """
-            c, cmd = (c.get('cmd'), c) if isinstance(c, dict) else (c, {'cmd': c})
+            c, cmd = (c.get("cmd"), c) if isinstance(c, dict) else (c, {"cmd": c})
             if c:
-                p = '#' if root else '$'
-                c = '%s %s' % (p, c)
-                cmt = cmd.get('cmt')
+                p = "#" if root else "$"
+                c = "%s %s" % (p, c)
+                cmt = cmd.get("cmt")
                 if cmt:
                     if len(c) + len(cmt) > 80:
-                        c = '%s # %s:\n%s' % (p, cmt, c)
+                        c = "%s # %s:\n%s" % (p, cmt, c)
                     else:
-                        c = '%s # %s' % (c, cmt)
-            return {'cmdstr': c, 'cmd': cmd, 'res': r}
+                        c = "%s # %s" % (c, cmt)
+            return {"cmdstr": c, "cmd": cmd, "res": r}
 
-        ress = T.xt_flat(res, add_cmd=kw.pop('add_cmd', False), **kw)
-        res = [add_prompt(m.get('cmd'), m['res']) for m in res]
-        if not any([True for m in res if m['cmdstr']]):
+        ress = T.xt_flat(res, add_cmd=kw.pop("add_cmd", False), **kw)
+        res = [add_prompt(m.get("cmd"), m["res"]) for m in res]
+        if not any([True for m in res if m["cmdstr"]]):
             return ress
-        cmds = '\n'.join([r['cmdstr'] for r in res if r.get('cmdstr')])
-        fetch = kw.get('fetch')
+        cmds = "\n".join([r["cmdstr"] for r in res if r.get("cmdstr")])
+        fetch = kw.get("fetch")
         if fetch:
-            t = getattr(mk_cmd_out_fetch, kw['fetched_block_fmt'])
+            t = getattr(mk_cmd_out_fetch, kw["fetched_block_fmt"])
             r = t % locals()
         else:
             # indent one in:
-            cmds = cmds.replace('\n', '\n    ')
-            ress = ress.replace('\n', '\n    ')
+            cmds = cmds.replace("\n", "\n    ")
+            ress = ress.replace("\n", "\n    ")
             r = mk_cmd_out % locals()
         return r
 
     def mk_console(res, root=False, **kw):
         resl = res
         r = []
-        lang = kw.get('lang', 'console')
+        lang = kw.get("lang", "console")
         for res in resl:
-            p = ''
-            if lang in ['bash', 'sh']:
-                p = '# ' if kw.get('root') else '$ '
+            p = ""
+            if lang in ["bash", "sh"]:
+                p = "# " if kw.get("root") else "$ "
             cmd = p + get_cmd(res)
-            res = res['res']
+            res = res["res"]
             # is the command part of the res? then skip print:
-            if cmd.strip() == res.strip().split('\n', 1)[0].strip():
-                cmd = 'SKIP-PRINT-OUT'
+            if cmd.strip() == res.strip().split("\n", 1)[0].strip():
+                cmd = "SKIP-PRINT-OUT"
             r.append(mk_console % locals())
 
-        r = ('\n'.join(r)).splitlines()
-        r = [l for l in r if not 'SKIP-PRINT-OUT' in l]
-        return '\n'.join(r)
+        r = ("\n".join(r)).splitlines()
+        r = [l for l in r if not "SKIP-PRINT-OUT" in l]
+        return "\n".join(r)
 
 
 T.xtf = T.xt_flat
 
 
 def get_cmd(res):
-    cmd = res.get('cmd', '')
+    cmd = res.get("cmd", "")
     return get_cmd(cmd) if isinstance(cmd, dict) else cmd
 
 
 def alias(k, v):
-    aliases[k + ' '] = v + ' '
+    aliases[k + " "] = v + " "
 
 
 def fmt(res, **kw):
     res = to_list(res)
     for c in res:
-        c['res'] = c['res'].replace('\n```', '\n ``')
-        if kw.get('hide_cmd'):
-            c['cmd'] = ''
+        c["res"] = c["res"].replace("\n```", "\n ``")
+        if kw.get("hide_cmd"):
+            c["cmd"] = ""
 
-    fmt = f = kw.get('fmt', dflt_fmt)
+    fmt = f = kw.get("fmt", dflt_fmt)
     fmt = getattr(T, fmt, None)
     if not fmt:
         raise Exception(
-            'Format not found (%s) - have: %s'
-            % (f, [k for k in dir(T) if not k[0] == '_'])
+            "Format not found (%s) - have: %s"
+            % (f, [k for k in dir(T) if not k[0] == "_"])
         )
     return fmt(res, **kw)
 
 
-letters = string.ascii_letters + string.digits + '_'
+letters = string.ascii_letters + string.digits + "_"
 
 
 class cache:
     """result cache, delete files or don't supply for fast execution"""
 
     def fn(cmd, kw):
-        key = kw.get('cache')
+        key = kw.get("cache")
         if not key:
             return
         s = str(cmd)
-        h = hashlib.md5(s.encode('utf-8')).hexdigest()
-        s = s.replace(' ', '_').replace(':', '_')
-        s = ''.join([c for c in s if c in letters])
+        h = hashlib.md5(s.encode("utf-8")).hexdigest()
+        s = s.replace(" ", "_").replace(":", "_")
+        s = "".join([c for c in s if c in letters])
         d = d_cache + key
         os.makedirs(d, exist_ok=True)
-        fn = '%s/%s_%s' % (d, s[:30], h)
-        kw['fn_cache'] = fn
+        fn = "%s/%s_%s" % (d, s[:30], h)
+        kw["fn_cache"] = fn
         return fn
 
     def get(cmd, kw):
@@ -371,20 +371,20 @@ class cache:
         if not fn:
             return
         if exists(fn):
-            with open(fn, 'r') as fd:
+            with open(fn, "r") as fd:
                 return fd.read()
 
     def add(cmd, res, kw):
-        fn = kw.get('fn_cache')
+        fn = kw.get("fn_cache")
         if fn:
-            with open(fn, 'w') as fd:
+            with open(fn, "w") as fd:
                 fd.write(str(res))
 
 
 def init_prompt(n):
     """run before each command"""
     # -R reset terminal state:
-    sprun('tmux send-keys -R -t %s:1' % n)
+    sprun("tmux send-keys -R -t %s:1" % n)
     # if not mode == 'python':
     #     sprun('tmux send-keys -t %s:1 "clear" Enter' % n)
     #     while b'clear' in sprun('tmux capture-pane -ep -t %s:1' % n):
@@ -393,28 +393,28 @@ def init_prompt(n):
     #     pass
     #     # sprun('tmux send-keys -t %s:1 "%s" Enter' % (n, begin_cmd))
 
-    sprun('tmux clear-history -t %s:1' % n)
+    sprun("tmux clear-history -t %s:1" % n)
     sprun("tmux send-keys -t %s:1 '' Enter" % n)
 
 
 def check_inline_lp(cmd, fn_lp):
     if not isinstance(cmd, str):
         return
-    l = cmd.rsplit(' # lp: ', 1)
-    if len(l) == 1 or '\n' in l[1]:
+    l = cmd.rsplit(" # lp: ", 1)
+    if len(l) == 1 or "\n" in l[1]:
         return
     err, res = parse_header_args(l[1], fn_lp=fn_lp)
     if err:
         msg = 'Inline lp construct wrong: %s. Valid e.g.: "ls -lta /etc # lp: '
         msg += 'expect=hosts timeout=10". Got: %s %s'
         raise Exception(msg % (cmd, res[0], res[1]))
-    res[1]['cmd'] = res[1].get('cmd', l[0])
+    res[1]["cmd"] = res[1].get("cmd", l[0])
     return res[1]
 
 
 # ----------------------------------------------------------------------- header parsing
 def cast(v):
-    if v and v[0] in ('{', '['):
+    if v and v[0] in ("{", "["):
         return json.loads(v)
     try:
         return int(v)
@@ -422,26 +422,26 @@ def cast(v):
         try:
             return float(v)
         except:
-            return {'true': True, 'false': False}.get(v, v)
+            return {"true": True, "false": False}.get(v, v)
 
 
 def parse_kw_str(kws, header_kws=None, try_json=True):
     """for kw via cli"""
     header_kws = {} if header_kws is None else header_kws
     if try_json:
-        if kws and kws[0] in ('{', '['):
+        if kws and kws[0] in ("{", "["):
             try:
                 return json.loads(kws)
             except:
                 pass
-    if ', ' in kws:
-        raise Exception('No comma allowed')
+    if ", " in kws:
+        raise Exception("No comma allowed")
     kw = {}
     parts = kws.split()
     kw.update(
         {
             p[0]: cast(p[1])
-            for p in [(k if '=' in k else k + '=true').split('=') for k in parts]
+            for p in [(k if "=" in k else k + "=true").split("=") for k in parts]
         }
     )
     kw = {k: header_kws.get(v, v) for k, v in kw.items()}
@@ -455,11 +455,11 @@ def parse_header_args(header, **ctx):
     - in the plugin code as well, to parse markdown headers
     """
     # ctx['dir_repo'] = ctx['fn_lp'].split('/docs/', 1)[0]
-    ctx['get_args'] = get_args
+    ctx["get_args"] = get_args
 
     try:
         if header.rstrip().endswith('"'):
-            raise Exception('Not tried (apostrophe at end)')
+            raise Exception("Not tried (apostrophe at end)")
         return 0, ((), parse_kw_str(header, ctx, try_json=False))
     except Exception as ex:
         ex1 = ex
@@ -467,10 +467,10 @@ def parse_header_args(header, **ctx):
         # still - we supply only a minimum eval ctx and prevent
         # imports. But still this won't be totally safe.
         # BUT: Hey - we are about to run code *anyway*, this is LP in the end!
-        if not 'import' in header:
+        if not "import" in header:
             try:
-                m = eval('get_args(%s)' % header, ctx, {})
-                return 0, (m['args'], m['kw'])
+                m = eval("get_args(%s)" % header, ctx, {})
+                return 0, (m["args"], m["kw"])
             except Exception as ex:
                 ex2 = ex
         return 1, (ex2, ex1)
@@ -480,7 +480,7 @@ def parse_header_args(header, **ctx):
 class session:
     def get_cwd(session_name):
         res = session.srun_in_tmux('echo "::$(pwd)::"', session_name=session_name)
-        res = res.rsplit('::')[-2]
+        res = res.rsplit("::")[-2]
         assert os.path.exists(res)
         return res
 
@@ -489,20 +489,20 @@ class session:
         Starts tmux if not running and delivers a srun_in_tmux function,
         parametrized for that session.
         """
-        s = '\n' + os.popen('tmux ls').read()
-        if not '\n%s:' % session_name in s:
+        s = "\n" + os.popen("tmux ls").read()
+        if not "\n%s:" % session_name in s:
             # new session:
             s = session_name
             # path is set new. bash (if executing user's shell is fish we'd be screwed)
             sprun('export SHELL=/bin/bash; export p="$PATH"; tmux new -s %s -d' % s)
             dt = []
-            for k in [i for i in env if i[:3] == 'DT_']:
+            for k in [i for i in env if i[:3] == "LP_"]:
                 dt.append('%s="%s"' % (k, env[k]))
-            dt = ' '.join(dt)
+            dt = " ".join(dt)
             a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p" PS1="%(prompt)s" '
             a += "%(dt)s' Enter"
 
-            b = {'prompt': kw.get('prompt', '$ '), 'session': s, 'dt': dt}
+            b = {"prompt": kw.get("prompt", "$ "), "session": s, "dt": dt}
             for i in (1, 2):
                 try:
                     sprun(a % b)
@@ -513,22 +513,22 @@ class session:
                 except Exception as ex:
                     # on new systems it maybe just missing or the user / runner does
                     # not care. Lets do it:
-                    fn = env.get('HOME', '') + '/.tmux.conf'
+                    fn = env.get("HOME", "") + "/.tmux.conf"
                     if not exists(fn) and i == 1:
-                        print('!! Writing %s to set base index to 1 !!' % fn)
-                        r = 'set-option -g base-index 1\nset-window-option '
-                        r += '-g pane-base-index 1\n'
-                        with open(fn, 'w') as fd:
+                        print("!! Writing %s to set base index to 1 !!" % fn)
+                        r = "set-option -g base-index 1\nset-window-option "
+                        r += "-g pane-base-index 1\n"
+                        with open(fn, "w") as fd:
                             fd.write(r)
                         continue
                     # everybody has 1 and its a mess to detect or change
 
-                    msg = 'tmux session start failed. Do you have tmux, configured with'
-                    msg += 'base index 1? 0 is default but will NOT work!!'
+                    msg = "tmux session start failed. Do you have tmux, configured with"
+                    msg += "base index 1? 0 is default but will NOT work!!"
                     raise Exception(msg)
 
             init_prompt(s)
-            if kw.get('root'):
+            if kw.get("root"):
                 sprun('tmux send-keys -t %s "sudo bash" Enter' % s)
                 wait(0.1)
 
@@ -537,12 +537,12 @@ class session:
 
     def srun(cmds, session_name, **kw):
         S = session.get(session_name, **kw)
-        if kw.get('with_paths'):
-            for e in 'PATH', 'PYTHONPATH':
-                S('export %s="%s"' % (e, os.environ.get(e, '')), **kw)
-        res = [{'cmd': cmd, 'res': S(cmd, **kw)} for cmd in to_list(cmds)]
-        res = [i for i in res if not i.get('res') == 'silent']  # sleeps removed
-        if kw.get('kill_session'):
+        if kw.get("with_paths"):
+            for e in "PATH", "PYTHONPATH":
+                S('export %s="%s"' % (e, os.environ.get(e, "")), **kw)
+        res = [{"cmd": cmd, "res": S(cmd, **kw)} for cmd in to_list(cmds)]
+        res = [i for i in res if not i.get("res") == "silent"]  # sleeps removed
+        if kw.get("kill_session"):
             session.kill(session_name)
         return res
 
@@ -551,60 +551,60 @@ class session:
 
         # TODO: clean up
         assert_ = None
-        silent = kw.get('silent')
+        silent = kw.get("silent")
         # undocumented
-        wait_after = kw.get('wait_after')
+        wait_after = kw.get("wait_after")
 
-        c = check_inline_lp(cmd, fn_lp=kw.get('fn_doc'))
+        c = check_inline_lp(cmd, fn_lp=kw.get("fn_doc"))
         if c:
             cmd = c
         if isinstance(cmd, dict):
-            timeout = cmd.get('timeout', timeout)
-            expect = cmd.get('expect', expect)
-            assert_ = cmd.get('asserts') or cmd.get('assert', assert_)
-            silent = cmd.get('silent', silent)
-            wait_after = cmd.get('wait_after', wait_after)
-            cmd = cmd.get('cmd')  # if not given: only produce output
-        if cmd.startswith('wait '):
+            timeout = cmd.get("timeout", timeout)
+            expect = cmd.get("expect", expect)
+            assert_ = cmd.get("asserts") or cmd.get("assert", assert_)
+            silent = cmd.get("silent", silent)
+            wait_after = cmd.get("wait_after", wait_after)
+            cmd = cmd.get("cmd")  # if not given: only produce output
+        if cmd.startswith("wait "):
             time.sleep(float(cmd.split()[1]))
-            return 'silent'
+            return "silent"
 
-        sk = 'send-keys:'
-        if cmd.startswith('send-keys:'):
-            spresc('tmux send-keys -t %s:1 %s' % (n, cmd.split(sk, 1)[1].strip()))
-            return 'silent'
+        sk = "send-keys:"
+        if cmd.startswith("send-keys:"):
+            spresc("tmux send-keys -t %s:1 %s" % (n, cmd.split(sk, 1)[1].strip()))
+            return "silent"
 
-        expect_echo_out_cmd = ''
-        is_multiline = '\n' in cmd
+        expect_echo_out_cmd = ""
+        is_multiline = "\n" in cmd
         if expect is None:
             # we do NOT fail on exit codes, just want to know if the command completed,
             # by scraping the tmux output for a string:
             # if you want the first send set -e
-            sep = '\n' if (is_multiline or ' # ' in cmd) else ';'
+            sep = "\n" if (is_multiline or " # " in cmd) else ";"
             # here docs can't have ';echo -n... at last line:
             # not match on the issuing cmd
-            expect_echo_out_cmd = sep + 'echo -n ax_; echo -n done'
+            expect_echo_out_cmd = sep + "echo -n ax_; echo -n done"
             cmd += expect_echo_out_cmd
-            expect = 'ax_done'
+            expect = "ax_done"
         if expect is False:
-            expectb = b'sollte nie vorkommen, we want timeout'
+            expectb = b"sollte nie vorkommen, we want timeout"
         else:
-            expectb = expect.encode('utf-8')
+            expectb = expect.encode("utf-8")
         if cmd:
             init_prompt(n)
             # send the sequence as hex (-H):
-            seq = ' '.join([hex(ord(b))[2:] for b in cmd])
-            seq += ' a'
+            seq = " ".join([hex(ord(b))[2:] for b in cmd])
+            seq += " a"
             # if is_multiline:
             #     breakpoint()  # FIXME BREAKPOINT
             #     for line in cmd.splitlines():
             #         spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, line))
             # else:
             #     spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
-            print(' cmd to tmux: ', I(cmd))
-            print('\x1b[38;5;250m', end='')
-            spresc('tmux send-keys -t %s:1 -H %s' % (n, seq))
-            print('\x1b[0m', end='')
+            print(" cmd to tmux: ", I(cmd))
+            print("\x1b[38;5;250m", end="")
+            spresc("tmux send-keys -t %s:1 -H %s" % (n, seq))
+            print("\x1b[0m", end="")
 
         t0 = now()
         wait_dt = 0.1
@@ -612,7 +612,7 @@ class session:
         max_wait = 2
 
         while True:
-            res = sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
+            res = sprun("tmux capture-pane -epJS -1000000 -t %s:1" % n)
             if expectb in res:
                 break
             dt = now() - t0
@@ -622,24 +622,24 @@ class session:
                     break
                 raise Exception(
                     'Command %s: Timeout (> %s sec) expecting "%s"'
-                    % (cmd, timeout, expectb.decode('utf-8'))
+                    % (cmd, timeout, expectb.decode("utf-8"))
                 )
 
             if now() - last_msg > 5:
-                print('%ss[%s] Inspect:  tmux att -t %s' % (round(dt, 1), timeout, n))
+                print("%ss[%s] Inspect:  tmux att -t %s" % (round(dt, 1), timeout, n))
                 lst_msg = now()
             wait(wait_dt)  # fast first
             wait_dt = min(timeout / 10.0, max_wait)
             max_wait = min(5, max_wait + 2)
 
-        res = res.decode('utf-8')
+        res = res.decode("utf-8")
         if expect_echo_out_cmd:
             # when expect was given we include it (expect="Ready to accept Connections")
             # expect_echo_out_cmd is empty then
             res = res.split(expect, 1)[0].strip()
             a = expect_echo_out_cmd
-            a = a[1:] if a.startswith('\n') else a  # when \n is the sep we won't see it
-            res = res.replace(a, '')
+            a = a[1:] if a.startswith("\n") else a  # when \n is the sep we won't see it
+            res = res.replace(a, "")
         else:
             # the tmux window contains a lot of white space after the last output when
             # short cmd
@@ -648,12 +648,12 @@ class session:
             time.sleep(float(wait_after))
         check_assert(assert_, res)
 
-        print('----------')
+        print("----------")
         print(res)
-        print('----------')
-        return res if not silent else 'silent'
+        print("----------")
+        return res if not silent else "silent"
 
-    def find_output_range(res, between, ls=b'\n'):
+    def find_output_range(res, between, ls=b"\n"):
         """default: parse out last range in res between begin and end of between"""
         # todo: regex
         pre, post = res.rsplit(between[0], 1)
@@ -664,19 +664,19 @@ class session:
         return r
 
     def kill(session_name):
-        os.system('tmux kill-session -t %s' % session_name)
+        os.system("tmux kill-session -t %s" % session_name)
 
 
 def pb(s):
     try:
-        s = s.decode('utf-8')
+        s = s.decode("utf-8")
     except Exception as ex:
         pass
     print(s)
 
 
 def get_args(*a, **kw):
-    return {'args': a, 'kw': kw}
+    return {"args": a, "kw": kw}
 
 
 def clear_cache():
@@ -688,9 +688,9 @@ def root(cmd, **kw):
 
 
 def flog(*s):
-    with open('/tmp/lpcache_%s' % user, 'a') as fd:
+    with open("/tmp/lpcache_%s" % user, "a") as fd:
         fd.write(str(s))
-        fd.write('\n')
+        fd.write("\n")
 
 
 flog(os.getcwd())
@@ -710,56 +710,56 @@ def within_session_dir(session_name, func):
 class file_:
     def create(kw, session_name=None):
         def f(kw=kw):
-            fn = kw['fn']
-            c = kw['content']
-            if kw.get('replace'):
+            fn = kw["fn"]
+            c = kw["content"]
+            if kw.get("replace"):
                 d = dict(os.environ)
                 d.update(kw)
-                if '%(' in c and ')s' in c:
+                if "%(" in c and ")s" in c:
                     c = c % d
                 else:
                     c = c.format(**d)
 
-            if kw.get('lang') in ('js', 'javascript', 'json'):
+            if kw.get("lang") in ("js", "javascript", "json"):
                 if isinstance(c, (dict, list, tuple)):
                     c = json.dumps(c, indent=4)
-            with open(fn, 'w') as fd:
+            with open(fn, "w") as fd:
                 fd.write(str(c))
-            os.system('chmod %s %s' % (kw.get('chmod', 660), fn))
+            os.system("chmod %s %s" % (kw.get("chmod", 660), fn))
             return file_.show(kw)
 
         return within_session_dir(session_name, f)
 
     def show(kw, session_name=None):
         def f(kw=kw):
-            fn = kw['fn']
-            with open(fn, 'r') as fd:
+            fn = kw["fn"]
+            with open(fn, "r") as fd:
                 c = fd.read()
-            res = {'cmd': 'cat %s' % fn, 'res': c}
-            if kw.get('lang') not in ['sh', 'bash']:
-                res['cmd'] = '$ ' + res['cmd']
+            res = {"cmd": "cat %s" % fn, "res": c}
+            if kw.get("lang") not in ["sh", "bash"]:
+                res["cmd"] = "$ " + res["cmd"]
             return res
 
         return within_session_dir(session_name, f)
 
     def write_fetchable(cont, fetch, **kw):
         """write .ansi XTF files"""
-        d, fn = kw['fn_doc'].rsplit('/', 1)
-        lnk = '/images/%s_%s.ansi' % (fn, fetch)
+        d, fn = kw["fn_doc"].rsplit("/", 1)
+        lnk = "/images/%s_%s.ansi" % (fn, fetch)
         fn = d + lnk
-        if not exists(d + '/images'):
-            os.makedirs(d + '/images')
-        with open(fn, 'w') as fd:
+        if not exists(d + "/images"):
+            os.makedirs(d + "/images")
+        with open(fn, "w") as fd:
             fd.write(rpl(cont, kw))
         last_ansi_file[0] = fn
-        return '.' + lnk
+        return "." + lnk
 
 
 def env_cmds(kw, when):
     cmd = kw.get(when)
     if cmd:
         if os.system(cmd):
-            raise Exception('%s run failed: %s. kw: %s' % (when, cmd, str(kw)))
+            raise Exception("%s run failed: %s. kw: %s" % (when, cmd, str(kw)))
 
 
 def run_as_python(cmd, kw):
@@ -767,11 +767,11 @@ def run_as_python(cmd, kw):
     interpret the command as python:
     no session, lang = python:
     """
-    kw['fmt'] = kw.get('fmt', 'mk_console')
+    kw["fmt"] = kw.get("fmt", "mk_console")
     h = sys.stdout
     # when a breakpoint is in a python block redirection sucks, user wants to debug:
     # TODO: write cmd to a file for better debugging
-    redir = True if not 'breakpoint()' in cmd else False
+    redir = True if not "breakpoint()" in cmd else False
     if redir:
         sys.stdout = StringIO()
     else:
@@ -779,7 +779,7 @@ def run_as_python(cmd, kw):
         print(msg)
         res = msg
     try:
-        exec(cmd, {'ctx': kw})
+        exec(cmd, {"ctx": kw})
     except Exception as ex:
         if redir:
             sys.stdout = h
@@ -789,14 +789,14 @@ def run_as_python(cmd, kw):
             try:
                 res = sys.stdout.getvalue()
             except AttributeError as ex:
-                res = ''  # nothing printed
+                res = ""  # nothing printed
             sys.stdout = h
-    return {'cmd': cmd, 'res': res}
+    return {"cmd": cmd, "res": res}
 
 
 def rpl(s, kw):
-    'global replacement'
-    rpl = kw.get('rpl')
+    "global replacement"
+    rpl = kw.get("rpl")
     if rpl:
         if not isinstance(rpl[0], (list, tuple)):
             rpl = [rpl]
@@ -829,9 +829,9 @@ def multi_line_to_list(cmd):
     """
     if not isinstance(cmd, str):
         return cmd
-    lines = cmd.split('\n')
+    lines = cmd.split("\n")
     # when some lines start with ' ' we send the whole cmd as one string:
-    if any([l for l in lines if l.strip() and l.startswith(' ')]):
+    if any([l for l in lines if l.strip() and l.startswith(" ")]):
         # echo 'foo
         #      bar' > baz
         return cmd
@@ -839,20 +839,20 @@ def multi_line_to_list(cmd):
     while lines:
         l = lines.pop(0)
         r.append(l)
-        while lines and lines[0].startswith('> '):
+        while lines and lines[0].startswith("> "):
             l = lines.pop(0)
-            r[-1] += '\n' + l[2:]
+            r[-1] += "\n" + l[2:]
     return [cmd for cmd in r if cmd.strip()]
 
 
-skipped = '''
+skipped = """
 
 
 ```
 %s
 ```
 
-'''
+"""
 
 
 def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
@@ -865,30 +865,30 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     # when already run before this will be replaced by the result from previous
     # by preproc, before sending here
     # but when we have never produced an .md we add this:
-    if kw.get('skip_this'):
+    if kw.get("skip_this"):
         return skipped % cmd
 
     # in python sigature format assert would be forbidden, so we allow asserts=...
-    assert_ = kw.get('asserts') or kw.get('assert')
-    repl_dollar_var_with_env_vals(kw, 'fn', 'cwd')
+    assert_ = kw.get("asserts") or kw.get("assert")
+    repl_dollar_var_with_env_vals(kw, "fn", "cwd")
     # you could set this to org:
-    kw['fetched_block_fmt'] = kw.get('fetched_block_fmt', 'mkdocs')
+    kw["fetched_block_fmt"] = kw.get("fetched_block_fmt", "mkdocs")
 
-    assert fn_doc, 'fn_doc run argument missing'
-    kw['fn_doc'] = os.path.abspath(fn_doc)
+    assert fn_doc, "fn_doc run argument missing"
+    kw["fn_doc"] = os.path.abspath(fn_doc)
     t0 = now()
     cached = cache.get(cmd, kw)
-    if cached and not nocache and not env.get('disable_lp_cache'):
+    if cached and not nocache and not env.get("disable_lp_cache"):
         return cached
-    env_cmds(kw, 'cmd_prepare')
+    env_cmds(kw, "cmd_prepare")
 
-    cwd = kw.get('cwd')
+    cwd = kw.get("cwd")
     if cwd:
         here = os.getcwd()
         try:
             os.chdir(cwd)
             # so that replace works in make_file:
-            os.environ['PWD'] = cwd
+            os.environ["PWD"] = cwd
         except Exception as ex:
             ex.args += ('dest dir: "%s"' % cwd,)
             raise
@@ -897,37 +897,37 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     # # in python we need tmux session (to start python first):
     # if not kw.get('session') and mode == 'python':
     #     kw['session'] = mode
-    ns = kw.pop('new_session', None)
+    ns = kw.pop("new_session", None)
     if ns in (True, False):
-        msg = 'Variable new_session must be string (the name of a session which is '
-        msg += 'guaranteed a new one)'
+        msg = "Variable new_session must be string (the name of a session which is "
+        msg += "guaranteed a new one)"
         raise Exception(msg)
     if ns:
         session.kill(ns)
-        kw['session'] = ns
-    mode = kw.get('mode')
-    if mode in (None, 'bash', 'ls'):
+        kw["session"] = ns
+    mode = kw.get("mode")
+    if mode in (None, "bash", "ls"):
         cmd = multi_line_to_list(cmd)
 
-    session_name = kw.pop('session', 0)
-    if mode == 'make_file':
-        kw['content'] = cmd
-        kw['fmt'] = kw.get('fmt', 'mk_console')
+    session_name = kw.pop("session", 0)
+    if mode == "make_file":
+        kw["content"] = cmd
+        kw["fmt"] = kw.get("fmt", "mk_console")
         res = file_.create(kw, session_name=session_name)
 
-    elif mode == 'show_file':
-        kw['fmt'] = kw.get('fmt', 'mk_console')
+    elif mode == "show_file":
+        kw["fmt"] = kw.get("fmt", "mk_console")
         res = file_.show(kw, session_name=session_name)
 
     elif session_name:
-        if kw.get('mode'):
-            msg = 'modes are not supported with session (got mode=%(mode)s)'
+        if kw.get("mode"):
+            msg = "modes are not supported with session (got mode=%(mode)s)"
             raise Exception(msg % kw)
         res = session.srun(cmd, session_name=session_name, **kw)
         if cwd:
             os.chdir(here)
 
-    elif mode == 'python':
+    elif mode == "python":
         res = run_as_python(cmd, kw)
 
     else:
@@ -938,58 +938,58 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
         res = []
         for c in cmd:
             c = check_inline_lp(c, fn_lp=fn_doc) or c
-            c1 = c['cmd'] if isinstance(c, dict) else c
+            c1 = c["cmd"] if isinstance(c, dict) else c
             rcmd = c1
-            prompt = '$'
-            if kw.get('root'):
-                rcmd = 'sudo %s' % rcmd
-                rcmd = rcmd.replace(' && ', ' && sudo ')
-                prompt = '#'
+            prompt = "$"
+            if kw.get("root"):
+                rcmd = "sudo %s" % rcmd
+                rcmd = rcmd.replace(" && ", " && sudo ")
+                prompt = "#"
             for k, v in aliases.items():
                 rcmd = rcmd.replace(k, v)
 
             # return sp.check_output(['sudo podman ps -a'], shell=True)
             r = sprun(rcmd)
-            r = r.decode('utf-8').rstrip()
+            r = r.decode("utf-8").rstrip()
             if isinstance(c, dict):
-                check_assert(c.get('assert', c.get('asserts')), r)
-            r = ''.join([prompt, ' ', c1, '\n', r])
+                check_assert(c.get("assert", c.get("asserts")), r)
+            r = "".join([prompt, " ", c1, "\n", r])
             # res = '%s %s\n' % (prompt, cmd) + res
 
-            res.append({'cmd': c1, 'res': r})
+            res.append({"cmd": c1, "res": r})
 
     check_assert(assert_, res)
     # cwd header only for the current block:
     if cwd:
         os.chdir(here)
 
-    if not kw.get('silent'):
+    if not kw.get("silent"):
         res = fmt(res, **kw)
         res = rpl(res, kw)
     else:
-        res = ''
+        res = ""
 
     # only cache slow stuffs:
     # if now() - t0 > dt_cache:
     cache.add(cmd, res, kw)
     last_result[0] = res
 
-    i = int(kw.get('addsrc', 0))
+    i = int(kw.get("addsrc", 0))
     if i:
-        b = '\n' + kw.get('sourceblock', 'n.a.')
+        b = "\n" + kw.get("sourceblock", "n.a.")
         m = {
-            'blocksource1': b.replace('\n', '\n '),
-            'blocksource4': b.replace('\n', '\n    '),
-            'res': res,
-            'res4': ('\n' + res).replace('\n', '\n    '),
+            "blocksource1": b.replace("\n", "\n "),
+            "blocksource4": b.replace("\n", "\n    "),
+            "res": res,
+            "res4": ("\n" + res).replace("\n", "\n    "),
         }
-        f = getattr(BlockSrc, 'fmt_%s' % i, BlockSrc.fmt_1)
+        f = getattr(BlockSrc, "fmt_%s" % i, BlockSrc.fmt_1)
         res = f % m
     return res
 
 
 class BlockSrc:
-    fmt_1 = '''
+    fmt_1 = """
 
 LP Source:
 
@@ -1000,9 +1000,9 @@ LP Source:
 Result: 
 
 %(res)s
-'''
+"""
 
-    fmt_2 = '''
+    fmt_2 = """
 
 === "LP Source"
 
@@ -1013,4 +1013,4 @@ Result:
 === "Result" 
 
     %(res4)s
-'''
+"""

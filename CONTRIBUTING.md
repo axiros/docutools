@@ -4,19 +4,7 @@ Contributions are welcome, and they are greatly appreciated!
 
 ## Tasks
 
-This project uses [Duty](https://github.com/pawamoy/duty) to run tasks.
-A Makefile is also provided. The Makefile will try to run certain tasks
-on multiple Python versions. If for some reason you don't want to run the task
-on multiple Python versions, you can do one of the following:
-
-1. `export PYTHON_VERSIONS= `: this will run the task
-   with only the current Python version
-2. run the task directly with `poetry run duty TASK`,
-   or `duty TASK` if the environment was already activated
-   through `poetry shell`
-
-The Makefile detects if the Poetry environment is activated,
-so `make` will work the same with the virtualenv activated or not.
+Install a development version.
 
 ## Development
 
@@ -27,8 +15,8 @@ As usual:
 
 If you updated the documentation or the project dependencies:
 
-1. run `make docs-regen`
-1. run `make docs-serve`,
+1. `source make`
+1. run `make serve`,
    go to http://localhost:8000 and check that everything looks good
 
 **Before committing:**

@@ -32,14 +32,14 @@ def on_config_add_extra_css_and_js(plugin, config):
           - lp/javascript/asciinema-player.js
     """
 
-    for da in 'css', 'javascript':
+    for da in "css", "javascript":
         i = 0
-        d = plugin.d_assets + '/' + da
-        l = config.setdefault('extra_' + da, [])
+        d = plugin.d_assets + "/" + da
+        l = config.setdefault("extra_" + da, [])
         for a in os.listdir(d):
-            l.append('lcd/lp/%s/%s' % (da, a))
+            l.append("lcd/lp/%s/%s" % (da, a))
             i += 1
-        app.debug('Added assets', typ=da, count=i, dir=d)
+        app.debug("Added assets", typ=da, count=i, dir=d)
 
 
 class LP:
@@ -48,8 +48,8 @@ class LP:
     config = None
     page_initted = False
     ids_by_fn = None
-    lp_evaluation_timeout = 5
-    lp_stepmode = False
+    evaluation_timeout = 5
+    stepmode = False
     lp_on_err_keep_running = False
 
     # fmt:off
@@ -62,6 +62,17 @@ class LP:
     ids_by_fn        = {}
     page_level_headers = {}
     # fmt:on
+    def configure_from_env():
+        for k in [i for i in dir(LP) if not i[0] == "_"]:
+            v = getattr(LP, k)
+            if callable(v):
+                continue
+            ke = "LP_" + k
+            ve = os.environ.get(ke)
+            if ve is not None:
+                ve = lit_prog.cast(ve)
+                app.info("From environ", key=ke, value=ve)
+                setattr(LP, k, ve)
 
     def init_page():
         LP.fn_lp = LP.page.file.abs_src_path
@@ -69,17 +80,17 @@ class LP:
         LP.page_initted = True
         LP.hash_by_id = {}
         LP.stats = s = LP.page.stats
-        os.environ['DT_DOCU_FILE'] = LP.fn_lp
-        os.environ['DT_DOCU'] = os.path.dirname(LP.fn_lp)
-        s['blocks_total'] = 0
-        s['blocks_evaled'] = 0
-        s['blocks_max_time'] = 0
-        s['blocks_longer_2_sec'] = 0
-        s['blocks_longer_10_sec'] = 0
+        os.environ["LP_DOCU_FILE"] = LP.fn_lp
+        os.environ["LP_DOCU"] = os.path.dirname(LP.fn_lp)
+        s["blocks_total"] = 0
+        s["blocks_evaled"] = 0
+        s["blocks_max_time"] = 0
+        s["blocks_longer_2_sec"] = 0
+        s["blocks_longer_10_sec"] = 0
 
     def is_lp_block(header_line):
-        l = header_line.split(' ', 2)
-        return len(l) > 1 and l[1] == 'lp'
+        l = header_line.split(" ", 2)
+        return len(l) > 1 and l[1] == "lp"
 
     def parse_lp_block(lines):
         """
@@ -102,46 +113,46 @@ class LP:
             LP.init_page()
         h = lines[0].rstrip()
         src_header = h.lstrip()
-        lang = src_header.split('```', 1)[1].split(' ', 1)[0]
+        lang = src_header.split("```", 1)[1].split(" ", 1)[0]
         ind = len(h) - len(src_header)
         # for the hash we take the undindent version, i.e. we allow to shift it in /
         # out and still take result from cache:
         source = [l[ind:] for l in lines]
         code = source[1:-1]
-        source = '\n'.join(source)
+        source = "\n".join(source)
         # header goes into hash, could change eval result:
-        id = md5(bytes(source, 'utf-8')).hexdigest()
+        id = md5(bytes(source, "utf-8")).hexdigest()
         reg = LP.hash_by_id
         # eval result of same block could change, sideeffects in other evals in between:
         while id in reg:
-            id += '_'
+            id += "_"
         a, kw = LP.extract_header_args(src_header)
         spec = {
-            'nr': LP.lpnr,
-            'code': code,
-            'lang': lang,
-            'args': a,
-            'kwargs': kw,
-            'indent': ind * ' ',
-            'source': source,
-            'source_id': id,
-            'fn': LP.fn_lp,
+            "nr": LP.lpnr,
+            "code": code,
+            "lang": lang,
+            "args": a,
+            "kwargs": kw,
+            "indent": ind * " ",
+            "source": source,
+            "source_id": id,
+            "fn": LP.fn_lp,
         }
         LP.lpnr += 1
         reg[id] = spec
         return spec
 
     def extract_header_args(lp_header):
-        H = ' '.join(lp_header.split()[2:])
+        H = " ".join(lp_header.split()[2:])
         r = project.root()
-        presets = {'dir_repo': r, 'dir_project': r}  # dir_repo: an alias
+        presets = {"dir_repo": r, "dir_project": r}  # dir_repo: an alias
         err, res = lit_prog.parse_header_args(H, fn_lp=LP.fn_lp, **presets)
         if not err:
             return res
 
         return (
             LP.header_parse_err,
-            {LP.py_err: res[0], LP.easy_args_err: res[1], 'header': H},
+            {LP.py_err: res[0], LP.easy_args_err: res[1], "header": H},
         )
 
     def handle_skips(blocks):
@@ -149,23 +160,23 @@ class LP:
         .md for old results"""
 
         def check_skip_syntax(b):
-            h = ['skip_this', 'skip_other', 'skip_below', 'skip_above']
-            l = [k for k in b['kwargs'].keys() if k.startswith('skip_')]
+            h = ["skip_this", "skip_other", "skip_below", "skip_above"]
+            l = [k for k in b["kwargs"].keys() if k.startswith("skip_")]
             n = [k for k in l if not k in h]
             if n:
-                app.die('Not understood skip statment', unknown=n, allowed=h)
+                app.die("Not understood skip statment", unknown=n, allowed=h)
 
         def skip(b):
-            b['kwargs']['skip_this'] = True
+            b["kwargs"]["skip_this"] = True
 
         for b in blocks:
             check_skip_syntax(b)
-            if b['kwargs'].get('skip_other'):
+            if b["kwargs"].get("skip_other"):
                 for c in blocks:
                     skip(c)
-                b['kwargs'].pop('skip_this')
+                b["kwargs"].pop("skip_this")
                 return True
-            if b['kwargs'].get('skip_below'):
+            if b["kwargs"].get("skip_below"):
                 s = False
                 for c in blocks:
                     if c == b:
@@ -175,55 +186,52 @@ class LP:
                         skip(c)
                 return True
 
-            if b['kwargs'].get('skip_above'):
+            if b["kwargs"].get("skip_above"):
                 for c in blocks:
                     if c == b:
                         return True
                     skip(c)
 
-            if b['kwargs'].get('skip_this'):
+            if b["kwargs"].get("skip_this"):
                 return True
 
     def run_blocks(lp_blocks, raise_on_errs=None):
         have_skips = LP.handle_skips(lp_blocks)
         res = []
-        fnd = LP.fn_lp
-        [
-            res.append(LP.run_block(block, fnd, raise_on_errs=raise_on_errs))
-            for block in lp_blocks
-        ]
+        [res.append(LP.run_block(block)) for block in lp_blocks]
         return res
 
-    def run_block(spec, fnd, raise_on_errs=None):
+    def run_block(spec):
         """
         fnd: '/home/gk/repos/blog/docs/ll/vim/vim.md'
         block.keys: ['nr', 'code', 'lang', 'args', 'kwargs', 'indent', 'source', 'source_id', 'fn']
         """
-        if spec['lang'] == 'page':
-            m = {k: v for k, v in spec['kwargs'].items() if not k.startswith('skip_')}
+        fn_lp = LP.fn_lp
+        if spec["lang"] == "page":
+            m = {k: v for k, v in spec["kwargs"].items() if not k.startswith("skip_")}
             LP.page_level_headers.update(m)
-            return ''
-        cmd, kw = '', ''
+            return ""
+        cmd, kw = "", ""
         try:
-            args, kw = spec['args'], spec['kwargs']
+            args, kw = spec["args"], spec["kwargs"]
             if args == LP.header_parse_err:
                 raise Exception(
                     '%s %s %s. Failed header: "%s"'
-                    % (args, kw[LP.py_err], kw[LP.easy_args_err], kw['header'])
+                    % (args, kw[LP.py_err], kw[LP.easy_args_err], kw["header"])
                 )
             # filter comments:
-            cmd = '\n'.join([l for l in spec['code'] if not l.startswith('# ')])
+            cmd = "\n".join([l for l in spec["code"] if not l.startswith("# ")])
             j = cmd.strip()
-            if j and (j[0] + j[-1]) in ('[]', '{}'):
+            if j and (j[0] + j[-1]) in ("[]", "{}"):
                 try:
                     cmd = literal_eval(cmd)
                 except Exception as exle:
                     try:
                         cmd = json.loads(cmd)
                     except Exception as ex:
-                        ex.args += ('LP: Expression to deserialize was: %s' % cmd,)
+                        ex.args += ("LP: Expression to deserialize was: %s" % cmd,)
                         ex.args += (
-                            'LP: Before json.loads we tried literal eval but got Exception: %s'
+                            "LP: Before json.loads we tried literal eval but got Exception: %s"
                             % exle,
                         )
                         raise
@@ -231,14 +239,14 @@ class LP:
             for k, v in LP.page_level_headers.items():
                 if not k in kw:
                     kw[k] = v
-            kw['lang'] = spec.get('lang')
-            kw['sourceblock'] = spec.get('source')
-            # S.lp_stepmode and LP.confirm('Before running', page=fnd, cmd=cmd, **kw)
-            run_lp = partial(lit_prog.run, fn_doc=fnd)
-            kw['timeout'] = kw.get('timeout', LP.lp_evaluation_timeout)
+            kw["lang"] = spec.get("lang")
+            kw["sourceblock"] = spec.get("source")
+            LP.stepmode and LP.confirm("Before running", page=fn_lp, cmd=cmd, **kw)
+            run_lp = partial(lit_prog.run, fn_doc=fn_lp)
+            kw["timeout"] = kw.get("timeout", LP.evaluation_timeout)
             stats = LP.stats
-            stats['blocks_total'] += 1
-            id = '<!-- id: %(source_id)s -->' % spec
+            stats["blocks_total"] += 1
+            id = "<!-- id: %(source_id)s -->" % spec
             res = None
 
             # if kw.get('skip_this'):
@@ -251,19 +259,19 @@ class LP:
             #         S.stats.blocks_skipped_no_previous_res += 1
 
             if not res:
-                if not kw.get('skip_this'):
-                    stats['blocks_evaled'] += 1
+                if not kw.get("skip_this"):
+                    stats["blocks_evaled"] += 1
                 t0 = now()
                 res = run_lp(cmd, *args, **kw)
                 dt = now() - t0
-                if dt > stats['blocks_max_time']:
-                    stats['blocks_max_time'] = round(dt, 3)
+                if dt > stats["blocks_max_time"]:
+                    stats["blocks_max_time"] = round(dt, 3)
                 if dt > 2:
-                    stats['blocks_longer_2_sec'] += 1
+                    stats["blocks_longer_2_sec"] += 1
                 if dt > 10:
-                    stats['blocks_longer_10_sec'] += 1
+                    stats["blocks_longer_10_sec"] += 1
 
-            res = '%s%s\n%s' % (id, res, id)
+            res = "%s%s\n%s" % (id, res, id)
 
             # inteded for the last block of a big e.g. cluster setup page:
             # sol = block['fn'] in LP.skipped_on_lock
@@ -272,48 +280,47 @@ class LP:
 
         except Exception as e:
             # intended for pytesting lp itself:
-            if raise_on_errs:
-                raise
             if not LP.lp_on_err_keep_running:
                 res = run_lp(cmd, *args, **kw)
-                app.die('Could not eval', exc=e)
+                app.die("Could not eval", exc=e)
             if LP.interrupted in str(e):
-                app.die('Unconfirmed')
-            tb = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
+                app.die("Unconfirmed")
+            tb = "".join(traceback.format_exception(type(e), e, e.__traceback__))
             res = LP.exception(cmd, e, tb, kw=kw)
-        LP.lp_stepmode and LP.confirm(
-            'After running', page=fnd, cmd=cmd, json=res.splitlines()
+        LP.stepmode and LP.confirm(
+            "After running", page=fn_lp, cmd=cmd, json=res.splitlines()
         )
-        ind = spec.get('indent')
+        ind = spec.get("indent")
         if ind:
-            res = ('\n' + res).replace('\n', '\n' + ind)
+            res = ("\n" + res).replace("\n", "\n" + ind)
         return res
 
     def exception(cmd, exc, tb, kw):
-        c = markdown.Mkdocs.py % {'cmd': cmd, 'kw': kw, 'trb': str(tb)}
-        app.error('LP evaluation error', exc=exc)
+        c = markdown.Mkdocs.py % {"cmd": cmd, "kw": kw, "trb": str(tb)}
+        app.error("LP evaluation error", exc=exc)
         if not LP.lp_on_err_keep_running:
             app.die(LP.err_admon, cmd=cmd, lp_file=LP.fn_lp, exc=exc, **kw)
-        return markdown.Mkdocs.admon(LP.err_admon + ': %s' % str(exc), c, 'error')
+        return markdown.Mkdocs.admon(LP.err_admon + ": %s" % str(exc), c, "error")
 
     def confirm(msg, page, cmd, **kw):
         if not sys.stdin.isatty():
-            app.die('Must have stdin in interactive mode')
+            app.die("Must have stdin in interactive mode")
         app.info(msg, page=page, cmd=cmd, **kw)
-        print('b=break to enter a pdb debugging session')
-        print('c=continue to continue non-interactively')
-        i = input('Continue [Y|n/q|b|c]? ').lower()
-        if i in ('n', 'q'):
+        print("b=break to enter a pdb debugging session")
+        print("c=continue to continue non-interactively")
+        i = input("Continue [Y|n/q|b|c]? ").lower()
+        if i in ("n", "q"):
             app.die(LP.interrupted)
-        if i == 'c':
-            app.info('Continuing without break')
+        if i == "c":
+            app.info("Continuing without break")
             LP.lit_prog_evaluation_step_mode = False
             return
-        if i == 'b':
-            print('Entering pdb...')
+        if i == "b":
+            print("Entering pdb...")
             return breakpoint()
 
 
+# ------------------------------------------------------------------------------- Plugin
 class LPPlugin(MDPlugin):
     # config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
 
@@ -321,13 +328,12 @@ class LPPlugin(MDPlugin):
         link_assets(self, __file__, config)
         on_config_add_extra_css_and_js(self, config)
         project.root(config)  # pull root dir from config and caches it
+        LP.configure_from_env()
 
     def on_page_markdown(self, markdown, page, config, files):
         LP.page = page
         LP.config = config
         LP.page_initted = False
-        if page.title == 'foo':
-            breakpoint()  # FIXME BREAKPOINT
         mds, lp_blocks = split_off_fenced_blocks(
             markdown, fc_crit=LP.is_lp_block, fc_process=LP.parse_lp_block
         )
@@ -336,10 +342,10 @@ class LPPlugin(MDPlugin):
         with contextlib.redirect_stdout(sys.stderr):
             blocks = LP.run_blocks(lp_blocks)
 
-        MD = ''
+        MD = ""
         for md in mds:
-            MD += '\n'.join(md)
+            MD += "\n".join(md)
             if blocks:
                 res = blocks.pop(0)
-                MD += '\n' + res + '\n'
+                MD += "\n" + res + "\n"
         return MD
