@@ -1,6 +1,5 @@
 """
-Contains all required to drop the devapp dependency.
-
+Common tools for all modules
 
 """
 import json
@@ -51,7 +50,6 @@ def read_file(fn, dflt=None, bytes=-1, strip_comments=False):
 
 def write_file(fn, s, log=0, mkdir=0, chmod=None, mode='w'):
     'API: Write a file. chmod e.g. 0o755 (as octal integer)'
-    from devapp.app import app
 
     fn = os.path.abspath(fn)
 

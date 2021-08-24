@@ -2,7 +2,7 @@ site_name: "docutools"
 site_description: "Documentation Building Tools"
 site_url: "http://github.pages.com/docutools"
 repo_url: "https://github.com/name/docutools"
-repo_name: "devapps/docutools"
+repo_name: "docutools"
 edit_uri: edit/master/docs
 
 copyright: |

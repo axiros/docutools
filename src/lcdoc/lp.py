@@ -51,7 +51,6 @@ root([
 #+END_SRC
 
 
-You can invoke the methods also from here, via __main__
 """
 
 import hashlib
@@ -267,7 +266,9 @@ class T:
         root = '' if not kw.get('root') else 'root'
 
         def add_prompt(c, r):
-            """We don't do it since console rendering requires $ or # only for syn hilite"""
+            """
+            We don't do it since console rendering requires $ or # only for syn hilite
+            """
             c, cmd = (c.get('cmd'), c) if isinstance(c, dict) else (c, {'cmd': c})
             if c:
                 p = '#' if root else '$'
@@ -404,10 +405,9 @@ def check_inline_lp(cmd, fn_lp):
         return
     err, res = parse_header_args(l[1], fn_lp=fn_lp)
     if err:
-        raise Exception(
-            'Inline lp construct wrong: %s. Valid e.g.: "ls -lta /etc # lp: expect=hosts timeout=10". Got: %s %s'
-            % (cmd, res[0], res[1])
-        )
+        msg = 'Inline lp construct wrong: %s. Valid e.g.: "ls -lta /etc # lp: '
+        msg += 'expect=hosts timeout=10". Got: %s %s'
+        raise Exception(msg % (cmd, res[0], res[1]))
     res[1]['cmd'] = res[1].get('cmd', l[0])
     return res[1]
 
@@ -456,8 +456,6 @@ def parse_header_args(header, **ctx):
     """
     # ctx['dir_repo'] = ctx['fn_lp'].split('/docs/', 1)[0]
     ctx['get_args'] = get_args
-
-    # the only function from devapp. For standalone you'd need to supply it:
 
     try:
         if header.rstrip().endswith('"'):
