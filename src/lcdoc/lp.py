@@ -416,9 +416,11 @@ def check_inline_lp(cmd, fn_lp):
 
 def parse_header_args(header, **ctx):
     """Parsing either python or easy format
-    CAUTION: This is used in doc.pre_process as well, to parse markdown headers
+    CAUTION: This is used
+    - caused here, to parse inline headers ( # lp: ....)
+    - in the plugin code as well, to parse markdown headers
     """
-    ctx['dir_repo'] = ctx['fn_lp'].split('/docs/', 1)[0]
+    # ctx['dir_repo'] = ctx['fn_lp'].split('/docs/', 1)[0]
     ctx['get_args'] = get_args
 
     # the only function from devapp. For standalone you'd need to supply it:

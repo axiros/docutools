@@ -148,43 +148,7 @@ class project:
         finally:
             c[0] = ret
 
-    fn_resources = lambda: project.root() + '/.resources.json'
-
     fn_config = lambda: project.root() + '/pyproject.toml'
-
-    def read_resources(filename=None):
-        fn = filename or project.fn_resources()
-        s = read_file(fn, dflt='')
-        s = json.loads(s) if s else {}
-        if s:
-            app.log('loaded resources', filename=fn)
-        project.resources = s
-        return s
-
-    def write_resources(rsc, filename=None):
-
-        fn = filename or project.fn_resources()
-        with open(fn, 'w') as fd:
-            fd.write(json.dumps(rsc, indent=4))
-        app.info('have written resources file', filename=fn)
-
-    def get_present_resource(rsc, _have={}):
-
-        if rsc in _have:
-            return _have[rsc]
-        r = project.read_resources()
-        r = [i for i in r if i['name'] == rsc]
-        if len(r) == 1 and r[0].get('installed'):
-            _have[rsc] = r[0]
-            return r[0]
-        app.warning('Missing resource', resource=rsc)
-        _have[rsc] = None
-
-    def get_present_resource_location(rsc):
-        r = project.get_present_resource(rsc)
-        if r:
-            r = r.get('installed')
-            return r
 
     # TODO: understand also poetry and piptools:
     def load_config():

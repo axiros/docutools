@@ -12,43 +12,53 @@ import time
 import unittest
 
 import pytest
-from devapp.app import init_app_parse_flags
+
+from lcdoc.mkdocs.lp import LP, LPPlugin, split_off_fenced_blocks
+from lcdoc.mkdocs.markdown import deindent
 
 # from lcdoc.py_test.auto_docs import gen_mod_doc, wrap_funcs_for_call_flow_docs
-from devapp.tools import define_flags, deindent, exists, project, read_file, write_file
+from lcdoc.tools import dirname, exists, project, read_file, write_file
 
-import lcdoc.call_flow_logging as cfl
-from lcdoc import lp
-from lcdoc.auto_docs import mod_doc
-from lcdoc.plugins.doc_lcdoc.pre_process import FLG, LP, Flags
+# import lcdoc.call_flow_logging as cfl
 
-define_flags(Flags)
-init_app_parse_flags('pytest')
 # just for reference, the unwrapped original:
 # orig_gen_markdown = make_badges.gen_markdown
 # first_test_was_run = []
 
-D = deindent
 now = time.time
+
+# set (and cache) hard, we are in <root>/tests:
+project.root(root=dirname(dirname(__file__)))
 
 
 def d_test():
-    r = project.root() + '/tmp/lp_tests'
-    return r
+    return project.root() + '/tmp/lp_tests'
 
 
-fn_test = lambda: d_test() + '/test.md.lp'
+fn_test = lambda: d_test() + '/test.md'
 test_content = '\n'.join(['line0', ' \x1b[38;5;124mline1\x1b[0m', 'line2'])
 
 
+plugin = LPPlugin()
+
+
+def run_md_page(md, fn, raise_on_errs):
+    rmd = plugin.on_page_markdown(md, page=mock_page(fn), config={}, files=[])
+    return rmd
+
+
 def run_lp(md, raise_on_errs=None):
-    dw, fn = d_test(), fn_test()
-    breakpoint()  # FIXME BREAKPOINT
-    # FUCK
-    # shutil.rmtree(dw, ignore_errors=True)
-    os.makedirs(dw, exist_ok=True)
-    write_file(dw + '/test_content', test_content)
-    return LP.run_md_page(md, fn, raise_on_errs=raise_on_errs)
+    old = LP.lp_on_err_keep_running
+    LP.lp_on_err_keep_running = not (raise_on_errs)
+    try:
+        dw, fn = d_test(), fn_test()
+        assert '/tmp/' in dw  # safety measure
+        shutil.rmtree(dw, ignore_errors=True)
+        os.makedirs(dw, exist_ok=True)
+        write_file(dw + '/test_content', test_content)
+        return run_md_page(md, fn, raise_on_errs=raise_on_errs)
+    finally:
+        LP.lp_on_err_keep_running = old
 
 
 def err_msg(l, res):
@@ -79,11 +89,33 @@ def check_lines_in(res, *blocks):
                     sys.exit(1)
 
 
+class Page:
+    url = 'tests/'
+    title = 'test_lp'
+
+    class file:
+        abs_src_path = None
+
+
+def mock_page(fn):
+    """mock for the mkdocs page object. We need only this in prod code:"""
+    p = Page
+    # being set by the lcd hook decorator:
+    p.stats = {}
+    p.file.abs_src_path = fn
+    LP.page = p
+    LP.init_page()
+    return p
+
+
 class extract(unittest.TestCase):
     'Detecting LP blocks in Markdown'
 
     def extract(md):
-        r = LP.extract_lp_blocks(md=D(md), fn_lp=__file__)
+        mock_page(__file__)
+        r = split_off_fenced_blocks(
+            deindent(md), fc_crit=LP.is_lp_block, fc_process=LP.parse_lp_block
+        )
         return r
 
     # the test md, where we play with the header of the first LP block:
@@ -114,32 +146,34 @@ class extract(unittest.TestCase):
     def check_norm(cls, header):
 
         h = cls.gen_md(header)
-        spec, dest = cls.extract(h)
-        assert dest == [
-            'hi',
-            'LP_PH: 0.',
-            'there',
-            '',
-            'no lp code:',
-            '```py k lp',
-            '',
-            '# also not since in other one:',
-            '```py lp',
-            'outer non lp closes here:',
-            '```',
-            'second lp one, indented, ok:',
-            '',
-            'LP_PH: 1.',
+        mds, specs = cls.extract(h)
+        assert mds == [
+            ['hi'],
+            [
+                'there',
+                '',
+                'no lp code:',
+                '```py k lp',
+                '',
+                '# also not since in other one:',
+                '```py lp',
+                'outer non lp closes here:',
+                '```',
+                'second lp one, indented, ok:',
+                '',
+            ],
+            [],
         ]
-        # all blocks
-        assert isinstance(spec, list)
-        # would indent the result like the original lp block:
-        assert spec[1]['indent'] == '   '
-        assert spec[1]['code'] == [' second lp code']
-        assert spec[1]['lang'] == 'foo'
-        assert spec[1]['nr'] == 1
 
-        spec = spec[0]
+        # all blocks
+        assert isinstance(specs, list)
+        # would indent the result like the original lp block:
+        assert specs[1]['indent'] == '   '
+        assert specs[1]['code'] == [' second lp code']
+        assert specs[1]['lang'] == 'foo'
+        assert specs[1]['nr'] == 1
+
+        spec = specs[0]
         assert spec['code'] == ['foo = bar']
         assert spec['indent'] == ''
         assert spec['lang'] == 'js'
@@ -431,6 +465,17 @@ class embedded_sessions(unittest.TestCase):
         assert len(res.split('$ sleep 5')) == 2
 
     def test_assert_pycond(self):
+
+        md1 = '''
+
+        ```bash lp session='test1', asserts='[bar and not foo]'
+        ['echo foo', {'cmd': 'echo bar'}]
+        ```
+        '''
+
+        with pytest.raises(Exception, match='foo'):
+            res = run_lp(md1, raise_on_errs=True)
+
         md1 = '''
 
         ```bash lp session='test1', asserts='bar and foo'
@@ -456,15 +501,6 @@ class embedded_sessions(unittest.TestCase):
         '''
         res = run_lp(md1)
         check_lines_in(res, out)
-        md1 = '''
-
-        ```bash lp session='test1', asserts='[bar and not foo]'
-        ['echo foo', {'cmd': 'echo bar'}]
-        ```
-        '''
-
-        with pytest.raises(Exception, match='foo'):
-            res = run_lp(md1, raise_on_errs=True)
 
     def test_assert_inline(self):
         """Use the documentation tool as a little test framework"""
@@ -717,9 +753,10 @@ class header_args(unittest.TestCase):
             ```
             '''
         d = project.root()
-        fn = d + '/docs/foo.md.lp'
-        b = LP.extract_lp_blocks(md, fn_lp=fn)
-        assert b[0][0]['kwargs'] == {'bar': d, 'foo': d}
+        fn = d + '/docs/foo.md'
+        mds, lps = extract.extract(md)
+        mock_page(fn)
+        assert lps[0]['kwargs'] == {'bar': d, 'foo': d}
 
 
 class state(unittest.TestCase):
@@ -804,7 +841,7 @@ class fetched_mk_cmd_out(unittest.TestCase):
                 s.endswith(test_content)
 
 
-extr_head = lambda h: LP.extract_header_args(h, 'x')[1]
+extr_head = lambda h: mock_page('x') and LP.extract_header_args(h)[1]
 
 
 class headers_easy(unittest.TestCase):

@@ -79,7 +79,7 @@ class LP:
 
     def is_lp_block(header_line):
         l = header_line.split(' ', 2)
-        return len(l) == 3 and l[1] == 'lp'
+        return len(l) > 1 and l[1] == 'lp'
 
     def parse_lp_block(lines):
         """
@@ -104,7 +104,11 @@ class LP:
         src_header = h.lstrip()
         lang = src_header.split('```', 1)[1].split(' ', 1)[0]
         ind = len(h) - len(src_header)
-        source = '\n'.join([l[ind:] for l in lines])
+        # for the hash we take the undindent version, i.e. we allow to shift it in /
+        # out and still take result from cache:
+        source = [l[ind:] for l in lines]
+        code = source[1:-1]
+        source = '\n'.join(source)
         # header goes into hash, could change eval result:
         id = md5(bytes(source, 'utf-8')).hexdigest()
         reg = LP.hash_by_id
@@ -114,7 +118,7 @@ class LP:
         a, kw = LP.extract_header_args(src_header)
         spec = {
             'nr': LP.lpnr,
-            'code': lines[1:-1],
+            'code': code,
             'lang': lang,
             'args': a,
             'kwargs': kw,
@@ -129,8 +133,9 @@ class LP:
 
     def extract_header_args(lp_header):
         H = ' '.join(lp_header.split()[2:])
-        r = project.root(LP.config)
-        err, res = lit_prog.parse_header_args(H, fn_lp=LP.fn_lp, dir_project=r)
+        r = project.root()
+        presets = {'dir_repo': r, 'dir_project': r}  # dir_repo: an alias
+        err, res = lit_prog.parse_header_args(H, fn_lp=LP.fn_lp, **presets)
         if not err:
             return res
 
@@ -270,7 +275,7 @@ class LP:
             if raise_on_errs:
                 raise
             if not LP.lp_on_err_keep_running:
-                breakpoint()  # FIXME BREAKPOINT
+                res = run_lp(cmd, *args, **kw)
                 app.die('Could not eval', exc=e)
             if LP.interrupted in str(e):
                 app.die('Unconfirmed')
@@ -310,16 +315,19 @@ class LP:
 
 
 class LPPlugin(MDPlugin):
-    config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
+    # config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
 
     def on_config(self, config):
         link_assets(self, __file__, config)
         on_config_add_extra_css_and_js(self, config)
+        project.root(config)  # pull root dir from config and caches it
 
     def on_page_markdown(self, markdown, page, config, files):
         LP.page = page
         LP.config = config
         LP.page_initted = False
+        if page.title == 'foo':
+            breakpoint()  # FIXME BREAKPOINT
         mds, lp_blocks = split_off_fenced_blocks(
             markdown, fc_crit=LP.is_lp_block, fc_process=LP.parse_lp_block
         )

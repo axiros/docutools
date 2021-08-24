@@ -54,7 +54,7 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
             while lines:
                 mds[-1].append(l)
                 l = lines.pop(0)
-                if l.startswith(beg):
+                if l.startswith(beg) and l.strip() == fcb:
                     mds[-1].append(l)
                     break
             continue
@@ -65,7 +65,7 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
         while lines:
             l = lines.pop(0)
             fc.append(l)
-            if l.startswith(beg):
+            if l.startswith(beg) and l.strip() == fcb:
                 break
             elif not lines:
                 msg = 'Closing fenced block. Your markdown will not be correctly rendered'
