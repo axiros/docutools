@@ -65,8 +65,6 @@ from functools import partial as p
 from io import StringIO
 
 import pycond
-from devapp.tools import parse_kw_str
-
 
 I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
 
@@ -414,6 +412,42 @@ def check_inline_lp(cmd, fn_lp):
     return res[1]
 
 
+# ----------------------------------------------------------------------- header parsing
+def cast(v):
+    if v and v[0] in ('{', '['):
+        return json.loads(v)
+    try:
+        return int(v)
+    except:
+        try:
+            return float(v)
+        except:
+            return {'true': True, 'false': False}.get(v, v)
+
+
+def parse_kw_str(kws, header_kws=None, try_json=True):
+    """for kw via cli"""
+    header_kws = {} if header_kws is None else header_kws
+    if try_json:
+        if kws and kws[0] in ('{', '['):
+            try:
+                return json.loads(kws)
+            except:
+                pass
+    if ', ' in kws:
+        raise Exception('No comma allowed')
+    kw = {}
+    parts = kws.split()
+    kw.update(
+        {
+            p[0]: cast(p[1])
+            for p in [(k if '=' in k else k + '=true').split('=') for k in parts]
+        }
+    )
+    kw = {k: header_kws.get(v, v) for k, v in kw.items()}
+    return kw
+
+
 def parse_header_args(header, **ctx):
     """Parsing either python or easy format
     CAUTION: This is used
@@ -424,7 +458,6 @@ def parse_header_args(header, **ctx):
     ctx['get_args'] = get_args
 
     # the only function from devapp. For standalone you'd need to supply it:
-    from devapp.tools import parse_kw_str
 
     try:
         if header.rstrip().endswith('"'):
@@ -445,6 +478,7 @@ def parse_header_args(header, **ctx):
         return 1, (ex2, ex1)
 
 
+# ----------------------------------------------------------------------------- sessions
 class session:
     def get_cwd(session_name):
         res = session.srun_in_tmux('echo "::$(pwd)::"', session_name=session_name)
@@ -467,7 +501,8 @@ class session:
             for k in [i for i in env if i[:3] == 'DT_']:
                 dt.append('%s="%s"' % (k, env[k]))
             dt = ' '.join(dt)
-            a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p" PS1="%(prompt)s" %(dt)s\' Enter'
+            a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p" PS1="%(prompt)s" '
+            a += "%(dt)s' Enter"
 
             b = {'prompt': kw.get('prompt', '$ '), 'session': s, 'dt': dt}
             for i in (1, 2):
@@ -478,21 +513,21 @@ class session:
                     time.sleep(0.2)
                     break
                 except Exception as ex:
-                    # on new systems it maybe just missing and the user / runner does not caser. Lets do it:
+                    # on new systems it maybe just missing or the user / runner does
+                    # not care. Lets do it:
                     fn = env.get('HOME', '') + '/.tmux.conf'
                     if not exists(fn) and i == 1:
                         print('!! Writing %s to set base index to 1 !!' % fn)
-                        r = 'set-option -g base-index 1\nset-window-option -g pane-base-index 1\n'
+                        r = 'set-option -g base-index 1\nset-window-option '
+                        r += '-g pane-base-index 1\n'
                         with open(fn, 'w') as fd:
                             fd.write(r)
                         continue
                     # everybody has 1 and its a mess to detect or change
-                    raise Exception(
-                        (
-                            'tmux session start failed. Do you have tmux, '
-                            'configured with base index 1? 0 is default but will NOT work!!'
-                        )
-                    )
+
+                    msg = 'tmux session start failed. Do you have tmux, configured with'
+                    msg += 'base index 1? 0 is default but will NOT work!!'
+                    raise Exception(msg)
 
             init_prompt(s)
             if kw.get('root'):
@@ -608,7 +643,8 @@ class session:
             a = a[1:] if a.startswith('\n') else a  # when \n is the sep we won't see it
             res = res.replace(a, '')
         else:
-            # the tmux window contains a lot of white space after the last output when short cmd
+            # the tmux window contains a lot of white space after the last output when
+            # short cmd
             res = res.strip()
         if wait_after:
             time.sleep(float(wait_after))
@@ -865,9 +901,9 @@ def run(cmd, dt_cache=1, nocache=False, fn_doc=None, **kw):
     #     kw['session'] = mode
     ns = kw.pop('new_session', None)
     if ns in (True, False):
-        raise Exception(
-            'Variable new_session must be string (the name of a session which is guaranteed a new one)'
-        )
+        msg = 'Variable new_session must be string (the name of a session which is '
+        msg += 'guaranteed a new one)'
+        raise Exception(msg)
     if ns:
         session.kill(ns)
         kw['session'] = ns
@@ -980,70 +1016,3 @@ Result:
 
     %(res4)s
 '''
-
-
-def test():
-    """Better use docutools lp_client to test"""
-    print(
-        run(
-            'cat "$HOME/bin/xdg-mime"',
-            fmt='mk_cmd_out',
-            fetch='program_verb2',
-            fn_doc='/tmp/foo.org',
-        )
-    )
-    return
-
-    print(run('ls -lta', fmt='mk_cmd_out', fetch='program_verb2', fn_doc='/tmp/foo.org'))
-    return
-    print(run('m info', fetch='info', fn_doc='/tmp/foo.org'))
-    return
-    print(run('cat /usr/local/bin/m', fmt='mk_console'))
-    return
-    res = run({'expect': ['H: register', 'status'], 'timeout': 15,}, session='root_py')
-    print(res)
-    return
-    run(
-        [
-            {
-                'cmd': "m -l run lp -d -c 'echo \$CONTAINER_VER' 2>/dev/null",
-                'cmt': 'version check - it is set as env var within',
-                'timeout': 5,
-            }
-        ],
-        new_session='root_py',
-        fmt='mk_cmd_out',
-    )
-    return
-
-    print(
-        root(
-            [{'cmd': 'm registry_login', 'cmt': 'foo'}, 'm -l pull lnr', 'm -l pull lp',],
-            new_session='root',
-            cache='foo',
-        )
-    )
-    return
-
-    print(
-        run(
-            [
-                'm run -h',
-                {
-                    'cmd': 'm -l run lnr -Dd',
-                    'expect': '\n/opt/repos/lc/node-red#',
-                    'timeout': 10,
-                },
-                'ax/start -p false',
-            ],
-            new_session='root_nr',
-            root=True,
-        )
-    )
-
-    run('m registry_login && m -l pull lnr && m -l pull lp', root=True)
-    # run(['sudo ls -lta /', 'bash', 'whoami', 'ls -lta /'], new_session='bar')
-
-
-if __name__ == '__main__':
-    test()
