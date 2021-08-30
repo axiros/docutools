@@ -7,5 +7,7 @@ versioning=calver
 # list of '::' seperated words to fail when occurring in committed files:
 blacklisted_words="$(pass show sensitive/axgkl)"
 conda_env="~/miniconda3/envs/docutools_py37"
+mkdocs_path=docutools
+mkdocs_port=2222
 # giving us make docs, make tests, ..:
 source ./make

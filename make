@@ -6,8 +6,10 @@ T2="\x1b[48;5;124;38;5;255m"
 
 TERMINAL="${TERMINAL:-st}"
 
-nfo() { test -z "$2" && echo -e "${M}$*$O" || h1 "$@"; }
-h1()  { local a="$1" && shift && echo -e "$T1 $a $T2 $* $O"; }
+mkdocs_port="${mkdocs_port:-8000}"
+
+nfo() { test -z "$2" && echo -e "${M}$*$O" >&2 || h1 "$@"; }
+h1()  { local a="$1" && shift && echo -e "$T1 $a $T2 $* $O" >&2; }
 sh()  { nfo "$@" && "$@"; }
 
 help() {
@@ -76,7 +78,8 @@ function docs {
 }
 
 function docs_serve {
-    sh mkdocs serve
+    ps ax| grep mkdocs | grep serve | grep $mkdocs_port | xargs | cut -d ' ' -f1 | xargs kill 2>/dev/null
+    sh mkdocs serve -a "127.0.0.1:${mkdocs_port}"
 }
 
 function tests {
