@@ -3,25 +3,28 @@ site_description: "Documentation Building Tools"
 site_url: "http://github.pages.com/docutools"
 repo_url: "https://github.com/name/docutools"
 repo_name: "docutools"
-edit_uri: edit/master/docs
+
+# configure your own scheme handler for this, dependent on where YOU want to edit (repo server or local fs):
+edit_uri: editor://$repos/docutools/docs
 
 copyright: |
-  Copyright &copy; 2012 - 2021 Gunther Klessinger
-
+  Copyright &copy; 2021 Gunther Klessinger
 #
 nav:
   - Overview: index.md
   - Installation:
       - install.md
+  - Plugins Overview: plugins/index.md
   - Features:
       - Darkmode: features/darkmode.md
       - Mermaid: features/mermaid.md
-      - Literate_Programming: features/literate_programming.md
+      - Literate_Programming:
+          - Overview: features/lp/index.md
+          - Syntax: features/lp/syntax.md
       - "TermCasts": features/termcasts/index.md
       # :autodocs:
       - "Index": autodocs/index.md
     # :autodocs:
-  - Plugins: plugins/index.md
   - About:
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md
@@ -96,6 +99,7 @@ plugins:
   - lcd-blacklist
   - lcd-changelog
   - lcd-credits
+  - lcd-find-pages
   - lcd-lp
   - lcd-md-replace
   - lcd-page-tree

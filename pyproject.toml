@@ -68,7 +68,8 @@ isort = {version = "<5", extras = ["pyproject"]}
 black = "18.6b4"
 
 [tool.poetry.plugins."mkdocs.plugins"]
-"lcd-custom-dir"  = "lcdoc.mkdocs.custom_dir:CustomDirPlugin"
+"lcd-find-pages" = "lcdoc.mkdocs.find_pages:MDFindPagesPlugin"
+"lcd-custom-dir" = "lcdoc.mkdocs.custom_dir:CustomDirPlugin"
 "lcd-blacklist"  = "lcdoc.mkdocs.blacklist:BlacklistPlugin"
 "lcd-changelog"  = "lcdoc.mkdocs.changelog:ChangeLogPlugin"
 "lcd-credits"    = "lcdoc.mkdocs.credits:CreditsPlugin"
