@@ -65,7 +65,7 @@ autoflake = "^1.4"
 axblack = "^20201010"
 isort = {version = "<5", extras = ["pyproject"]}
 # one of last versions with site-packages/black.py - overridden by axblack:
-black = "18.6b4"
+#black = "18.6b4"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 "lcd-find-pages" = "lcdoc.mkdocs.find_pages:MDFindPagesPlugin"

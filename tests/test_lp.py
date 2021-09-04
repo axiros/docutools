@@ -19,6 +19,8 @@ from lcdoc.mkdocs.markdown import deindent
 # from lcdoc.py_test.auto_docs import gen_mod_doc, wrap_funcs_for_call_flow_docs
 from lcdoc.tools import dirname, exists, project, read_file, write_file
 
+# initializing it, otherwise init_page fails:
+LP.fn_lp = '/tmp/not_set/not_set.md'
 # import lcdoc.call_flow_logging as cfl
 
 # just for reference, the unwrapped original:
@@ -48,17 +50,18 @@ def run_md_page(md, fn, raise_on_errs):
 
 
 def run_lp(md, raise_on_errs=None):
-    old = LP.lp_on_err_keep_running
-    LP.lp_on_err_keep_running = not (raise_on_errs)
+    old = LP.on_err_keep_running
+    LP.on_err_keep_running = not (raise_on_errs)
     try:
         dw, fn = d_test(), fn_test()
+        LP.fn_lp = fn
         assert '/tmp/' in dw  # safety measure
         shutil.rmtree(dw, ignore_errors=True)
         os.makedirs(dw, exist_ok=True)
         write_file(dw + '/test_content', test_content)
         return run_md_page(md, fn, raise_on_errs=raise_on_errs)
     finally:
-        LP.lp_on_err_keep_running = old
+        LP.on_err_keep_running = old
 
 
 def err_msg(l, res):
@@ -232,7 +235,7 @@ class embedded_no_sessions(unittest.TestCase):
     def test_asserts_work(self):
         run = 'head %s/test_content |grep --color=never line' % d_test()
         md = '''
-        ```bash lp assert=line1
+        ```bash lp asserts=line1
         %s # lp: expect=line
         ```
         '''
@@ -255,7 +258,7 @@ class embedded_no_sessions(unittest.TestCase):
     def test_asserts_fail(self):
         run = 'head %s/test_content |grep --color=never line' % d_test()
         md = '''
-        ```bash lp assert=XXXX
+        ```bash lp asserts=XXXX
         %s
         ```
         '''
@@ -464,7 +467,7 @@ class embedded_sessions(unittest.TestCase):
         # cmd output was skipped since result had it anyway:
         assert len(res.split('$ sleep 5')) == 2
 
-    def test_assert_pycond(self):
+    def test_asserts_pycond(self):
 
         md1 = '''
 
@@ -502,15 +505,14 @@ class embedded_sessions(unittest.TestCase):
         res = run_lp(md1)
         check_lines_in(res, out)
 
-    def test_assert_inline(self):
+    def test_asserts_inline(self):
         """Use the documentation tool as a little test framework"""
         md1 = '''
 
-        ```bash lp session=test1 assert=foo
-        ['echo foo', {'cmd': 'echo bar', 'assert': 'bar'}]
+        ```bash lp session=test1 asserts=foo
+        ['echo foo', {'cmd': 'echo bar', 'asserts': 'bar'}]
         ```
         '''
-
         res = run_lp(md1)
         out = '''
         === "Output"
@@ -523,8 +525,8 @@ class embedded_sessions(unittest.TestCase):
         check_lines_in(res, out)
 
         md1 = '''
-        ```bash lp session=test1 assert=foo
-        ['echo foo', {'cmd': 'echo bar', 'assert': 'XXX'}]
+        ```bash lp session=test1 asserts=foo
+        ['echo foo', {'cmd': 'echo bar', 'asserts': 'XXX'}]
         ```
         '''
         res = run_lp(md1)
@@ -534,7 +536,7 @@ class embedded_sessions(unittest.TestCase):
         )
 
         md1 = '''
-        ```bash lp session=test1 assert=foo
+        ```bash lp session=test1 asserts=foo
         ['echo foo', {'cmd': 'echo bar', 'asserts': ['XXX', 'bar']}]
         ```
         '''
@@ -543,7 +545,7 @@ class embedded_sessions(unittest.TestCase):
             res = run_lp(md1, raise_on_errs=True)
 
         md1 = '''
-        ```bash lp session=test1 assert=foo
+        ```bash lp session=test1 asserts=foo
         ['echo foo', {'cmd': 'echo bar', 'asserts': ['b', 'bar']}]
         ```
         '''
@@ -856,6 +858,14 @@ class headers_easy(unittest.TestCase):
     def test_headers_easy_3(self):
         res = extr_head('```bash lp foo=bar, bar')
         assert LP.easy_args_err in str(res)
+
+    def test_headers_easy_4(self):
+        res = extr_head('```bash lp foo="bar, " bar')
+        assert res == {'bar': True, 'foo': 'bar, '}
+
+    def test_headers_easy_5(self):
+        res = extr_head("```bash lp foo='=,bar, ' bar")
+        assert res == {'bar': True, 'foo': '=,bar, '}
 
 
 class headers_py(unittest.TestCase):
