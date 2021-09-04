@@ -8,15 +8,21 @@ Configure the package server in your build framework (e.g. poetry like [this](ht
 
 ## Development Installation
 
-When you want to add / modify / debug stuff, we recommend a development installation.
+When you want to add / modify or only debug stuff, we recommend a development installation.
 
 - Clone the repo, maybe checkout the tag you want to inspect
 - Create and activate a virtual environment with minimum python3.7
 - `poetry install`
+- Optionally source the `environ` or `make` file, to get a few shortcuts (`make` w/o arguments lists them)
 
-!!! note "environ file"
-    There is an `environ` file with I source on `cd` (if not yet sourced), which activates my conda
+!!! tip "environ file"
+
+    I source the `environ` file on `cd` (if not yet sourced) in a shell function. It activates my [conda][cond]
     based virtual environment. But this is not a must.
+
+
+
+[cond]: https://docs.conda.io/en/latest/miniconda.html
 
 
 

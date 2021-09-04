@@ -21,6 +21,8 @@ nav:
       - Literate_Programming:
           - Overview: features/lp/index.md
           - Syntax: features/lp/syntax.md
+          - Parameters: features/lp/parameters.md
+          - Evaluation and Caching: features/lp/eval.md
       - "TermCasts": features/termcasts/index.md
       # :autodocs:
       - "Index": autodocs/index.md
