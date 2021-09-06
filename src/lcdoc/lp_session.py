@@ -11,7 +11,7 @@ exists = lp.exists
 I = lp.I
 
 
-def init_prompt(n):
+def init_prompt(n, kw):
     """run before each command"""
     # -R reset terminal state:
     lp.sprun('tmux send-keys -R -t %s:1' % n)
@@ -25,6 +25,15 @@ def init_prompt(n):
 
     lp.sprun('tmux clear-history -t %s:1' % n)
     lp.sprun("tmux send-keys -t %s:1 '' Enter" % n)
+    t0 = now()
+    p = prompt(kw)
+    while now() - t0 < 2:
+        res = lp.sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
+        r = res.decode('utf-8').rstrip()
+        if r.endswith(p) or r.endswith('#'):
+            break
+        print('waiting for prompt...')
+        wait(0.1)
 
 
 def get_cwd(session_name):
@@ -81,6 +90,10 @@ def configure_tmux_base_index_1(session_name):
 # :docs:configure_tmux_base_index_1
 
 
+def prompt(kw):
+    return kw.get('prompt', '$')
+
+
 def tmux_start(session_name):
     # path is set new. bash (if executing user's shell is fish we'd be screwed)
     s = session_name
@@ -97,7 +110,7 @@ def create(session_name, kw):
     a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p" PS1="%(prompt)s " '
     a += "%(lp_env)s' Enter"
 
-    b = {'prompt': kw.get('prompt', '$'), 'session': s, 'lp_env': lp_env}
+    b = {'prompt': prompt(kw), 'session': s, 'lp_env': lp_env}
     for try_nr in (1, 2):
         try:
             lp.sprun(a % b)
@@ -114,7 +127,7 @@ def create(session_name, kw):
             msg += 'base index 1? 0 is default but will NOT work!!'
             raise Exception(msg)
 
-    init_prompt(s)
+    init_prompt(s, kw)
     if kw.get('root'):
         lp.sprun('tmux send-keys -t %s "sudo bash" Enter' % s)
         wait(0.1)
@@ -195,7 +208,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     else:
         expectb = expect.encode('utf-8')
     if cmd:
-        init_prompt(n)
+        init_prompt(n, kw)
         # send the sequence as hex (-H):
         seq = ' '.join([hex(ord(b))[2:] for b in cmd])
         seq += ' a'
