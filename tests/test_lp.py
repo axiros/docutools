@@ -79,11 +79,17 @@ def check_lines_in(res, *blocks):
     Plus "the dot, which we'll remove some day ..."
     """
     res = [l.rstrip() for l in res.splitlines()]
+    print('check_lines')
+    print(res)
+    print('????????')
     for b in blocks:
         for l in b.splitlines():
 
             if l.strip():
-                assert l.rstrip() in res
+                kk = l.strip()
+                print('kk')
+                print(kk)
+                assert kk in res
                 # try:
                 #     # res is  a LIST - whole line must match
                 #     assert l.rstrip() in res
@@ -300,6 +306,8 @@ class embedded_no_sessions(unittest.TestCase):
                 With \x1b[1;38;5;124mAnsi\x1b[0m\n
         '''
         res = run_lp(md)
+        print('have res')
+        print(res)
         check_lines_in(res, cmd, out)
 
 
