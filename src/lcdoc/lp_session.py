@@ -71,8 +71,11 @@ def configure_tmux_base_index_1(session_name):
     ]
     write_file(fn, '\n'.join(r))
     lp.sprun('tmux source-file "%s"' % fn)
+    wait(0.5)
     tmux_kill_session(session_name)
+    wait(0.5)
     tmux_start(session_name)
+    wait(0.5)
 
 
 # :docs:configure_tmux_base_index_1
