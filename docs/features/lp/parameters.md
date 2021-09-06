@@ -11,20 +11,22 @@ They work in session or non session mode.
 Syntax details [here](./syntax.md/#parametrization).
 
 ```page lp addsrc
+
 ```
 
+
 ### addsrc
-(boolean)
+(`boolean`)
 
-??? hint "Adds the lp source into the rendered page"
+???+ hint "Adds the lp source into the rendered page"
 
-    All examples on this page use that header, given as page parameter.
+    All examples on this page use that header, set on page level.
 
 
 
 ### asserts
 `asserts=<match string or condition>`
-??? hint "Raises an exception, if the expected string is not found in the result of an evaluation."
+???+ hint "Raises an exception, if the expected string is not found in the result of an evaluation."
 
     Via this you can use LP as an (additional) functional test suite. 
 
@@ -43,51 +45,14 @@ Syntax details [here](./syntax.md/#parametrization).
 
 ### cwd
 `cwd=<directory>`
-??? hint "change directory before running the command"
+???+ hint "change directory before running the command"
 
     !!! note "Example"
 
         ```bash lp cwd=/etc asserts=hosts
-        ls . | grep hosts
+        ls  . | grep hosts
         ```
 
-
-### pre
-`pre=<some command>`
-??? hint "Runs something, before the (output recorded) commands"
-
-    !!! note "Examples"
-
-        - Block level:
-        ```bash lp=True, cwd='/tmp', asserts='barfoo', pre='touch barfoo|true'
-        ls | grep bar
-        ```
-        - Statement level:
-        ```bash lp cwd=/tmp asserts=foobar session=test
-        {'pre': 'touch foobar|true', 'cmd': 'ls foo*', 'asserts': 'foobar'}
-        ```
-
-    Given at block level, the `pre` command is only run once, even if there are
-    more than one individual statements within the body of the block.
-
-
-### post
-`post=<some command>`
-??? hint "Runs something after the (output recorded) commands"
-
-    !!! note "Examples"
-
-        - Block level:
-        ```bash lp=True, cwd='/tmp', asserts='barfoo', pre='touch barfoo|true', post='rm barfoo'
-        ls | grep barfoo
-        ```
-        - Statement level:
-        ```bash lp cwd=/tmp asserts=foobar session=test
-        [{'pre': 'touch foobar|true', 'cmd': 'ls foo*', 'asserts': 'foobar', 'post': 'rm foobar'},
-        'ls foobar # lp: asserts="cannot"']
-        ```
-    Given at block level, the `post` command is only run once, even if there are
-    more than one individual statements within the body of the block.
 
 ### eval
 `eval=<never|always|on_change|on_page_change|<page match[:block match]>`
@@ -99,7 +64,7 @@ Syntax details [here](./syntax.md/#parametrization).
 
 ### expect
 `expect=<match string or condition>` or `False`
-??? hint "Wait for this string to show up in the output"
+???+ hint "Wait for this string to show up in the output"
 
     - Makes no much sense in [singleshot](#session) mode, where we simply run commands, until they complete.
       In singleshot mode use [`asserts`](#asserts) to fail if an expected result is not showing up.
@@ -126,9 +91,24 @@ Syntax details [here](./syntax.md/#parametrization).
         ```
 
 
+### fetch
+`fetch=<use_case_name>`
+???+ hint "Async Result Fetching from Server"
+
+    The evaluation output content is fetched after page load as soon as the user clicks on the output tab. This significantly improves pages load times, when there is a lot of output.
+
+
+    !!! note "Example"
+
+        ```bash lp session=test fetch=async_example
+        ls -lt /usr/bin | head -n 12
+        ```
+    [Here](./async.md) is more about the mechanics.
+
+
 ### fmt
 `fmt=<mk_console|mk_cmd_out|xt_flat>`
-??? hint "Determines Markdown Representation of Results"
+???+ hint "Determines Markdown Representation of Results"
 
     Default is `mk_cmd_out`
 
@@ -149,9 +129,9 @@ Syntax details [here](./syntax.md/#parametrization).
         ```
 
 ### hide_cmd
-(boolean)
+(`boolean`)
 
-??? hint "When set to `True` then command itself wont' be displayed."
+???+ hint "When set to `True` then command itself wont' be displayed."
     
     Currently this is only supported in [singleshot](#session) mode.
 
@@ -163,9 +143,9 @@ Syntax details [here](./syntax.md/#parametrization).
 
 
 ### kill_session
-(boolean)
+(`boolean`)
 
-??? hint "When set to `True` then the session will be killed after evaluation"
+???+ hint "When set to `True` then the session will be killed after evaluation"
     
     By definition, this is only supported in [session](#session) mode.
 
@@ -180,43 +160,154 @@ Syntax details [here](./syntax.md/#parametrization).
         tmux list-sessions | grep test || true
         ```
 
+### new_session
+`new_session=<tmux session name>`
+???+ hint "Runs the block within a **new** tmux session"
+    
+    If the session already exists, it will be destroyed before running.
+
+    !!! note "Example"
+
+        ```bash lp new_session=docutest
+        date
+        tmux list-sessions | grep docutest
+        ```
+    [Here](./sessions.md) is more about sessions.
 
 
+### pdb
+(`boolean`)
+
+???+ hint "Enter debug mode before and after evaluation"
+
+    !!! note "Example"
+
+        ```
+         :fences:bash lp pdb
+         ls .
+         :fences:
+        ```
+
+        The execution will be halted and you get the chance to inspect
+        variables and step through the code.
+
+
+### post
+`post=<some command>`
+???+ hint "Runs something after the (output recorded) commands"
+
+    !!! note "Examples"
+
+        - Block level:
+        ```bash lp=True, cwd='/tmp', asserts='barfoo', pre='touch barfoo|true', post='rm barfoo'
+        ls | grep barfoo
+        ```
+        - Statement level:
+        ```bash lp cwd=/tmp asserts=foobar session=test
+        [{'pre': 'touch foobar|true', 'cmd': 'ls foo*', 'asserts': 'foobar', 'post': 'rm foobar'},
+        'ls foobar # lp: asserts="cannot"']
+        ```
+    Given at block level, the `post` command is only run once, even if there are
+    more than one individual statements within the body of the block.
+
+### pre
+`pre=<some command>`
+???+ hint "Runs something, before the (output recorded) commands"
+
+    !!! note "Examples"
+
+        - Block level:
+        ```bash lp=True, cwd='/tmp', asserts='barfoo', pre='touch barfoo|true'
+        ls | grep bar
+        ```
+        - Statement level:
+        ```bash lp cwd=/tmp asserts=foobar session=test
+        {'pre': 'touch foobar|true', 'cmd': 'ls foo*', 'asserts': 'foobar'}
+        ```
+
+    Given at block level, the `pre` command is only run once, even if there are
+    more than one individual statements within the body of the block.
+
+
+### prompt
+`prompt=<prompt>`
+???+ hint "Sets the prompt string"
+
+    Default is '$ '.
+
+    !!! note "Example"
+
+        ```bash lp prompt="/foo/bar>" session=docutest
+        echo -e '$ foo'
+        ```
+    In [sessions](./sessions.md) we do this by exporting `$PS1` to the given value, plus a space, at beginning of the session.
+
+
+### session
+`session=<tmux session name>`
+???+ hint "Runs the block within a tmux session"
+    
+    If the session already exists, it will be re-used.
+
+    !!! note "Example"
+
+        ```bash lp session=docutest
+        tmux list-sessions | grep docutest
+        ```
+    [Here](./sessions.md) is more about sessions.
+
+
+### silent
+(`boolean`)
+
+???+ hint "Run the command(s) normally but do not create any markdown"
+
+    !!! note "Examples"
+
+        ```bash lp
+        rm /tmp/silent_test || true
+        ```
+
+        ```bash lp silent
+        touch /tmp/silent_test
+        ```
+        nothing is shown for block execution but the command was executed:
+
+        ```bash lp
+        ls -lta /tmp/silent_test
+        rm /tmp/silent_test # lp: silent
+        ```
+        The last line shows `silent` on statement level.
+
+
+
+
+### timeout
+`timeout=<seconds>` (session only cmd)
+
+???+ hint "Time until timeout error is raised, waiting for results in [sessions](./sessions.md)"
+
+    !!! note "Example"
+
+        This would fail with timeout error:
+
+        ```
+         ```bash lp timeout=0.1 session=test
+         sleep 0.2
+         ```
+        ```
+
+
+
+
+
+### with_paths
+(`boolean`) (session only cmd)
+
+???+ hint "Before a sequence of commands is run, we export `$PATH` and `$PYTHONPATH` of the calling process within tmux"
+
+    A tmux session is started by issuing the tmux command - which starts the
+    tmux server process, when there is non running. It might have a different
+    process environment than the mkdocs process. With `with_paths` we export the two critical parameters before starting tmux.
 
 [pycond]: https://pypi.org/project/pycond/
-
-
-| arg           |S |C|value        | Meaning
-| -             |- | |-            | - 
-| `assert`      |  |x| match string| Alias for asserts, deprected (does not work in python signatures) 
-|
-
-
-| arg           |S |C|value        | Meaning
-| -             |- | |-            | - 
-| `assert`      |  |x| match string| Alias for asserts, deprected (does not work in python signatures) 
-| `asserts`     |  |x| match strings| Except if the expected string is not found in the result of an evaluation, which can be used as keyword in python style signatures, thus allowing to supply lists of assertions to be checked
-| `cwd`         |  | |directory    | chdir before running
-| `cmd_prepare` |  | |cmd string   | Run this before the (output recorded) commands
-| `dt_cache`    |  | |seconds      | Only evaluate when run time is later than age of last result
-| `expect`      |x |x|string/False | Wait for this string to show up in the output (e.g. when command blocks forever). The string is included. Also per command (dict). If set to `False` then all we stop collecting results when `timeout` is reached (no timeout error then). Makes no sense in non session mode, where we simply run cmd, until complete.
-| `fmt`         |  | |             | mkdocs compliant output format. Supported: `mk_console`, `mk_cmd_out`, `xt_flat`
-| `fn_doc`      |  | |filepath     | Filename of markdown document containing the block. Automatically set by  `doc pre_process`. Determines location of files created for async fetching.
-| `hide_cmd`    |  | |bool         | When set to `True` then command wont' be displayed. 
-| `kill_session`|x | |bool         | tmux session killed after last command output collected
-| `lock_page`   |x | |bool         | Writes lock file, preventing re-evaluation of the page.
-| `make_file`   |  | |filename     | Create a file with given name. See below for details. fn req, chmod supported.
-| `mode`        |n | |(multiple)   | See mode section below
-| `new_session` |x | |session name | Spawn a new tmux terminal to run the command. Kill any existing one with that name
-| `nocache`     |  | |`True/False` | Never cache, always run
-| `prompt`      |x | |`'$ '`       | `$PS1` (set at session init)
-| `session`     |x | |session name | Run the command in this tmux session (create it when not present  - otherwise attach)
-| `skip_above`  |x | |bool         | skip all blocks before this one when executing the page
-| `skip_below`  |x | |bool         | skip all blocks after this one when executing the page
-| `skip_other`  |x | |bool         | skip all other blocks when executing the page
-| `skip_this`   |x | |bool         | skip this block when executing the page
-| `silent`      |  |x|True         | Run the command(s) normally but do not create any markdown
-| `timeout`     |x |x|float        | Time until timeout error is raised. 
-| `with_paths`  |x | |true         | Before a sequence of commands is run, we export invoking process' `$PATH` and `$PYTHONPATH` within tmux
-
-

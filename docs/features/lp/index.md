@@ -12,27 +12,38 @@ hook, i.e. before html is generated.
 
 ## Features
 
+[Here](./parameters.md) is the full list of features.
+
+Highlights:
+
 - Concise **[Syntax](./syntax.md)**: Does not distract when reading source
 
-- [**Stateless**](./stateless.md): Single Shot Evaluations
+- **Stateless** and [**Stateful**](./sessions.md) Evaluation, using
+  [tmux][tmux]  
+  Means you can inspect and even change what's going
+  on, before after and during page evaluation. Anything set within the tmux session (e.g. environ,
+  variables) is available in later mkdocs build runs, except when you decide to
+  [kill](./parameters#kill_session) the session.
 
-- [**Stateful**](./sessions.md): The code to evaluate is sent into parametrizable [tmux](https://en.wikipedia.org/wiki/Tmux) windows and
-  executed there. Means you can inspect and even change what's going on, during page evaluation.
-  Anything set within the tmux session (e.g. environ, variables) is available in later calls.
+- [**Assertions**](./parameters.md#asserts): You can assert on the evaluation result, means you can
+  turn the code blocks into a functional test suite, documented through your markdown around the
+  blocks.
 
-- **Assertions**: You can assert on the evaluation result, means you can turn the code blocks into a
-  functional test suite, documented through your markdown around the blocks.
-
-- **Caching**: Results are cached and only re-evaluated when source changes. You can edit the
+- [**Caching**](./eval.md): Results are cached and only re-evaluated when source changes. You can edit the
   markdown around, w/o triggering possibly expensive evaluation runs. 
   By deciding to commit the cache files you can opt to prevent CI from executing code which is only
   runnable on certain machines (e.g. where you have your cloud infra keys)
 
-- **Debugging**: Execution can be halted and context inspected
+- [**Debugging**](./parameters.md#pdb): Execution can be halted and context inspected
 
-- **Async Results Fetching**: Big evaluation results may be fetched only on demand, e.g. on click on
+- [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
   otherwise non expanded "Output" tabs.
 
+## Requirements
+
+- [tmux][tmux]
+- [ripgrep][rg]
+- [fd][fd]
 
 
 ## Security
@@ -45,3 +56,7 @@ Documentation is source code.
     their test code: **Untrusted sources should be built only within proper sandboxes!**
 
 
+
+[tmux]: https://en.wikipedia.org/wiki/Tmux
+[ripgrep]: https://github.com/BurntSushi/ripgrep
+[fd]: https://github.com/sharkdp/fd

@@ -1,27 +1,30 @@
-# Literate Programming (LP) Syntax
+# Literate Programming (lp) Syntax
 
-LP blocks are special fenced code blocks within a markdown page and look like so:
+lp blocks are special fenced code blocks within a markdown page and look like so:
+
+```bash lp addsrc fmt=mk_console
+echo "Hello ${User:-World}"
+```
+
+or more general:
 
 ```
- ```<lang> lp [block level parameters]           <---- lp block header
+ :fences:<lang> lp [block level parameters]           <---- lp block header
  statement 1 [per statement parameters]          
  (...)                                           <---- lp block body
  [statement n]                                  
- ```
+ :fences:
 ```
 
-We detect lp blocks by the "lp" keyword as second parameter, after "language".
+We detect lp blocks by the "`lp`" keyword as second parameter, after "language".
 
 !!! tip "Indentation supported"
     You may indent LP blocks, like any fenced code block, with the superfences plugin active, e.g.:
 
-    ```
-    !!! note "My Admonition With An LP Block"
-        ```bash lp
+    !!! note "My Admonition With An Inner LP Block"
+        ```bash lp addsrc
         echo "hello world"
         ```
-    ```
-    This is valid and will be evaluated.
 
 
 
@@ -30,7 +33,7 @@ We detect lp blocks by the "lp" keyword as second parameter, after "language".
 Evaluation is parametrized by keys and values, which may be given via the environment, per page, per
 block and per statement, with priority in this order.
 
-The list of supported parameters is [here](./parameters.md).
+[Here](./parameters.md) is the list of supported parameters.
 
 ### Environment
 
@@ -49,8 +52,8 @@ lp_foo=bar mkdocs build
 You may specify a parameter for *all* blocks within a *specific* markdown page like so:
 
 ```
- ```page lp foo=bar
- ```
+ :fences:page lp foo=bar
+ :fences:
 ```
 
 i.e. by specifying the conventional keyword "`page`" where normally  "`<language>`" is, i.e. first
@@ -66,9 +69,9 @@ param after the opening fences.
 This sets the value for just *one* block:
 
 ```
- ```bash lp foo=bar 
+ :fences:bash lp foo=bar 
  echo Hello
- ```
+ :fences:
 ```
 
 ### Statement Level
@@ -76,10 +79,10 @@ This sets the value for just *one* block:
 This set the value for just one statement:
 
 ```
- ```bash lp
+ :fences:bash lp
  echo Hello # lp: foo=bar
  echo World # while executing this, foo is NOT set (except when defined elsewhere)
- ```
+ :fences:
 ```
 
 
@@ -90,10 +93,10 @@ Parameters may either be delivered python signature compliant or "easy args" sty
 ```bash
 
  # easy args (=true is default):
- ```bash lp foo=bar f=1.23 foo=true bar asserts="foo and bar"
+ :fences:bash lp foo=bar f=1.23 foo=true bar asserts="foo and bar"
 
  # python signature compliant form:
- ```bash lp foo='bar', f=1.23, foo=True bar=True, asserts="foo and bar"
+ :fences:bash lp foo='bar', f=1.23, foo=True bar=True, asserts="foo and bar"
 
 
 ```
@@ -121,19 +124,19 @@ Staments can be given per line or a in a structured way:
 
 
 ```
- ```bash lp
+ :fences:bash lp
  echo hello # lp: asserts=hello
  echo world
- ```
+ :fences:
 ```
 
 is equivalent to
 
 ```python
- ```bash lp
+ :fences:bash lp
  [{'cmd': 'echo hello', 'asserts': 'hello'},
   {'cmd': 'echo world'}]
- ```
+ :fences:
 ```
 
 !!! hint
@@ -146,6 +149,7 @@ Here Docs come handy when you have dynamic variable from a previous command, whi
 
 Like this, i.e. use the '> ' indicator at beginning of lines, which should be run as single
 commands.
+
 
 ```bash lp addsrc session=DO asserts=foobarbazXsecond_line
 foo () { echo bar; }

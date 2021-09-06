@@ -1,5 +1,6 @@
 import sys
 import time
+from lcdoc.mkdocs.tools import inline_src_link
 
 
 def plugin_docs(**kw):
@@ -14,4 +15,9 @@ def plugin_docs(**kw):
     return '\n\n'.join(r)
 
 
-table = {'plugin_docs': plugin_docs, 'ctime': time.ctime()}
+table = {
+    'plugin_docs': plugin_docs,
+    'ctime': time.ctime(),
+    'lnk_src': inline_src_link,
+    'fences:all:': '```',
+}

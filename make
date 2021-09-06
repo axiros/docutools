@@ -74,10 +74,12 @@ function coverage {
 }
 
 function docs {
+    export lp_eval="${lp_eval:-always}"
     sh mkdocs build "$@"
 }
 
 function docs_serve {
+    export lp_eval="${lp_eval:-on_page_change}"
     ps ax| grep mkdocs | grep serve | grep $mkdocs_port | xargs | cut -d ' ' -f1 | xargs kill 2>/dev/null
     sh mkdocs serve -a "127.0.0.1:${mkdocs_port}"
 }
