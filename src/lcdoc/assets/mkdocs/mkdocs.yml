@@ -25,6 +25,7 @@ nav:
           - Evaluation and Caching: features/lp/eval.md
           - Sessions: features/lp/sessions.md
           - Async Fetching: features/lp/async.md
+          - Tips: features/lp/tips.md
           - Examples: features/lp/examples.md
       - "TermCasts": features/termcasts/index.md
   - About:

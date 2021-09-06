@@ -80,6 +80,7 @@ function docs {
 
 function docs_serve {
     export lp_eval="${lp_eval:-on_page_change}"
+    echo $lp_eval
     ps ax| grep mkdocs | grep serve | grep $mkdocs_port | xargs | cut -d ' ' -f1 | xargs kill 2>/dev/null
     sh mkdocs serve -a "127.0.0.1:${mkdocs_port}"
 }

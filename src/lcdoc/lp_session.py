@@ -47,7 +47,7 @@ def get(session_name, **kw):
     return res
 
 
-# docs: configure_tmux_base_index_1
+# :docs:configure_tmux_base_index_1
 def configure_tmux_base_index_1(session_name):
     """
     Seems everybody really using it has 1 (on normal keyboards 0 is far away)
@@ -75,7 +75,7 @@ def configure_tmux_base_index_1(session_name):
     tmux_start(session_name)
 
 
-# docs: configure_tmux_base_index_1
+# :docs:configure_tmux_base_index_1
 
 
 def tmux_start(session_name):

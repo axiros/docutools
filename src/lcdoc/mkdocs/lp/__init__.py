@@ -26,7 +26,7 @@ from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
 
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
-# docs: hashed_headers
+# :docs:hashed_headers
 # those header params will prevent to use caching when changed, they go into the hash of
 # a block which is the cache key:
 hashed_headers = [
@@ -41,13 +41,13 @@ hashed_headers = [
     'session',
     'timeout',
 ]
-# docs: hashed_headers
+# :docs:hashed_headers
 
 lp_res_ext = '.res.py'  # when opened the ide will format
 
 env_args = {}
 
-# docs: eval_parameter_values
+# :docs:eval_parameter_values
 class Eval:
     never = 'never'  # not even when not cached
     always = 'always'  # even when cached. except skipped
@@ -57,7 +57,7 @@ class Eval:
     default = 'always'
 
 
-# docs: eval_parameter_values
+# :docs:eval_parameter_values
 
 
 eval_modes = {k for k in dir(Eval) if not k[0] == '_'}
@@ -269,7 +269,7 @@ class LP:
         fnd: '/home/gk/repos/blog/docs/ll/vim/vim.md'
         block.keys: ['nr', 'code', 'lang', 'args', 'kwargs', 'indent', 'source', 'source_id', 'fn']
         """
-
+        # if 'show_src' in str(spec): breakpoint()  # FIXME BREAKPOINT
         kw = spec['kwargs']
         sid = spec['source_id']
         # handle page level parametrization already here - this is never skipped:
@@ -507,6 +507,7 @@ def mark_as_previous_result(s):
     )
 
 
+# :docs:patching_mkdocs
 def patch_mkdocs_to_ignore_res_file_changes():
     """sad. we must prevent mkdocs serve to rebuild each time we write a result file
     And we want those result files close to the docs, they should be in that tree.
@@ -535,6 +536,8 @@ def patch_mkdocs_to_ignore_res_file_changes():
     msg = 'Have patched mkdocs to not watch %s  files. Please restart.' % k
     return app.die(msg, fn=fn)
 
+
+# :docs:patching_mkdocs
 
 # ------------------------------------------------------------------------------- Plugin
 class LPPlugin(MDPlugin):

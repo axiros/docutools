@@ -1,0 +1,1 @@
+{'cba41d101ae01289782e734b7e08acae': [{'cmd': 'pwd', 'res': '$ pwd\n/home/gk/repos/docutools'}]}

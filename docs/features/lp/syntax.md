@@ -74,6 +74,8 @@ This sets the value for just *one* block:
  :fences:
 ```
 
+
+
 ### Statement Level
 
 This set the value for just one statement:
@@ -110,6 +112,43 @@ When easy args parsing fails, then python signature mode is tried.
     - Casting canonical: 1.123 considered float, 42 considered int, true considered bool, else string
 
 
+### Presets
+
+These keywords will be dynamically replaced within headers:
+
+| key          | value
+| -            | -   
+| `dir_repo`   | Set to directory of the repository 
+| `dir_project`| Set to project root directory 
+
+Examples:
+
+```
+    :fences:bash lp session=project    cwd=dir_repo # easy args style
+    :fences:bash lp session='project', cwd=dir_repo # sig args style
+```
+
+
+
+
+### Available Environment Variables
+
+If you want to work with/generate assets relative to your docu, these should be practical: 
+
+```bash lp fmt=xt_flat assert=LP_DOCU_FILE and LP_PROJECT_ROOT and LP_DOCU and docutools
+env | grep LP_ # any env var starting with lp_ or LP_ is put into the session
+```
+These are also put into new tmux sessions (at `new_session`):
+
+<!-- grep colorizes the match, can only match on LP_ -->
+
+```bash lp fmt=xt_flat new_session=dt_test assert=LP_ and DOCU_FILE and PROJECT_ROOT and DOCU and docutools
+env | grep LP_
+env | grep TMUX
+```
+
+
+You can reference any env var as a dollar var within your header args.
 
 
 
@@ -165,6 +204,12 @@ cat test.pyc | sed -z "s/\n/X/g" | grep 'foobarbazXsecond_line'
     - No lines with content may start with a space
 
 
+
+
+### Special Statements
+
+- `wait 1.2`: Causing the process to sleep that long w/o logging (tmux only). You can attach and check output.
+- `send-keys: C-c`: Sends a tmux key combination (here Ctrl-C).
 
 
 

@@ -29,6 +29,8 @@ Highlights:
   turn the code blocks into a functional test suite, documented through your markdown around the
   blocks.
 
+- [**Various Output Formats**](./parameters.md#fmt)
+
 - [**Caching**](./eval.md): Results are cached and only re-evaluated when source changes. You can edit the
   markdown around, w/o triggering possibly expensive evaluation runs. 
   By deciding to commit the cache files you can opt to prevent CI from executing code which is only
@@ -36,8 +38,22 @@ Highlights:
 
 - [**Debugging**](./parameters.md#pdb): Execution can be halted and context inspected
 
+- **Full Terminal Color Support**:   
+  Fenced code blocks can 'only' highlight per language - but cannot "understand" terminal output and
+  their [color escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code).  
+  Therefore in the mkdocs build we include [xtermjs](https://xtermjs.org/), which renders the escape codes correctly within HTML.  
+  This is far more efficient than using [svg](https://yarnpkg.com/package/ansi-to-svg) or png formats.
+
 - [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
   otherwise non expanded "Output" tabs.
+
+
+```bash lp cwd=dir_project
+
+pwd
+
+
+```
 
 ## Requirements
 
@@ -58,5 +74,5 @@ Documentation is source code.
 
 
 [tmux]: https://en.wikipedia.org/wiki/Tmux
-[ripgrep]: https://github.com/BurntSushi/ripgrep
+[rg]: https://github.com/BurntSushi/ripgrep
 [fd]: https://github.com/sharkdp/fd

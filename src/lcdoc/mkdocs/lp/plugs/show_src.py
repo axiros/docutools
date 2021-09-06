@@ -15,10 +15,21 @@ T = '''
     %(url)s
 '''
 
+TM = '''
+??? note "%(header)s"
+    %(body)s
+'''
+
 
 def md(**kw):
     kw['body'] = kw['body'].replace('\n', '\n    ')
     return T % kw
+
+
+def mdhide(**kw):
+    M = md(**kw)
+    kw['body'] = md(**kw).replace('\n', '\n    ')
+    return TM % kw
 
 
 def run(cmd, kw):
@@ -31,7 +42,7 @@ def run(cmd, kw):
         dir = droot + '/' + dir
     if not exists(dir):
         return app.error('Not exists', dir=dir)
-    expr = ' docs: %s' % delim
+    expr = ':docs:%s' % delim
     cmd = 'rg "%s" %s --json --max-filesize 1M' % (expr, dir)
     rg = os.popen(cmd).read().strip()
     rg2 = [json.loads(l) for l in rg.splitlines()]
@@ -54,7 +65,13 @@ def run(cmd, kw):
     line = len(s[0].splitlines())
     res = s[1].rsplit('\n', 1)[0]
     l = src_link(fn, LP.config, line=line + 1)
+    h = kw.get('hide')
+    if h == True:
+        h = 'Implementation'
+    f = mdhide if h else md
     return {
         'res': res,
-        'formatted': md(lang=kw['lang'], body=res, src_link=l['link'], url=l['url']),
+        'formatted': f(
+            header=h, lang=kw['lang'], body=res, src_link=l['link'], url=l['url']
+        ),
     }

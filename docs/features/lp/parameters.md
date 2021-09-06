@@ -28,9 +28,16 @@ Syntax details [here](./syntax.md/#parametrization).
 `asserts=<match string or condition>`
 ???+ hint "Raises an exception, if the expected string is not found in the result of an evaluation."
 
-    Via this you can use LP as an (additional) functional test suite. 
+    Via this you can use LP as an (additional) functional test suite (and avoid broken docu).
 
     You may specify a single string or a [pycond][pycond] expression.
+
+    - `bash lp asserts dwrx` or
+    - `bash lp asserts=['root', 'dwrx']` or even
+    - `bash lp asserts='[root and dwrx] and not fubar' (see [here][pycond] for valid expressions)
+
+    Your docu build will exit with error on an assertion failure.
+
 
     !!! note "Example"
 
@@ -109,6 +116,18 @@ Syntax details [here](./syntax.md/#parametrization).
 ### fmt
 `fmt=<mk_console|mk_cmd_out|xt_flat>`
 ???+ hint "Determines Markdown Representation of Results"
+
+
+    - `mk_cmd_out`: Displays two tabs, with command and output
+    - `xt_flat`: Command and output in one go, xterm formatted ANSI escape codes
+    - `mk_console`: An mkdocs console fenced code statement is produced, no ANSI escape formatting by xterm (the command is highlighted by mkdocs).
+
+    !!! danger "xt_flat output must be visible at page load"
+
+        Due to a technical restriction you currently cannot hide embedded or
+        fetched xt_flat output within closed admonitions.
+        You may use `???+ note "title"` style closeable admonitions though.
+
 
     Default is `mk_cmd_out`
 

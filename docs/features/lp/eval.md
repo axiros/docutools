@@ -26,7 +26,7 @@ them.
 The hash is built over the complete lp body plus a specific set of header parameters, which might,
 when changed, result in a different outcome of the evaluation:
 
-```python lp mode=show_src delim=hashed_headers dir=src/lcdoc
+```python lp mode=show_src delim=hashed_headers dir=src/lcdoc eval=always
 ```
 
 !!! warning
@@ -42,6 +42,19 @@ The file contains a hash map, with keys the hashes of each block and value the r
 
 The `eval` parameter determines now, if, at page build time, a new evaluation is performed or the
 result from the cache is taken, if available.
+
+### Patching the mkdocs file watcher
+
+At first start of mkdocs <build|serve> we have to patch the filewatcher of mkdocs, in order to
+ignore `.res.py` files. That prevents putting them into the site directory but also helps avoid
+evaluation loops.
+
+```python lp mode=show_src delim=patching_mkdocs dir=src/lcdoc hide=implementation eval=always
+
+```
+
+
+
 
 
 ### CI/CD: Comitting Cache Files?
@@ -69,7 +82,7 @@ Solution: Set `eval` to "on_change" or "on_page_change"
 Adjusting `eval` is key for having fast edit-render cycles, while authoring pages.
 
 ### Predefined Values
-```python lp mode=show_src delim=eval_parameter_values dir=src/lcdoc
+```python lp mode=show_src delim=eval_parameter_values dir=src/lcdoc eval=always
 ```
 
 - never: No evaluation. Typically given on page level, while writing a bunch of LP statements. Will never eval, even with a cache miss.
