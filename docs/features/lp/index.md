@@ -6,9 +6,15 @@ embed executable **code** within markdown sources and insert into the rendering 
 **evaluated** output, before html build time. This is done through a plugin, with an `on_markdown`
 hook, i.e. before html is generated.
 
-
 !!! note
     This is a feature of `docutools`, not a third party plugin. It is inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
+
+## Motivation
+
+The main benefit of LP is to keep documentation in sync with the system you are documenting.
+
+And [vice versa](./parameters.md#asserts).
+
 
 ## Features
 
@@ -47,13 +53,6 @@ Highlights:
 - [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
   otherwise non expanded "Output" tabs.
 
-
-```bash lp cwd=dir_project
-
-pwd
-
-
-```
 
 ## Requirements
 

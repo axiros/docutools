@@ -828,12 +828,12 @@ class fetched_mk_cmd_out(unittest.TestCase):
                 === "Output"
                     <xterm />
                          remote_content
-                    ![](./images/test.md_usecase.ansi)
+                    ![](./media/test.md_usecase.ansi)
                 '''
             res = run_lp(md % run)
             check_lines_in(res, cmd % run, out)
             # done by the js when live:
-            s = read_file(d_test() + '/images/test.md_usecase.ansi')
+            s = read_file(d_test() + '/media/test.md_usecase.ansi')
             if k:
                 # tmux we have prompt and it changes the ansi slightly:
                 s = s.split(run, 1)[1]

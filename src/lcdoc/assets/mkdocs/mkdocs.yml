@@ -22,6 +22,7 @@ nav:
           - Overview: features/lp/index.md
           - Syntax: features/lp/syntax.md
           - Parameters: features/lp/parameters.md
+          - Plugins: features/lp/plugins.md
           - Evaluation and Caching: features/lp/eval.md
           - Sessions: features/lp/sessions.md
           - Async Fetching: features/lp/async.md

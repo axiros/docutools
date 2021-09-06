@@ -1,8 +1,23 @@
-from lcdoc import lp
+"""
+###  `python`
+
+This runs the block within a python session.
+
+All context available in the `ctx` dicts.
+
+Result will be what is printed on stdout.
+
+Decide via the language argument (```&lt;language&gt; lp mode=python) what formatting should be applied.
+"""
+
+
 import sys
 from io import StringIO
 
+from lcdoc import lp
+
 multi_line_to_list = False
+fmt_default = 'mk_console'
 
 
 def run(cmd, kw):
@@ -10,7 +25,6 @@ def run(cmd, kw):
     interpret the command as python:
     no session, lang = python:
     """
-    kw['fmt'] = kw.get('fmt', 'mk_console')
     h = sys.stdout
     # when a breakpoint is in a python block redirection sucks, user wants to debug:
     # TODO: write cmd to a file for better debugging

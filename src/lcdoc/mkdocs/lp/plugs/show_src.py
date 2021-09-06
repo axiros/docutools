@@ -1,3 +1,22 @@
+"""
+###  `show_source`
+
+Copies delimitted stanzas within arbitrary files (usually source code) into your docs
+and creates links to those files on the repo server.
+
+Format within the source file: :docs:matchstring (no space)
+
+#### Parameters
+
+- delim: "matchstring" in the example above (without the ":docs:" prefix).
+- dir: Start directly, relative to repo root dir or absolute path
+- hide: Optional. True or String: will result in collapsed block
+
+The plugin uses ripgrep to find matches.
+
+"""
+
+
 import json
 import os
 
@@ -63,7 +82,7 @@ def run(cmd, kw):
             matches_file=len(s),
         )
     line = len(s[0].splitlines())
-    res = s[1].rsplit('\n', 1)[0]
+    res = s[1].split('\n', 1)[1].rsplit('\n', 1)[0]
     l = src_link(fn, LP.config, line=line + 1)
     h = kw.get('hide')
     if h == True:

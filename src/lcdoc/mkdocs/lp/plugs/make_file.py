@@ -1,3 +1,15 @@
+"""
+###  make_file
+
+Creates a file and displays it as if we used cat on it.
+
+#### Parameters
+- fn
+- replace: optional replacements to apply (dict)
+- content (the body of the lp block)
+"""
+
+
 import os, json
 from lcdoc.lp_session import get_cwd
 

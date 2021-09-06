@@ -178,6 +178,11 @@ Syntax details [here](./syntax.md/#parametrization).
         ```bash lp asserts="not kill_test"
         tmux list-sessions | grep test || true
         ```
+### mode
+`mode=<plugin name>`
+???+ hint "Pass evaluation into various plugins"
+
+    See [here](./plugins.md) for more information.
 
 ### new_session
 `new_session=<tmux session name>`
