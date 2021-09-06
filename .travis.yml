@@ -15,6 +15,9 @@ install:
   #- conda info -a
   # Replace dep1 dep2 ... with your dependencies
   - conda create -q -n docutools_py37 python=$TRAVIS_PYTHON_VERSION
-    #- conda activate docutools_py37
+  - conda activate docutools_py37
+  - pip install poetry
+  - poetry install
+  - source environ
 
-script: echo Hello
+script: env
