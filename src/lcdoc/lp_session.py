@@ -214,6 +214,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
 
     while True:
         res = lp.sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
+        print(res)
         if expectb in res:
             break
         dt = now() - t0

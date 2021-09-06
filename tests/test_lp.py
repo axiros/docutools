@@ -474,6 +474,9 @@ class embedded_sessions(unittest.TestCase):
         out = '''
         $ sleep 5
         '''
+        print('res--------------')
+        print(res)
+        print('res--------------')
         check_lines_in(res, out)
         # cmd output was skipped since result had it anyway:
         assert len(res.split('$ sleep 5')) == 2
