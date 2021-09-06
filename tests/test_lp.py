@@ -87,6 +87,8 @@ def check_lines_in(res, *blocks):
                     # res is  a LIST - whole line must match
                     assert l.rstrip() in res
                 except Exception as ex:
+                    if not sys.stdin.isatty():
+                        raise
                     err_msg(l, res)
                     breakpoint()
                     sys.exit(1)
