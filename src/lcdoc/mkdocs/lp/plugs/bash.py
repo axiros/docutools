@@ -16,25 +16,27 @@ def run(cmd, kw):
 
     res = []
     for c in cmd:
+        silent = False
         c = lp.check_inline_lp(c, fn_lp=kw['fn_doc']) or c
         lp.run_if_present_and_is_dict(c, 'pre')
         c1 = c['cmd'] if isinstance(c, dict) else c
         rcmd = c1
-        prompt = '$'
+        prompt = kw.get('prompt', '$')
         if kw.get('root'):
             rcmd = 'sudo %s' % rcmd
             rcmd = rcmd.replace(' && ', ' && sudo ')
-            prompt = '#'
+            prompt = kw.get('prompt', '#')
         # for k, v in aliases.items(): rcmd = rcmd.replace(k, v)
         # return sp.check_output(['sudo podman ps -a'], shell=True)
         r = lp.sprun(rcmd)
         r = r.decode('utf-8').rstrip()
         if isinstance(c, dict):
             lp.check_assert(c.get('assert', c.get('asserts')), r)
+            silent = c.get('silent')
         if not kw.get('hide_cmd'):
             r = ''.join([prompt, ' ', c1, '\n', r])
         lp.run_if_present_and_is_dict(c, 'post')
         # res = '%s %s\n' % (prompt, cmd) + res
-
-        res.append({'cmd': c1, 'res': r})
+        if not silent:
+            res.append({'cmd': c1, 'res': r})
     return res

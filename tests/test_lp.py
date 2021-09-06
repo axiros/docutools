@@ -771,7 +771,7 @@ class state(unittest.TestCase):
         res = run_lp(md)
         assert ' joe' in res.split('Output', 1)[1]
 
-    def test_assign_with_session_state(self):
+    def test__assign_with_session_state(self):
         """Tmux keeps the state. No NEW session in the second call"""
         md = '''
             ```bash lp new_session=test

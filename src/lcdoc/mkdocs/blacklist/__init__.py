@@ -17,7 +17,7 @@ Requires rg ([ripgrep](https://github.com/BurntSushi/ripgrep)) tool.
 
 
 from lcdoc.mkdocs.tools import MDPlugin, app, config_options
-from lcdoc.tools import os, project
+from lcdoc.tools import os, project, require
 
 
 def fail_on_blacklisted_words(config, envkey, envsep):
@@ -26,8 +26,7 @@ def fail_on_blacklisted_words(config, envkey, envsep):
         return app.info('No $%s to check for blacklisted words' % envkey)
     here = os.getcwd()
     os.chdir(config['docs_dir'])
-    if os.system('rg --version >/dev/null'):
-        app.die('Require ripgrep')
+    require('rg --version', name='ripgrep')
     try:
         words = [s.strip() for s in l.split(envsep)]
         for w in words:

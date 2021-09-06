@@ -1,3 +1,3 @@
-from . import make_file
+from .make_file import *
 
-run = make_file.show_file
+run = show_file

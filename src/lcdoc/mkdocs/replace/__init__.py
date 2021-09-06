@@ -7,8 +7,8 @@ by a python module.
 The python module (default is: docs/mdreplace.py) must have a table attribute, either
 dict or callable.
 
-When callable it will be called with the mkdocs config and it must replace a dict with
-replacements.
+When callable and kw args in the signature, it will be called with a lot of context, incl. the mkdocs config and the
+current line. Otherwise it will be simply called.
 
 
 ### Features
@@ -28,11 +28,15 @@ replacements.
   ```
 
 - If the callable does not require kw args (e.g. time.ctime) we will not pass them
-
+- The callable can return a replacement for the whole line, by returning a dict like
+  `{'line': ....}`, i.e. with a "line" key.
 - If the replace values are lists (also as returned by the callable), they will be
   properly indented as multiline text.
 
-- fenced blocks are omitted
+#### Controlling Replacements Within Fenced Blocks
+    - fenced blocks are omitted EXCEPT:
+    - if the replacement key is specified like this `key:all:` - then even `:key:` in
+      fenced blocks is replaced
 
 ### Config
 
@@ -48,6 +52,7 @@ from mkdocs.config import config_options
 
 from lcdoc.mkdocs.tools import MDPlugin, app, split_off_fenced_blocks
 from lcdoc.tools import exists, now, os, read_file, sys
+import inspect
 
 fn_ts = [0]
 last_check = [0]
@@ -87,18 +92,29 @@ def load_replacement_file(plugin, config):
         d = table(config) if callable(table) else table
         s = plugin.config['seperator']
         l = lambda v: v.splitlines() if isinstance(v, str) and '\n' in v else v
-        plugin.table = dict([('%s%s%s' % (s, k, s), l(v)) for k, v in d.items()])
+        d1 = {k: v for k, v in d.items() if not ':all:' in k}
+        d2 = {k: v for k, v in d.items() if ':all:' in k}
+        d2 = {k.replace(':all:', ''): v for k, v in d2.items()}
+        plugin.table = dict([('%s%s%s' % (s, k, s), l(v)) for k, v in d1.items()])
+        plugin.t_all = dict([('%s%s%s' % (s, k, s), l(v)) for k, v in d2.items()])
     except Exception as ex:
         app.warning('replacement table load error', exc=ex)
         plugin.table = {}
 
 
+def has_kw(func, _h={}):
+    if func in _h:
+        return _h[func]
+    r = _h[func] = '**' in str(inspect.signature(func))
+    return r
+
+
 def replace(**kw):
     r = []
-    t = kw['plugin'].table
     mdlines = kw['mdblock']
     stats = kw['page'].stats
     stats['total'] = 0
+    t = kw['table']
     while mdlines:
         l = mdlines.pop(0)
         # if 'plugin_do' in str(l): breakpoint()  # FIXME BREAKPOINT
@@ -109,17 +125,24 @@ def replace(**kw):
             v = t[k]
             if callable(v):
                 stats['func'] = stats.get('func', 0) + 1
-                try:
+                if has_kw(v):
                     v = v(line=l, **kw)
-                except:
+                else:
                     v = v()  # simple funcs like time.ctime
             if isinstance(v, list):
                 stats['multiline'] = stats.get('multiline', 0) + 1
                 ind = ' ' * len(l.split(k, 1)[0])
                 v = ind.join([i for i in v])
-            l = l.replace(k, v)
+            if isinstance(v, dict):
+                # a replacement func may deliver the whole new line:
+                l = v['line']
+            else:
+                l = l.replace(k, v)
         r.append(l)
-    return '\n'.join(r)
+    return r
+
+
+from functools import partial
 
 
 class MDReplacePlugin(MDPlugin):
@@ -136,20 +159,26 @@ class MDReplacePlugin(MDPlugin):
         load_replacement_file(self, config)
 
     def on_page_markdown(self, markdown, page, config, files):
+        # a lot of context for the replacement funcs:
+        repl = partial(
+            replace,
+            plugin=self,
+            plugin_file=__file__,
+            config=config,
+            page=page,
+            markdown=markdown,
+        )
         # hot reload feature:
         load_replacement_file(self, config)
+        lines = markdown.splitlines()
+        if self.t_all:
+            lines = repl(mdblock=lines, table=self.t_all)
+
         # if 'features' in page.url: breakpoint()  # FIXME BREAKPOINT
-        mds, fcs = split_off_fenced_blocks(markdown)
+        mds, fcs = split_off_fenced_blocks(lines)
         MD = ''
         for md in mds:
-            MD += replace(
-                mdblock=md,
-                plugin=self,
-                plugin_file=__file__,
-                config=config,
-                page=page,
-                markdown=markdown,
-            )
+            MD += '\n'.join(repl(mdblock=md, table=self.table))
             if fcs:
                 MD += '\n' + '\n'.join(fcs.pop(0)) + '\n'
         return MD

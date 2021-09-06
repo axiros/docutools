@@ -1,10 +1,13 @@
-import os, time
-from lcdoc import lp
+import os, sys
+import time
 from functools import partial as p
+from lcdoc import lp
+from lcdoc.tools import write_file
 
 env = os.environ
 wait = time.sleep
 now = time.time
+exists = lp.exists
 I = lp.I
 
 
@@ -38,49 +41,80 @@ def get(session_name, **kw):
         """
     s = '\n' + os.popen('tmux ls').read()
     if not '\n%s:' % session_name in s:
-        # new session:
-        s = session_name
-        # path is set new. bash (if executing user's shell is fish we'd be screwed)
-        lp.sprun('export SHELL=/bin/bash; export p="$PATH"; tmux new -s %s -d' % s)
-        dt = []
-        for k in [i for i in env if i[:3] == 'LP_']:
-            dt.append('%s="%s"' % (k, env[k]))
-        dt = ' '.join(dt)
-        a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p" PS1="%(prompt)s" '
-        a += "%(dt)s' Enter"
-
-        b = {'prompt': kw.get('prompt', '$ '), 'session': s, 'dt': dt}
-        for i in (1, 2):
-            try:
-                lp.sprun(a % b)
-                # the reset in init prompt needs thate time before
-                # otherwise you have the command 2 times in
-                time.sleep(0.2)
-                break
-            except Exception as ex:
-                # on new systems it maybe just missing or the user / runner does
-                # not care. Lets do it:
-                fn = env.get('HOME', '') + '/.tmux.conf'
-                if not lp.exists(fn) and i == 1:
-                    print('!! Writing %s to set base index to 1 !!' % fn)
-                    r = 'set-option -g base-index 1\nset-window-option '
-                    r += '-g pane-base-index 1\n'
-                    with open(fn, 'w') as fd:
-                        fd.write(r)
-                    continue
-                # everybody has 1 and its a mess to detect or change
-
-                msg = 'tmux session start failed. Do you have tmux, configured with'
-                msg += 'base index 1? 0 is default but will NOT work!!'
-                raise Exception(msg)
-
-        init_prompt(s)
-        if kw.get('root'):
-            lp.sprun('tmux send-keys -t %s "sudo bash" Enter' % s)
-            wait(0.1)
+        create(session_name, kw)
 
     res = p(srun_in_tmux, session_name=session_name)
     return res
+
+
+# docs: configure_tmux_base_index_1
+def configure_tmux_base_index_1(session_name):
+    """
+    Seems everybody really using it has 1 (on normal keyboards 0 is far away)
+    and its a hard to detect or change, especially when the messed with it outside of
+    our control. 
+
+    On clean systems it will be just missing or: the user / runner does not care.
+
+    => Lets create it - when it is NOT present, so that we can have automatic CI/CD.
+    While for a normal user (who is using it) we fail if not configured correctly.
+    """
+    fn = env.get('HOME', '') + '/.tmux.conf'
+    if exists(fn):
+        return
+
+    lp.app.warning('!!! Writing %s to set base index to 1 !!' % fn)
+    r = [
+        'set-option -g base-index 1',
+        'set-window-option -g pane-base-index 1',
+        '',
+    ]
+    write_file(fn, '\n'.join(r))
+    lp.sprun('tmux source-file "%s"' % fn)
+    tmux_kill_session(session_name)
+    tmux_start(session_name)
+
+
+# docs: configure_tmux_base_index_1
+
+
+def tmux_start(session_name):
+    # path is set new. bash (if executing user's shell is fish we'd be screwed)
+    s = session_name
+    lp.sprun('export SHELL=/bin/bash; export p="$PATH"; tmux new -s %s -d' % s)
+
+
+def create(session_name, kw):
+    # new session:
+    s = session_name
+    tmux_start(s)
+    # all lp vars into the session, maybe of use:
+    lp_env = ['%s="%s"' % (i, env[i]) for i in env if i[:3] in ('LP_', 'lp_')]
+    lp_env = ' '.join(lp_env)
+    a = 'tmux send-keys -t %(session)s:1 \'export PATH="$p" PS1="%(prompt)s " '
+    a += "%(lp_env)s' Enter"
+
+    b = {'prompt': kw.get('prompt', '$'), 'session': s, 'lp_env': lp_env}
+    for try_nr in (1, 2):
+        try:
+            lp.sprun(a % b)
+            # the reset in init prompt needs thate time before
+            # otherwise you have the command 2 times in
+            time.sleep(0.2)
+            break
+        except Exception as ex:
+            if try_nr == 1:
+                configure_tmux_base_index_1(session_name)
+                continue
+
+            msg = 'tmux session start failed. Do you have tmux, configured with'
+            msg += 'base index 1? 0 is default but will NOT work!!'
+            raise Exception(msg)
+
+    init_prompt(s)
+    if kw.get('root'):
+        lp.sprun('tmux send-keys -t %s "sudo bash" Enter' % s)
+        wait(0.1)
 
 
 def handle_cwd_pre_post(cpp_mode, spec, session_name, timeout=1, **kw):
@@ -103,7 +137,7 @@ def srun(cmds, session_name, **kw):
     h('post', kw, session_name, **kw)
     res = [i for i in res if not i.get('res') == 'silent']  # sleeps removed
     if kw.get('kill_session'):
-        kill(session_name)
+        tmux_kill_session(session_name)
     return res
 
 
@@ -234,5 +268,5 @@ def find_output_range(res, between, ls=b'\n'):
     return r
 
 
-def kill(session_name):
+def tmux_kill_session(session_name):
     os.system('tmux kill-session -t %s' % session_name)

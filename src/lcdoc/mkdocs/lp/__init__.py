@@ -35,6 +35,7 @@ hashed_headers = [
     'expect',
     'mode',
     'new_session',
+    'pdb',
     'post',
     'pre',
     'session',
@@ -46,17 +47,18 @@ lp_res_ext = '.res.py'  # when opened the ide will format
 
 env_args = {}
 
-
+# docs: eval_parameter_values
 class Eval:
     never = 'never'  # not even when not cached
     always = 'always'  # even when cached. except skipped
     on_change = 'on_change'  # only when block changed
     on_page_change = 'on_page_change'  # whan any block (md irrelevant) on page changed
+    # Default: anything else would confuse user. e.g. cat <filename> would show old still when it changed but no lp change involved:
+    default = 'always'
 
 
-# anything else would confuse user. e.g. cat <filename> would show old still when it changed
-# but no lp change involved:
-Eval.default = Eval.always
+# docs: eval_parameter_values
+
 
 eval_modes = {k for k in dir(Eval) if not k[0] == '_'}
 
@@ -67,7 +69,6 @@ class LP:
     config = None  # the mkdocs config
     page_initted = False
     dflt_evaluation_timeout = 5
-    stepmode = False
     on_err_keep_running = False
     previous_results = None
     cur_results = None
@@ -112,7 +113,7 @@ class LP:
         env_vars = [(f[3:], os.environ[f]) for f in os.environ if f[:3] in s]
         for k, v in env_vars:
             v = lit_prog.cast(v)
-            app.info('From environ', key=k, value=v)
+            app.debug('From environ', key=k, value=v)
             env_args[k] = v
         LP.stats['LP_env_vars'] = len(env_vars)
 
@@ -157,6 +158,7 @@ class LP:
         hashed += '\n'.join(code)
         sid = md5(hashed)
         reg = LP.spec_by_id
+        # if lang == 'page': breakpoint()  # FIXME BREAKPOINT
         # eval result of same block could change, sideeffects in other evals in between:
         while sid in reg:
             sid += '_'
@@ -269,26 +271,37 @@ class LP:
         """
 
         kw = spec['kwargs']
+        sid = spec['source_id']
         # handle page level parametrization already here - this is never skipped:
         # we allow change of default args mid-page:
+        is_page = False
         if spec['lang'] == 'page':
+            # if 'param' in LP.fn_lp: breakpoint()  # FIXME BREAKPOINT
+            is_page = True
             LP.stats['blocks_page'] += 1
             m = {k: v for k, v in kw.items() if not k.startswith('skip_')}
             LP.dflt_args.update(m)
-            return ''
+            kw['silent'] = True
+            kw['lang'] = 'bash'
+            kw['addsrc'] = False
 
         lp_runner = partial(lit_prog.run, fn_doc=LP.fn_lp)
 
         # set the default args, they might be updated from page level params:
+        # if 'param' in LP.fn_lp: breakpoint()  # FIXME BREAKPOINT
         m = dict(LP.dflt_args)
         m.update(kw)
         kw = spec['kwargs'] = m
+        # those kw will parametrize lp.py:run -> add more infos about the spec:
+        # some plugins may need that, why not:
+        kw['LP'] = LP
+        kw['lang'] = spec.get('lang')
+        kw['sourceblock'] = spec.get('source')
 
         # When ANY block changed, we re-eval all, except those skipped:
         # This is usually when editing a page, user may change md but as soon as he
         # changes lp source we re-eval the whole page. If critical user has to use skips:
         any_change = LP.previous_results_missing
-        sid = spec['source_id']
         # is THIS one missing?
         prev_res = LP.previous_results.get(sid)
 
@@ -303,6 +316,8 @@ class LP:
                 skip(True)
             else:
                 skip(False)
+        elif is_page:
+            skip(False)
         elif evl_policy == Eval.never:
             skip(True)
         elif evl_policy == Eval.on_change:
@@ -326,7 +341,7 @@ class LP:
             if prev_res:
                 LP.stats['blocks_skipped_prev_result'] += 1
                 LP.cur_results[sid] = prev_res  # no adding of skipped indicators to res
-                res = lp_runner(spec, use_prev_res=prev_res)['formatted']
+                res = lp_runner(spec, use_prev_res=prev_res, **kw)['formatted']
                 res = mark_as_previous_result(res)
             else:
                 LP.stats['blocks_skipped_no_result'] += 1
@@ -371,9 +386,7 @@ class LP:
                         )
                         raise
             # cmd = block['code']
-            kw['lang'] = spec.get('lang')
-            kw['sourceblock'] = spec.get('source')
-            LP.stepmode and LP.confirm('Before running', page=fn_lp, cmd=cmd, **kw)
+            kw.get('pdb') and LP.confirm('Before running', page=fn_lp, cmd=cmd, **kw)
             kw['timeout'] = kw.get('timeout', LP.dflt_evaluation_timeout)
             stats = LP.stats
             id = '<!-- id: %s -->' % sid
@@ -411,7 +424,7 @@ class LP:
                 tb = ''.join(traceback.format_exception(type(e), e, e.__traceback__))
                 ret = {'raw': 'n.a.', 'formatted': LP.exception(cmd, e, tb, kw=kw)}
 
-        if LP.stepmode:
+        if kw.get('pdb'):
             _ = ret['formatted'].splitlines()
             LP.confirm('After running', page=fn_lp, cmd=cmd, json=_)
         return ret
@@ -486,10 +499,9 @@ skipped = lambda s: T_skipped % s
 def mark_as_previous_result(s):
     return (
         '''
-from previous run:
-
 %s
 
+<hr/>
     '''
         % s
     )
@@ -514,11 +526,14 @@ def patch_mkdocs_to_ignore_res_file_changes():
     k = "'%s'" % lp_res_ext
     if k in s:
         return app.info('mkdocs is already patched to ignore %s' % k, fn=fn)
-
+    os.system('cp "%s" "%s.orig"' % (fn, fn))
     new = S + ' or event.src_path.endswith(%s)' % k
     s = s.replace(S, new)
     write_file(fn, s)
-    return app.warning('Have patched mkdocs to not watch %s  files' % k, fn=fn)
+    diff = os.popen('diff "%s.orig" "%s"' % (fn, fn)).read().splitlines()
+    app.info('Diff', json=diff)
+    msg = 'Have patched mkdocs to not watch %s  files. Please restart.' % k
+    return app.die(msg, fn=fn)
 
 
 # ------------------------------------------------------------------------------- Plugin

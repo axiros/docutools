@@ -3,11 +3,56 @@ from mkdocs.plugins import BasePlugin
 from mkdocs.plugins import log as mkdlog
 
 from lcdoc.const import PageStats, Stats
-from lcdoc.tools import app, dirname, exists, now, os
+from lcdoc.tools import app, dirname, exists, now, os, project, require, read_file
+
+
+def src_link(fn, config, line=None, match=None, incl_fn=None):
+    # TODO: allow others:
+    u = config['repo_url'] + 'blob/master'
+    r = project.root(config)
+    if fn[0] == '/':
+        fnr = fn.split(r, 1)[1]
+    else:
+        fnr = '/' + fn
+    lnk = u + fnr
+    if match:
+        s = read_file(r + fnr, dflt='')
+        m = s.split(match, 1)
+        if len(m) > 1:
+            line = len(m[0].splitlines())
+    if line:
+        lnk += '#L%s' % line
+    incl = ''
+    if incl_fn:
+        incl = '`%s`' % fnr
+    # return T
+    return {
+        'link': '[%s:fontawesome-brands-git-alt:](%s)' % (incl, lnk),
+        'url': lnk,
+    }  # {align=right}'
+
+
+def inline_src_link(**kw):
+    """Often used as replacement function
+    In mdreplace.py:
+    'lnk_src': inline_src_link,
+    """
+    line = kw['line']
+    fn = line.split(':lnk_src:', 1)[1].split(' ', 1)[0]
+    repl = ':lnk_src:' + fn
+    match = None
+    if ':' in fn:
+        fn, match = fn.split(':')
+
+    from lcdoc.mkdocs.tools import src_link
+
+    l = src_link(fn, kw['config'], match=match, incl_fn=True)
+    return {'line': line.replace(repl, l['link'])}
 
 
 def find_md_files(match, config):
-    dd = config["docs_dir"]
+    require('fd --version')
+    dd = config['docs_dir']
     cmd = "cd '%s' && fd -I --type=file -e md | grep '%s'" % (dd, match)
     r = os.popen(cmd).read().strip().splitlines()
     # split off docs dir:
@@ -17,11 +62,11 @@ def find_md_files(match, config):
 def theme_dir(config):
     """strangly we don't see custom_dir in config.theme - it only inserts it, when given, into config.theme.dirs
     """
-    cd = config["theme"].dirs[0]
-    if cd.endswith("/" + config["theme"].name):
-        app.debug("Theme dir is docs dir")
-        return config["docs_dir"]
-    app.info("Theme dir is custom", dir=cd)
+    cd = config['theme'].dirs[0]
+    if cd.endswith('/' + config['theme'].name):
+        app.debug('Theme dir is docs dir')
+        return config['docs_dir']
+    app.info('Theme dir is custom', dir=cd)
     return cd
 
 
@@ -30,25 +75,25 @@ def link_assets(plugin, fn_plugin, config):
     Setting plugin.d_assets to that folder.
     """
     # extra css and js has be in docs dir, even with custom dir:
-    d = dirname(fn_plugin) + "/assets"
+    d = dirname(fn_plugin) + '/assets'
     if not exists(d):
-        app.die("Cannot link: No assets found", dir=d)
-    n = fn_plugin.rsplit("/", 2)[-2]
-    to = config["docs_dir"] + "/lcd"
-    t = to + "/" + n
+        app.die('Cannot link: No assets found', dir=d)
+    n = fn_plugin.rsplit('/', 2)[-2]
+    to = config['docs_dir'] + '/lcd'
+    t = to + '/' + n
     plugin.d_assets = t
     if exists(t):
-        return app.debug("Exists already", linkdest=t)
-    app.warning("Linking", frm=d, to=t)
+        return app.debug('Exists already', linkdest=t)
+    app.warning('Linking', frm=d, to=t)
     os.makedirs(dirname(t), exist_ok=True)
     cmd = 'ln -s "%s" "%s"' % (d, t)
     if os.system(cmd):
-        app.die("Could not link assets")
+        app.die('Could not link assets')
 
 
-def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb="```"):
+def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
     fc_crit = (lambda s: True) if fc_crit is None else fc_crit
-    lines = markdown.splitlines()
+    lines = markdown if isinstance(markdown, list) else markdown.splitlines()
     mds, fcs = [[]], []
     while lines:
         l = lines.pop(0)
@@ -56,7 +101,7 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb="```"):
         if not ls.startswith(fcb):
             mds[-1].append(l)
             continue
-        beg = (" " * (len(l) - len(l.lstrip()))) + fcb
+        beg = (' ' * (len(l) - len(l.lstrip()))) + fcb
         if not fc_crit(ls):
             # an fc but crit is not met (e.g. not lp) -> ignore all till closed:
             while lines:
@@ -76,7 +121,7 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb="```"):
             if l.startswith(beg) and l.strip() == fcb:
                 break
             elif not lines:
-                msg = "Closing fenced block. Your markdown will not be correctly rendered"
+                msg = 'Closing fenced block. Your markdown will not be correctly rendered'
                 app.warning(msg, block=fc)
                 lines.append(beg)
         if fc_process:
@@ -86,20 +131,20 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb="```"):
 
 
 hooks = [
-    "on_serve",
-    "on_config",
-    "on_pre_build",
+    'on_serve',
+    'on_config',
+    'on_pre_build',
     # 'on_files',
     # 'on_nav',
     # 'on_env',
-    "on_post_build",
+    'on_post_build',
     # 'on_build_error',
     # 'on_pre_template',
     # 'on_template_context',
     # 'on_post_template',
     # 'on_pre_page',
     # 'on_page_read_source',
-    "on_page_markdown",
+    'on_page_markdown',
     # 'on_page_content',
     # 'on_page_context',
     # 'on_post_page',
@@ -111,19 +156,19 @@ clsn = lambda o: o.__class__.__name__
 def get_page(hookname, a, kw, c={}):
     pos = c.get(hookname)
     if pos is None:
-        if "page" in kw:
-            pos = "kw"
+        if 'page' in kw:
+            pos = 'kw'
         else:
             h = None
             for i, arg in zip(range(len(a)), a):
-                if getattr(arg, "is_page", None):
+                if getattr(arg, 'is_page', None):
                     h = i
                     break
             if h is None:
                 c[hookname] = -1
                 return
-    if pos == "kw":
-        return kw["page"]
+    if pos == 'kw':
+        return kw['page']
     if pos < 0:
         return
     return a[pos]
@@ -142,11 +187,11 @@ def wrap_hook(plugin, hook, hookname):
             stats[(page.url, page.title)] = stats = page.stats = {}
         on = app.name
         app.name = n
-        app.debug("%s.%s" % (n, hookname))
+        app.debug('%s.%s' % (n, hookname))
         t0 = now()
         r = hook(*a, **kw)
         dt = now() - t0
-        stats["dt"] = stats.get("dt", 0) + dt
+        stats['dt'] = stats.get('dt', 0) + dt
 
         app.name = on
         return r
@@ -156,7 +201,7 @@ def wrap_hook(plugin, hook, hookname):
 
 class MDPlugin(BasePlugin):
     def __init__(self):
-        app.setup_logging(mkdlog, name="lc")
+        app.setup_logging(mkdlog, name='lc')
         Stats[clsn(self)] = {}
         PageStats[clsn(self)] = {}
         for h in hooks:

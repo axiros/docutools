@@ -62,7 +62,7 @@ import sys
 import time
 from functools import partial as p
 from importlib import import_module
-
+from lcdoc.tools import app, write_file
 import pycond
 
 # important (colorize)
@@ -151,7 +151,11 @@ def get_or_import_plug(mode):
     try:
         p = import_module(mode)
     except ModuleNotFoundError:
-        p = import_module(our_plugs + '.' + mode)
+        try:
+            p = import_module(our_plugs + '.' + mode)
+        except ModuleNotFoundError as ex:
+            msg = ' - If this is a custom module add its directory to your PYTHONPATH'
+            raise type(ex)(str(ex) + msg)
     setattr(plugs, mode, p)
     return p
 
@@ -253,7 +257,7 @@ xt_flat_fetch = '''
 
 #        ansiremotecontent
 
-#    [ ](file:./images/info_flow_adm.ansi)
+#    [ ](file:./media/info_flow_adm.ansi)
 
 ##+end_tab:foo
 
@@ -285,13 +289,13 @@ class T:
     def mk_cmd_out(res, **kw):
         root = '' if not kw.get('root') else 'root'
 
-        def add_prompt(c, r):
+        def add_prompt(c, r, kw=kw):
             """
             We don't do it since console rendering requires $ or # only for syn hilite
             """
             c, cmd = (c.get('cmd'), c) if isinstance(c, dict) else (c, {'cmd': c})
             if c:
-                p = '#' if root else '$'
+                p = kw.get('prompt', '#' if root else '$')
                 c = '%s %s' % (p, c)
                 cmt = cmd.get('cmt')
                 if cmt:
@@ -325,6 +329,7 @@ class T:
             p = ''
             if lang in ['bash', 'sh']:
                 p = '# ' if kw.get('root') else '$ '
+                p = kw.get('prompt', p)
             cmd = p + get_cmd(res)
             res = res['res']
             # is the command part of the res? then skip print:
@@ -349,9 +354,24 @@ def get_cmd(res):
 #     aliases[k + ' '] = v + ' '
 
 
-def fmt(res, **kw):
+def prepare_and_fmt(res, orig_cmd, **kw):
+    # allow plugs to do their formatting:
+    if isinstance(res, dict) and 'formatted' in res:
+        return res['formatted']
     res = to_list(res)
+    o = res
+    i = -1
     for c in res:
+        i += 1
+        if not isinstance(c, dict):
+            c = res[i] = {}
+        if not 'cmd' in c:
+            app.error('Command missing', res=o, cmd=orig_cmd)
+            c['cmd'] = orig_cmd
+        if not 'res' in c:
+            app.error('Result missing', res=o, cmd=orig_cmd)
+            c['res'] = 'Not available (%s)' % orig_cmd
+
         c['res'] = c['res'].replace('\n```', '\n ``')
         if kw.get('hide_cmd'):
             c['cmd'] = ''
@@ -523,12 +543,12 @@ class file_:
     def write_fetchable(cont, fetch, **kw):
         """write .ansi XTF files"""
         d, fn = kw['fn_doc'].rsplit('/', 1)
-        lnk = '/images/%s_%s.ansi' % (fn, fetch)
+        lnk = '/media/%s_%s.ansi' % (fn, fetch)
         fn = d + lnk
-        if not exists(d + '/images'):
-            os.makedirs(d + '/images')
-        with open(fn, 'w') as fd:
-            fd.write(rpl(cont, kw))
+        if not exists(d + '/media'):
+            os.makedirs(d + '/media')
+        s = rpl(cont, kw)
+        write_file(fn, s, only_on_change=True)
         return '.' + lnk
 
 
@@ -620,7 +640,7 @@ def eval_lp(cmd, kw):
     if ns:
         from lcdoc import lp_session
 
-        lp_session.kill(ns)
+        lp_session.tmux_kill_session(ns)
         kw['session'] = ns
     session_name = kw['session_name'] = kw.pop('session', None)
     # with sessions we do it IN tmux:
@@ -633,10 +653,17 @@ def eval_lp(cmd, kw):
     g = lambda k, d=None: getattr(plug, k, d)
     if g('multi_line_to_list'):
         cmd = multi_line_to_list(cmd)
+
     r = g('run')
+
+    kw['fmt'] = kw.get('fmt') or g('fmt_default') or dflt_fmt
+    res = None
     if not r:
-        raise Exception('Missing run method in plugin %s' % mode)
-    res = r(cmd, kw)
+        app.error('Missing run method in plugin', mode=mode)
+    else:
+        res = r(cmd, kw)
+        if isinstance(res, str):
+            res = {'cmd': cmd, 'res': res}
 
     if not session_name:
         run_if_present_and_is_dict(kw, 'post')
@@ -669,12 +696,13 @@ def run(cmd, fn_doc=None, use_prev_res=None, **kw):
     ret = {'raw': res}
 
     if not kw.get('silent'):
-        res = fmt(res, **kw)
+        res = prepare_and_fmt(res, orig_cmd=cmd, **kw)
         res = rpl(res, kw)
     else:
         res = ''
 
     i = int(kw.get('addsrc', 0))
+    # if 'param' in fn_doc: breakpoint()  # FIXME BREAKPOINT
     if i:
         b = '\n' + kw.get('sourceblock', 'n.a.')
         m = {

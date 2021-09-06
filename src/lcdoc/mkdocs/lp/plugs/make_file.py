@@ -1,6 +1,8 @@
 import os, json
 from lcdoc.lp_session import get_cwd
 
+fmt_default = 'mk_console'
+
 
 def within_session_dir(session_name, func):
     if not session_name:
@@ -15,7 +17,6 @@ def within_session_dir(session_name, func):
 
 def show_file(cmd, kw):
     """to have it all together we keep this mode here"""
-    kw['fmt'] = kw.get('fmt', 'mk_console')
 
     def f(kw=kw):
         fn = kw['fn']
@@ -32,7 +33,6 @@ def show_file(cmd, kw):
 def run(cmd, kw):
 
     kw['content'] = cmd
-    kw['fmt'] = kw.get('fmt', 'mk_console')
     session_name = kw.get('session_name')
 
     def f(kw=kw):

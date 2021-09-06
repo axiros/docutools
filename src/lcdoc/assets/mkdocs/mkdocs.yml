@@ -1,7 +1,7 @@
 site_name: "docutools"
 site_description: "Documentation Building Tools"
 site_url: "http://github.pages.com/docutools"
-repo_url: "https://github.com/name/docutools"
+repo_url: "https://github.com/AXGKl/docutools"
 repo_name: "docutools"
 
 # configure your own scheme handler for this, dependent on where YOU want to edit (repo server or local fs):
@@ -23,10 +23,10 @@ nav:
           - Syntax: features/lp/syntax.md
           - Parameters: features/lp/parameters.md
           - Evaluation and Caching: features/lp/eval.md
+          - Sessions: features/lp/sessions.md
+          - Async Fetching: features/lp/async.md
+          - Examples: features/lp/examples.md
       - "TermCasts": features/termcasts/index.md
-      # :autodocs:
-      - "Index": autodocs/index.md
-    # :autodocs:
   - About:
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md

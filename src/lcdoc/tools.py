@@ -2,17 +2,36 @@
 Common tools for all modules
 
 """
+import collections
 import json
 import os
 import socket
 import sys
 import time
-import collections
+
 import toml
+
 from lcdoc.log import app, now
 
 exists = os.path.exists
 dirname = os.path.dirname
+
+
+def require(cmd, name=None, die=True, _have=set()):
+    '''cmd e.g. "rg --version"'''
+    name = name or cmd.split(' ', 1)[0]
+    if cmd in _have:
+        return True
+    if os.system(cmd + ' >/dev/null') == 0:
+        _have.add(cmd)
+        return True
+
+    msg = 'Missing required command: %s' % name
+    if die:
+        app.die(msg, tried=cmd)
+    else:
+        app.warning(msg, tried=cmd)
+        return False
 
 
 def hostname(c=[0]):
@@ -48,16 +67,20 @@ def read_file(fn, dflt=None, bytes=-1, strip_comments=False):
         return res
 
 
-def write_file(fn, s, log=0, mkdir=0, chmod=None, mode='w'):
+def write_file(fn, s, log=0, mkdir=0, chmod=None, mode='w', only_on_change=False):
     'API: Write a file. chmod e.g. 0o755 (as octal integer)'
 
     fn = os.path.abspath(fn)
 
-    if log > 0:
-        app.info('Writing file', fn=fn)
-
     if isinstance(s, (list, tuple)):
         s = '\n'.join(s)
+    if only_on_change:
+        so = read_file(fn, dflt='xxx')
+        if s == so:
+            return
+
+    if log > 0:
+        app.info('Writing file', fn=fn)
     if log > 1:
         sep = '\n----------------------\n'
         ps = (
