@@ -79,6 +79,7 @@ def check_lines_in(res, *blocks):
     Plus "the dot, which we'll remove some day ..."
     """
     res = [l.rstrip() for l in res.splitlines()]
+    breakpoint()  # FIXME BREAKPOINT
     print('check_lines')
     print(res)
     print('????????')
@@ -86,7 +87,7 @@ def check_lines_in(res, *blocks):
         for l in b.splitlines():
 
             if l.strip():
-                kk = l.strip()
+                kk = l.rstrip()
                 print('kk')
                 print(kk)
                 assert kk in res
