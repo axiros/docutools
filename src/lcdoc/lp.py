@@ -127,12 +127,15 @@ def spresc(cmd):
 
 
 def sprun(*a, **kw):
-    """Running a command as subprocess"""
+    """Running a command as bash subprocess
+    W/o executable we crash on ubuntu's crazy dash, which cannot even echo -e
+    """
     if not kw and len(a) == 1:
         print('', a[0])
     else:
         print('', a, kw)  # for the user (also in view messages)
-    return p(sp.check_output, shell=True, stderr=sp.STDOUT)(*a, **kw)
+    c = p(sp.check_output, shell=True, stderr=sp.STDOUT, executable='/bin/bash')
+    return c(*a, **kw)
 
 
 # ----------------------------------------------------------------------- Plugins(modes)

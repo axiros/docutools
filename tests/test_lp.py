@@ -79,16 +79,16 @@ def check_lines_in(res, *blocks):
     Plus "the dot, which we'll remove some day ..."
     """
     res = [l.rstrip() for l in res.splitlines()]
-    print('check_lines')
-    print(res)
-    print('????????')
+    # print('check_lines')
+    # print(res)
+    # print('????????')
     for b in blocks:
         for l in b.splitlines():
 
             if l.strip():
                 kk = l.rstrip()
-                print('kk')
-                print(kk)
+                # print('kk')
+                # print(kk)
                 assert kk in res
                 # try:
                 #     # res is  a LIST - whole line must match
@@ -287,7 +287,7 @@ class embedded_no_sessions(unittest.TestCase):
         with pytest.raises(Exception, match='XXX'):
             res = run_lp(md % run, raise_on_errs=True)
 
-    def xtest_escape(self):
+    def test_escape(self):
         """Single Escapes Working?"""
         md = '''
         ```bash lp 
@@ -306,8 +306,8 @@ class embedded_no_sessions(unittest.TestCase):
                 With \x1b[1;38;5;124mAnsi\x1b[0m\n
         '''
         res = run_lp(md)
-        print('have res')
-        print(res)
+        # print('have res')
+        # print(res)
         check_lines_in(res, cmd, out)
 
 
