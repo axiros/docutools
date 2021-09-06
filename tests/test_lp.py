@@ -83,15 +83,16 @@ def check_lines_in(res, *blocks):
         for l in b.splitlines():
 
             if l.strip():
-                try:
-                    # res is  a LIST - whole line must match
-                    assert l.rstrip() in res
-                except Exception as ex:
-                    if not sys.stdin.isatty():
-                        raise
-                    err_msg(l, res)
-                    breakpoint()
-                    sys.exit(1)
+                assert l.rstrip() in res
+                # try:
+                #     # res is  a LIST - whole line must match
+                #     assert l.rstrip() in res
+                # except Exception as ex:
+                #     if not sys.stdin.isatty():
+                #         raise
+                #     err_msg(l, res)
+                #     breakpoint()
+                #     sys.exit(1)
 
 
 class Page:

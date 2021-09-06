@@ -87,7 +87,7 @@ function docs_serve {
 
 function tests {
     test -z "$1" && {
-        sh pytest -xs tests -p no:randomly -c config/pytest.ini tests
+        sh pytest -vvxs tests -p no:randomly -c config/pytest.ini tests
         return $?
     }
     test -n "$1" && sh pytest "$@"

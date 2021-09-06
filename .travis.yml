@@ -10,16 +10,16 @@ install:
   - source "$HOME/miniconda/etc/profile.d/conda.sh"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
+  - conda config --add channels conda-forge
     #- conda update -q conda
   # Useful for debugging any issues with conda
   #- conda info -a
   # Replace dep1 dep2 ... with your dependencies
-  - conda create -q -n docutools_py37 python=$TRAVIS_PYTHON_VERSION
+  - conda create -q -n docutools_py37 python=$TRAVIS_PYTHON_VERSION ripgrep tmux fd-find poetry
   - conda activate docutools_py37
-  - conda install -y -c conda-forge ripgrep tmux fd-find
   - rg --version
   - fd --version
-  - pip install poetry
+    #- pip install poetry
   - poetry install
   - source environ
 
