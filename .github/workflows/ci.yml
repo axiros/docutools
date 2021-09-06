@@ -29,6 +29,11 @@ jobs:
         python-version: ["3.7"]
     steps:
       - uses: actions/checkout@v2
+      - name: Set up the Cache
+        uses: actions/cache@v1
+        with:
+          path: /usr/share/miniconda
+          key: cache-python-miniconda
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
