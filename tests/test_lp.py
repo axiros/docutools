@@ -79,6 +79,7 @@ def check_lines_in(res, *blocks):
     Plus "the dot, which we'll remove some day ..."
     """
     res = [l.rstrip() for l in res.splitlines()]
+    breakpoint()  # FIXME BREAKPOINT
     print('check_lines')
     print(res)
     print('????????')
@@ -287,7 +288,7 @@ class embedded_no_sessions(unittest.TestCase):
         with pytest.raises(Exception, match='XXX'):
             res = run_lp(md % run, raise_on_errs=True)
 
-    def test_escape(self):
+    def xtest_escape(self):
         """Single Escapes Working?"""
         md = '''
         ```bash lp 
