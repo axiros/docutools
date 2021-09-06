@@ -16,11 +16,11 @@ install:
   # Replace dep1 dep2 ... with your dependencies
   - conda create -q -n docutools_py37 python=$TRAVIS_PYTHON_VERSION
   - conda activate docutools_py37
-  - conda install -y ripgrep tmux fd
+  - conda install -y -c conda-forge ripgrep tmux fd-find
   - rg --version
   - fd --version
   - pip install poetry
   - poetry install
   - source environ
 
-script: env
+script: make tests
