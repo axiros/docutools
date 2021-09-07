@@ -18,7 +18,7 @@ env:
   POETRY_VIRTUALENVS_IN_PROJECT: "true"
   PYTHONIOENCODING: "UTF-8"
   MC: "/home/runner/miniconda3"
-  PATH: "${MC}/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
+  PATH: "${{ env.MC }}/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
 
 jobs:
   tests:
