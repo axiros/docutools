@@ -33,6 +33,7 @@ help() {
 
 activate_venv() {
     # must be set in environ:
+    local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
     test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
     nfo Activating "$conda_env"
     conda activate "$conda_env"
@@ -70,11 +71,11 @@ function ci_conda_root_env {
 function ci_conda_py_env {
     set -x
     # main conda bin is in path
-    local n="$1_py$2"
+    local n="${PROJECT}_py${pyver}"
     local p="$(conda_root)/envs/$n"
     test -e "$p" && { nfo "Already present: $p"; return 0; }
     conda_act
-    conda create -q -n "$n" python="$2" ripgrep tmux fd-find poetry
+    conda create -q -n "${PROJECT}" python="${pyver}" ripgrep tmux fd-find poetry
     conda activate "$n"
     poetry install
     conda info
@@ -162,4 +163,3 @@ make() {
     }
 }
 
-activate_venv || nfo "Cannot activate $\conda_env"
