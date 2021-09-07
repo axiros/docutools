@@ -17,7 +17,6 @@ env:
   LC_ALL: "en_US.utf-8"
   POETRY_VIRTUALENVS_IN_PROJECT: "true"
   PYTHONIOENCODING: "UTF-8"
-  PATH: "/home/runner/miniconda3/bin:${PATH}"
 
 jobs:
   tests:
@@ -29,6 +28,9 @@ jobs:
         os: ["ubuntu-latest"]
         python-version: ["3.7"]
     steps:
+      - name: Install Midadniconda Root
+        shell: bash -l {0}
+        run: "echo $PATH"
       - uses: actions/checkout@v2
       - name: Set up the Miniconda Root Cache
         uses: actions/cache@v2
