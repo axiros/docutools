@@ -78,7 +78,7 @@ function ci_conda_py_env {
     conda activate "$n"
     poetry install
     conda info
-    ls -a $(conda_root)/envs/"
+    ls -a "$(conda_root)/envs/"
 }
 
 function badges { # inserts badges into readme. defunct for now
