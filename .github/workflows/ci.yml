@@ -50,15 +50,17 @@ jobs:
         # they delete unused ones after 7 days.
         uses: actions/cache@v2
         env:
-          cache_name: cache-miniconda-envs-${{ env.PROJECT }}_py${{ matrix.python-version }}${{ hashFiles('pyproject.toml') }}
+          cache_name: cache-miniconda-envs-${{ env.PROJECT }}_py${{ matrix.python-version }}_${{ hashFiles('pyproject.toml') }}
         with:
           path: ~/miniconda3/envs/${{ env.PROJECT }}_py${{ matrix.python-version }}
           key: ${{ runner.os }}-build-${{ env.cache_name }}
+
       - name: Install Miniconda PyEnv
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
         run: "source ./make && make ci_conda_py_env"
+
       - name: Run tests
         shell: bash -l {0}
         env:

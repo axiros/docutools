@@ -77,7 +77,7 @@ function ci_conda_py_env {
     local p="$(conda_root)/envs/$n"
     test -e "$p" && { nfo "Already present: $p"; return 0; }
     conda_act
-    conda create -q -n "${PROJECT}" python="${pyver}" ripgrep tmux fd-find poetry
+    conda create -q -n "${n}" python="${pyver}" ripgrep tmux fd-find poetry
     conda activate "$n"
     poetry install
     conda info
