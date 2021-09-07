@@ -29,30 +29,16 @@ jobs:
         python-version: ["3.7"]
     steps:
       - uses: actions/checkout@v2
-      - name: Set up the Cache
-        uses: actions/cache@v1
+      - name: Set up the Miniconda Root Cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-miniconda-root
         with:
-          path: /usr/share/miniconda
-          key: cache-python-miniconda
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          auto-update-conda: true
-          python-version: ${{ matrix.python-version }}
-          channels: conda-forge,defaults
-          channel-priority: true
-
-      - name: Conda packages
+          path: ~/miniconda3
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+      - name: Install Miniconda Root
         shell: bash -l {0}
-        run: conda install -y ripgrep fd-find tmux poetry
-      - name: Poetry install
-        shell: bash -l {0}
-        run: poetry install
-      - name: Teller
-        shell: bash -l {0}
-        run: python -c 'import mkdocs; print(mkdocs)'
+        run: "source make && make conda_root_env"
       - name: Conda info
         shell: bash -l {0}
         run: conda info
-      - name: Test
-        shell: bash -l {0}
-        run: pytest -vvvxs tests/test_lp.py

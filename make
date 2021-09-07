@@ -49,6 +49,17 @@ set_version() {
 }
 
 # ----------------------------------------------------------------------------------------- Make Functions:
+function conda_root_env {
+    test -e "$HOME/miniconda3" && { nfo "Already present"; return 0; }
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+    chmod +x miniconda.sh
+    ./miniconda.sh -b -p $HOME/miniconda3
+    source "$HOME/miniconda3/etc/profile.d/conda.sh"
+    conda config --set always_yes yes # --set changeps1 no
+    conda config --add channels conda-forge
+    ls -a $HOME
+}
+
 function badges { # inserts badges into readme. defunct for now
     local u="hg+https://badges.github.com/scm/hg/noauth/badges::/tmp/badges_$USER"
     sh doc make_badges --badge_directory "$u" --modify_readme
