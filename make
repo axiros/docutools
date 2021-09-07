@@ -49,16 +49,18 @@ set_version() {
     nfo "Say ./make release <version>"
     return 1
 }
-
+conda_root () { echo "$HOME/miniconda3"; }
+conda_act () { source "$(conda_root)/etc/profile.d/conda.sh"; }
 # ----------------------------------------------------------------------------------------- Make Functions:
+
 function ci_conda_root_env {
     # main conda bin is in path
-    local p="$HOME/miniconda3"
+    local p="$(conda_root)"
     test -e "$p" && { nfo "Already present: $p"; return 0; }
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     chmod +x miniconda.sh
     ./miniconda.sh -b -p $p 2>/dev/null
-    source "$p/etc/profile.d/conda.sh"
+    conda_act
     conda config --set always_yes yes # --set changeps1 no
     conda config --add channels conda-forge
     ls -a $HOME
@@ -68,6 +70,7 @@ function ci_conda_py_env {
     local n="$1_py$2"
     local p="$HOME/miniconda3/envs/$n"
     test -e "$p" && { nfo "Already present: $p"; return 0; }
+    conda_act
     conda create -q -n "$n" python="$2" ripgrep tmux fd-find poetry
     conda activate "$n"
     poetry install
