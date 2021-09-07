@@ -34,6 +34,8 @@ help() {
 activate_venv() {
     # must be set in environ:
     local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
+    test -e "$conda_env" || { nfo "No $conda_env"; return 1; }
+    test -z "$CONDA_SHLVL" && conda_act
     test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
     nfo Activating "$conda_env"
     conda activate "$conda_env"
