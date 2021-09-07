@@ -1,5 +1,7 @@
 #  docutools
 
+![ci](https://github.com/AXGKl/docutools/actions/workflows/ci.yml/badge.svg)
+
 ## [Documentation](https://axgkl.github.io/docutools/) building tools
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.

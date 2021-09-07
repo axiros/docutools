@@ -71,12 +71,12 @@ function ci_conda_root_env {
     ls -a $HOME
 }
 function ci_conda_py_env {
-    set -x
     # main conda bin is in path
     local n="${PROJECT}_py${pyver}"
     local p="$(conda_root)/envs/$n"
     test -e "$p" && { nfo "Already present: $p"; return 0; }
     conda_act
+    set -x
     conda create -q -n "${n}" python="${pyver}" ripgrep tmux fd-find poetry
     conda activate "$n"
     poetry install
