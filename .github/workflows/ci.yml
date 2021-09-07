@@ -47,9 +47,10 @@ jobs:
         shell: bash -l {0}
         run: conda info
       - name: Set up the Miniconda Envs Cache
+        # they delete unused ones after 7 days.
         uses: actions/cache@v2
         env:
-          cache_name: cache-miniconda-envs-${{ env.PROJECT }}_py${{ matrix.python-version }}
+          cache_name: cache-miniconda-envs-${{ env.PROJECT }}_py${{ matrix.python-version }}${{ hashFiles('pyproject.toml') }}
         with:
           path: ~/miniconda3/envs/${{ env.PROJECT }}_py${{ matrix.python-version }}
           key: ${{ runner.os }}-build-${{ env.cache_name }}
