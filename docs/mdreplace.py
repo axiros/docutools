@@ -1,6 +1,6 @@
 import sys, os
 import time
-from lcdoc.mkdocs.tools import inline_src_link
+from lcdoc.mkdocs.tools import inline_src_link, badge
 
 
 def plugin_docs(**kw):
@@ -34,5 +34,6 @@ table = {
     'plugs_docs': plugs_docs,
     'ctime': time.ctime(),
     'lnk_src': inline_src_link,
+    'badge': badge,
     'fences:all:': '```',
 }

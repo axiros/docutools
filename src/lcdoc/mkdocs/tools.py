@@ -32,6 +32,8 @@ def src_link(fn, config, line=None, match=None, incl_fn=None):
     }  # {align=right}'
 
 
+# -------------------------------------------------------- replacements
+# used in mdreplace
 def inline_src_link(**kw):
     """Often used as replacement function
     In mdreplace.py:
@@ -48,6 +50,11 @@ def inline_src_link(**kw):
 
     l = src_link(fn, kw['config'], match=match, incl_fn=True)
     return {'line': line.replace(repl, l['link'])}
+
+
+def badge(**kw):
+    return 'n.a.'
+    breakpoint()  # FIXME BREAKPOINT
 
 
 def find_md_files(match, config):
