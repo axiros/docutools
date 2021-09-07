@@ -51,6 +51,8 @@ multi_line_to_list = True
 
 config = lambda kw: kw['LP'].config
 
+no_end_slash = lambda s: s if not s[-1] == '/' else s[:-1]
+
 
 class badges:
     def axblack(spec, kw):
@@ -63,9 +65,7 @@ class badges:
 
     def gh_action(spec, kw):
         a = spec['action']
-        ru = config(kw)['repo_url']
-        while ru.endswith('/'):
-            ru = ru[:-1]
+        ru = no_end_slash(config(kw)['repo_url'])
         u = '%s/actions/workflows/%s.yml' % (ru, a)
         i = '%s/badge.svg' % u
         return dict(lnk=u, img=i, label='gh-' + a)
@@ -88,6 +88,12 @@ def make_badge_svg_file(badge_fn, label, value, color='gray', **kw):
     write_file(badge_fn, badge.badge_svg_text, mkdir=True, only_on_change=True)
 
 
+def write_readme(page, config):
+    fn = project.root(config) + '/README.md'
+    write_file(fn, page.markdown, only_on_change=True)
+    app.warning('Have written README', fn=fn)
+
+
 def run(cmd, kw):
     # prevents mkdocs serve loops, this counts up, changing the svgs all the time:
     ab.Badge.mask_id = 0
@@ -103,7 +109,11 @@ def run(cmd, kw):
             bdg = 'badge_%(cmd)s.svg' % spec
             fn = dirname(kw['LP'].page.file.abs_src_path) + '/img/' + bdg
             spec['badge_fn'] = fn
-            spec['img'] = './img/' + bdg
+            # need an absolute path for the readme.md:
+            u = no_end_slash(config(kw)['site_url'])  # +  './img/' + bdg
+            k = dirname(kw['LP'].page.file.src_path) or '/'
+            u = no_end_slash(u + k) + '/img/' + bdg
+            spec['img'] = u
             make_badge_svg_file(**spec)
         specs.append(spec)
     r = ''
@@ -113,4 +123,7 @@ def run(cmd, kw):
         l += ['[%(label)s]: %(lnk)s' % s]
         l += ['[%(label)s_img]: %(img)s' % s]
     l = '\n'.join(l)
+    if kw.get('write_readme'):
+        p = kw['LP'].page
+        p.lp_on_post_page = partial(write_readme, page=p, config=config(kw))
     return {'res': specs, 'formatted': '\n'.join(['', r, '', l, ''])}

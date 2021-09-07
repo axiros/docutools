@@ -557,6 +557,11 @@ class LPPlugin(MDPlugin):
         lpres_files = [f for f in files if f.src_path.endswith(lp_res_ext)]
         [files.remove(f) for f in lpres_files]
 
+    def on_post_page(self, output, page, config):
+        f = getattr(page, 'lp_on_post_page', None)
+        if f:
+            f()
+
     def on_page_markdown(self, markdown, page, config, files):
         eval = env_args.get('eval')
         if eval and eval not in eval_modes:

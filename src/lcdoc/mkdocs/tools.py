@@ -159,7 +159,7 @@ hooks = [
     'on_page_markdown',
     # 'on_page_content',
     # 'on_page_context',
-    # 'on_post_page',
+    'on_post_page',
 ]
 
 clsn = lambda o: o.__class__.__name__
