@@ -54,4 +54,4 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache_name }}
       - name: Install Miniconda PyEnv
         shell: bash -l {0}
-        run: "source ./make && make ci_conda_py_env ${{ env.PROJECT }} {{ matrix.python-version }}"
+        run: "source ./make && make ci_conda_py_env ${{ env.PROJECT }} ${{ matrix.python-version }}"
