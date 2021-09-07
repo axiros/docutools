@@ -66,6 +66,7 @@ function ci_conda_root_env {
     ls -a $HOME
 }
 function ci_conda_py_env {
+    set -x
     # main conda bin is in path
     local n="$1_py$2"
     local p="$HOME/miniconda3/envs/$n"
