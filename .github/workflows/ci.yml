@@ -48,9 +48,9 @@ jobs:
       - name: Set up the Miniconda Envs Cache
         uses: actions/cache@v2
         env:
-          cache_name: cache-miniconda-envs
+          cache_name: cache-miniconda-envs-${{ env.PROJECT }}_py${{ matrix.python-version }}
         with:
-          path: ~/miniconda3
+          path: ~/miniconda3/envs/${{ env.PROJECT }}_py${{ matrix.python-version }}
           key: ${{ runner.os }}-build-${{ env.cache_name }}
       - name: Install Miniconda PyEnv
         shell: bash -l {0}
