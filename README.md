@@ -3,7 +3,7 @@
 </style>
 
 
-![](./test.svg)
+![](./test.svg?foo=123)
 
 <b class="foo">bar</b>
 
