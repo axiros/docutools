@@ -17,8 +17,9 @@ env:
   LC_ALL: "en_US.utf-8"
   POETRY_VIRTUALENVS_IN_PROJECT: "true"
   PYTHONIOENCODING: "UTF-8"
+  PROJECT: "docutools"
   MC: "/home/runner/miniconda3"
-  PATH: "${{ MC }}/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
+  PATH: "$(MC)/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
 
 jobs:
   tests:
@@ -28,11 +29,8 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"]
-        python-version: ["3.7"]
+        python-version: ["3.7", "3.8"]
     steps:
-      - name: Install Midadniconda Root
-        shell: bash -l {0}
-        run: "echo $PATH"
       - uses: actions/checkout@v2
       - name: Set up the Miniconda Root Cache
         uses: actions/cache@v2
@@ -47,3 +45,13 @@ jobs:
       - name: Conda info
         shell: bash -l {0}
         run: conda info
+      - name: Set up the Miniconda Envs Cache
+        uses: actions/cache@v2
+        env:
+          cache_name: cache-miniconda-envs
+        with:
+          path: ~/miniconda3
+          key: ${{ runner.os }}-build-${{ env.cache_name }}
+      - name: Install Miniconda PyEnv
+        shell: bash -l {0}
+        run: "source ./make && make ci_conda_py_env $(PROJECT) {{ matrix.python-version}}"

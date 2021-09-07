@@ -1,4 +1,6 @@
 # vim: ft=bash
+# KEEP THIS FILE GENERIC - INDEPENDENT of PROJECT. THAT IS ALL IN ENVIRON FILE
+
 M="\x1b[1;32m"
 O="\x1b[0m"
 T1="\x1b[48;5;255;38;5;0m"
@@ -50,14 +52,26 @@ set_version() {
 
 # ----------------------------------------------------------------------------------------- Make Functions:
 function ci_conda_root_env {
-    test -e "$HOME/miniconda3" && { nfo "Already present"; return 0; }
+    # main conda bin is in path
+    local p="$HOME/miniconda3"
+    test -e "$p" && { nfo "Already present: $p"; return 0; }
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     chmod +x miniconda.sh
-    ./miniconda.sh -b -p $HOME/miniconda3 2>/dev/null
-    source "$HOME/miniconda3/etc/profile.d/conda.sh"
+    ./miniconda.sh -b -p $p 2>/dev/null
+    source "$p/etc/profile.d/conda.sh"
     conda config --set always_yes yes # --set changeps1 no
     conda config --add channels conda-forge
     ls -a $HOME
+}
+function ci_conda_py_env {
+    # main conda bin is in path
+    local n="$1_py$2"
+    local p="$HOME/miniconda3/envs/$n"
+    test -e "$p" && { nfo "Already present: $p"; return 0; }
+    conda create -q -n "$n" python="$2" ripgrep tmux fd-find poetry
+    conda activate "$n"
+    poetry install
+    ls -a $p
 }
 
 function badges { # inserts badges into readme. defunct for now
