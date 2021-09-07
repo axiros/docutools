@@ -17,7 +17,7 @@ env:
   LC_ALL: "en_US.utf-8"
   POETRY_VIRTUALENVS_IN_PROJECT: "true"
   PYTHONIOENCODING: "UTF-8"
-  PATH: "/home/runner/miniconda3/bin:${{ env.PATH }}"
+  PATH: "/home/runner/miniconda3/bin:${PATH}"
 
 jobs:
   tests:
