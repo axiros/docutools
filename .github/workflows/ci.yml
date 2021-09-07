@@ -17,6 +17,7 @@ env:
   LC_ALL: "en_US.utf-8"
   POETRY_VIRTUALENVS_IN_PROJECT: "true"
   PYTHONIOENCODING: "UTF-8"
+  PATH: "/home/runner/miniconda3/bin:${{ env.PATH }}"
 
 jobs:
   tests:
@@ -32,13 +33,13 @@ jobs:
       - name: Set up the Miniconda Root Cache
         uses: actions/cache@v2
         env:
-          cache-name: cache-miniconda-root
+          cache_name: cache-miniconda-root
         with:
           path: ~/miniconda3
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          key: ${{ runner.os }}-build-${{ env.cache_name }}
       - name: Install Miniconda Root
         shell: bash -l {0}
-        run: "source ./make && make conda_root_env"
+        run: "source ./make && make ci_conda_root_env"
       - name: Conda info
         shell: bash -l {0}
         run: conda info
