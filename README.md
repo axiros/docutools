@@ -1,12 +1,9 @@
-<html>
-<head>
 <style>
 .foo {color: red;}
 </style>
-</head>
 
-<body>
+
+![](./test.svg)
+
 <b class="foo">bar</b>
-</body>
-</html>
 
