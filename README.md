@@ -5,10 +5,10 @@
 
 [gh-ci]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml
 [gh-ci_img]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml/badge.svg
-[pkg]: https://pypi.org/project/docutools/2021.8.10/
-[pkg_img]: http://127.0.0.1:8000/docutools/img/badge_pypi.svg
+[pkg]: https://pypi.org/project/docutools/2021.9.07/
+[pkg_img]: http://github.pages.com/docutools/img/badge_pypi.svg
 [code_style]: https://pypi.org/project/axblack/
-[code_style_img]: http://127.0.0.1:8000/docutools/img/badge_axblack.svg
+[code_style_img]: http://github.pages.com/docutools/img/badge_axblack.svg
 
 <!-- id: be1784177f9b15799b106fd8e667fe7b -->
 
@@ -28,7 +28,7 @@ Notes:
 
 
 
-Last modfied: Tue Sep  7 23:52:35 2021
+Last modfied: Tue Sep  7 23:54:29 2021
 
  
  
