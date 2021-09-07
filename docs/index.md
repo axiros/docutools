@@ -1,6 +1,11 @@
 #  docutools
 
-:badge:gh-action:ci
+```yaml lp mode=make_badges write_readme eval=always
+gh-action # lp: action=ci
+pypi
+axblack
+
+```
 
 ## [Documentation](https://axgkl.github.io/docutools/) building tools
 
@@ -20,7 +25,6 @@ Notes:
 
 Last modfied: :ctime:
 
- 
  
  
  

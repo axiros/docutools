@@ -18,14 +18,14 @@ include = [
     "pyproject.toml"
 ]
 
-[[tool.poetry.source]]
-name = "ax"
-url = "https://artifacts.github.com/artifactory/api/pypi/pypi-ax-sources/simple/"
-secondary = true
+# [[tool.poetry.source]]
+# name = "ax"
+# url = "https://artifacts.github.com/artifactory/api/pypi/pypi-ax-sources/simple/"
+# secondary = true
 
 [project.urls]
-packagehome = "https://artifacts.github.com/artifactory/pypi-ax-sources/docutools/_VERSION_/docutools-_VERSION_.tar.gz"
-discusshome = "https://join.skype.com/krSNYZqvEmJm"
+# packagehome = "https://pypi.org/project/docutools" # default is pypi, no need to declare
+# discusshome = "https://join.skype.com/foobarbaz"
 
 [tool.poetry.dependencies]
 #python = "^3.6"

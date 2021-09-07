@@ -392,21 +392,6 @@ def prepare_and_fmt(res, orig_cmd, **kw):
 letters = string.ascii_letters + string.digits + '_'
 
 
-def check_inline_lp(cmd, fn_lp):
-    if not isinstance(cmd, str):
-        return
-    l = cmd.rsplit(' # lp: ', 1)
-    if len(l) == 1 or '\n' in l[1]:
-        return
-    err, res = parse_header_args(l[1], fn_lp=fn_lp)
-    if err:
-        msg = 'Inline lp construct wrong: %s. Valid e.g.: "ls -lta /etc # lp: '
-        msg += 'expect=hosts timeout=10". Got: %s %s'
-        raise Exception(msg % (cmd, res[0], res[1]))
-    res[1]['cmd'] = res[1].get('cmd', l[0])
-    return res[1]
-
-
 # ----------------------------------------------------------------------- header parsing
 def cast(v):
     if v and v[0] in ('{', '['):
@@ -595,7 +580,7 @@ def multi_line_to_list(cmd):
     if any([l for l in lines if l.strip() and l.startswith(' ')]):
         # echo 'foo
         #      bar' > baz
-        return cmd
+        return [{'cmd': cmd}]
     r = []
     while lines:
         l = lines.pop(0)
@@ -603,7 +588,24 @@ def multi_line_to_list(cmd):
         while lines and lines[0].startswith('> '):
             l = lines.pop(0)
             r[-1] += '\n' + l[2:]
-    return [cmd for cmd in r if cmd.strip()]
+    l = [cmd for cmd in r if cmd.strip()]
+    return [check_inline_lp(line) for line in l]
+
+
+def check_inline_lp(cmd):
+    if not isinstance(cmd, str):
+        breakpoint()  # FIXME BREAKPOINT
+        return
+    l = cmd.rsplit(' # lp: ', 1)
+    if len(l) == 1 or '\n' in l[1]:
+        return {'cmd': l[0]}
+    err, res = parse_header_args(l[1])
+    if err:
+        msg = 'Inline lp construct wrong: %s. Valid e.g.: "ls -lta /etc # lp: '
+        msg += 'expect=hosts timeout=10". Got: %s %s'
+        raise Exception(msg % (cmd, res[0], res[1]))
+    res[1]['cmd'] = res[1].get('cmd', l[0])
+    return res[1]
 
 
 def run_if_present_and_is_dict(kw, if_present):

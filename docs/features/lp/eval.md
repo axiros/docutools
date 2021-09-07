@@ -97,6 +97,10 @@ block only, by specifying the `eval` parameter like so: `<page match>[:<block ma
 
 Typically you do this via an environ parameter at start up of `mkdocs build|serve`:
 
+!!! warning
+    Such a page match is checked against the full source path to markdown pages, from `/` (root) folder!
+    So `lp_eval=docs/index` would match exactly on your main index.md.
+
 ```console
 $ lp_eval="mypage" mkdocs build
 $ lp_eval="mypage:myblockmatch" mkdocs build

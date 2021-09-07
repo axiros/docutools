@@ -560,7 +560,9 @@ class LPPlugin(MDPlugin):
     def on_page_markdown(self, markdown, page, config, files):
         eval = env_args.get('eval')
         if eval and eval not in eval_modes:
-            p = page.file.src_path
+            # we need to be able to exactly match on docs/index.md
+            # -> take all:
+            p = page.file.abs_src_path
             # eval is page[:block match] if not in evals
             if not eval.split(':', 1)[0] in p:
                 return app.debug('LP: Skipping ($LP_EVAL) %s' % p)
@@ -575,8 +577,16 @@ class LPPlugin(MDPlugin):
             return os.unlink(fn) if exists(fn) else None
 
         LP.load_previous_results()
-        with contextlib.redirect_stdout(sys.stderr):
+        # we have to redirect all the prints in lp blocks - would screw stats jq
+        # BUT we also want readline support in debugging sessions:
+        # No stats in serve anyway:
+        if 'serve' in sys.argv:
             blocks = LP.run_blocks(lp_blocks)
+        else:
+            app.info('Redirecting stdout to stderr')
+            with contextlib.redirect_stdout(sys.stderr):
+                blocks = LP.run_blocks(lp_blocks)
+            app.info('stdout back to normal')
 
         LP.write_eval_results()
 

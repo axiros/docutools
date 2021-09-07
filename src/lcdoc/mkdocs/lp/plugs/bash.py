@@ -30,7 +30,6 @@ def run(cmd, kw):
     res = []
     for c in cmd:
         silent = False
-        c = lp.check_inline_lp(c, fn_lp=kw['fn_doc']) or c
         lp.run_if_present_and_is_dict(c, 'pre')
         c1 = c['cmd'] if isinstance(c, dict) else c
         rcmd = c1

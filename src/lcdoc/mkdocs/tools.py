@@ -3,7 +3,17 @@ from mkdocs.plugins import BasePlugin
 from mkdocs.plugins import log as mkdlog
 
 from lcdoc.const import PageStats, Stats
-from lcdoc.tools import app, dirname, exists, now, os, project, require, read_file
+from lcdoc.tools import (
+    app,
+    dirname,
+    exists,
+    now,
+    os,
+    project,
+    require,
+    read_file,
+    write_file,
+)
 
 
 def src_link(fn, config, line=None, match=None, incl_fn=None):
@@ -50,11 +60,6 @@ def inline_src_link(**kw):
 
     l = src_link(fn, kw['config'], match=match, incl_fn=True)
     return {'line': line.replace(repl, l['link'])}
-
-
-def badge(**kw):
-    return 'n.a.'
-    breakpoint()  # FIXME BREAKPOINT
 
 
 def find_md_files(match, config):

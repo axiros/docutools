@@ -166,9 +166,9 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     # undocumented
     wait_after = kw.get('wait_after')
 
-    c = lp.check_inline_lp(cmd, fn_lp=kw.get('fn_doc'))
-    if c:
-        cmd = c
+    # c = lp.check_inline_lp(cmd, fn_lp=kw.get('fn_doc'))
+    # if c:
+    #    cmd = c
     do_post = None
     if isinstance(cmd, dict):
         h = handle_cwd_pre_post

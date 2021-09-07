@@ -218,7 +218,10 @@ class project:
         return project.urls().get('repository', 'n.a.')
 
     def packagehome():
-        return project.urls().get('packagehome', 'n.a.')
+        return (
+            project.urls().get('packagehome')
+            or 'https://pypi.org/project/%s/_VERSION_/' % project.name()
+        ).replace('_VERSION_', project.version())
 
     def version():
         p = project.conf()['project']
