@@ -32,13 +32,13 @@ Heredoc, incl. the  previously defined function:
 ```bash lp session=test asserts=TMUX
 echo $0 # lp: expect=bash
 export -f say_hello
-/bin/sh # lp: expect=
-echo $0 # lp: expect=/bin/sh
+/bin/bash # lp: expect=
+echo $0 # lp: expect=bash
 say_hello
 R="\x1b["; r="${R}1;31m"
 echo -e "Means: We have
 > - $r Cross block sessions  ${R}0m
-> - $r Blocking commands     ${R}0m
+> - $r Blocking commands/subshells     ${R}0m
 > - and...${R}4m$r Full Ansi
 > "
 ```
