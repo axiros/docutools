@@ -544,7 +544,7 @@ class embedded_sessions(unittest.TestCase):
         '''
         res = run_lp(md1)
         assert (
-            '!!! error "LP error: Assertion failed: Expected "XXX" not found in result'
+            '!!! error "LP error: Assertion failed: Expected "[\'XXX\']" not found in result'
             in res
         )
 
