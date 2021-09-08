@@ -188,6 +188,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
 
     sk = 'send-keys:'
     if cmd.startswith('send-keys:'):
+        cmd = cmd.split('#', 1)[0]
         lp.spresc('tmux send-keys -t %s:1 %s' % (n, cmd.split(sk, 1)[1].strip()))
         return 'silent'
 
