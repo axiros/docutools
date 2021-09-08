@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *.res.py
+*.ansi
 dist/
 docs/lcd*
 public
@@ -20,7 +21,6 @@ docs/autodocs
 .resources.json
 # lp:
 docs/features/literate_programming.md
-*.ansi
 
 docs/lcd
 CREDITS.md
