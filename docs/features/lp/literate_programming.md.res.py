@@ -10,8 +10,8 @@
                                       {'cmd': {'cmd': 'env | grep TMUX'},
                                        'res': '$ env | grep '
                                               'TMUX                                     \n'
-                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m=/tmp/tmux-1000/default,1113980,828 \n'
-                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m_PANE=%828'}],
+                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m=/tmp/tmux-1000/default,1113980,1005                                        \n'
+                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m_PANE=%1005'}],
  '0964896250ff3d7abddbce782c5ab145': [{'cmd': 'env | grep LP_',
                                        'res': '$ env | grep LP_\n'
                                               'LP_DOCU_FILE=/home/gk/repos/docutools/docs/features/lp/literate_programming.md\n'
@@ -19,15 +19,15 @@
  '153865a47f92a67d742bdbae8bf93f73': [{'cmd': {'cmd': 'ls -lta /'},
                                        'res': '$ ls -lta /   \n'
                                               'total 20            \n'
-                                              'drwxrwxrwt.  55 root root 1540 '
-                                              'Sep  8 02:25 '
+                                              'drwxrwxrwt. 222 root root 4920 '
+                                              'Sep  8 13:56 '
                                               '\x1b[30m\x1b[42mtmp\x1b[39m\x1b[49m                                 \n'
+                                              'drwxr-xr-x.  53 root root 1480 '
+                                              'Sep  8 09:40 '
+                                              '\x1b[1m\x1b[34mrun\x1b[0m\x1b[39m\x1b[49m                                 \n'
                                               'dr-xr-x---.   1 root root  348 '
                                               'Sep  7 11:04 '
                                               '\x1b[1m\x1b[34mroot\x1b[0m\x1b[39m\x1b[49m                                \n'
-                                              'drwxr-xr-x.  53 root root 1480 '
-                                              'Sep  7 08:42 '
-                                              '\x1b[1m\x1b[34mrun\x1b[0m\x1b[39m\x1b[49m                                 \n'
                                               'drwxr-xr-x.   1 root root 5190 '
                                               'Sep  7 00:21 '
                                               '\x1b[1m\x1b[34metc\x1b[0m\x1b[39m\x1b[49m                                 \n'
@@ -40,7 +40,7 @@
                                               'dr-xr-xr-x.  13 root root    0 '
                                               'Sep  1 19:33 '
                                               '\x1b[1m\x1b[34msys\x1b[0m\x1b[39m\x1b[49m                                 \n'
-                                              'dr-xr-xr-x. 473 root root    0 '
+                                              'dr-xr-xr-x. 483 root root    0 '
                                               'Sep  1 19:33 '
                                               '\x1b[1m\x1b[34mproc\x1b[0m\x1b[39m\x1b[49m                                \n'
                                               'drwxr-xr-x.   1 root root  132 '
@@ -160,11 +160,11 @@
                                       {'cmd': {'cmd': 'say_hello'},
                                        'res': '$ say_hello   \n'
                                               'Hello, from         \n'
-                                              'TMUX=/tmp/tmux-1000/default,1113980,824 '
-                                              'TMUX_PANE=%824 '
+                                              'TMUX=/tmp/tmux-1000/default,1113980,1001 '
+                                              'TMUX_PANE=%1001 '
                                               'BASH_FUNC_say_hello%%=() { echo '
                                               '-e "Hello, '
-                                              'from                  \n'
+                                              'from                \n'
                                               '"$(env | grep -i tmux)""'},
                                       {'cmd': {'cmd': 'R="\\x1b["; '
                                                       'r="${R}1;31m"'},

@@ -25,7 +25,7 @@ Example:
 Result:
 
 1. At evaluation, the results will then *not* be put into the markdown directly but something like that
-  instead (see :lnk_src:src/lcdoc/lp.py:remote_content ).
+  instead (see :lnksrc:src/lcdoc/lp.py:remote_content ).
 
 ```html
     <xterm />
