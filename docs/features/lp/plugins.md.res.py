@@ -25,7 +25,7 @@
  '7a0e8fa4467e26961c182935f3a0c75d': [{'cmd': 'ls -lta /tmp/myfile.json',
                                        'res': '$ ls -lta /tmp/myfile.json\n'
                                               '-rw-rw----. 1 gk gk 20 Sep  8 '
-                                              '02:19 /tmp/myfile.json'}],
+                                              '02:26 /tmp/myfile.json'}],
  'a1db21b8ca1d3ecae705e2deaf4295f2': {'cmd': 'print([k for k in ctx.keys()])',
                                       'res': "['eval', 'mode', 'addsrc', 'LP', "
                                              "'lang', 'sourceblock', "

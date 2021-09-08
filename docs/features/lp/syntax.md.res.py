@@ -6,8 +6,8 @@
                                       {'cmd': {'cmd': 'env | grep TMUX'},
                                        'res': '$ env | grep '
                                               'TMUX                                     \n'
-                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m=/tmp/tmux-1000/default,1113980,804 \n'
-                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m_PANE=%804'}],
+                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m=/tmp/tmux-1000/default,1113980,831 \n'
+                                              '\x1b[1m\x1b[31mTMUX\x1b[0m\x1b[39m\x1b[49m_PANE=%831'}],
  '39b508d3aff3b942c186e1d4cf4df126': [{'cmd': 'env | grep LP_ # any env var '
                                               'starting with lp_ or LP_ is put '
                                               'into the session',

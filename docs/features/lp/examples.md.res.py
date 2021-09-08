@@ -15,8 +15,8 @@
                                       {'cmd': {'cmd': 'say_hello'},
                                        'res': '$ say_hello   \n'
                                               'Hello, from         \n'
-                                              'TMUX=/tmp/tmux-1000/default,1113980,796 '
-                                              'TMUX_PANE=%796 '
+                                              'TMUX=/tmp/tmux-1000/default,1113980,823 '
+                                              'TMUX_PANE=%823 '
                                               'BASH_FUNC_say_hello%%=() { echo '
                                               '-e "Hello, '
                                               'from                  \n'

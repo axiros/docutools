@@ -1,6 +1,6 @@
 {'0357c577d4a24699bbc84beb7d905955': [{'cmd': {'cmd': 'date'},
                                        'res': '$ date        \n'
-                                              'Wed Sep  8 02:19:00 AM CEST '
+                                              'Wed Sep  8 02:26:03 AM CEST '
                                               '2021'},
                                       {'cmd': {'cmd': 'tmux list-sessions | '
                                                       'grep docutest'},
@@ -8,7 +8,7 @@
                                               'docutest                  \n'
                                               '\x1b[1m\x1b[31mdocutest\x1b[0m\x1b[39m\x1b[49m: '
                                               '1 windows (created Wed Sep  8 '
-                                              '02:19:00 2021)'}],
+                                              '02:26:03 2021)'}],
  '07297dea871a6e803f87d078112d9e75': [{'cmd': {'asserts': 'foobar',
                                                'cmd': 'ls foo*',
                                                'post': 'rm foobar',
@@ -36,17 +36,17 @@
                                               'docutest                  \n'
                                               '\x1b[1m\x1b[31mdocutest\x1b[0m\x1b[39m\x1b[49m: '
                                               '1 windows (created Wed Sep  8 '
-                                              '02:19:00 2021)'}],
+                                              '02:26:03 2021)'}],
  '5774d194a14bba07ab798bcbb223182e': [{'cmd': {'cmd': 'while true; do date; '
                                                       'sleep 0.05; done',
                                                'expect': False},
                                        'res': '$ while true; do date; sleep '
                                               '0.05; done \n'
-                                              'Wed Sep  8 02:18:59 AM CEST '
+                                              'Wed Sep  8 02:26:02 AM CEST '
                                               '2021        \n'
-                                              'Wed Sep  8 02:18:59 AM CEST '
+                                              'Wed Sep  8 02:26:02 AM CEST '
                                               '2021        \n'
-                                              'Wed Sep  8 02:18:59 AM CEST '
+                                              'Wed Sep  8 02:26:02 AM CEST '
                                               '2021'}],
  '610785c419013ab8a25dea3f986ccd6f': [{'cmd': 'ls  . | grep hosts',
                                        'res': '$ ls  . | grep hosts\nhosts'}],
@@ -92,17 +92,17 @@
  'b1d4e7026cc3e8d867bb09be4c8d1c41': [{'cmd': 'ls -lta /tmp/silent_test',
                                        'res': '$ ls -lta /tmp/silent_test\n'
                                               '-rw-r--r--. 1 gk gk 0 Sep  8 '
-                                              '02:19 /tmp/silent_test'}],
+                                              '02:26 /tmp/silent_test'}],
  'b2c9d8bcf68cf09a19e11f9bdea6d16c': [{'cmd': 'tmux list-sessions | grep test '
                                               '|| true',
                                        'res': '$ tmux list-sessions | grep '
                                               'test || true\n'
                                               'docutest: 1 windows (created '
-                                              'Wed Sep  8 01:16:55 2021)\n'
+                                              'Wed Sep  8 02:22:18 2021)\n'
                                               'dt_test: 1 windows (created Wed '
-                                              'Sep  8 02:18:59 2021)\n'
+                                              'Sep  8 02:26:01 2021)\n'
                                               'test: 1 windows (created Wed '
-                                              'Sep  8 02:18:58 2021)\n'
+                                              'Sep  8 02:26:01 2021)\n'
                                               'test1: 1 windows (created Tue '
                                               'Sep  7 10:57:20 2021)'}],
  'cce25dfe7ada542aa3f90a760a24b6fa': [{'cmd': {'cmd': 'ls -lt /usr/bin | head '
@@ -151,7 +151,7 @@
                                               'kill_test                 \n'
                                               '\x1b[1m\x1b[31mkill_test\x1b[0m\x1b[39m\x1b[49m: '
                                               '1 windows (created Wed Sep  8 '
-                                              '02:19:00 2021)'},
+                                              '02:26:02 2021)'},
                                       {'cmd': {'cmd': 'ls . | grep hosts'},
                                        'res': '$ ls . | grep hosts'}],
  'eaee39da022873ad5a434580e723d1f2': [{'cmd': {'asserts': 'foobar',

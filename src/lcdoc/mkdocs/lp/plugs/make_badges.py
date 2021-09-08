@@ -136,6 +136,7 @@ def run(cmd, kw):
     for spec in cmd:
         func = getattr(badges, spec['cmd'].replace('-', '_'))
         d = func(spec, kw)
+        [d.pop(k, 0) for k in ['kw', 'spec']]  # the locals hack
         for k in d:
             spec[k] = spec.get(k) or d[k]
         if not spec.get('img'):

@@ -26,34 +26,8 @@
                                                'color': '#331188',
                                                'd': '/home/gk/repos/docutools/docs',
                                                'img': 'https://axgkl.github.io/docutools/img/badge_docs.svg',
-                                               'kw': {'LP': <class 'lcdoc.mkdocs.lp.LP'>,
-                                                      'eval': 'always',
-                                                      'fetched_block_fmt': 'mkdocs',
-                                                      'fmt': 'mk_cmd_out',
-                                                      'fn_doc': '/home/gk/repos/docutools/docs/index.md',
-                                                      'lang': 'yaml',
-                                                      'mode': 'make_badges',
-                                                      'session_name': None,
-                                                      'sourceblock': '```yaml '
-                                                                     'lp '
-                                                                     'mode=make_badges '
-                                                                     'write_readme '
-                                                                     'eval=always\n'
-                                                                     'docs # '
-                                                                     'lp: '
-                                                                     'value=pagecount\n'
-                                                                     'gh-action '
-                                                                     '# lp: '
-                                                                     'action=ci\n'
-                                                                     'pypi\n'
-                                                                     'axblack\n'
-                                                                     '\n'
-                                                                     '```',
-                                                      'timeout': 5,
-                                                      'write_readme': True},
                                                'label': 'docs pages',
                                                'lnk': 'https://axgkl.github.io/docutools/',
-                                               'spec': <Recursion on dict with id=140352897432224>,
                                                'value': '25'},
                                               {'action': 'ci',
                                                'cmd': 'gh-action',
@@ -64,34 +38,8 @@
                                                'cmd': 'pypi',
                                                'color': '#8bd124',
                                                'img': 'https://axgkl.github.io/docutools/img/badge_pypi.svg',
-                                               'kw': {'LP': <class 'lcdoc.mkdocs.lp.LP'>,
-                                                      'eval': 'always',
-                                                      'fetched_block_fmt': 'mkdocs',
-                                                      'fmt': 'mk_cmd_out',
-                                                      'fn_doc': '/home/gk/repos/docutools/docs/index.md',
-                                                      'lang': 'yaml',
-                                                      'mode': 'make_badges',
-                                                      'session_name': None,
-                                                      'sourceblock': '```yaml '
-                                                                     'lp '
-                                                                     'mode=make_badges '
-                                                                     'write_readme '
-                                                                     'eval=always\n'
-                                                                     'docs # '
-                                                                     'lp: '
-                                                                     'value=pagecount\n'
-                                                                     'gh-action '
-                                                                     '# lp: '
-                                                                     'action=ci\n'
-                                                                     'pypi\n'
-                                                                     'axblack\n'
-                                                                     '\n'
-                                                                     '```',
-                                                      'timeout': 5,
-                                                      'write_readme': True},
                                                'label': 'pkg',
                                                'lnk': 'https://pypi.org/project/docutools/2021.9.07/',
-                                               'spec': <Recursion on dict with id=140352897279232>,
                                                'value': '2021.9.07'},
                                               {'badge_fn': '/home/gk/repos/docutools/docs/img/badge_axblack.svg',
                                                'cmd': 'axblack',
