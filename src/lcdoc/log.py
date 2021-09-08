@@ -118,10 +118,10 @@ class app:
             try:
                 while not p.handlers:
                     p = p.parent
-            except Exception:
+            except Exception as ex:
                 app.level = 20
                 return
-            app.level == p.handlers[0].level
+            app.level = p.handlers[0].level
         finally:
             c[0] = True
 

@@ -65,7 +65,7 @@ jobs:
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && activate_venv && make docs"
+        run: "source ./make && activate_venv && make docs -v"
 
       - name: Run tests
         shell: bash -l {0}
