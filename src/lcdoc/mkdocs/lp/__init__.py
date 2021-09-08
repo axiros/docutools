@@ -590,10 +590,10 @@ class LPPlugin(MDPlugin):
         if 'serve' in sys.argv:
             blocks = LP.run_blocks(lp_blocks)
         else:
-            app.info('Redirecting stdout to stderr')
+            app.debug('Redirecting stdout to stderr')
             with contextlib.redirect_stdout(sys.stderr):
                 blocks = LP.run_blocks(lp_blocks)
-            app.info('stdout back to normal')
+            app.debug('stdout back to normal')
 
         LP.write_eval_results()
 

@@ -60,6 +60,7 @@ def fetch_pypi(pkg, attrs):
     p = httpx.get('https://pypi.python.org/pypi/%s/json' % pkg)
     p = p.json()['info']
     p['home-page'] = p['home_page'] or p['project_url'] or p['package_url']
+    print(p)
     p = {_: p[_] for _ in attrs}
     return p
 

@@ -14,6 +14,7 @@
 
 <!-- id: 93af1877cf0de45cff1e5a2ad2cf3f22 -->
 
+
 ## [Documentation](https://axgkl.github.io/docutools/) building tools
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.
@@ -30,7 +31,7 @@ Notes:
 
 
 
-Last modfied: Wed Sep  8 19:26:58 2021
+Last modfied: Wed Sep  8 20:02:04 2021
 
  
  
