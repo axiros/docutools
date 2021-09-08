@@ -94,7 +94,6 @@ def get_credits_data() -> dict:
 
     packages = {}
     attrs = ('name', 'home-page', 'license', 'version', 'summary')
-    breakpoint()  # FIXME BREAKPOINT
     for pkg in search_packages_info(dependencies):
         app.level < 20 and app.debug('pkg', json=pkg)
         pkg = {_: pkg[_] for _ in attrs}
