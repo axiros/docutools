@@ -23,6 +23,7 @@ from lcdoc import lp as lit_prog
 from lcdoc.mkdocs import markdown
 from lcdoc.mkdocs.tools import MDPlugin, app, link_assets, now, split_off_fenced_blocks
 from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
+from pprint import pformat
 
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
@@ -457,7 +458,7 @@ class LP:
         if LP.previous_results == LP.cur_results:
             return app.debug('No results change, skipping write')
         r = LP.cur_results
-        rs = str(r)
+        rs = pformat(r)  # making diffs look better
         # we write the results as linesplitted list, so that the autoformatter can
         # nicely reformat a result file opened in an editor:
         write_file(LP.fn_previous_results(), rs)
