@@ -96,8 +96,8 @@ def get_credits_data() -> dict:
     g = lambda o, n: o[n] if isinstance(o, dict) else getattr(o, n.replace('-', ''))
 
     for pkg in search_packages_info(deps):
-        app.level < 20 and app.debug('pkg', json=pkg)
         pkg = {_: g(pkg, _) for _ in attrs}
+        app.level < 20 and app.debug('pkg', json=pkg)
         packages[pkg['name'].lower()] = pkg
 
     for dep in deps:

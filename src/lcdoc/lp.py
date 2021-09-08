@@ -62,8 +62,10 @@ import sys
 import time
 from functools import partial as p
 from importlib import import_module
-from lcdoc.tools import app, write_file
+
 import pycond
+
+from lcdoc.tools import app, write_file
 
 # important (colorize)
 I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
@@ -77,7 +79,11 @@ env['PATH'] = 'bin:%s' % env.get('PATH', '')
 
 # ---------------------------------------------------------------------------- Utilities
 def check_assert(ass, res):
-    msg = 'Assertion failed: Expected "%s" not found in result (\n%s)'
+    def raise_():
+        msg = 'Assertion failed: Expected "%s" not found in result' % ass
+        app.error(msg, asserts=ass, json={'result': res})
+        raise Exception(msg)
+
     if ass is None:
         return
     s = str(res)
@@ -94,7 +100,7 @@ def check_assert(ass, res):
         r = pycond.pycond(ass, f)
         a = r(state={'res': s})
         if not a:
-            raise Exception(msg % (ass, s))
+            raise_()
         return
 
     if not isinstance(ass, (list, tuple)):
@@ -103,7 +109,7 @@ def check_assert(ass, res):
     for a in ass:
 
         if not a in s:
-            raise Exception(msg % (a, s))
+            raise_()
 
 
 # aliases = {}
