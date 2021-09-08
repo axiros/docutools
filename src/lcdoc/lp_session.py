@@ -190,6 +190,8 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     if cmd.startswith('send-keys:'):
         cmd = cmd.split('#', 1)[0]
         lp.spresc('tmux send-keys -t %s:1 %s' % (n, cmd.split(sk, 1)[1].strip()))
+        # at ci seen delays after C-c:
+        wait(0.1)
         return 'silent'
 
     expect_echo_out_cmd = ''

@@ -95,7 +95,6 @@ Syntax details [here](./syntax.md/#parametrization).
         ```bash lp timeout=0.1 session=test
         while true; do date; sleep 0.05; done # lp: expect=false
         send-keys: C-c # we will reuse that session, so we send ctrl-c
-        sleep 0.1
         ```
 
 
