@@ -79,14 +79,13 @@ def get_credits_data() -> dict:
 
     lock_data = project.lock_data()
     project_name = project.name()
-
     direct_dependencies = {dep.lower() for dep in project.dependencies()}
     dev_dependencies = {dep.lower() for dep in project.dev_dependencies()}
     'python' in direct_dependencies and direct_dependencies.remove('python')
     indirect_dependencies = {pkg['name'].lower() for pkg in lock_data['package']}
     indirect_dependencies -= direct_dependencies
     indirect_dependencies -= dev_dependencies
-    dependencies = direct_dependencies | dev_dependencies | indirect_dependencies
+    dependencies = sorted(direct_dependencies | dev_dependencies | indirect_dependencies)
     app.info(
         'Generating credits',
         dependencies=dependencies,
@@ -95,6 +94,7 @@ def get_credits_data() -> dict:
 
     packages = {}
     attrs = ('name', 'home-page', 'license', 'version', 'summary')
+    breakpoint()  # FIXME BREAKPOINT
     for pkg in search_packages_info(dependencies):
         app.level < 20 and app.debug('pkg', json=pkg)
         pkg = {_: pkg[_] for _ in attrs}
@@ -107,7 +107,7 @@ def get_credits_data() -> dict:
         else:
             app.debug('found', dependency=dependency)
 
-    for d in indirect_dependencies:
+    for d in sorted(indirect_dependencies):
         if not d in packages:
             app.warn('Not found in packages', dependency=d)
             continue
