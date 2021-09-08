@@ -24,17 +24,17 @@ TP = '''
 TC = '''
 # Credits
 
-Listed below all the python dependencies of _ME_
+Listed below all the python deps of _ME_
 
-## Run Dependencies
+## Run deps
 
 _RD_
 
-## Dev  Dependencies
+## Dev  deps
 
 _DD_
 
-## Indirect Dependencies
+## Indirect deps
 
 _ID_
 
@@ -64,7 +64,7 @@ def fetch_pypi(pkg, attrs):
     return p
 
 
-from pip._internal.commands.show import search_packages_info  # noqa
+from pip._internal.commands.show import search_packages_info
 
 
 def get_credits_data() -> dict:
@@ -79,45 +79,40 @@ def get_credits_data() -> dict:
 
     lock_data = project.lock_data()
     project_name = project.name()
-    direct_dependencies = {dep.lower() for dep in project.dependencies()}
-    dev_dependencies = {dep.lower() for dep in project.dev_dependencies()}
-    'python' in direct_dependencies and direct_dependencies.remove('python')
-    indirect_dependencies = {pkg['name'].lower() for pkg in lock_data['package']}
-    indirect_dependencies -= direct_dependencies
-    indirect_dependencies -= dev_dependencies
-    dependencies = sorted(direct_dependencies | dev_dependencies | indirect_dependencies)
+    direct_deps = {dep.lower() for dep in project.dependencies()}
+    dev_deps = {dep.lower() for dep in project.dev_dependencies()}
+    'python' in direct_deps and direct_deps.remove('python')
+    indirect_deps = {pkg['name'].lower() for pkg in lock_data['package']}
+    indirect_deps -= direct_deps
+    indirect_deps -= dev_deps
+    deps = sorted(direct_deps | dev_deps | indirect_deps)
     app.info(
-        'Generating credits',
-        dependencies=dependencies,
-        indirect_dependencies=indirect_dependencies,
+        'Generating credits', deps=deps, indirect_deps=indirect_deps,
     )
 
     packages = {}
     attrs = ('name', 'home-page', 'license', 'version', 'summary')
-    import pip
+    # pip changed from dict to instance with 21.2.0:
+    g = lambda o, n: o[n] if isinstance(o, dict) else getattr(o, n.replace('-', ''))
 
-    print('pip v', pip.__version__)
-    for pkg in search_packages_info(dependencies):
-        print(str(pkg))
+    for pkg in search_packages_info(deps):
         app.level < 20 and app.debug('pkg', json=pkg)
-        pkg = {_: pkg[_] for _ in attrs}
+        pkg = {_: g(pkg, _) for _ in attrs}
         packages[pkg['name'].lower()] = pkg
-    ds = dependencies
-    for dependency in dependencies:
-        if dependency not in packages:
-            pkg = fetch_pypi(dependency, attrs)
+
+    for dep in deps:
+        if dep not in packages:
+            pkg = fetch_pypi(dep, attrs)
             packages[pkg['name'].lower()] = pkg
         else:
-            app.debug('found', dependency=dependency)
+            app.debug('found', dep=dep)
 
-    for d in sorted(indirect_dependencies):
+    for d in sorted(indirect_deps):
         if not d in packages:
-            app.warn('Not found in packages', dependency=d)
+            app.warning('Not found in packages', dep=d)
             continue
         packages[d]['for'] = [
-            packages[k['name']]
-            for k in lock_data['package']
-            if d in k.get('dependencies', ())
+            packages[k['name']] for k in lock_data['package'] if d in k.get('deps', ())
         ]
 
     lnk = lambda p: '[`%(name)s`](%(home-page)s)' % p
@@ -144,9 +139,9 @@ def get_credits_data() -> dict:
 
     t = TC
     t = t.replace('_ME_', '`%s`' % project_name)
-    t = t.replace('_RD_', tbl(sorted(direct_dependencies)))
-    t = t.replace('_DD_', tbl(sorted(dev_dependencies)))
-    t = t.replace('_ID_', tbl(sorted(indirect_dependencies)))
+    t = t.replace('_RD_', tbl(sorted(direct_deps)))
+    t = t.replace('_DD_', tbl(sorted(dev_deps)))
+    t = t.replace('_ID_', tbl(sorted(indirect_deps)))
     t = t.replace('_PN_', project_name)
     return t
 
