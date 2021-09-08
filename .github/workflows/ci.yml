@@ -61,20 +61,20 @@ jobs:
           pyver: "${{ matrix.python-version }}"
         run: "source ./make && make ci_conda_py_env"
 
-      - name: Test Docs LiterateProgramming
-        shell: bash -l {0}
-        env:
-          pyver: "${{ matrix.python-version }}"
-        run: "source ./make && activate_venv && make docs -v"
-
       - name: Run tests
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
         run: "source ./make && activate_venv && make tests"
 
+      - name: Test Docs LiterateProgramming
+        shell: bash -l {0}
+        env:
+          pyver: "${{ matrix.python-version }}"
+        run: "source ./make && activate_venv && make docs -v"
+
       - name: Deploy Docs
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && activate_venv && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy' || true }}"
+        run: "source ./make && activate_venv && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy --force' || true }}"
