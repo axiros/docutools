@@ -16,7 +16,7 @@ from lcdoc.tools import (
 )
 
 
-def src_link(fn, config, line=None, match=None, incl_fn=None):
+def src_link(fn, config, line=None, match=None, title=''):
     # TODO: allow others:
     u = config['repo_url'] + 'blob/master'
     r = project.root(config)
@@ -32,12 +32,10 @@ def src_link(fn, config, line=None, match=None, incl_fn=None):
             line = len(m[0].splitlines())
     if line:
         lnk += '#L%s' % line
-    incl = ''
-    if incl_fn:
-        incl = '`%s`' % fnr
     # return T
+    title = (title + ' ') if title else ''
     return {
-        'link': '[%s:fontawesome-brands-git-alt:](%s)' % (incl, lnk),
+        'link': '[%s:fontawesome-brands-git-alt:](%s)' % (title, lnk),
         'url': lnk,
     }  # {align=right}'
 
@@ -47,18 +45,24 @@ def src_link(fn, config, line=None, match=None, incl_fn=None):
 def inline_src_link(**kw):
     """Often used as replacement function
     In mdreplace.py:
-    'lnk_src': inline_src_link,
+    'lnksrc': inline_src_link,
     """
     line = kw['line']
-    fn = line.split(':lnk_src:', 1)[1].split(' ', 1)[0]
-    repl = ':lnk_src:' + fn
-    match = None
-    if ':' in fn:
-        fn, match = fn.split(':')
-
-    from lcdoc.mkdocs.tools import src_link
-
-    l = src_link(fn, kw['config'], match=match, incl_fn=True)
+    fn = line.split(':lnksrc:', 1)[1].split(' ', 1)[0]
+    repl = ':lnksrc:' + fn
+    if not ',' in fn:
+        if ':' in fn:
+            l = fn.split(':')
+            spec = {'fn': l[0], 'm': l[1]}
+        else:
+            spec = {'fn': fn}
+    else:
+        spec = dict([kv.split(':', 1) for kv in fn.split(',')])
+    spec['t'] = spec.get('t', '`%s`' % spec['fn'])  # title default: file path
+    if spec['t'] == 'm':
+        spec['t'] = spec['m']
+    # if 'changelog' in line: breakpoint()  # FIXME BREAKPOINT
+    l = src_link(spec['fn'], kw['config'], match=spec.get('m'), title=spec['t'])
     return {'line': line.replace(repl, l['link'])}
 
 

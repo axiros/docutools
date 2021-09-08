@@ -16,7 +16,6 @@ import pytest
 from lcdoc.mkdocs.lp import LP, LPPlugin, split_off_fenced_blocks
 from lcdoc.mkdocs.markdown import deindent
 
-# from lcdoc.py_test.auto_docs import gen_mod_doc, wrap_funcs_for_call_flow_docs
 from lcdoc.tools import dirname, exists, project, read_file, write_file
 
 # initializing it, otherwise init_page fails:

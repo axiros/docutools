@@ -6,9 +6,9 @@
                                                    '[![code_style][code_style_img]][code_style] \n'
                                                    '\n'
                                                    '[docs pages]: '
-                                                   'https://axgkl.github.io/docutools/\n'
+                                                   'http://127.0.0.1:2222/docutools/\n'
                                                    '[docs pages_img]: '
-                                                   'https://axgkl.github.io/docutools/img/badge_docs.svg\n'
+                                                   'http://127.0.0.1:2222/docutools/img/badge_docs.svg\n'
                                                    '[gh-ci]: '
                                                    'https://github.com/AXGKl/docutools/actions/workflows/ci.yml\n'
                                                    '[gh-ci_img]: '
@@ -16,19 +16,19 @@
                                                    '[pkg]: '
                                                    'https://pypi.org/project/docutools/2021.9.07/\n'
                                                    '[pkg_img]: '
-                                                   'https://axgkl.github.io/docutools/img/badge_pypi.svg\n'
+                                                   'http://127.0.0.1:2222/docutools/img/badge_pypi.svg\n'
                                                    '[code_style]: '
                                                    'https://pypi.org/project/axblack/\n'
                                                    '[code_style_img]: '
-                                                   'https://axgkl.github.io/docutools/img/badge_axblack.svg\n',
+                                                   'http://127.0.0.1:2222/docutools/img/badge_axblack.svg\n',
                                       'res': [{'badge_fn': '/home/gk/repos/docutools/docs/img/badge_docs.svg',
                                                'cmd': 'docs',
                                                'color': '#331188',
                                                'd': '/home/gk/repos/docutools/docs',
-                                               'img': 'https://axgkl.github.io/docutools/img/badge_docs.svg',
+                                               'img': 'http://127.0.0.1:2222/docutools/img/badge_docs.svg',
                                                'label': 'docs pages',
-                                               'lnk': 'https://axgkl.github.io/docutools/',
-                                               'value': '25'},
+                                               'lnk': 'http://127.0.0.1:2222/docutools/',
+                                               'value': '33'},
                                               {'action': 'ci',
                                                'cmd': 'gh-action',
                                                'img': 'https://github.com/AXGKl/docutools/actions/workflows/ci.yml/badge.svg',
@@ -37,14 +37,14 @@
                                               {'badge_fn': '/home/gk/repos/docutools/docs/img/badge_pypi.svg',
                                                'cmd': 'pypi',
                                                'color': '#8bd124',
-                                               'img': 'https://axgkl.github.io/docutools/img/badge_pypi.svg',
+                                               'img': 'http://127.0.0.1:2222/docutools/img/badge_pypi.svg',
                                                'label': 'pkg',
                                                'lnk': 'https://pypi.org/project/docutools/2021.9.07/',
                                                'value': '2021.9.07'},
                                               {'badge_fn': '/home/gk/repos/docutools/docs/img/badge_axblack.svg',
                                                'cmd': 'axblack',
                                                'color': '#222222',
-                                               'img': 'https://axgkl.github.io/docutools/img/badge_axblack.svg',
+                                               'img': 'http://127.0.0.1:2222/docutools/img/badge_axblack.svg',
                                                'label': 'code_style',
                                                'lnk': 'https://pypi.org/project/axblack/',
                                                'value': 'axblack'}]}}

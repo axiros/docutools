@@ -14,10 +14,12 @@ nav:
   - Overview: index.md
   - Installation:
       - install.md
-  - Plugins Overview: plugins/index.md
   - Features:
-      - Darkmode: features/darkmode.md
-      - Mermaid: features/mermaid.md
+      - Overview: features/index.md
+      - Blacklist: features/blacklist/index.md
+      - Changelog: features/changelog/index.md
+      - Credits: features/credits/index.md
+      - Find Pages: features/find-pages/index.md
       - Literate_Programming:
           - Overview: features/lp/index.md
           - Syntax: features/lp/syntax.md
@@ -25,11 +27,18 @@ nav:
           - Plugins: features/lp/plugins.md
           - Evaluation and Caching: features/lp/eval.md
           - Sessions: features/lp/sessions.md
+          - Terminal Colors: features/lp/xterm.md
           - Async Fetching: features/lp/async.md
           - Tips: features/lp/tips.md
           - Examples: features/lp/examples.md
+      - Markdown Replace: features/md-replace/index.md
+      - Page Tree: features/page-tree/index.md
+      - Stats: features/stats/index.md
       - "TermCasts": features/termcasts/index.md
+      - Darkmode: features/darkmode.md
+      - Mermaid: features/mermaid.md
   - About:
+      - Coverage: coverage.md
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md
       - Credits: about/credits.md
@@ -42,8 +51,9 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.expand
-  name: material
-  #custom_dir: <yours>
+  name:
+    material
+    #custom_dir: docs/lcd
   icon:
     logo: material/book-open-page-variant
   palette:
@@ -99,6 +109,9 @@ extra:
       link: https://github.com/AXGKl
 
 plugins:
+  - coverage:
+      page_name: coverage
+      html_report_dir: htmlcov
   - search
   - lcd-blacklist
   - lcd-changelog

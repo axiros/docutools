@@ -7,6 +7,7 @@ Creates a file and displays it as if we used cat on it.
 - fn
 - replace: optional replacements to apply (dict)
 - content (the body of the lp block)
+- chmod: optional chmod params
 """
 
 

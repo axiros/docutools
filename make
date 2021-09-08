@@ -102,7 +102,7 @@ function clean {
     done
 }
 
-function coverage {
+function cover {
     mkdir -p build
     sh coverage report --rcfile=config/coverage.ini | tee build/coverage_report
     sh coverage html --rcfile=config/coverage.ini
