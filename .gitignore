@@ -1,6 +1,7 @@
 .idea/
 __pycache__/
 *.py[cod]
+*.res.py
 dist/
 docs/lcd*
 public

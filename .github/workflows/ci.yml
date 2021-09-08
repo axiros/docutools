@@ -66,3 +66,15 @@ jobs:
         env:
           pyver: "${{ matrix.python-version }}"
         run: "source ./make && activate_venv && make tests"
+
+      - name: Test Docs LiterateProgramming
+        shell: bash -l {0}
+        env:
+          pyver: "${{ matrix.python-version }}"
+        run: "source ./make && activate_venv && make docs"
+
+      - name: Deploy Docs
+        shell: bash -l {0}
+        env:
+          pyver: "${{ matrix.python-version }}"
+        run: "source ./make && activate_venv && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy' || true }}"
