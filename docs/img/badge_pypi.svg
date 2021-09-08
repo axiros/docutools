@@ -4,10 +4,10 @@
         <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
         <stop offset="1" stop-opacity=".1"/>
     </linearGradient>
-    <mask id="anybadge_1">
+    <mask id="anybadge_2">
         <rect width="100" height="20" rx="3" fill="#fff"/>
     </mask>
-    <g mask="url(#anybadge_1)">
+    <g mask="url(#anybadge_2)">
         <path fill="#555" d="M0 0h31v20H0z"/>
         <path fill="#8bd124" d="M31 0h69v20H31z"/>
         <path fill="url(#b)" d="M0 0h100v20H0z"/>

@@ -3,6 +3,26 @@
 
 Creates badges. Optionally writes the README.md
 
+
+#### Format
+
+Line separated badge function names with statement level lp parameters.
+
+Functions:
+
+    - axblack
+    - docs (with value=[pagecount], default "mkdocs-material")
+    - gh_action (with action parameter, default ci)
+    - pypi
+
+Params:
+
+    - value
+    - label
+    - color
+    - lnk
+    - img
+
 #### Parameters
 
 - write_readme: Create the readme with static badges.
@@ -64,7 +84,7 @@ class badges:
         )
 
     def gh_action(spec, kw):
-        a = spec['action']
+        a = spec.get('action', 'ci')
         ru = no_end_slash(config(kw)['repo_url'])
         u = '%s/actions/workflows/%s.yml' % (ru, a)
         i = '%s/badge.svg' % u
@@ -75,6 +95,19 @@ class badges:
         value = project.version()
         label = 'pypi' if value.startswith('https://pypi.org') else 'pkg'
         color = '#8bd124'
+        return dict(locals())
+
+    def docs(spec, kw):
+        lnk = config(kw)['site_url']
+        value = spec.get('value', 'mkdocs-material')
+        label = 'docs'
+        if value == 'pagecount':
+            d = config(kw)['docs_dir']
+            spec['value'] = (
+                os.popen("cd '%s' && find . | grep 'md$' | wc -l" % d).read().strip()
+            )
+            label = 'docs pages'
+        color = '#331188'
         return dict(locals())
 
 

@@ -1,6 +1,7 @@
 #  docutools
 
 ```yaml lp mode=make_badges write_readme eval=always
+docs # lp: value=pagecount
 gh-action # lp: action=ci
 pypi
 axblack
