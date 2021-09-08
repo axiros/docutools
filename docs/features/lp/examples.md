@@ -36,7 +36,7 @@ export -f say_hello
 echo $0 # lp: expect=bash
 say_hello
 R="\x1b["; r="${R}1;31m"
-echo -e "Means: We have
+echo -e "Means: We do have
 > - $r Cross block sessions  ${R}0m
 > - $r Blocking commands/subshells     ${R}0m
 > - and...${R}4m$r Full Ansi
