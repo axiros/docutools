@@ -545,7 +545,8 @@ class LPPlugin(MDPlugin):
     # config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
 
     def on_config(self, config):
-        patch_mkdocs_to_ignore_res_file_changes()
+        if 'serve' in sys.argv:
+            patch_mkdocs_to_ignore_res_file_changes()
         LP.config = config
         LP.stats = self.stats
         link_assets(self, __file__, config)
