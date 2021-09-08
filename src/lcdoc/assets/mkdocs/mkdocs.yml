@@ -38,7 +38,6 @@ nav:
       - Darkmode: features/darkmode.md
       - Mermaid: features/mermaid.md
   - About:
-      - Coverage: coverage.md
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md
       - Credits: about/credits.md
@@ -109,9 +108,6 @@ extra:
       link: https://github.com/AXGKl
 
 plugins:
-  - coverage:
-      page_name: coverage
-      html_report_dir: htmlcov
   - search
   - lcd-blacklist
   - lcd-changelog
