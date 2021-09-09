@@ -1,6 +1,8 @@
-import os, sys
+import os
+import sys
 import time
 from functools import partial as p
+
 from lcdoc import lp
 from lcdoc.tools import write_file
 
@@ -9,20 +11,15 @@ wait = time.sleep
 now = time.time
 exists = lp.exists
 I = lp.I
+L = lp.L
+
+dbg = lp.dbg
 
 
 def init_prompt(n, kw):
     """run before each command"""
     # -R reset terminal state:
     lp.sprun('tmux send-keys -R -t %s:1' % n)
-    # if not mode == 'python':
-    #     sprun('tmux send-keys -t %s:1 "clear" Enter' % n)
-    #     while b'clear' in sprun('tmux capture-pane -ep -t %s:1' % n):
-    #         wait(0.05)
-    # else:
-    #     pass
-    #     # sprun('tmux send-keys -t %s:1 "%s" Enter' % (n, begin_cmd))
-
     lp.sprun('tmux clear-history -t %s:1' % n)
     lp.sprun("tmux send-keys -t %s:1 '' Enter" % n)
     t0 = now()
@@ -30,10 +27,11 @@ def init_prompt(n, kw):
     while now() - t0 < 2:
         res = lp.sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
         r = res.decode('utf-8').rstrip()
-        if r.endswith(p) or r.endswith('#'):
-            break
-        print('waiting for prompt...')
+        if r and (r.endswith(p) or r[-1] in {'#', '$'}):
+            return
+        dbg('waiting for prompt...', have=r, want=p)
         wait(0.1)
+    raise Exception('No Prompt; Have so far: %s' % r)
 
 
 def get_cwd(session_name):
@@ -207,7 +205,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
         cmd += expect_echo_out_cmd
         expect = 'ax_done'
     if expect is False:
-        expectb = b'sollte nie vorkommen, we want timeout'
+        expectb = b'des soid ned bassian - we want timeout'
     else:
         expectb = expect.encode('utf-8')
     if cmd:
@@ -221,10 +219,11 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
         #         spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, line))
         # else:
         #     spresc("tmux send-keys -t %s:1 '%s' Enter" % (n, cmd))
-        print(' cmd to tmux: ', I(cmd))
-        print('\x1b[38;5;250m', end='')
+        _ = expect_echo_out_cmd
+        _ = cmd if not _ else cmd.split(_, 1)[0] + L(_)
+        symb = '💻'
+        lp.nfo(symb, tmux=' ' + _)
         lp.spresc('tmux send-keys -t %s:1 -H %s' % (n, seq))
-        print('\x1b[0m', end='')
 
     t0 = now()
     wait_dt = 0.1
@@ -233,7 +232,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
 
     while True:
         res = lp.sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
-        print(res)
+        dbg(res)
         if expectb in res:
             break
         dt = now() - t0
@@ -247,7 +246,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
             )
 
         if now() - last_msg > 5:
-            print('%ss[%s] Inspect:  tmux att -t %s' % (round(dt, 1), timeout, n))
+            dbg('%ss[%s] Inspect:  tmux att -t %s' % (round(dt, 1), timeout, n))
             lst_msg = now()
         wait(wait_dt)  # fast first
         wait_dt = min(timeout / 10.0, max_wait)
@@ -268,10 +267,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     if wait_after:
         time.sleep(float(wait_after))
     lp.check_assert(assert_, res)
-
-    print('----------')
-    print(res)
-    print('----------')
+    dbg('Have tmux result:', res='\n' + res)
     if do_post:
         do_post()
     return res if not silent else 'silent'

@@ -48,6 +48,17 @@ For consecutive or single blocks please mind the `<lang> lp skip_<this|other|bel
 argument.
 
 
+## Forcing Re-Evaluation
+
+!!! warning
+    The following only applies if the block is not skipped or eval is set to never or another page.
+
+The cache hash (which determines re-evaluation on change) is built just including [certain headers](./eval.md), in order to allow format changes, w/o *having* to
+re-eval.
+BUT: The full body, including whitespaces is *always* going into the hash.
+
+I.e. to force a re-evaluation, simply add an empty line or a space in the body of an lp block.
+
 
 ## Multiline Commands / Here Docs in Sessions
 

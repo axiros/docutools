@@ -69,6 +69,7 @@ from lcdoc.tools import app, write_file
 
 # important (colorize)
 I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
+L = lambda s: s if not sys.stdout.isatty() else '\x1b[0;2;38;5;242m%s\x1b[0m' % s
 
 env = os.environ
 wait = time.sleep
@@ -76,6 +77,12 @@ now = time.time
 exists = os.path.exists
 user = env['USER']
 env['PATH'] = 'bin:%s' % env.get('PATH', '')
+
+
+_ = lambda f, msg, *a, **kw: f(str(msg) + ' '.join([str(i) for i in a]), **kw)
+dbg = p(_, app.debug)
+nfo = p(_, app.info)
+
 
 # ---------------------------------------------------------------------------- Utilities
 def check_assert(ass, res):
@@ -123,7 +130,7 @@ def repl_dollar_var_with_env_val(s, die_on_fail=True):
         if k in s:
             s = s.replace('$' + k, env[k])
     if '$' in s:
-        print('Not defined in environ: $%s' % s)
+        dbg('Not defined in environ: $%s' % s)
     return s
 
 
@@ -136,10 +143,10 @@ def sprun(*a, **kw):
     """Running a command as bash subprocess
     W/o executable we crash on ubuntu's crazy dash, which cannot even echo -e
     """
-    if not kw and len(a) == 1:
-        print('', a[0])
-    else:
-        print('', a, kw)  # for the user (also in view messages)
+    # if not kw and len(a) == 1:
+    #     dbg('', a[0])
+    # else:
+    #     dbg('', a, kw)  # for the user (also in view messages)
     c = p(sp.check_output, shell=True, stderr=sp.STDOUT, executable='/bin/bash')
     return c(*a, **kw)
 
@@ -522,7 +529,7 @@ def pb(s):
         s = s.decode('utf-8')
     except Exception as ex:
         pass
-    print(s)
+    dbg(s)
 
 
 def get_args(*a, **kw):
@@ -657,14 +664,13 @@ def eval_lp(cmd, kw):
     # with sessions we do it IN tmux:
     if not session_name:
         run_if_present_and_is_dict(kw, 'pre')
-
     mode = kw.get('mode', 'bash')
+    old_name, app.name = app.name, app.name + ':' + mode  # for logging with mode
     plug = get_or_import_plug(mode)
 
     g = lambda k, d=None: getattr(plug, k, d)
     if g('multi_line_to_list'):
         cmd = multi_line_to_list(cmd)
-
     r = g('run')
 
     kw['fmt'] = kw.get('fmt') or g('fmt_default') or dflt_fmt
@@ -676,6 +682,7 @@ def eval_lp(cmd, kw):
         if isinstance(res, str):
             res = {'cmd': cmd, 'res': res}
 
+    app.name = old_name
     if not session_name:
         run_if_present_and_is_dict(kw, 'post')
     check_assert(assert_, res)

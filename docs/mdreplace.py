@@ -36,7 +36,7 @@ def plugs_docs(**kw):
 
 table = {
     'plugs_docs': plugs_docs,
-    'ctime': time.ctime(),
+    'ctime': time.strftime('%a, %d %b %Y %Hh GMT', time.localtime()),
     'lnksrc': inline_src_link,
     # only prevents the editor from going crazy, with nested code examples in nested code:
     'fences:all:': '```',

@@ -32,7 +32,10 @@ md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 # a block which is the cache key:
 hashed_headers = [
     'asserts',
+    'chmod',
     'cwd',
+    'delim',
+    'dir',
     'expect',
     'mode',
     'new_session',
@@ -155,7 +158,7 @@ class LP:
         # if "rm foobar" in source: breakpoint()  # FIXME BREAKPOINT
         a, kw = LP.extract_header_args(src_header)
         # these header args may change eval result, need to go into the hash:
-        hashed = ','.join(['%s:%s' % (k, kw.get(k)) for k in hashed_headers])
+        hashed = ','.join(['%s:%s' % (k, kw.get(k)) for k in hashed_headers if kw.get(k)])
         hashed += '\n'.join(code)
         sid = md5(hashed)
         reg = LP.spec_by_id

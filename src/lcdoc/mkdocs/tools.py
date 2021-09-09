@@ -191,6 +191,7 @@ def get_page(hookname, a, kw, c={}):
 
 
 def wrap_hook(plugin, hook, hookname):
+    """Decorates the actual lcd- plugin hooks with stats and logging"""
     n = clsn(plugin)
     Stats[n][hookname] = {}
     PageStats[n][hookname] = {}
@@ -198,17 +199,20 @@ def wrap_hook(plugin, hook, hookname):
     def wrapped_hook(*a, plugin=plugin, hook=hook, name=n, hookname=hookname, **kw):
         plugin.stats = stats = Stats[n][hookname]
         page = get_page(hookname, a, kw)
+        p = t = ''
         if page:
             stats = PageStats[n][hookname]
             stats[(page.url, page.title)] = stats = page.stats = {}
-        on = app.name
-        app.name = n
-        app.debug('%s.%s' % (n, hookname))
+            f = page.file.src_path
+            p = ':%s' % f.rsplit('/', 1)[-1]
+            t = ': %s' % f
+        on = app.name  # orig name
+        app.name = n + p  # e.g. LPPlugin
+        app.debug('%s.%s%s' % (n, hookname, t))
         t0 = now()
         r = hook(*a, **kw)
         dt = now() - t0
         stats['dt'] = stats.get('dt', 0) + dt
-
         app.name = on
         return r
 

@@ -2,14 +2,15 @@
 
 Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-stats,t:m
 
-
-Prints collected stats on stdout after build.
+Writes collected stats to a file or stdout after build.
 
 Intended for piping into / consolidation with [jq](https://stedolan.github.io/jq/download/).
 
 ## Config
 
-    config_scheme = (('round_digits', config_options.Type(int, default=4)),)
+```python lp mode=show_src delim=stats_config dir=src/lcdoc
+
+```
 
 
 ## Mechanics
@@ -23,6 +24,8 @@ Intended for piping into / consolidation with [jq](https://stedolan.github.io/jq
 
 
 ## Example Output
+
+With fn configured to "`-`":
 
 [![./img/stats.png](./img/stats.png)](./img/stats.png)
 

@@ -1,18 +1,18 @@
 #  docutools
 
-<!-- id: 93af1877cf0de45cff1e5a2ad2cf3f22 -->
+<!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
 [![docs pages][docs pages_img]][docs pages] [![gh-ci][gh-ci_img]][gh-ci] [![pkg][pkg_img]][pkg] [![code_style][code_style_img]][code_style] 
 
-[docs pages]: https://axgkl.github.io/docutools/
-[docs pages_img]: https://axgkl.github.io/docutools/img/badge_docs.svg
+[docs pages]: http://127.0.0.1:2222/docutools/
+[docs pages_img]: http://127.0.0.1:2222/docutools/img/badge_docs.svg
 [gh-ci]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml
 [gh-ci_img]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml/badge.svg
 [pkg]: https://pypi.org/project/docutools/2021.9.07/
-[pkg_img]: https://axgkl.github.io/docutools/img/badge_pypi.svg
+[pkg_img]: http://127.0.0.1:2222/docutools/img/badge_pypi.svg
 [code_style]: https://pypi.org/project/axblack/
-[code_style_img]: https://axgkl.github.io/docutools/img/badge_axblack.svg
+[code_style_img]: http://127.0.0.1:2222/docutools/img/badge_axblack.svg
 
-<!-- id: 93af1877cf0de45cff1e5a2ad2cf3f22 -->
+<!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
 
 
 ## [Documentation](https://axgkl.github.io/docutools/) building tools
@@ -31,7 +31,7 @@ Notes:
 
 
 
-Last modfied: Wed Sep  8 21:38:29 2021
+Last modified: Thu, 09 Sep 2021 11h GMT
 
  
  

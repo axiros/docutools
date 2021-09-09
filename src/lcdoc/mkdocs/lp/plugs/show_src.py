@@ -1,5 +1,5 @@
 """
-###  `show_source`
+###  `show_src`
 
 Copies delimitted stanzas within arbitrary files (usually source code) into your docs
 and creates links to those files on the repo server.
@@ -21,6 +21,7 @@ import json
 import os
 
 from lcdoc.mkdocs.tools import src_link
+from lcdoc.mkdocs.markdown import deindent
 from lcdoc.tools import app, dirname, exists, now, os, read_file, require
 
 fmt_default = 'mk_console'
@@ -60,20 +61,20 @@ def run(cmd, kw):
         droot = os.path.dirname(LP.config['docs_dir'])
         dir = droot + '/' + dir
     if not exists(dir):
-        return app.error('Not exists', dir=dir)
+        return app.fatal('Not exists', dir=dir)
     expr = ':docs:%s' % delim
     cmd = 'rg "%s" %s --json --max-filesize 1M' % (expr, dir)
     rg = os.popen(cmd).read().strip()
     rg2 = [json.loads(l) for l in rg.splitlines()]
     j = [k for k in rg2 if k['type'] == 'begin']
     if len(j) == 0:
-        return app.error('Expression not found', cmd=cmd, expr=delim)
+        return app.fatal('Expression not found', cmd=cmd, expr=delim)
     if len(j) != 1:
-        return app.error('Expression not unique', cmd=cmd, found=len(j), expr=expr)
+        return app.fatal('Expression not unique', cmd=cmd, found=len(j), expr=expr)
     fn = j[0]['data']['path']['text']
     s = read_file(fn).split(expr)
     if len(s) != 3:
-        return app.error(
+        return app.fatal(
             'Expression not correct in file',
             cmd=cmd,
             found=len(j),
@@ -83,6 +84,7 @@ def run(cmd, kw):
         )
     line = len(s[0].splitlines())
     res = s[1].split('\n', 1)[1].rsplit('\n', 1)[0]
+    res = deindent(res)
     l = src_link(fn, LP.config, line=line + 1)
     h = kw.get('hide')
     if h == True:
