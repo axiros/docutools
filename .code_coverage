@@ -1,0 +1,29 @@
+Name                                       Stmts   Miss Branch BrPart     Cover
+-------------------------------------------------------------------------------
+src/lcdoc/__init__.py                          2      0      0      0   100.00%
+src/lcdoc/const.py                             6      0      2      0   100.00%
+src/lcdoc/log.py                              81     17     38      6    78.99%
+src/lcdoc/lp.py                              392     56    178     22    83.16%
+src/lcdoc/lp_session.py                      188     34     62      7    82.00%
+src/lcdoc/mkdocs/blacklist/__init__.py        21      2      8      2    86.21%
+src/lcdoc/mkdocs/changelog/__init__.py        55     37     16      2    28.17%
+src/lcdoc/mkdocs/credits/__init__.py          83     66     44      2    14.96%
+src/lcdoc/mkdocs/find_pages/__init__.py      101     77     56      2    19.11%
+src/lcdoc/mkdocs/lp/__init__.py              376    102    148     21    69.27%
+src/lcdoc/mkdocs/lp/plugs/bash.py             31      4     14      3    84.44%
+src/lcdoc/mkdocs/lp/plugs/cov_report.py       43     27     14      1    29.82%
+src/lcdoc/mkdocs/lp/plugs/make_badges.py      77      1     20      3    95.88%
+src/lcdoc/mkdocs/lp/plugs/make_file.py        41     10     12      3    71.70%
+src/lcdoc/mkdocs/lp/plugs/python.py           25      8      6      2    61.29%
+src/lcdoc/mkdocs/lp/plugs/show_file.py         2      0      0      0   100.00%
+src/lcdoc/mkdocs/lp/plugs/show_src.py         47      5     16      6    82.54%
+src/lcdoc/mkdocs/markdown.py                  58     24     42      9    55.00%
+src/lcdoc/mkdocs/page_tree/__init__.py        43      6     12      2    85.45%
+src/lcdoc/mkdocs/replace/__init__.py          98     17     48      8    81.51%
+src/lcdoc/mkdocs/stats/__init__.py           118     10     78     18    85.71%
+src/lcdoc/mkdocs/tools.py                    177     24     78     11    84.71%
+src/lcdoc/tools.py                           193     75     96     19    54.33%
+tests/__init__.py                              4      0      0      0   100.00%
+tests/test_lp.py                             354      5     30      0    98.70%
+-------------------------------------------------------------------------------
+TOTAL                                       2616    607   1018    149    72.76%
