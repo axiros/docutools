@@ -1,6 +1,5 @@
 # vim: ft=bash
 # KEEP THIS FILE GENERIC - INDEPENDENT of PROJECT. THAT IS ALL IN ENVIRON FILE
-set -x
 set -a
 M="\x1b[1;32m"
 O="\x1b[0m"
@@ -158,7 +157,7 @@ d()   { docs       "$@"; }
 ds()  { docs_serve "$@"; }
 rel() { release    "$@"; }
 t()   { tests      "$@"; }
-sm()  { source ./make    } # after changes
+sm()  { source ./make;   } # after changes
 
 make() {
     test -z "$1" && {
