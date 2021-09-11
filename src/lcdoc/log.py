@@ -4,7 +4,8 @@ import time
 
 from pygments import highlight
 from pygments.lexers import JsonLexer
-from lcdoc.const import Stats, PageStats, LogStats
+
+from lcdoc.const import t0, now_ms, LogStats, PageStats, Stats
 
 now = time.time
 
@@ -84,11 +85,17 @@ def tokw(kw):
 
 
 def log(level_name, meth, msg, kw):
+    store = log_majors[level_name]
+    dt = now_ms() - t0[0]
+    if store is not None:
+        store.append([dt, app.name, msg, kw])
     app.log_stats[level_name] += 1
     meth(B(msg + '  ') + tokw(kw))
 
 
 log_methods = ['debug', 'info', 'warning', 'error', 'fatal']
+log_majors = {k: [] if k[:3] not in ['deb', 'inf'] else [] for k in log_methods}
+level_by_name = {n: (i + 1) * 10 for n, i in zip(log_methods, range(len(log_methods)))}
 
 
 class app:

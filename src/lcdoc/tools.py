@@ -171,6 +171,16 @@ class project:
 
     fn_config = lambda: project.root() + '/pyproject.toml'
 
+    def abs_path(fn, config=None, mkdirs=False):
+        r = project.root(config)
+        if not fn:
+            return r
+        if fn[0] != '/':
+            fn = r + '/' + fn
+        if mkdirs:
+            os.makedirs(dirname(fn), exist_ok=True)
+        return fn
+
     # TODO: understand also poetry and piptools:
     def load_config():
 

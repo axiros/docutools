@@ -124,7 +124,7 @@ def make_badge_svg_file(badge_fn, label, value, color='gray', **kw):
 def write_readme(page, config):
     fn = project.root(config) + '/README.md'
     write_file(fn, page.markdown, only_on_change=True)
-    app.warning('Have written README', fn=fn)
+    app.info('Have written README', fn=fn)
 
 
 def run(cmd, kw):

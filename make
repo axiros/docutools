@@ -1,14 +1,16 @@
 # vim: ft=bash
 # KEEP THIS FILE GENERIC - INDEPENDENT of PROJECT. THAT IS ALL IN ENVIRON FILE
 
+set -a
 M="\x1b[1;32m"
 O="\x1b[0m"
 T1="\x1b[48;5;255;38;5;0m"
 T2="\x1b[48;5;124;38;5;255m"
 
 TERMINAL="${TERMINAL:-st}"
-
 mkdocs_port="${mkdocs_port:-8000}"
+d_cover_html="${d_cover_html:-build/coverage/overall}"
+set +a
 
 nfo() { test -z "$2" && echo -e "${M}$*$O" >&2 || h1 "$@"; }
 h1()  { local a="$1" && shift && echo -e "$T1 $a $T2 $* $O" >&2; }
@@ -60,7 +62,7 @@ conda_act () {
 }
 # ----------------------------------------------------------------------------------------- Make Functions:
 
-function ci_conda_root_env {
+function ci_conda_root_env { # creates the root conda env if not present yet
     # main conda bin is in path
     local p="$(conda_root)"
     test -e "$p" && { nfo "Already present: $p"; return 0; }
@@ -70,7 +72,7 @@ function ci_conda_root_env {
     conda_act
     ls -a $HOME
 }
-function ci_conda_py_env {
+function ci_conda_py_env { # creates the venv for the project and poetry installs
     # main conda bin is in path
     local n="${PROJECT}_py${pyver}"
     local p="$(conda_root)/envs/$n"
@@ -96,33 +98,42 @@ function ci { # Trigger a CI Run by pushing and empty commit
 }
 
 function clean {
-    for i in .coverage .mypy_cache .pytest_cache build dist pip-wheel-metadata site public
+    rm -f .coverage*
+    for i in .mypy_cache .pytest_cache build dist pip-wheel-metadata site public
     do
         sh rm -rf "$i"
     done
 }
 
+# :docs:cover_function
 function cover {
-    mkdir -p build
-    sh coverage report --rcfile=config/coverage.ini | tee build/coverage_report
-    sh coverage html --rcfile=config/coverage.ini
+    sh coverage combine
+    sh coverage report --precision=2 | tee .code_coverage # comitted, want to see changes
+    /bin/rm -rf "$d_cover_html"
+    sh coverage html --directory="$d_cover_html" \
+        --show-contexts \
+        --precision=2 \
+        --title="Overall Coverage"
 }
+# :docs:cover_function
 
 function docs {
     export lp_eval="${lp_eval:-always}"
-    sh mkdocs build "$@"
+    rm -f .coverage.lp*
+    sh coverage run --rcfile=config/coverage.lp.ini $CONDA_PREFIX/bin/mkdocs build "$@"
 }
 
 function docs_serve {
     export lp_eval="${lp_eval:-on_page_change}"
     echo $lp_eval
     ps ax| grep mkdocs | grep serve | grep $mkdocs_port | xargs | cut -d ' ' -f1 | xargs kill 2>/dev/null
-    sh mkdocs serve -a "127.0.0.1:${mkdocs_port}"
+    sh mkdocs serve -a "127.0.0.1:${mkdocs_port}" "$@"
 }
 
 function tests {
     test -z "$1" && {
-        sh pytest -vvxs tests -p no:randomly -c config/pytest.ini tests
+        rm -f .coverage.pytest*
+        $CONDA_PREFIX/bin/pytest -vvxs tests -p no:randomly -c config/pytest.ini tests
         return $?
     }
     test -n "$1" && sh pytest "$@"
@@ -147,6 +158,7 @@ d()   { docs       "$@"; }
 ds()  { docs_serve "$@"; }
 rel() { release    "$@"; }
 t()   { tests      "$@"; }
+sm()  { source ./make    } # after changes
 
 make() {
     test -z "$1" && {

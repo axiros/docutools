@@ -20,7 +20,7 @@ nav:
       - Changelog: features/changelog/index.md
       - Credits: features/credits/index.md
       - Find Pages: features/find-pages/index.md
-      - Literate_Programming:
+      - Literate Programming:
           - Overview: features/lp/index.md
           - Syntax: features/lp/syntax.md
           - Parameters: features/lp/parameters.md
@@ -34,10 +34,12 @@ nav:
       - Markdown Replace: features/md-replace/index.md
       - Page Tree: features/page-tree/index.md
       - Stats: features/stats/index.md
+      - Third Party: features/third.md
       - "TermCasts": features/termcasts/index.md
       - Darkmode: features/darkmode.md
       - Mermaid: features/mermaid.md
   - About:
+      - Coverage: about/coverage.md
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md
       - Credits: about/credits.md

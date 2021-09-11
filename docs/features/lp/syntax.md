@@ -135,7 +135,7 @@ Examples:
 
 If you want to work with/generate assets relative to your docu, these should be practical: 
 
-```bash lp fmt=xt_flat assert=LP_DOCU_FILE and LP_PROJECT_ROOT and LP_DOCU and docutools
+```bash lp fmt=xt_flat assert=LP_DOCU_FILE and LP_PROJECT_ROOT and LP_DOCU_DIR and docutools
 env | grep LP_ # any env var starting with lp_ or LP_ is put into the session
 ```
 These are also put into new tmux sessions (at `new_session`):

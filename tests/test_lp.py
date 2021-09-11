@@ -29,7 +29,9 @@ LP.fn_lp = '/tmp/not_set/not_set.md'
 now = time.time
 
 # set (and cache) hard, we are in <root>/tests:
-project.root(root=dirname(dirname(__file__)))
+r = dirname(dirname(__file__))
+project.root(root=r)
+LP.config = {'docs_dir': r + '/docs'}
 
 
 def d_test():
@@ -114,6 +116,7 @@ def mock_page(fn):
     # being set by the lcd hook decorator:
     p.stats = {}
     p.file.abs_src_path = fn
+    p.file.src_path = r + '/' + fn
     LP.page = p
     LP.init_page()
     return p

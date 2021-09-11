@@ -18,12 +18,21 @@ import json
 import traceback
 from ast import literal_eval
 from functools import partial
+from pprint import pformat
+
+import coverage
 
 from lcdoc import lp as lit_prog
 from lcdoc.mkdocs import markdown
-from lcdoc.mkdocs.tools import MDPlugin, app, link_assets, now, split_off_fenced_blocks
+from lcdoc.mkdocs.tools import (
+    MDPlugin,
+    app,
+    config_options,
+    link_assets,
+    now,
+    split_off_fenced_blocks,
+)
 from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
-from pprint import pformat
 
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
@@ -66,11 +75,14 @@ class Eval:
 
 eval_modes = {k for k in dir(Eval) if not k[0] == '_'}
 
+int_env_vars = ['DOCU', 'DOCU_FILE']
+
 
 class LP:
     lpnr = 0
     page = None  # current page
     config = None  # the mkdocs config
+    config_lp_plugin = None  # the mkdocs lp plugin config
     page_initted = False
     dflt_evaluation_timeout = 5
     on_err_keep_running = False
@@ -78,7 +90,9 @@ class LP:
     cur_results = None
     break_on_err = False
     fn_lp = None
-
+    cov = None  # current coverage context
+    create_coverage_backrefs = False
+    docs_repo_base = ''  # e.g. 'https://github.com/AXGKl/docutools/docs'
     # fmt:off
     texc             = '!!! error "LP exception"'
     py_err           = 'Python args parse error'
@@ -107,19 +121,25 @@ class LP:
         s['blocks_max_time'] = 0
         s['blocks_longer_2_sec'] = 0
         s['blocks_longer_10_sec'] = 0
+        LP.set_page_env_vars()
+
+    def set_page_env_vars():
         # useable in evaluated blocks:
-        os.environ['LP_DOCU_FILE'] = LP.fn_lp
-        os.environ['LP_DOCU'] = dirname(LP.fn_lp)
+        os.environ['LP_DOCU_FILE'] = LP.fn_lp or 'init'
+        os.environ['LP_DOCU_DIR'] = dirname(LP.fn_lp or 'init')
+        os.environ['LP_DOCU_ROOT'] = LP.config['docs_dir']
+        os.environ['LP_PROJECT_ROOT'] = project.root(LP.config)
 
     def configure_from_env():
         """run at startup (on_configure hook)"""
         s = {'LP_', 'lp_'}
+        LP.set_page_env_vars()
         env_vars = [(f[3:], os.environ[f]) for f in os.environ if f[:3] in s]
         for k, v in env_vars:
             v = lit_prog.cast(v)
             app.debug('From environ', key=k, value=v)
             env_args[k] = v
-        LP.stats['LP_env_vars'] = len(env_vars)
+        LP.stats['LP_env_vars'] = len(env_args)
 
     def is_lp_block(header_line):
         l = header_line.split(' ', 2)
@@ -204,7 +224,7 @@ class LP:
         r = read_file(fn, dflt='{}')
         try:
             r = literal_eval(r)
-            app.debug('Loaded previous results', count=len(r))
+            app.debug('Loaded previous results', lp_blocks=len(r))
         except Exception as ex:
             msg = 'Err eval previous result'
             app.warning(msg, exc=ex, content_start=r[:100], fn=fn)
@@ -363,6 +383,17 @@ class LP:
 
     def eval_block(spec, lp_runner):
         fn_lp = LP.fn_lp
+        if LP.cov:
+            # h = ':%s:%s' % (spec['nr'], spec['source'].split('\n', 1)[0][3:])
+            f = LP.page.file.src_path
+            if not LP.create_coverage_backrefs:
+                h = f
+            else:
+                s = LP.docs_repo_base + '/' + f
+                l = spec.get('linenr', 1)
+                # plain is for gh, otherwise they render. should not hurt elsewhere
+                h = '<a href="%s?plain=1#%s">%s</a>' % (s, l, f)
+            LP.cov.switch_context(h)
 
         sid = spec['source_id']
         cmd, kw = '', ''
@@ -522,7 +553,7 @@ def patch_mkdocs_to_ignore_res_file_changes():
     fn += '/livereload/__init__.py'
 
     if not exists(fn):
-        return app.warn('Cannot patch mkdocs - version mismatch', missing=fn)
+        return app.warning('Cannot patch mkdocs - version mismatch', missing=fn)
 
     s = read_file(fn)
     S = 'event.is_directory'
@@ -545,11 +576,24 @@ def patch_mkdocs_to_ignore_res_file_changes():
 
 # ------------------------------------------------------------------------------- Plugin
 class LPPlugin(MDPlugin):
-    # config_scheme = (('join_string', config_options.Type(str, default=' - ')),)
+    config_scheme = (
+        # when given we create those for coverage ctx, using repo_url:
+        ('coverage_backrefs', config_options.Type(str, default='blob/master')),
+    )
 
     def on_config(self, config):
+
+        LP.cov = coverage.Coverage().current()  # None if we are not run in coverage
+        cbr = self.config['coverage_backrefs']
+        if cbr:
+            _ = config['repo_url'] + cbr
+            _ += config['docs_dir'].split(project.root(config), 1)[1]
+            LP.create_coverage_backrefs = True
+        LP.docs_repo_base = _  # e.g. 'https://github.com/AXGKl/docutools/docs'
+
         if 'serve' in sys.argv:
             patch_mkdocs_to_ignore_res_file_changes()
+
         LP.config = config
         LP.stats = self.stats
         link_assets(self, __file__, config)
@@ -577,6 +621,7 @@ class LPPlugin(MDPlugin):
             if not eval.split(':', 1)[0] in p:
                 return app.debug('LP: Skipping ($LP_EVAL) %s' % p)
         LP.page = page
+        LP.config_lp_plugin = self.config
         LP.page_initted = False
         LP.fn_lp = page.file.abs_src_path
         mds, lp_blocks = split_off_fenced_blocks(
@@ -587,16 +632,17 @@ class LPPlugin(MDPlugin):
             return os.unlink(fn) if exists(fn) else None
 
         LP.load_previous_results()
-        # we have to redirect all the prints in lp blocks - would screw stats jq
-        # BUT we also want readline support in debugging sessions:
-        # No stats in serve anyway:
-        if 'serve' in sys.argv:
-            blocks = LP.run_blocks(lp_blocks)
-        else:
-            app.debug('Redirecting stdout to stderr')
-            with contextlib.redirect_stdout(sys.stderr):
-                blocks = LP.run_blocks(lp_blocks)
-            app.debug('stdout back to normal')
+        blocks = LP.run_blocks(lp_blocks)
+        # # we have to redirect all the prints in lp blocks - would screw stats jq
+        # # NOPE: normally we write to file anyway
+        # # BUT we also want readline support in debugging sessions:
+        # # No stats in serve anyway:
+        # if 'serve' in sys.argv:
+        # else:
+        #     app.debug('Redirecting stdout to stderr')
+        #     with contextlib.redirect_stdout(sys.stderr):
+        #         blocks = LP.run_blocks(lp_blocks)
+        #     app.debug('stdout back to normal')
 
         LP.write_eval_results()
 

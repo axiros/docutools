@@ -2,7 +2,7 @@ from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs.plugins import log as mkdlog
 
-from lcdoc.const import PageStats, Stats
+from lcdoc.const import PageStats, Stats, t0, now_ms
 from lcdoc.tools import (
     app,
     dirname,
@@ -10,8 +10,8 @@ from lcdoc.tools import (
     now,
     os,
     project,
-    require,
     read_file,
+    require,
     write_file,
 )
 
@@ -111,8 +111,10 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
     fc_crit = (lambda s: True) if fc_crit is None else fc_crit
     lines = markdown if isinstance(markdown, list) else markdown.splitlines()
     mds, fcs = [[]], []
+    lnr = 0
     while lines:
         l = lines.pop(0)
+        lnr += 1
         ls = l.lstrip()
         if not ls.startswith(fcb):
             mds[-1].append(l)
@@ -123,16 +125,20 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
             while lines:
                 mds[-1].append(l)
                 l = lines.pop(0)
+                lnr += 1
                 if l.startswith(beg) and l.strip() == fcb:
                     mds[-1].append(l)
+                    lnr -= 1
                     break
             continue
 
         fc = []
         mds.append([])
         fc.append(l)
+        fc_ln_start = lnr
         while lines:
             l = lines.pop(0)
+            lnr += 1
             fc.append(l)
             if l.startswith(beg) and l.strip() == fcb:
                 break
@@ -142,6 +148,7 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
                 lines.append(beg)
         if fc_process:
             fc = fc_process(fc)
+            fc['linenr'] = fc_ln_start
         fcs.append(fc)
     return mds, fcs
 
@@ -207,7 +214,7 @@ def wrap_hook(plugin, hook, hookname):
             p = ':%s' % f.rsplit('/', 1)[-1]
             t = ': %s' % f
         on = app.name  # orig name
-        app.name = n + p  # e.g. LPPlugin
+        app.name = n.replace('Plugin', '') + p  # e.g. LPPlugin
         app.debug('%s.%s%s' % (n, hookname, t))
         t0 = now()
         r = hook(*a, **kw)
@@ -219,9 +226,42 @@ def wrap_hook(plugin, hook, hookname):
     setattr(plugin, hookname, wrapped_hook)
 
 
+def reset_if_is_first_loaded_plugin_and_hash_changed(plugin, c={}):
+    """mkdocs serve, we must detect if this is a new build"""
+    cl = clsn(plugin)
+    if c and not cl in c:
+        return
+    if not c:
+        c[cl] = 0
+    if c[cl] == hash(plugin):
+        return
+    c[cl] = hash(plugin)
+    return reset()
+
+
+import sys
+import datetime
+import time
+
+
+def reset():
+    import lcdoc.const as c
+
+    t0[0] = now_ms()
+
+    [k.clear() for k in [c.Stats, c.PageStats]]
+    c.LogStats.update({k: 0 for k in c.LogStats})
+    return True
+
+
 class MDPlugin(BasePlugin):
     def __init__(self):
-        app.setup_logging(mkdlog, name='lc')
+        # also on mkdocs serve, this is called at each rebuild:
+        r = reset_if_is_first_loaded_plugin_and_hash_changed(self)
+        app.setup_logging(mkdlog, name='lcd')
+        if r:
+            d = datetime.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+            app.info('Ran reset, cleared stats', reset=r, utc=d, unix=int(time.time()))
         Stats[clsn(self)] = {}
         PageStats[clsn(self)] = {}
         for h in hooks:
@@ -232,98 +272,6 @@ class MDPlugin(BasePlugin):
 
 
 """
-
-
-HOOK: on_serve
-server: livereload.Server instance
-config: global configuration object
-builder: a callable which gets passed to each call to server.watch
-
-HOOK: on_config
-config: global configuration object
-Returns: global configuration object
-
-HOOK: on_pre_build
-config: global configuration object
-
-HOOK: on_files
-files: global files collection
-config: global configuration object
-
-HOOK: on_nav
-nav: global navigation object
-config: global configuration object
-files: global files collection
-Returns: global navigation object
-
-HOOK: on_env
-env: global Jinja environment
-config: global configuration object
-files: global files collection
-Returns: global Jinja Environment
-
-HOOK: on_post_build
-config: global configuration object
-
-HOOK: on_build_error
-error: exception raised
-Template Events
-
-
-HOOK: on_pre_template
-template: a Jinja2 Template object
-template_name: string filename of template
-config: global configuration object
-Returns: a Jinja2 Template object
-
-HOOK: on_template_context
-context: dict of template context variables
-template_name: string filename of template
-config: global configuration object
-Returns: dict of template context variables
-
-HOOK: on_post_template
-output_content: output of rendered template as string
-template_name: string filename of template
-config: global configuration object
-Returns: output of rendered template as string
-
-================= Page Events ===========================
-HOOK: on_pre_page
-page: mkdocs.nav.Page instance
-config: global configuration object
-files: global files collection
-Returns: mkdocs.nav.Page instance
-
-HOOK: on_page_read_source
-page: mkdocs.nav.Page instance
-config: global configuration object
-Returns: The raw source for a page as unicode string. If None is returned, the default loading from a file will be performed.
-
-HOOK: on_page_markdown
-markdown: Markdown source text of page as string
-page: mkdocs.nav.Page instance
-config: global configuration object
-files: global files collection
-Returns: Markdown source text of page as string
-
-HOOK: on_page_content
-html: HTML rendered from Markdown source as string
-page: mkdocs.nav.Page instance
-config: global configuration object
-files: global files collection
-Returns: HTML rendered from Markdown source as string
-
-HOOK: on_page_context
-context: dict of template context variables
-page: mkdocs.nav.Page instance
-config: global configuration object
-nav: global navigation object
-Returns: dict of template context variables
-
-HOOK: on_post_page
-output: output of rendered template as string
-page: mkdocs.nav.Page instance
-config: global configuration object
-Returns: output of rendered template as string
+All Hooks with Params:
+https://www.mkdocs.org/dev-guide/plugins/
 """

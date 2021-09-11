@@ -51,6 +51,12 @@ Highlights:
 - [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
   otherwise non expanded "Output" tabs.
 
+- [**Coverage Backrefs**](./plugins.md#cov_report): Dynamic coverage contexts, optionally with
+  [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation.
+
+  ??? Example
+      ![backref](./img/backref.png)
+
 
 Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-lp,t:m
 

@@ -139,16 +139,24 @@ def spresc(cmd):
     return sprun(cmd.encode('unicode-escape'))
 
 
-def sprun(*a, **kw):
+def sprun(*a, no_fail=False, report=False, **kw):
     """Running a command as bash subprocess
     W/o executable we crash on ubuntu's crazy dash, which cannot even echo -e
     """
-    # if not kw and len(a) == 1:
-    #     dbg('', a[0])
-    # else:
-    #     dbg('', a, kw)  # for the user (also in view messages)
+    if report:
+        if not kw and len(a) == 1:
+            report('', a[0])
+        else:
+            report('', a, kw)  # for the user (also in view messages)
+
     c = p(sp.check_output, shell=True, stderr=sp.STDOUT, executable='/bin/bash')
-    return c(*a, **kw)
+    try:
+        return c(*a, **kw)
+    except Exception as ex:
+        if not no_fail:
+            raise
+        app.error('Failure', args=a, kw=kw, exc=ex)
+        return err(str(ex))
 
 
 # ----------------------------------------------------------------------- Plugins(modes)
@@ -382,13 +390,16 @@ def prepare_and_fmt(res, orig_cmd, **kw):
         if not isinstance(c, dict):
             c = res[i] = {}
         if not 'cmd' in c:
-            app.error('Command missing', res=o, cmd=orig_cmd)
+            app.debug('Command missing', res=o, cmd=orig_cmd)
             c['cmd'] = orig_cmd
         if not 'res' in c:
             app.error('Result missing', res=o, cmd=orig_cmd)
             c['res'] = 'Not available (%s)' % orig_cmd
-
-        c['res'] = c['res'].replace('\n```', '\n ``')
+        r = c['res']
+        if isinstance(r, str):
+            c['res'] = r.replace('\n```', '\n ``')
+        else:
+            c['res'] = json.dumps(r, indent=4)
         if kw.get('hide_cmd'):
             c['cmd'] = ''
 
@@ -631,20 +642,14 @@ def run_if_present_and_is_dict(kw, if_present):
             raise Exception('%s run failed: %s. kw: %s' % (if_present, cmd, str(kw)))
 
 
+def err(msg, **kw):
+    app.error(msg, **kw)
+    return {'res': {'lp err': msg, 'kw': kw}}
+
+
 def eval_lp(cmd, kw):
     # deprecated alias, not any more docued, did not work for py style args:
     assert_ = kw.get('asserts') or kw.get('assert')
-
-    cwd = kw.get('cwd')
-    if cwd:
-        here = os.getcwd()
-        try:
-            os.chdir(cwd)
-            # so that replace works in make_file:
-            os.environ['PWD'] = cwd
-        except Exception as ex:
-            ex.args += ('dest dir: "%s"' % cwd,)
-            raise
 
     # mode = kw.get('xmode')
     # # in python we need tmux session (to start python first):
@@ -669,6 +674,13 @@ def eval_lp(cmd, kw):
     plug = get_or_import_plug(mode)
 
     g = lambda k, d=None: getattr(plug, k, d)
+    rk = g('req_kw')
+    if rk:
+        miss = [k for k in rk if not k in kw]
+        if miss:
+            breakpoint()  # FIXME BREAKPOINT
+            return err('Missing required arguments', missing=miss)
+
     if g('multi_line_to_list'):
         cmd = multi_line_to_list(cmd)
     r = g('run')
@@ -686,9 +698,6 @@ def eval_lp(cmd, kw):
     if not session_name:
         run_if_present_and_is_dict(kw, 'post')
     check_assert(assert_, res)
-    # cwd header only for the current block:
-    if cwd:
-        os.chdir(here)
     return res
 
 
@@ -697,7 +706,6 @@ def run(cmd, fn_doc=None, use_prev_res=None, **kw):
     rpl: global post run replacement
     fn_doc: required: location of source file (async flow links contain its name)
     """
-
     # in python sigature format assert would be forbidden, so we allow asserts=...
     repl_dollar_var_with_env_vals(kw, 'fn', 'cwd')
     # you could set this to org:
@@ -709,7 +717,25 @@ def run(cmd, fn_doc=None, use_prev_res=None, **kw):
     if use_prev_res:
         res = use_prev_res
     else:
-        res = eval_lp(cmd, kw)
+
+        cwd = kw.get('cwd')
+        if cwd:
+            here = os.getcwd()
+            try:
+                os.chdir(cwd)
+                # so that replace works in make_file:
+                os.environ['PWD'] = cwd
+            except Exception as ex:
+                ex.args += ('dest dir: "%s"' % cwd,)
+                raise
+        try:
+            res = eval_lp(cmd, kw)
+            if isinstance(res, str):
+                res = {'cmd': cmd, 'res': res}
+        finally:
+            # cwd header only for the current block:
+            if cwd:
+                os.chdir(here)
 
     ret = {'raw': res}
 

@@ -78,13 +78,13 @@ def load_replacement_file(plugin, config):
         else:
             app.info('Loading replacement file', fn=fn)
             if not exists(fn):
-                app.warn('Cannot replace, no lookup file found', fn=fn)
+                app.warning('Cannot replace, no lookup file found', fn=fn)
             sys.path.append(os.path.dirname(fn))
             mod = importlib.import_module(fnmod)
             table = getattr(mod, 'table', None)
         fn_ts[0] = os.stat(fn)[7]
         if not table:
-            app.warn(
+            app.warning(
                 'Replacement mod requires table attribute', fn=fn, err='no md-replace'
             )
             plugin.table = {}
