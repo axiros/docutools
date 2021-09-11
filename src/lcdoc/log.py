@@ -1,11 +1,12 @@
 import json
+import os
 import sys
 import time
 
 from pygments import highlight
 from pygments.lexers import JsonLexer
 
-from lcdoc.const import t0, now_ms, LogStats, PageStats, Stats
+from lcdoc.const import LogStats, PageStats, Stats, now_ms, t0
 
 now = time.time
 
@@ -84,7 +85,13 @@ def tokw(kw):
     return m
 
 
+ign_errors = os.environ.get('ignore_err', '').split('::')
+
+
 def log(level_name, meth, msg, kw):
+    if ign_errors and level_name == 'error':
+        if any([p for p in ign_errors if p in msg]):
+            return app.warning('Ignored Error', orig_msg=msg, kw=kw)
     store = log_majors[level_name]
     dt = now_ms() - t0[0]
     if store is not None:

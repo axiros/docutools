@@ -118,7 +118,7 @@ function cover {
 
 function docs {
     export lp_eval="${lp_eval:-always}"
-    rm -f .coverage.lp*
+    rm -f .coverage.lp* 
     sh coverage run --rcfile=config/coverage.lp.ini $CONDA_PREFIX/bin/mkdocs build "$@"
 }
 

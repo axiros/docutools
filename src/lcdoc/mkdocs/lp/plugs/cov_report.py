@@ -65,6 +65,9 @@ coviframe.contentWindow.document.body.onclick = function() {
 
 '''
 
+# warning: matched in ci workflow - don't change this message:
+err_no_cov = 'No coverage html files found'
+
 
 def incl_html_report(**kw):
     return {'formatted': T % kw, 'res': 'cov_report'}
@@ -82,7 +85,7 @@ def run(cmd, kw):
         return lp.err('require dir param or $d_cover_html')
     d_cover = project.abs_path(d_cover, LP.config)
     if not exists(d_cover + '/index.html'):
-        return lp.err('No coverage html files found', dir=d_cover)
+        return lp.err(err_no_cov, dir=d_cover)
 
     d_rel_html = '/media/cov/%s' % name
     # does not work the first time - files not registered:

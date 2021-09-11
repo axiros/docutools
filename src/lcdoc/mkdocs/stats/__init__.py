@@ -168,7 +168,7 @@ class StatsPlugin(MDPlugin):
             if exists(fn):
                 os.rename(fn, fn + '.prev.json')
             ol, j = by_ts(l), json.dumps
-            write_file(fn, '\n'.join(j(i) for i in ol))
+            write_file(fn, '\n'.join(j(i, default=str) for i in ol))
             app.info('Dumped logs', fn=fn, count=len(ol))
 
         bsever = self.config['fail_build_on_log_events']
