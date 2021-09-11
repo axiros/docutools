@@ -59,7 +59,7 @@ jobs:
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && make ci_conda_py_env"
+        run: "source ./make && make && make ci_conda_py_env"
 
       - name: Run tests
         shell: bash -l {0}

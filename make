@@ -1,6 +1,6 @@
 # vim: ft=bash
 # KEEP THIS FILE GENERIC - INDEPENDENT of PROJECT. THAT IS ALL IN ENVIRON FILE
-
+set -x
 set -a
 M="\x1b[1;32m"
 O="\x1b[0m"
