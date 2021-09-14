@@ -102,7 +102,7 @@ function cover {
 
 function docs {
     export lp_eval="${lp_eval:-always}"
-    rm -f .coverage.lp* 
+    rm -f .coverage.lp*
     sh coverage run --rcfile=config/coverage.lp.ini $CONDA_PREFIX/bin/mkdocs build "$@"
 }
 
@@ -123,18 +123,18 @@ function tests {
 }
 
 function release {
-    set -e
     version="${1:-}"
     test -z "$version" && { set_version || return 1; }
     nfo "New Version = $version"
     sh poetry version "$version"
-    sh docs
-    sh git add pyproject.toml -f CHANGELOG.md
+    sh tests || return 1
+    sh cover
+    sh docs  || return 1
     sh git commit -am "chore: Prepare release $version"
     sh git tag "$version"
-    sh git push
     sh git push --tags
-    set +e
+    sh poetry build
+    sh poetry publish
     #sh mkdocs gh-deploy # done by ci
 }
 

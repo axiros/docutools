@@ -1,19 +1,30 @@
-Name                                     Stmts   Miss Branch BrPart     Cover
------------------------------------------------------------------------------
-src/lcdoc/__init__.py                        2      0      0      0   100.00%
-src/lcdoc/const.py                           6      0      2      0   100.00%
-src/lcdoc/log.py                            81     18     38      7    77.31%
-src/lcdoc/lp.py                            402     81    184     33    76.11%
-src/lcdoc/lp_session.py                    188     39     62     10    78.80%
-src/lcdoc/mkdocs/lp/__init__.py            396    158    154     29    55.09%
-src/lcdoc/mkdocs/lp/plugs/bash.py           31      4     14      5    80.00%
-src/lcdoc/mkdocs/lp/plugs/make_file.py      41     12     12      4    62.26%
-src/lcdoc/mkdocs/lp/plugs/python.py         25      8      6      2    61.29%
-src/lcdoc/mkdocs/lp/plugs/show_file.py       2      0      0      0   100.00%
-src/lcdoc/mkdocs/markdown.py                58     25     42     11    52.00%
-src/lcdoc/mkdocs/tools.py                  184     70     78     13    56.11%
-src/lcdoc/tools.py                         193    133     96     10    26.30%
-tests/__init__.py                            4      0      0      0   100.00%
-tests/test_lp.py                           354      5     30      0    98.70%
------------------------------------------------------------------------------
-TOTAL                                     1967    553    718    124    66.89%
+Name                                       Stmts   Miss Branch BrPart     Cover
+-------------------------------------------------------------------------------
+src/lcdoc/__init__.py                          2      0      0      0   100.00%
+src/lcdoc/const.py                             6      0      2      0   100.00%
+src/lcdoc/log.py                              86     16     43      7    80.62%
+src/lcdoc/lp.py                              405     63    186     22    81.22%
+src/lcdoc/lp_session.py                      188     34     62      7    82.00%
+src/lcdoc/mkdocs/blacklist/__init__.py        27      5     12      4    76.92%
+src/lcdoc/mkdocs/changelog/__init__.py        55     37     16      2    28.17%
+src/lcdoc/mkdocs/credits/__init__.py          83     66     44      2    14.96%
+src/lcdoc/mkdocs/find_pages/__init__.py      101     77     56      2    19.11%
+src/lcdoc/mkdocs/lp/__init__.py              419    108    164     23    71.01%
+src/lcdoc/mkdocs/lp/plugs/bash.py             31      4     14      3    84.44%
+src/lcdoc/mkdocs/lp/plugs/cov_report.py       33     14      8      3    53.66%
+src/lcdoc/mkdocs/lp/plugs/make_badges.py      90      4     22      2    94.64%
+src/lcdoc/mkdocs/lp/plugs/make_file.py        41     10     12      3    71.70%
+src/lcdoc/mkdocs/lp/plugs/mermaid.py          13      0      2      0   100.00%
+src/lcdoc/mkdocs/lp/plugs/python.py           25      8      6      2    61.29%
+src/lcdoc/mkdocs/lp/plugs/show_file.py         2      0      0      0   100.00%
+src/lcdoc/mkdocs/lp/plugs/show_src.py         47      5     16      6    82.54%
+src/lcdoc/mkdocs/markdown.py                  58     24     42      9    55.00%
+src/lcdoc/mkdocs/page_tree/__init__.py        43      6     12      2    85.45%
+src/lcdoc/mkdocs/replace/__init__.py          98     17     48      8    81.51%
+src/lcdoc/mkdocs/stats/__init__.py           118     11     78     20    82.14%
+src/lcdoc/mkdocs/tools.py                    196     29     80     12    83.70%
+src/lcdoc/tools.py                           193     75     96     18    54.67%
+tests/__init__.py                              4      0      0      0   100.00%
+tests/test_lp.py                             354      5     30      0    98.70%
+-------------------------------------------------------------------------------
+TOTAL                                       2718    618   1051    157    73.18%
