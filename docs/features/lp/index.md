@@ -18,7 +18,7 @@ And [vice versa](./parameters.md#asserts).
 
 ## Features
 
-[Here](./parameters.md) is the full list of features.
+[Here](./parameters.md) the list of parameters for the default mode: Evaluation in a shell.
 
 Highlights:
 
@@ -26,10 +26,10 @@ Highlights:
 
 - **Stateless** and [**Stateful**](./sessions.md) Evaluation, using
   [tmux][tmux]  
-  Means you can inspect and even change what's going
-  on, before after and during page evaluation. Anything set within the tmux session (e.g. environ,
-  variables) is available in later mkdocs build runs, except when you decide to
-  [kill](./parameters#kill_session) the session.
+
+  Means you can inspect and change what's going on, before, after and during page evaluation.
+  Anything set within the tmux session (e.g. environ, variables) is available in later mkdocs build
+  runs, except when you decide to [kill](./parameters#kill_session) the session.
 
 - [**Assertions**](./parameters.md#asserts): You can assert on the evaluation result, means you can
   turn the code blocks into a functional test suite, documented through your markdown around the
@@ -49,10 +49,10 @@ Highlights:
 - [**Full Terminal Color Support**](./xterm.md): Colorized terminal output via `xterm.js`  
 
 - [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
-  otherwise non expanded "Output" tabs.
+  otherwise non expanded "Output" tabs
 
 - [**Coverage Backrefs**](./plugins/cov_report.md): Dynamic coverage contexts, optionally with
-  [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation.
+  [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation
 
 
 Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-lp,t=m

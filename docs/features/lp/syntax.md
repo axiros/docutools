@@ -98,7 +98,7 @@ Parameters may either be delivered python signature compliant or "easy args" sty
  :fences:bash lp foo=bar f=1.23 foo=true bar asserts="foo and bar"
 
  # python signature compliant form:
- :fences:bash lp foo='bar', f=1.23, foo=True bar=True, asserts="foo and bar"
+ :fences:bash lp foo='bar', f=1.23, foo=True, bar=True, asserts="foo and bar"
 
 
 ```

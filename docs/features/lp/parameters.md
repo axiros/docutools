@@ -8,7 +8,7 @@ Except when otherwise noted, these parameters can be given
 
 They work in session or non session mode.
 
-Syntax details [here](./syntax.md/#parametrization).
+Syntax details [here](./syntax.md#parametrization).
 
 ```page lp addsrc
 
