@@ -123,6 +123,7 @@ function tests {
 }
 
 function release {
+    set -e
     version="${1:-}"
     test -z "$version" && { set_version || return 1; }
     nfo "New Version = $version"
@@ -133,6 +134,7 @@ function release {
     sh git tag "$version"
     sh git push
     sh git push --tags
+    set +e
     #sh mkdocs gh-deploy # done by ci
 }
 
