@@ -88,10 +88,10 @@ def tokw(kw):
 ign_errors = os.environ.get('ignore_err', '').split('::')
 
 
-def log(level_name, meth, msg, kw):
-    if ign_errors and level_name == 'error':
+def log(level_name, meth, msg, kw, _err_levels={'error', 'fatal', 'die'}):
+    if ign_errors and level_name in _err_levels:
         if any([p for p in ign_errors if p in msg]):
-            return app.warning('Ignored Error', orig_msg=msg, kw=kw)
+            return app.warning('Ignored Err, level %s' % level_name, orig_msg=msg, kw=kw)
     store = log_majors[level_name]
     dt = now_ms() - t0[0]
     if store is not None:

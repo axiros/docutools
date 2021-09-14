@@ -3,7 +3,7 @@
 <!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
 [![docs pages][docs pages_img]][docs pages] [![gh-ci][gh-ci_img]][gh-ci] [![pkg][pkg_img]][pkg] [![code_style][code_style_img]][code_style] 
 
-[docs pages]: https://AXGKl.github.io/docutools/
+[docs pages]: https://AXGKl.github.io/docutools
 [docs pages_img]: https://AXGKl.github.io/docutools/img/badge_docs.svg
 [gh-ci]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml
 [gh-ci_img]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml/badge.svg
@@ -30,5 +30,5 @@ Notes:
 - Some features not yet documented
 
 
-Last modified: Tue, 14 Sep 2021 18h GMT
+Last modified: Tue, 14 Sep 2021 22h GMT
  

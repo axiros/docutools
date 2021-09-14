@@ -98,7 +98,8 @@ class badges:
         return dict(locals())
 
     def docs(spec, kw):
-        lnk = config(kw)['site_url']
+        lnk = configured_site_url(kw)
+        # lnk = config(kw)['site_url'] # 127.0.0.1 for mkdocs serve
         value = spec.get('value', 'mkdocs-material')
         label = 'docs'
         if value == 'pagecount':
@@ -113,6 +114,17 @@ class badges:
     def generic(spec, kw):
         spec['label'] = spec.get('label', spec['cmd'])
         return dict(spec)
+
+
+def configured_site_url(kw, c=[0]):
+    if not c[0]:
+        d = project.root(config(kw))
+        d = read_file('%s/mkdocs.yml' % d, dflt='').split('\nnav:', 1)[0]
+        c[0] = yaml.safe_load(d)['site_url']
+    return c[0]
+
+
+import yaml
 
 
 def make_badge_svg_file(badge_fn, label, value, color='gray', **kw):
@@ -148,7 +160,7 @@ def run(cmd, kw):
             fn = dirname(kw['LP'].page.file.abs_src_path) + '/img/' + bdg
             spec['badge_fn'] = fn
             # need an absolute path for the readme.md:
-            u = no_end_slash(config(kw)['site_url'])  # +  './img/' + bdg
+            u = no_end_slash(configured_site_url(kw))
             k = '/' + dirname(kw['LP'].page.file.src_path)
             u = no_end_slash(u + k) + '/img/' + bdg
             spec['img'] = u  # .replace('//', '/')
