@@ -1,8 +1,13 @@
+import datetime
+import sys
+import time
+from functools import partial
+
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs.plugins import log as mkdlog
 
-from lcdoc.const import PageStats, Stats, t0, now_ms
+from lcdoc.const import PageStats, Stats, now_ms, t0
 from lcdoc.tools import (
     app,
     dirname,
@@ -16,7 +21,17 @@ from lcdoc.tools import (
 )
 
 
-def src_link(fn, config, line=None, match=None, title=''):
+def add_post_page_func(kw, f):
+    p = kw['LP'].page
+    h = getattr(p, 'lp_on_post_page', [])
+    h.append(partial(f, page=p, config=kw['LP'].config))
+    p.lp_on_post_page = h
+
+
+# -------------------------------------------------------- replacements
+
+
+def srclink(fn, config, line=None, match=None, title=''):
     # TODO: allow others:
     u = config['repo_url'] + 'blob/master'
     r = project.root(config)
@@ -40,29 +55,34 @@ def src_link(fn, config, line=None, match=None, title=''):
     }  # {align=right}'
 
 
-# -------------------------------------------------------- replacements
 # used in mdreplace
-def inline_src_link(**kw):
+def srcref(**kw):
     """Often used as replacement function
     In mdreplace.py:
-    'lnksrc': inline_src_link,
+    'srcref': inline_srclink,
     """
     line = kw['line']
-    fn = line.split(':lnksrc:', 1)[1].split(' ', 1)[0]
-    repl = ':lnksrc:' + fn
+    fn = line.split(':srcref:', 1)[1].split(' ', 1)[0]
+    if fn[-1] in {',', ')', ']', '}'}:
+        fn = fn[:-1]
+    repl = ':srcref:' + fn
     if not ',' in fn:
-        if ':' in fn:
-            l = fn.split(':')
+        if '=' in fn:
+            l = fn.split('=')
             spec = {'fn': l[0], 'm': l[1]}
         else:
             spec = {'fn': fn}
     else:
-        spec = dict([kv.split(':', 1) for kv in fn.split(',')])
+        try:
+            spec = dict([kv.split('=', 1) for kv in fn.split(',')])
+        except Exception as ex:
+            app.error('inline_srclink failed', line=line, page=kw['page'])
+            return {'line': line}
     spec['t'] = spec.get('t', '`%s`' % spec['fn'])  # title default: file path
     if spec['t'] == 'm':
         spec['t'] = spec['m']
     # if 'changelog' in line: breakpoint()  # FIXME BREAKPOINT
-    l = src_link(spec['fn'], kw['config'], match=spec.get('m'), title=spec['t'])
+    l = srclink(spec['fn'], kw['config'], match=spec.get('m'), title=spec['t'])
     return {'line': line.replace(repl, l['link'])}
 
 
@@ -237,11 +257,6 @@ def reset_if_is_first_loaded_plugin_and_hash_changed(plugin, c={}):
         return
     c[cl] = hash(plugin)
     return reset()
-
-
-import sys
-import datetime
-import time
 
 
 def reset():

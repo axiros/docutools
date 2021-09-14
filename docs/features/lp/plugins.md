@@ -1,4 +1,4 @@
-# Plugins
+# Literate Programming (LP) Plugins
 
 There is a very simple plugin machinery, based on the "`mode`" header parameter.
 
@@ -19,7 +19,7 @@ They are lazy loaded, i.e. on first use, within a docs build session.
 Before we look into the directory above, we try import any plugin directly, the first time we need
 it.
 
-Therefore, by supplying a $PYTHONPATH pointing to a plugin directory of your own, you can have your
+Therefore, by supplying a `$PYTHONPATH`, pointing to a plugin directory of your own, you can have your
 own modes supported (or overwrite the default ones).
 
 
@@ -29,54 +29,30 @@ own modes supported (or overwrite the default ones).
 information, incl. the mkdocs config, via the LP class.
 
 - You have to return a string (which would be the cached raw result) or a dict with `res` and
-optionally a `formatted` key.
+optionally
+    - a `formatted` key.
+    - a `add_to_page` key.
 
-- res will be the (cached) raw result.
+- The `formatted` value has to contain directly the markdown to be displayed, exclusive indentation.
+- The `add_to_page` value has to contain plain markdown (or javascript, html, css) added unindented once at
+  the end of a page. See the [mermaid](./plugins/mermaid.md) plugin for an example.
 
-- The formatted value has to contain directly the markdown to be displayed, exclusive indentation.
+- The full `res` will be the (cached) raw result, incl both optional keys.
+
+
 
 ## Built In Plugins
 
-:plugs_docs:
-
-
-## Examples
-
-### make_file
-
-```json lp mode=make_file fn=/tmp/myfile.json addsrc fmt=mk_console
-{"foo": "bar"}
-```
-
-The file has been created:
-
-```bash lp fmt=mk_console
-ls -lta /tmp/myfile.json
-```
-
-
-### python
-
-```python lp mode=python eval=always addsrc
-print([k for k in ctx.keys()])
-```
-
-### show_file
-
-```json lp mode=show_file fn=/tmp/myfile.json addsrc
-{"foo": "bar"}
-```
+- [`bash`](./plugins/bash.md): Runs the given statements within a bash shell
+- [`cov_report`](./plugins/cov_report.md): Inserts a coverage report
+- [`make_badges`](./plugins/make_badges.md): Creates badges
+- [`make_file`](./plugins/make_file.md): Creates a file and displays it as if we used cat on it
+- [`mermaid`](./plugins/mermaid.md): Creates mermaid charts
+- [`python`](./plugins/python.md): Runs the block within a python session
+- [`show_file`](./plugins/show_file.md): Cats a file
+- [`show_src`](./plugins/show_src.md): Copies delimitted stanzas within arbitrary files (usually source code) into your docs and creates links to the repo server
 
 
 
 
-<!-- :docs:this_example -->
-### show_src
-
-We included this sentence and the header between match strings....
-
-<!-- :docs:this_example -->
-
-```python lp mode=show_src delim=this_example hide="This Example" addsrc dir=docs/features/lp eval=always
-```
 

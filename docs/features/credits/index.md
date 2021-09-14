@@ -1,6 +1,6 @@
-# Credits :lnksrc:fn:src/lcdoc/mkdocs/credits/__init__.py,t:
+# Credits :srcref:fn=src/lcdoc/mkdocs/credits/__init__.py,t=
 
-Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-credits,t:m
+Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-credits,t=m
 
 - Creates CREDITS.md based on a poetry lock file, i.e. currently requires poetry as a build system
 - Heavily based on the work of ["pawamoy"](https://github.com/pawamoy).

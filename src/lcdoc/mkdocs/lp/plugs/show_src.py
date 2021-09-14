@@ -20,7 +20,7 @@ The plugin uses ripgrep to find matches.
 import json
 import os
 
-from lcdoc.mkdocs.tools import src_link
+from lcdoc.mkdocs.tools import srclink
 from lcdoc.mkdocs.markdown import deindent
 from lcdoc.tools import app, dirname, exists, now, os, read_file, require
 
@@ -31,7 +31,7 @@ T = '''
     ```%(lang)s
     %(body)s
     ```
-=== "%(src_link)s"
+=== "%(srclink)s"
     %(url)s
 '''
 
@@ -85,7 +85,7 @@ def run(cmd, kw):
     line = len(s[0].splitlines())
     res = s[1].split('\n', 1)[1].rsplit('\n', 1)[0]
     res = deindent(res)
-    l = src_link(fn, LP.config, line=line + 1)
+    l = srclink(fn, LP.config, line=line + 1)
     h = kw.get('hide')
     if h == True:
         h = 'Implementation'
@@ -93,6 +93,6 @@ def run(cmd, kw):
     return {
         'res': res,
         'formatted': f(
-            header=h, lang=kw['lang'], body=res, src_link=l['link'], url=l['url']
+            header=h, lang=kw['lang'], body=res, srclink=l['link'], url=l['url']
         ),
     }

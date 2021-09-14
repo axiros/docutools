@@ -1,6 +1,6 @@
-# Page Tree :lnksrc:fn:src/lcdoc/mkdocs/page_tree/__init__.py,t:
+# Page Tree :srcref:fn=src/lcdoc/mkdocs/page_tree/__init__.py,t=
 
-Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-page-tree,t:m
+Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-page-tree,t=m
 
 [![./img/ex.png](./img/ex.png)](./img/ex.png)
 

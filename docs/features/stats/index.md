@@ -1,6 +1,6 @@
-# Stats :lnksrc:fn:src/lcdoc/mkdocs/stats/__init__.py,t:
+# Stats :srcref:fn=src/lcdoc/mkdocs/stats/__init__.py,t=
 
-Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-stats,t:m
+Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-stats,t=m
 
 - Writes collected stats to a file or stdout after build, intended for consolidation e.g. with [jq](https://stedolan.github.io/jq/download/)
 - Presents deviations

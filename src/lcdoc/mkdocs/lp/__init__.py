@@ -36,6 +36,15 @@ from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
 
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
+
+def add_page_end_md(page, d):
+    """allows to add e.g. javascript to the end of the page"""
+    h = getattr(page, 'lp_page_end_mds', None)
+    if not h:
+        h = page.lp_page_end_mds = {}
+    h.update(d)
+
+
 # :docs:hashed_headers
 # those header params will prevent to use caching when changed, they go into the hash of
 # a block which is the cache key:
@@ -80,6 +89,7 @@ int_env_vars = ['DOCU', 'DOCU_FILE']
 
 class LP:
     lpnr = 0
+    blocks_on_page = None
     page = None  # current page
     config = None  # the mkdocs config
     config_lp_plugin = None  # the mkdocs lp plugin config
@@ -107,6 +117,7 @@ class LP:
     def init_page():
         """run only at first fc block found"""
         LP.lpnr = 0
+        LP.blocks_on_page = []
         LP.page_initted = True
         LP.spec_by_id = {}
         LP.stats = s = LP.page.stats
@@ -282,6 +293,7 @@ class LP:
                 return True
 
     def run_blocks(lp_blocks, raise_on_errs=None):
+        LP.blocks_on_page = lp_blocks  # mermaid needs to know if its the last one
         LP.stats['blocks_total'] += len(lp_blocks)
         have_skips = LP.handle_skips(lp_blocks)
         res = []
@@ -321,6 +333,7 @@ class LP:
         kw['LP'] = LP
         kw['lang'] = spec.get('lang')
         kw['sourceblock'] = spec.get('source')
+        LP.spec = spec
 
         # When ANY block changed, we re-eval all, except those skipped:
         # This is usually when editing a page, user may change md but as soon as he
@@ -359,13 +372,18 @@ class LP:
                 skip(True)
         elif evl_policy == Eval.on_change:
             skip(bool(prev_res))
-
+        add_to_page = None
         if kw.get('skip_this'):
             # if "lessinger" in str(spec["source"]): breakpoint()  # FIXME BREAKPOINT
             if prev_res:
                 LP.stats['blocks_skipped_prev_result'] += 1
                 LP.cur_results[sid] = prev_res  # no adding of skipped indicators to res
-                res = lp_runner(spec, use_prev_res=prev_res, **kw)['formatted']
+                res = lp_runner(spec, use_prev_res=prev_res, **kw)
+                try:
+                    add_to_page = res['raw']['add_to_page']
+                except:
+                    pass
+                res = res['formatted']
                 res = mark_as_previous_result(res)
             else:
                 LP.stats['blocks_skipped_no_result'] += 1
@@ -373,9 +391,12 @@ class LP:
         else:
             LP.stats['blocks_evaled'] += 1
             ret = LP.eval_block(spec, lp_runner=lp_runner)
-            LP.cur_results[sid] = ret['raw']
+            LP.cur_results[sid] = r = ret['raw']
+            if isinstance(r, dict) and 'add_to_page' in r:
+                add_to_page = r.get('add_to_page')
             res = ret['formatted']
-
+        if add_to_page:
+            add_page_end_md(LP.page, add_to_page)
         ind = spec.get('indent')
         if ind:
             res = ('\n' + res).replace('\n', '\n' + ind)
@@ -428,8 +449,8 @@ class LP:
 
             t0 = now()
             ret = lp_runner(cmd, *args, **kw)
-            dt = now() - t0
 
+            dt = now() - t0
             if dt > stats['blocks_max_time']:
                 stats['blocks_max_time'] = round(dt, 3)
             if dt > 2:
@@ -607,9 +628,8 @@ class LPPlugin(MDPlugin):
         [files.remove(f) for f in lpres_files]
 
     def on_post_page(self, output, page, config):
-        f = getattr(page, 'lp_on_post_page', None)
-        if f:
-            f()
+        f = getattr(page, 'lp_on_post_page', ())
+        [i() for i in f]
 
     def on_page_markdown(self, markdown, page, config, files):
         eval = env_args.get('eval')
@@ -652,4 +672,10 @@ class LPPlugin(MDPlugin):
             if blocks:
                 res = blocks.pop(0)
                 MD += '\n' + res + '\n'
+
+        pe = getattr(page, 'lp_page_end_mds', None)
+        if pe:
+            for k, v in pe.items():
+                app.info('Page end addon', adding=k)
+                MD += '\n\n' + v
         return MD

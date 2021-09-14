@@ -1,9 +1,9 @@
-# Changelog :lnksrc:fn:src/lcdoc/mkdocs/changelog/__init__.py,t:
+# Changelog :srcref:fn=src/lcdoc/mkdocs/changelog/__init__.py,t=
 
 Creates a CHANGELOG.md (using [git-changelog](https://pypi.org/project/git-changelog/)).
 
 - Heavily based on the work of ["pawamoy"](https://github.com/pawamoy).
-- Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-changelog,t:m
+- Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-changelog,t=m
 - File created: `<project root>/CHANGELOG.md`.
 - Example: This repo's [Changelog Page](../../about/changelog.md).
 

@@ -4,6 +4,7 @@ __pycache__/
 *.res.py
 *.ansi
 dist/
+**/img/badge_*
 docs/lcd*
 public
 tmp

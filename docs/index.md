@@ -21,7 +21,7 @@ Most plugins should work in other mkdocs variants as well. No guarantees though.
 Notes:
 
 - "Work in Progress" The termcast feature is heavily W.I.P!
-- Many feats not yet documented
+- Some features not yet documented
 
 
 Last modified: :ctime:

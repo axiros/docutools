@@ -2,12 +2,12 @@
 
 `docutools` will install 3rd party plugins for mkdocs, ready for use right away.
 
-See [here](https://github.com/AXGKl/docutools/blob/main/pyproject.toml) for the packages we depend on.
+See :srcref:pyproject.toml, for the packages we depend on.
 
 
 !!! note "Size"
-    Those plugins increase the initial download time of documentation.
-    So this is more for users which stay on your documentation page, having the libs cached at subsequent visits.
+    Those plugins increase the initial download time of documentation, if enabled in `mkdocs.yml`.
+    Users which stay on your documentation page, having the libs cached at subsequent visits.
 
 
 ## Which
@@ -22,7 +22,7 @@ https://facelessuser.github.io/pymdown-extensions/extensions/superfences/
 
 - And also our own ones, described in this documentation.
 
-See the mkdocs.yml file [here](https://github.com/AXGKl/docutools/blob/main/mkdocs.yml) to get an overview.
+See the :srcref:mkdocs.yml file to get an overview.
 
 Below a few important extensions - but check the above pages for details on usage:
  
@@ -119,11 +119,11 @@ Allow to embed complex other content into your markdown.
 In your mkdocs.yml you can then supply custom base paths, containing e.g. your own abbreviations, libraries or whatever you require on certain pages.
 
 
-This is [coverage][coverage]. The actual link is provided by an import of a big text file, loaded via a snippet.
+This is [a demo][demo]. The actual link is provided by an import of a text file (e.g. here :srcref:docs/links.txt ), loaded via a snippet.
 
 
 ```
-This is [coverage][coverage]. The actual link is provided by an import of a big text file, loaded via a snippet.
+This is [a demo][demo]. 
 
 And elsewhere, e.g. at the bottom embed the links:
 
@@ -132,7 +132,7 @@ links.txt
 --8<--  
 ```
 
-Note that you can provide, in [mkdocs.yml](https://github.com/AXGKl/docutools/blob/main/mkdocs.yml), custom locations for such snippets, i.e. within *your* project.
+Note that you can provide, in :srcref:mkdocs.yml , custom locations for such snippets, i.e. within project.
 
 --8<--
 links.txt

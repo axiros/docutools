@@ -16,28 +16,39 @@ nav:
       - install.md
   - Features:
       - Overview: features/index.md
-      - Blacklist: features/blacklist/index.md
-      - Changelog: features/changelog/index.md
-      - Credits: features/credits/index.md
-      - Find Pages: features/find-pages/index.md
-      - Literate Programming:
-          - Overview: features/lp/index.md
-          - Syntax: features/lp/syntax.md
-          - Parameters: features/lp/parameters.md
-          - Plugins: features/lp/plugins.md
-          - Evaluation and Caching: features/lp/eval.md
-          - Sessions: features/lp/sessions.md
-          - Terminal Colors: features/lp/xterm.md
-          - Async Fetching: features/lp/async.md
-          - Tips: features/lp/tips.md
-          - Examples: features/lp/examples.md
-      - Markdown Replace: features/md-replace/index.md
-      - Page Tree: features/page-tree/index.md
-      - Stats: features/stats/index.md
+      - Plugins:
+          - Blacklist: features/blacklist/index.md
+          - Changelog: features/changelog/index.md
+          - Credits: features/credits/index.md
+          - Find Pages: features/find-pages/index.md
+          - Literate Programming (LP):
+              - Overview: features/lp/index.md
+              - Syntax: features/lp/syntax.md
+              - Parameters: features/lp/parameters.md
+
+              - Evaluation and Caching: features/lp/eval.md
+              - Sessions: features/lp/sessions.md
+              - Terminal Colors: features/lp/xterm.md
+              - Async Fetching: features/lp/async.md
+              - Tips: features/lp/tips.md
+              - Examples: features/lp/examples.md
+          - LP Plugins:
+              - Overview: features/lp/plugins.md
+              - features/lp/plugins/bash.md
+              - features/lp/plugins/cov_report.md
+              - features/lp/plugins/mermaid.md
+              - features/lp/plugins/make_badges.md
+              - features/lp/plugins/make_file.md
+              - features/lp/plugins/python.md
+              - features/lp/plugins/show_file.md
+              - features/lp/plugins/show_src.md
+
+          - Markdown Replace: features/md-replace/index.md
+          - Page Tree: features/page-tree/index.md
+          - Stats: features/stats/index.md
       - Third Party: features/third.md
       - "TermCasts": features/termcasts/index.md
       - Darkmode: features/darkmode.md
-      - Mermaid: features/mermaid.md
   - About:
       - Coverage: about/coverage.md
       - Contributing: about/contributing.md
@@ -51,7 +62,7 @@ theme:
     - navigation.top
     - navigation.tabs
     - navigation.sections
-    - navigation.expand
+      #- navigation.expand
   name:
     material
     #custom_dir: docs/lcd
@@ -94,15 +105,11 @@ markdown_extensions:
   - markdown.extensions.md_in_html:
   - pymdownx.superfences:
       preserve_tabs: true
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
   - toc:
       permalink: "¤"
   - pymdownx.snippets:
       base_path:
-        - docs/lcd/src/_snippets
+        - docs
 
 extra:
   social:

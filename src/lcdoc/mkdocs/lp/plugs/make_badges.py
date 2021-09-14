@@ -37,7 +37,7 @@ from functools import partial
 
 import anybadge as ab
 
-from lcdoc.mkdocs.tools import src_link
+from lcdoc.mkdocs.tools import add_post_page_func, srclink
 from lcdoc.tools import app, dirname, exists, now, os, project, read_file, write_file
 
 multi_line_to_list = True
@@ -110,6 +110,10 @@ class badges:
         color = '#331188'
         return dict(locals())
 
+    def generic(spec, kw):
+        spec['label'] = spec.get('label', spec['cmd'])
+        return dict(spec)
+
 
 def make_badge_svg_file(badge_fn, label, value, color='gray', **kw):
     p = partial(ab.Badge, label=label, value=value, text_color='white')
@@ -134,7 +138,7 @@ def run(cmd, kw):
     project.load_config()
     specs = []
     for spec in cmd:
-        func = getattr(badges, spec['cmd'].replace('-', '_'))
+        func = getattr(badges, spec['cmd'].replace('-', '_'), badges.generic)
         d = func(spec, kw)
         [d.pop(k, 0) for k in ['kw', 'spec']]  # the locals hack
         for k in d:
@@ -145,10 +149,14 @@ def run(cmd, kw):
             spec['badge_fn'] = fn
             # need an absolute path for the readme.md:
             u = no_end_slash(config(kw)['site_url'])  # +  './img/' + bdg
-            k = dirname(kw['LP'].page.file.src_path) or '/'
+            k = '/' + dirname(kw['LP'].page.file.src_path)
             u = no_end_slash(u + k) + '/img/' + bdg
-            spec['img'] = u
-            make_badge_svg_file(**spec)
+            spec['img'] = u  # .replace('//', '/')
+            try:
+                make_badge_svg_file(**spec)
+            except Exception as ex:
+                app.error('Badge creation failed', exc=ex)
+                continue
         specs.append(spec)
     r = ''
     l = []
@@ -158,6 +166,5 @@ def run(cmd, kw):
         l += ['[%(label)s_img]: %(img)s' % s]
     l = '\n'.join(l)
     if kw.get('write_readme'):
-        p = kw['LP'].page
-        p.lp_on_post_page = partial(write_readme, page=p, config=config(kw))
+        add_post_page_func(kw, write_readme)
     return {'res': specs, 'formatted': '\n'.join(['', r, '', l, ''])}

@@ -4,7 +4,7 @@
 Allows to add replacements into the markdown source, which are replaced by values given
 by a python module.
 
-Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-md-replace,t:m
+Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-md-replace,t=m
 
 You set up replacements in a python file (default is: docs/mdreplace.py), which must have a table
 attribute, either dict or callable.
@@ -49,4 +49,4 @@ current line. Otherwise it will be simply called.
 
 ### Example
 
-This repo's :lnksrc:docs/mdreplace.py .
+This repo's :srcref:docs/mdreplace.py .

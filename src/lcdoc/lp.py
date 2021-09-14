@@ -684,6 +684,7 @@ def eval_lp(cmd, kw):
     if g('multi_line_to_list'):
         cmd = multi_line_to_list(cmd)
     r = g('run')
+    evl = g('eval')
 
     kw['fmt'] = kw.get('fmt') or g('fmt_default') or dflt_fmt
     res = None
@@ -693,6 +694,8 @@ def eval_lp(cmd, kw):
         res = r(cmd, kw)
         if isinstance(res, str):
             res = {'cmd': cmd, 'res': res}
+        if evl is not None:
+            res['eval'] = evl
 
     app.name = old_name
     if not session_name:

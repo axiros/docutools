@@ -1,4 +1,4 @@
-# Literate Programming :lnksrc:fn:src/lcdoc/mkdocs/lp/__init__.py,t:
+# Literate Programming :srcref:fn=src/lcdoc/mkdocs/lp/__init__.py,t=
 
 The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows to
 embed executable **code** within markdown sources and insert into the rendering result the
@@ -51,14 +51,11 @@ Highlights:
 - [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
   otherwise non expanded "Output" tabs.
 
-- [**Coverage Backrefs**](./plugins.md#cov_report): Dynamic coverage contexts, optionally with
+- [**Coverage Backrefs**](./plugins/cov_report.md): Dynamic coverage contexts, optionally with
   [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation.
 
-  ??? Example
-      ![backref](./img/backref.png)
 
-
-Usage: :lnksrc:fn:src/lcdoc/assets/mkdocs/mkdocs.yml,m:lcd-lp,t:m
+Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-lp,t=m
 
 ## Requirements
 
