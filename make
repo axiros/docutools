@@ -133,7 +133,7 @@ function release {
     sh git tag "$version"
     sh git push
     sh git push --tags
-    sh mkdocs gh-deploy
+    #sh mkdocs gh-deploy # done by ci
 }
 
 ## Function Aliases:
