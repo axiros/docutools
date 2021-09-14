@@ -29,7 +29,7 @@ Params:
 
 ## Example
 
-```bash lp addsrc mode=make_badges
+```bash lp addsrc mode=make_badges eval=always
 hello # lp: value=world lnk=http://github.com 
 
 ```
