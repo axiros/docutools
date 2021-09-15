@@ -52,7 +52,7 @@ root([
 
 
 """
-
+import html
 import hashlib
 import json
 import os
@@ -678,25 +678,30 @@ def eval_lp(cmd, kw):
     if rk:
         miss = [k for k in rk if not k in kw]
         if miss:
-            breakpoint()  # FIXME BREAKPOINT
             return err('Missing required arguments', missing=miss)
 
     if g('multi_line_to_list'):
         cmd = multi_line_to_list(cmd)
-    r = g('run')
     evl = g('eval')
-
     kw['fmt'] = kw.get('fmt') or g('fmt_default') or dflt_fmt
-    res = None
-    if not r:
-        app.error('Missing run method in plugin', mode=mode)
+    r = g('run', 'cmd')
+    if r == 'cmd':
+        res = {'formatted': cmd, 'res': cmd}
+    elif r == 'cmd:escaped':
+        res = {'formatted': html.escape(cmd), 'res': html.escape(cmd)}
     else:
         res = r(cmd, kw)
-        if isinstance(res, str):
-            res = {'cmd': cmd, 'res': res}
-        if evl is not None:
-            res['eval'] = evl
-
+    if isinstance(res, str):
+        res = {'cmd': cmd, 'res': res}
+    if evl is not None:
+        res['eval'] = evl
+    a = g('add_to_page')
+    if a:
+        m = res.get('add_to_page', {})
+        m[mode] = M = {}
+        for k, v in a.items():
+            M[k] = v
+        res['add_to_page'] = m
     app.name = old_name
     if not session_name:
         run_if_present_and_is_dict(kw, 'post')

@@ -33,15 +33,7 @@ nav:
               - Tips: features/lp/tips.md
               - Examples: features/lp/examples.md
           - LP Plugins:
-              - Overview: features/lp/plugins.md
-              - features/lp/plugins/bash.md
-              - features/lp/plugins/cov_report.md
-              - features/lp/plugins/mermaid.md
-              - features/lp/plugins/make_badges.md
-              - features/lp/plugins/make_file.md
-              - features/lp/plugins/python.md
-              - features/lp/plugins/show_file.md
-              - features/lp/plugins/show_src.md
+              - Overview: features/lp/plugs/overview.md
 
           - Markdown Replace: features/md-replace/index.md
           - Page Tree: features/page-tree/index.md
@@ -121,8 +113,10 @@ plugins:
   - lcd-blacklist
   - lcd-changelog
   - lcd-credits
-  - lcd-find-pages
   - lcd-lp
+  - lcd-find-pages:
+      find-pages:
+        - features/lp/plugs/
   - lcd-md-replace
   - lcd-page-tree
   - lcd-stats

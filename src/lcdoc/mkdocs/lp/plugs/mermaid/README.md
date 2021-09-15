@@ -24,7 +24,7 @@ the javascript.
 ## Technical Details
 
 The mermaid feature requires, besides the diagram code blocks also javascript, loaded once into a
-page - this is achieved by the [`add_to_page`](../plugins.md) keyval, as result value of the "evaluation".
+page - this is achieved by using the [`on_post_page` hook mechanics](./overview.md#post-page-modifications) of the lp plugin. 
 
 This attribute is cached, i.e. will be re-added also for cache loaded lp blocks - no need to [evaluate](../eval.md)
 always.

@@ -55,8 +55,12 @@ def find_pages_and_add_to_nav(find, config, stats):
     new, dd = [['', '']], config['docs_dir']
 
     def get_title(fn_page):
-        h = read_file(dd + '/' + fn_page, dflt='') + '\n# Found\n'
-        return uppercase_words(h.split('\n# ', 1)[1].split('\n', 1)[0])
+        h = '\n' + read_file(dd + '/' + fn_page, dflt='') + '\n# Found\n'
+        h = uppercase_words(h.split('\n# ', 1)[1].split('\n', 1)[0])
+        if not h:
+            # e.g. # bash alone has no uppercase word. then take the filename:
+            h = fn_page.rsplit('/', 1)[-1].split('.', 1)[0]
+        return h
 
     def clear_digits(t):
         return '.'.join([k for k in t.split('.') if not k.isdigit()])

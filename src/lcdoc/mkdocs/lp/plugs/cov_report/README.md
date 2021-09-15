@@ -1,5 +1,7 @@
 # cov_report
 
+Inserts a coverage report into the docs set.
+
 Based on [pawamoy][pw]'s work.
 
 [pw]: https://github.com/pawamoy/mkdocs-coverage/tree/master/src/mkdocs_coverage

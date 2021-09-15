@@ -1,10 +1,10 @@
 # show_src
 
+Copies delimitted stanzas within arbitrary files (usually source code) into your docs.
 
-Copies delimitted stanzas within arbitrary files (usually source code) into your docs
-and creates links to those files on the repo server.
+Also creates links to those files on the repo server.
 
-Format within the source file: :docs:matchstring (no space)
+Format within the source file: `:docs:matchstring` (no space after the colon)
 
 ## Parameters
 
@@ -12,7 +12,7 @@ Format within the source file: :docs:matchstring (no space)
 - dir: Start directly, relative to repo root dir or absolute path
 - hide: Optional. True or String: will result in collapsed block
 
-The plugin uses ripgrep to find matches.
+The plugin uses ripgrep (`rg`) to find matches.
 
 ## Example
 
@@ -23,6 +23,6 @@ We included this sentence and the header between match strings....
 
 <!-- :docs:this_example -->
 
-```python lp mode=show_src delim=this_example hide="This Example" addsrc dir=docs/features/lp eval=always
+```python lp mode=show_src delim=this_example hide="This Example" addsrc dir=src/lcdoc/mkdocs/lp/plugs eval=always
 ```
 

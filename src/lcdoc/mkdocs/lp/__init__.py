@@ -37,12 +37,22 @@ from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
 
-def add_page_end_md(page, d):
-    """allows to add e.g. javascript to the end of the page"""
-    h = getattr(page, 'lp_page_end_mds', None)
-    if not h:
-        h = page.lp_page_end_mds = {}
-    h.update(d)
+def add_stuff_to_page(page, d):
+    """
+    d like {'md': {'mermaid': ..., 'header': {'chartist': ...}, 'footer': ...}
+    """
+    m = getattr(page, 'lp_page_add', None)
+    if not m:
+        m = page.lp_page_add = {'header': {}, 'footer': {}, 'md': {}}
+    # lp_page_add_md lp_page_add_header lp_page_add_footer
+    for mode, v in d.items():
+        for k1, v1 in v.items():
+            try:
+                m[k1][mode] = v1
+            except Exception as ex:
+                print('breakpoint set')
+                breakpoint()
+                keep_ctx = True
 
 
 # :docs:hashed_headers
@@ -396,7 +406,7 @@ class LP:
                 add_to_page = r.get('add_to_page')
             res = ret['formatted']
         if add_to_page:
-            add_page_end_md(LP.page, add_to_page)
+            add_stuff_to_page(LP.page, add_to_page)
         ind = spec.get('indent')
         if ind:
             res = ('\n' + res).replace('\n', '\n' + ind)
@@ -590,10 +600,30 @@ def patch_mkdocs_to_ignore_res_file_changes():
     diff = os.popen('diff "%s.orig" "%s"' % (fn, fn)).read().splitlines()
     app.info('Diff', json=diff)
     msg = 'Have patched mkdocs to not watch %s  files. Please restart.' % k
-    return app.die(msg, fn=fn)
+    app.die(msg, fn=fn)
+    # :docs:patching_mkdocs
 
 
-# :docs:patching_mkdocs
+def make_plugin_docs(config):
+    dd = config['docs_dir'] + '/features/lp/plugs'
+    if not exists(dd):
+        os.makedirs(dd, exist_ok=True)
+
+    D = dirname(__file__) + '/plugs'
+    c = []
+    for k in sorted(os.listdir(D)):
+        d = D + '/' + k
+        fnr, fnp = d + '/README.md', d + '/__init__.py'
+        if not exists(fnr) or not exists(fnp):
+            continue
+        t = dd + '/' + k + '.md'
+        if not exists(t):
+            f = '../../../../src/lcdoc/mkdocs/lp/plugs/%s/README.md' % k
+            os.symlink(f, t)
+            c.append([f, t])
+    if c:
+        app.info('Plugs doc symlink created', json=c)
+
 
 # ------------------------------------------------------------------------------- Plugin
 class LPPlugin(MDPlugin):
@@ -603,7 +633,6 @@ class LPPlugin(MDPlugin):
     )
 
     def on_config(self, config):
-
         LP.cov = coverage.Coverage().current()  # None if we are not run in coverage
         cbr = self.config['coverage_backrefs']
         if cbr:
@@ -614,7 +643,7 @@ class LPPlugin(MDPlugin):
 
         if 'serve' in sys.argv:
             patch_mkdocs_to_ignore_res_file_changes()
-
+        make_plugin_docs(config)
         LP.config = config
         LP.stats = self.stats
         link_assets(self, __file__, config)
@@ -626,10 +655,6 @@ class LPPlugin(MDPlugin):
         """remove all results files from on-change detection and copy over mechs"""
         lpres_files = [f for f in files if f.src_path.endswith(lp_res_ext)]
         [files.remove(f) for f in lpres_files]
-
-    def on_post_page(self, output, page, config):
-        f = getattr(page, 'lp_on_post_page', ())
-        [i() for i in f]
 
     def on_page_markdown(self, markdown, page, config, files):
         eval = env_args.get('eval')
@@ -653,19 +678,7 @@ class LPPlugin(MDPlugin):
 
         LP.load_previous_results()
         blocks = LP.run_blocks(lp_blocks)
-        # # we have to redirect all the prints in lp blocks - would screw stats jq
-        # # NOPE: normally we write to file anyway
-        # # BUT we also want readline support in debugging sessions:
-        # # No stats in serve anyway:
-        # if 'serve' in sys.argv:
-        # else:
-        #     app.debug('Redirecting stdout to stderr')
-        #     with contextlib.redirect_stdout(sys.stderr):
-        #         blocks = LP.run_blocks(lp_blocks)
-        #     app.debug('stdout back to normal')
-
         LP.write_eval_results()
-
         MD = ''
         for md in mds:
             MD += '\n'.join(md)
@@ -673,9 +686,52 @@ class LPPlugin(MDPlugin):
                 res = blocks.pop(0)
                 MD += '\n' + res + '\n'
 
-        pe = getattr(page, 'lp_page_end_mds', None)
+        pe = getattr(page, 'lp_page_add', None)
         if pe:
+            pe = pe.get('md', {})
             for k, v in pe.items():
-                app.info('Page end addon', adding=k)
+                app.info('Page md addon', adding=k)
                 MD += '\n\n' + v
         return MD
+
+    def on_post_page(self, output, page, config):
+        """Adding javascript and css wanted by plugins (mermaid, chartist, ...)"""
+        f = getattr(page, 'lp_on_post_page', ())
+        [i() for i in f]
+
+        pe, o = getattr(page, 'lp_page_add', None), output
+        if not pe:
+            return output
+
+        for w, spl, f in [
+            ['header', '<link rel', o.split],
+            ['footer', '</body', o.rsplit],
+        ]:
+            pe = pe.get(w, {})
+            if pe:
+                l = f(spl, 1)
+                for k, v in pe.items():
+                    app.info('Page html addon', adding=k)
+                    if isinstance(v, dict):
+                        r = ''
+                        for k1, v1 in v.items():
+                            if k1 == 'stylesheet':
+                                if v1.endswith('.css'):
+                                    r += T_css_link % v1
+                                else:
+                                    r += '\n<style>\n%s\n</style>\n' % v1
+                            elif k1 == 'script':
+                                if v1.endswith('.js'):
+                                    r += T_js_url % v1
+                                else:
+                                    r += '\n<script>\n%s\n</script>\n' % v1
+                            else:
+                                app.warning('Not supported', mode=k1, val=v1)
+                        v = r
+                    l[0] += '\n\n' + v + '\n\n'
+                o = l[0] + spl + l[1]
+        return o
+
+
+T_css_link = '<link rel="stylesheet" href="%s" />'
+T_js_url = '<script src="%s"></script>'

@@ -1,0 +1,1 @@
+../../../../src/lcdoc/mkdocs/lp/plugs/bash/README.md

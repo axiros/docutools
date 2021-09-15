@@ -1,0 +1,1 @@
+../../../../src/lcdoc/mkdocs/lp/plugs/cov_report/README.md

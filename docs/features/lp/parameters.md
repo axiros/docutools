@@ -182,7 +182,7 @@ Syntax details [here](./syntax.md#parametrization).
 `mode=<plugin name>`
 ???+ hint "Pass evaluation into various plugins"
 
-    See [here](./plugins.md) for more information.
+    See [here](./plugs/overview.md) for more information.
 
 ### new_session
 `new_session=<tmux session name>`

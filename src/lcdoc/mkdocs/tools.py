@@ -89,7 +89,8 @@ def srcref(**kw):
 def find_md_files(match, config):
     require('fd --version')
     dd = config['docs_dir']
-    cmd = "cd '%s' && fd -I --type=file -e md | grep '%s'" % (dd, match)
+    # no --type file because we want also symlinks:
+    cmd = "cd '%s' && fd -I -e md | grep '%s'" % (dd, match)
     r = os.popen(cmd).read().strip().splitlines()
     # split off docs dir:
     return r

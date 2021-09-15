@@ -9,7 +9,6 @@ Cats a file.
 
 """
 
-
-from .make_file import *
+from ..make_file import *
 
 run = show_file
