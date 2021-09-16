@@ -38,7 +38,7 @@ AR = {v: k for k, v in ar.items()}
 P2J = '''
 var data = %(data)s;
 var options = %(options)s;
-new Chartist.%(typ)s('_id_', data, options);
+new Chartist.%(type)s('_id_', data, options);
 '''
 
 

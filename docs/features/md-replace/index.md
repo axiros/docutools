@@ -50,3 +50,16 @@ current line. Otherwise it will be simply called.
 ### Example
 
 This repo's :srcref:docs/mdreplace.py .
+
+Here is a `srcref` usage example with title and match string:
+
+```
+:srcref:fn=src/lcdoc/lp.py,m=remote_content,t=mytitle
+```
+
+We find the first occurance of the match string (m=...) in the file and link to it with given title
+(t=...):
+
+Result:
+
+:srcref:fn=src/lcdoc/lp.py,m=remote_content,t=mytitle

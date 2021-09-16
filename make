@@ -106,6 +106,11 @@ function docs {
     sh coverage run --rcfile=config/coverage.lp.ini $CONDA_PREFIX/bin/mkdocs build "$@"
 }
 
+function docs_checklinks {
+    type linkchecker || { echo "pip3 install git+https://github.com/linkchecker/linkchecker.git"; return 1; }
+    linkchecker site
+}
+
 function docs_serve {
     export lp_eval="${lp_eval:-on_page_change}"
     echo $lp_eval

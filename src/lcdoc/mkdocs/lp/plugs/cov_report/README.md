@@ -15,7 +15,7 @@ The report must exist in the file system at evaluation time at
 
 ## Features:
 
-- While LP blocks are running, the LP plugin creates a [coverage context](https://coverage.readthedocs.io/en/cov erage-5.5/contexts.html#dynamic-contexts),
+- While LP blocks are running, the LP plugin creates a [coverage context](https://coverage.readthedocs.io/en/coverage-5.5/contexts.html#dynamic-contexts),
   with the current markdown file.
 - When the lp plugin has a non empty config value for `coverage_backrefs`, a link will be created back to the markdown source with the lp block.
 

@@ -22,6 +22,9 @@ it.
 Therefore, by supplying a `$PYTHONPATH`, pointing to a plugin directory of your own, you can have your
 own modes supported (or overwrite the default ones).
 
+!!! note "README.md required"
+    Those are linked over to the docset.
+
 
 ## Interface
 
