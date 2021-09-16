@@ -8,8 +8,6 @@ add_to_page = {
 # :docs:add_to_page_example
 
 
-C = '<div class="ct-chart %(aspect)s" id="%(id)s"></div>'
-
 # for convenience we allow to declare aspect not only as name but also as ratio:
 ar = '''
 ct-square>1
@@ -35,6 +33,22 @@ ar = [l for l in ar.strip().splitlines()]
 ar = dict([l.split('>') for l in ar])
 AR = {v: k for k, v in ar.items()}
 
+
+C = '<div class="ct-chart %(aspect)s" id="%(id)s"></div>'
+
+JSF = '''
+
+<script >
+    // for nav.instant:
+    app.document$.subscribe(function() { if (document.getElementById('%(id)s')) {
+            %(body)s
+        }
+    });
+</script>
+
+'''
+
+
 P2J = '''
 var data = %(data)s;
 var options = %(options)s;
@@ -42,19 +56,18 @@ new Chartist.%(type)s('_id_', data, options);
 '''
 
 
+def py_to_js(cmd):
+    ml, mg = {}, {}
+    exec(cmd, mg, ml)
+    ml['options'] = ml.get('options', {})
+    return P2J % ml
+
+
 def run(cmd, kw):
     ar = kw.get('aspect', 'ct-square')
     kw['aspect'] = AR.get(ar, ar)
-    kw['id'] = kw.get('id') or 'chartist-%(source_id)s' % kw['LP'].spec
     div = C % kw
-
-    if kw.get('lang') == 'python':
-        ml, mg = {}, {}
-        exec(cmd, mg, ml)
-        ml['options'] = ml.get('options', {})
-        cmd = P2J % ml
-
-    body = cmd.replace('_id_', '#' + kw['id'])
-    body = '\n<script>\n%s</script>\n' % body
-    r = '\n'.join(['', div, '', body, ''])
-    return {'res': r, 'formatted': r}
+    lpjs = py_to_js(cmd) if kw.get('lang') == 'python' else cmd
+    lpjs = lpjs.replace('_id_', '#' + kw['id'])
+    lpjs = JSF % {'body': lpjs, 'id': kw['id']}
+    return {'res': div, 'formatted': True, 'footer': lpjs}

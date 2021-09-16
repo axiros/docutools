@@ -24,3 +24,28 @@ Note: Some features are not yet documented.
 
 Last modified: :ctime:
 
+!!! note
+    ```markdown lp mode=markmap eval=always
+    # Root
+
+
+    - foo
+        - asdf
+            - asdfasd
+                - asdfasd
+                    - fooasdfasd
+    - foo
+    - foo
+    - foo
+    - foo
+
+## Branch 1
+
+    * Branchlet 1a
+    * Branchlet 1b
+
+## Branch 2
+
+    * Branchlet 2a
+    * Branchlet 2b
+    ```

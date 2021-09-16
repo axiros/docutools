@@ -37,7 +37,7 @@ from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
 
-def add_stuff_to_page(page, d):
+def add_assets_to_page(page, d):
     """
     d like {'md': {'mermaid': ..., 'header': {'chartist': ...}, 'footer': ...}
     """
@@ -406,7 +406,7 @@ class LP:
                 add_to_page = r.get('add_to_page')
             res = ret['formatted']
         if add_to_page:
-            add_stuff_to_page(LP.page, add_to_page)
+            add_assets_to_page(LP.page, add_to_page)
         ind = spec.get('indent')
         if ind:
             res = ('\n' + res).replace('\n', '\n' + ind)
@@ -698,40 +698,48 @@ class LPPlugin(MDPlugin):
         """Adding javascript and css wanted by plugins (mermaid, chartist, ...)"""
         f = getattr(page, 'lp_on_post_page', ())
         [i() for i in f]
+        return incl_page_assets(page, output)
 
-        pe, o = getattr(page, 'lp_page_add', None), output
-        if not pe:
-            return output
 
-        for w, spl, f in [
-            ['header', '<link rel', o.split],
-            ['footer', '</body', o.rsplit],
-        ]:
-            pe = pe.get(w, {})
-            if pe:
-                l = f(spl, 1)
-                for k, v in pe.items():
-                    app.info('Page html addon', adding=k)
-                    if isinstance(v, dict):
-                        r = ''
-                        for k1, v1 in v.items():
-                            if k1 == 'stylesheet':
-                                if v1.endswith('.css'):
-                                    r += T_css_link % v1
+def incl_page_assets(page, output):
+    PA, o = getattr(page, 'lp_page_add', None), output
+    if not PA:
+        return output
+
+    for w, spl in [
+        ['header', '<link rel'],
+        ['footer', '</body'],
+    ]:
+        pe = PA.get(w, {})
+        if pe:
+            f = o.split if w == 'header' else o.rsplit
+            l = f(spl, 1)
+            for k, v in pe.items():
+                app.info('Page asset', adding=w, for_=k)
+                if isinstance(v, dict):
+                    r = ''
+                    for k1, v1 in v.items():
+                        if k1 == 'stylesheet':
+                            for v2 in to_list(v1):
+                                if v2.endswith('.css'):
+                                    r += T_css_link % v2
                                 else:
-                                    r += '\n<style>\n%s\n</style>\n' % v1
-                            elif k1 == 'script':
-                                if v1.endswith('.js'):
-                                    r += T_js_url % v1
+                                    r += '\n<style>\n%s\n</style>\n' % v2
+                        elif k1 == 'script':
+                            for v2 in to_list(v1):
+                                if v2.endswith('.js'):
+                                    r += T_js_url % v2
                                 else:
-                                    r += '\n<script>\n%s\n</script>\n' % v1
-                            else:
-                                app.warning('Not supported', mode=k1, val=v1)
-                        v = r
-                    l[0] += '\n\n' + v + '\n\n'
-                o = l[0] + spl + l[1]
-        return o
+                                    r += '\n<script>\n%s\n</script>\n' % v2
+                        else:
+                            app.warning('Not supported', mode=k1, val=v1)
+                    v = r
+                l[0] += '\n\n' + v + '\n\n'
+            o = l[0] + spl + l[1]
+    return o
 
+
+to_list = lambda s: s if isinstance(s, list) else [s]
 
 T_css_link = '<link rel="stylesheet" href="%s" />'
 T_js_url = '<script src="%s"></script>'

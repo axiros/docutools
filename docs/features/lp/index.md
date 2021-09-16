@@ -74,7 +74,11 @@ Documentation is source code.
     Consequence: Treat other people's documentation sources with the same care than you treat e.g.
     their test code: **Untrusted sources should be built only within proper sandboxes!**
 
+## Alternatives
 
+- [Pheasant](https://pheasant.daizutabi.net/)
+    - Auto generation of outputs for a fenced code block or inline code in Markdown source using Jupyter client. The code language is not restricted to Python.
+    - Auto numbering of headers, figures, tables, and etc. Numbered objects can be linked from other Markdown sources.
 
 [tmux]: https://en.wikipedia.org/wiki/Tmux
 [rg]: https://github.com/BurntSushi/ripgrep

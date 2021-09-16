@@ -1,5 +1,7 @@
 # mermaid
 
+Support for [mermaid.js](https://mermaid-js.github.io/mermaid/#/) graphs.
+
 Source: :srcref:src/lcdoc/mkdocs/lp/plugs/mermaid.py
 
 

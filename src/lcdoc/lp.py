@@ -683,30 +683,46 @@ def eval_lp(cmd, kw):
     if g('multi_line_to_list'):
         cmd = multi_line_to_list(cmd)
     evl = g('eval')
+
     kw['fmt'] = kw.get('fmt') or g('fmt_default') or dflt_fmt
+    kw['id'] = kw.get('id') or mode + '-%(source_id)s' % kw['LP'].spec
+
     r = g('run', 'cmd')
     if r == 'cmd':
-        res = {'formatted': cmd, 'res': cmd}
+        res = {'formatted': True, 'res': cmd}
     elif r == 'cmd:escaped':
-        res = {'formatted': html.escape(cmd), 'res': html.escape(cmd)}
+        res = {'formatted': True, 'res': html.escape(cmd)}
     else:
         res = r(cmd, kw)
     if isinstance(res, str):
         res = {'cmd': cmd, 'res': res}
-    if evl is not None:
-        res['eval'] = evl
-    a = g('add_to_page')
+    if isinstance(res, dict):
+        if res.get('formatted') == True:
+            res['formatted'] = res['res']
+        if evl is not None:
+            res['eval'] = evl
+        add_assets(res, g('add_to_page'), kw, mode)
+    app.name = old_name
+    if not session_name:
+        run_if_present_and_is_dict(kw, 'post')
+    check_assert(assert_, res)
+    return res
+
+
+def add_assets(res, global_assets, kw, mode):
+    """adding the add_to_page structure, with page assets"""
+    # shortcut, when the run adds one of these we assume it's per block, with id:
+    for k in ['header', 'footer', 'md']:
+        pa = res.get(k)
+        if pa:
+            res.setdefault('add_to_page', {}).setdefault(kw['id'], {})[k] = pa
+    a = global_assets
     if a:
         m = res.get('add_to_page', {})
         m[mode] = M = {}
         for k, v in a.items():
             M[k] = v
         res['add_to_page'] = m
-    app.name = old_name
-    if not session_name:
-        run_if_present_and_is_dict(kw, 'post')
-    check_assert(assert_, res)
-    return res
 
 
 def run(cmd, fn_doc=None, use_prev_res=None, **kw):

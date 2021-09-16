@@ -34,6 +34,7 @@ nav:
               - Examples: features/lp/examples.md
           - LP Plugins:
               - Overview: features/lp/plugs/overview.md
+              - Mechanics: features/lp/plugs/tech.md
 
           - Markdown Replace: features/md-replace/index.md
           - Page Tree: features/page-tree/index.md
@@ -111,6 +112,7 @@ extra:
 plugins:
   # enable for link prooving:
   #- htmlproofer
+  # - markmap
   - search
   - lcd-blacklist
   - lcd-changelog
