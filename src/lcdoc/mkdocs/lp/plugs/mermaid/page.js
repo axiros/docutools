@@ -1,4 +1,3 @@
-<script src="https://unpkg.com/mermaid@8.12.1/dist/mermaid.min.js"></script>
 <script>
 // Optional config
 // If your document is not specifying `data-md-color-scheme` for color schemes,

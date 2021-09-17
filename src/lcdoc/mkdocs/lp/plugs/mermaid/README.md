@@ -11,7 +11,7 @@ a lp mode like this:
 
 ```
 
-    ```mermaid lp mode=mermaid
+    ```mermaid lp:mermaid
     graph TD
         A[Hard] -->|Text| B(Round)
         B --> C{Decision}
@@ -21,7 +21,7 @@ a lp mode like this:
 ```
 
 See [here](https://facelessuser.github.io/pymdown-extensions/extras/mermaid/) for details, regarding
-the javascript.
+the per page javascript.
 
 ## Technical Details
 
@@ -38,7 +38,7 @@ always.
 
     === "Sequence Diagrams"
 
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         sequenceDiagram
             participant Alice
             participant Bob
@@ -53,7 +53,7 @@ always.
         ```
 
     === "Flowcharts"
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         graph TD
             A[Hard] -->|Text| B(Round)
             B --> C{Decision}
@@ -62,7 +62,7 @@ always.
         ```
 
     === "Class Diagrams"
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         classDiagram
             Class01 <|-- AveryLongClass : Cool
             Class03 *-- Class04
@@ -80,7 +80,7 @@ always.
         ```
 
     === "Entity Relationships"
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         erDiagram
             CUSTOMER ||--o{ ORDER : places
             ORDER ||--|{ LINE-ITEM : contains
@@ -88,7 +88,7 @@ always.
         ```
 
     === "State Diagrams"
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         stateDiagram
             [*] --> First
             First --> Second
@@ -114,7 +114,7 @@ always.
         Git diagrams are experimental and often don't render to a reasonable size. They overflow, but won't trigger
         scrollbars. They are the only diagram that often renders too large for the element they are assigned to.
 
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         gitGraph:
         options
         {
@@ -139,7 +139,7 @@ always.
         chart is large, they render too small to see. If the element is not wide enough, the chart can sometimes render
         squished and hard to read.
 
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         gantt
             dateFormat  YYYY-MM-DD
             title Adding GANTT diagram to mermaid
@@ -157,7 +157,7 @@ always.
         Journey diagrams suffer from the same issues as Gantt charts. They just do not scale well and are often hard to
         read.
 
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         journey
             title My working day
             section Go to work
@@ -175,7 +175,7 @@ always.
         Like the others in this list, it relates to sizing and scaling. For instance, if you were to view this on a
         mobile device, you'd likely see the key for the pie chart missing.
 
-        ```mermaid lp mode=mermaid addsrc
+        ```mermaid lp:mermaid addsrc
         pie
             title Key elements in Product X
             "Calcium" : 42.96

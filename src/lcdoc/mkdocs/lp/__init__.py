@@ -41,10 +41,10 @@ def add_assets_to_page(page, d):
     """
     d like {'md': {'mermaid': ..., 'header': {'chartist': ...}, 'footer': ...}
     """
-    m = getattr(page, 'lp_page_add', None)
+    m = getattr(page, 'lp_page_assets', None)
     if not m:
-        m = page.lp_page_add = {'header': {}, 'footer': {}, 'md': {}}
-    # lp_page_add_md lp_page_add_header lp_page_add_footer
+        m = page.lp_page_assets = {'header': {}, 'footer': {}, 'md': {}}
+    # lp_page_assets_md lp_page_assets_header lp_page_assets_footer
     for mode, v in d.items():
         for k1, v1 in v.items():
             try:
@@ -164,7 +164,7 @@ class LP:
 
     def is_lp_block(header_line):
         l = header_line.split(' ', 2)
-        return len(l) > 1 and l[1] == 'lp'
+        return len(l) > 1 and (l[1] == 'lp' or l[1].startswith('lp:'))
 
     def parse_lp_block(lines):
         """
@@ -198,6 +198,12 @@ class LP:
         source = '\n'.join(source)
         # if "rm foobar" in source: breakpoint()  # FIXME BREAKPOINT
         a, kw = LP.extract_header_args(src_header)
+        # support "bash lp:mermaid" ident to "bash lp mode=mermaid":
+        if not 'mode' in kw:
+            l = src_header.split(' ', 2)
+            l = (l[1] + ':').split(':', 2)
+            if l[1]:
+                kw['mode'] = l[1]
         # these header args may change eval result, need to go into the hash:
         hashed = ','.join(['%s:%s' % (k, kw.get(k)) for k in hashed_headers if kw.get(k)])
         hashed += '\n'.join(code)
@@ -207,6 +213,7 @@ class LP:
         # eval result of same block could change, sideeffects in other evals in between:
         while sid in reg:
             sid += '_'
+        # if 'Alice' in str(code): breakpoint()  # FIXME BREAKPOINT
         spec = {
             'nr': LP.lpnr,
             'code': code,
@@ -382,7 +389,7 @@ class LP:
                 skip(True)
         elif evl_policy == Eval.on_change:
             skip(bool(prev_res))
-        add_to_page = None
+        page_assets = None
         if kw.get('skip_this'):
             # if "lessinger" in str(spec["source"]): breakpoint()  # FIXME BREAKPOINT
             if prev_res:
@@ -390,7 +397,7 @@ class LP:
                 LP.cur_results[sid] = prev_res  # no adding of skipped indicators to res
                 res = lp_runner(spec, use_prev_res=prev_res, **kw)
                 try:
-                    add_to_page = res['raw']['add_to_page']
+                    page_assets = res['raw']['page_assets']
                 except:
                     pass
                 res = res['formatted']
@@ -402,11 +409,11 @@ class LP:
             LP.stats['blocks_evaled'] += 1
             ret = LP.eval_block(spec, lp_runner=lp_runner)
             LP.cur_results[sid] = r = ret['raw']
-            if isinstance(r, dict) and 'add_to_page' in r:
-                add_to_page = r.get('add_to_page')
+            if isinstance(r, dict) and 'page_assets' in r:
+                page_assets = r.get('page_assets')
             res = ret['formatted']
-        if add_to_page:
-            add_assets_to_page(LP.page, add_to_page)
+        if page_assets:
+            add_assets_to_page(LP.page, page_assets)
         ind = spec.get('indent')
         if ind:
             res = ('\n' + res).replace('\n', '\n' + ind)
@@ -686,56 +693,59 @@ class LPPlugin(MDPlugin):
                 res = blocks.pop(0)
                 MD += '\n' + res + '\n'
 
-        pe = getattr(page, 'lp_page_add', None)
+        pe = getattr(page, 'lp_page_assets', None)
         if pe:
             pe = pe.get('md', {})
             for k, v in pe.items():
-                app.info('Page md addon', adding=k)
+                app.info('Page asset', adding='md', for_=k)
                 MD += '\n\n' + v
         return MD
 
+    def on_page_content(self, html, page, config, files):
+        return incl_page_assets(page, html)
+
     def on_post_page(self, output, page, config):
-        """Adding javascript and css wanted by plugins (mermaid, chartist, ...)"""
+        """this is intended for side effects outside the html content
+        Note: at https://github.com/squidfunk/mkdocs-material/issues/2338 only inside
+        container element is re-evalled at nav.instant events.
+        """
         f = getattr(page, 'lp_on_post_page', ())
         [i() for i in f]
-        return incl_page_assets(page, output)
 
 
-def incl_page_assets(page, output):
-    PA, o = getattr(page, 'lp_page_add', None), output
+def incl_page_assets(page, html):
+    PA, o = getattr(page, 'lp_page_assets', None), html
     if not PA:
-        return output
+        return o
 
-    for w, spl in [
-        ['header', '<link rel'],
-        ['footer', '</body'],
-    ]:
+    for w in ['header', 'footer']:
         pe = PA.get(w, {})
-        if pe:
-            f = o.split if w == 'header' else o.rsplit
-            l = f(spl, 1)
-            for k, v in pe.items():
-                app.info('Page asset', adding=w, for_=k)
-                if isinstance(v, dict):
-                    r = ''
-                    for k1, v1 in v.items():
-                        if k1 == 'stylesheet':
-                            for v2 in to_list(v1):
-                                if v2.endswith('.css'):
-                                    r += T_css_link % v2
-                                else:
-                                    r += '\n<style>\n%s\n</style>\n' % v2
-                        elif k1 == 'script':
-                            for v2 in to_list(v1):
-                                if v2.endswith('.js'):
-                                    r += T_js_url % v2
-                                else:
-                                    r += '\n<script>\n%s\n</script>\n' % v2
-                        else:
-                            app.warning('Not supported', mode=k1, val=v1)
-                    v = r
-                l[0] += '\n\n' + v + '\n\n'
-            o = l[0] + spl + l[1]
+        if not pe:
+            continue
+
+        for k in sorted(pe):
+            v = pe[k]
+            app.info('Page asset', adding=w, for_=k)
+            if isinstance(v, dict):
+                r = ''
+                for k1, v1 in v.items():
+                    if k1 == 'stylesheet':
+                        for v2 in to_list(v1):
+                            if v2.endswith('.css'):
+                                r += T_css_link % v2
+                            else:
+                                r += '\n<style>\n%s\n</style>\n' % v2
+                    elif k1 == 'script':
+                        for v2 in to_list(v1):
+                            if v2.endswith('.js'):
+                                r += T_js_url % v2
+                            else:
+                                r += '\n<script>\n%s\n</script>\n' % v2
+                    else:
+                        app.warning('Not supported', mode=k1, val=v1)
+                v = r
+            v = '\n\n' + v + '\n\n'
+            o = (v + o) if w == 'header' else (o + v)
     return o
 
 

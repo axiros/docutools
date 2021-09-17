@@ -189,7 +189,7 @@ hooks = [
     # 'on_pre_page',
     # 'on_page_read_source',
     'on_page_markdown',
-    # 'on_page_content',
+    'on_page_content',
     # 'on_page_context',
     'on_post_page',
 ]

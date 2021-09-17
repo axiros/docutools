@@ -39,20 +39,22 @@ information, incl. the mkdocs config, via the LP class.
 - You have to return a string (which would be the cached raw result) or a dict with `res` and
 optionally
     - a `formatted` key.
-    - a `add_to_page` key.
+    - a `page_assets` key.
     - `header`, `footer`, `md` (see below, page assets)
 
 - The `formatted` value has to contain directly the markdown to be displayed, exclusive indentation.
   If simply `True` then the `res` value is taken.
-- The `add_to_page` value has to contain plain markdown (or javascript, html, css) added unindented once at
+- The `page_assets` value has to contain plain markdown (or javascript, html, css) added unindented once at
   the end of a page. 
-- Alternatively you may declare an `add_to_page` dict on module level, with understood keys:
+- Alternatively you may declare an `page_assets` dict on module level, with understood keys:
 
-    - header (html added before the first `<link>` tag
-    - footer (html added before `</body>`
-    - md (markdown source added at footer of page)
+    - md: markdown source added to markdown of page, will go into to-html rendering
+    - header: html (e.g. scripts) added at start of container element, added after rendering
+    - footer: html added at end of container element, added after rendering
 
-    See the [mermaid](./mermaid.md) plugin for an example.
+    See the [chartist](./chartist.md) plugin for an example.
+
+    Note: https://github.com/squidfunk/mkdocs-material/issues/2338 only inside
 
 - The full `res` will be the (cached) raw result, incl both optional keys.
 
@@ -70,7 +72,7 @@ There are assets which are required once and others which you require per block.
 
 Normal way to achieve this (example, declare on module level):
 
-```python lp mode=show_src delim=add_to_page_example dir=src/lcdoc/mkdocs/lp/plugs eval=always
+```python lp mode=show_src delim=page_assets_example dir=src/lcdoc/mkdocs/lp/plugs eval=always
 ```
 
 This will register the assets by key `plugin name (=mode)`.

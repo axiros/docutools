@@ -13,10 +13,13 @@ M = '''
 '''
 
 fn = dirname(__file__) + '/page.js'
-add_to_page = {'md': read_file(fn)}
+page_assets = {
+    'footer': read_file(fn),
+    'header': {'script': 'https://unpkg.com/mermaid@8.12.1/dist/mermaid.min.js'},
+}
 
 
 def run(cmd, kw):
     h = html.escape(cmd)
     h = M % h
-    return {'res': h, 'formatted': h}
+    return {'res': h, 'formatted': True}

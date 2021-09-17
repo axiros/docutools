@@ -2,6 +2,9 @@
 
 Support for [markmap.js](https://markmap.js.org/) style mindmaps.
 
+<script>
+console.log('in container makrmak')
+</script>
 
 ```markdown lp mode=markmap eval=always addsrc width=800px height=400px
 # markmap

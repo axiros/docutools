@@ -1,11 +1,11 @@
-# :docs:add_to_page_example
-add_to_page = {
+# :docs:page_assets_example
+page_assets = {
     'header': {
         'stylesheet': '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css',
         'script': '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js',
     }
 }
-# :docs:add_to_page_example
+# :docs:page_assets_example
 
 
 # for convenience we allow to declare aspect not only as name but also as ratio:
@@ -39,11 +39,8 @@ C = '<div class="ct-chart %(aspect)s" id="%(id)s"></div>'
 JSF = '''
 
 <script >
-    // for nav.instant:
-    app.document$.subscribe(function() { if (document.getElementById('%(id)s')) {
-            %(body)s
-        }
-    });
+function do_%(id)s () { %(body)s };
+do_%(id)s();
 </script>
 
 '''

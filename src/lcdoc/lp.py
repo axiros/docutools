@@ -685,7 +685,7 @@ def eval_lp(cmd, kw):
     evl = g('eval')
 
     kw['fmt'] = kw.get('fmt') or g('fmt_default') or dflt_fmt
-    kw['id'] = kw.get('id') or mode + '-%(source_id)s' % kw['LP'].spec
+    kw['id'] = kw.get('id') or mode + '_%(source_id)s' % kw['LP'].spec
 
     r = g('run', 'cmd')
     if r == 'cmd':
@@ -701,7 +701,7 @@ def eval_lp(cmd, kw):
             res['formatted'] = res['res']
         if evl is not None:
             res['eval'] = evl
-        add_assets(res, g('add_to_page'), kw, mode)
+        add_assets(res, g('page_assets'), kw, mode)
     app.name = old_name
     if not session_name:
         run_if_present_and_is_dict(kw, 'post')
@@ -710,19 +710,19 @@ def eval_lp(cmd, kw):
 
 
 def add_assets(res, global_assets, kw, mode):
-    """adding the add_to_page structure, with page assets"""
+    """adding the page_assets structure, with page assets"""
     # shortcut, when the run adds one of these we assume it's per block, with id:
     for k in ['header', 'footer', 'md']:
         pa = res.get(k)
         if pa:
-            res.setdefault('add_to_page', {}).setdefault(kw['id'], {})[k] = pa
+            res.setdefault('page_assets', {}).setdefault(kw['id'], {})[k] = pa
     a = global_assets
     if a:
-        m = res.get('add_to_page', {})
+        m = res.get('page_assets', {})
         m[mode] = M = {}
         for k, v in a.items():
             M[k] = v
-        res['add_to_page'] = m
+        res['page_assets'] = m
 
 
 def run(cmd, fn_doc=None, use_prev_res=None, **kw):
