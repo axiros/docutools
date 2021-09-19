@@ -685,11 +685,12 @@ def strip_id(s):
 
 
 class mode(unittest.TestCase):
-    def test_mode_python(self):
+    def test_mode_python_1(self):
         md = '''
-            ```python lp mode=python
+            ```python lp:python fmt=mk_console
             assert ctx.get('hide_cmd') == None
             print('foo')
+            print('bar')
             ```
             '''
         out = '''
@@ -702,7 +703,7 @@ class mode(unittest.TestCase):
 
     def test_mode_python_cmd_hidden_and_ctx_availability(self):
         md = '''
-            ```python lp mode=python hide_cmd=True
+            ```python lp mode=python hide_cmd=True fmt=mk_console
             assert ctx['hide_cmd']
             assert ctx['fmt'] == 'mk_console'
             print('foo')

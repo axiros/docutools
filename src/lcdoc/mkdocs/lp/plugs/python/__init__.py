@@ -18,7 +18,7 @@ from lcdoc import lp
 from lcdoc.tools import app, dirname, exists, os, project, read_file, write_file
 
 multi_line_to_list = False
-fmt_default = 'mk_console'
+fmt_default = 'unset'
 
 sessions = S = {}
 
@@ -113,7 +113,12 @@ def matching_pyplug(s):
 
 
 def fmt(t, s, kw):
-    o = (False, s) if t == 'md' else (True, pformat(s))
+    if t == 'md':
+        o = (False, s)
+    elif isinstance(s, str):
+        o = (True, s)
+    else:
+        o = (True, pformat(s))
     return o
 
 
@@ -128,18 +133,30 @@ def run(cmd, kw):
     res = [fmt(*i) for i in o]
     fncd = False
     r = []
-    add = r.append
+    add = lambda k: r.append(k) if k is not None else 0
+    # if the fmt is given (mk_console usually), then we show the command (python code)
+    # and the output within the usual lp fenced code block.
+    # if it was unset then we open and close fenced code only for print outs
+    fstart, fstop = (None, None)
+    if kw['fmt'] == 'unset':
+        fstart = '```python'
+        fstop = '```'
     while res:
         is_fenced, o = res.pop(0)
         if is_fenced and not fncd:
-            add('```python')
+            add(fstart)
             fncd = True
         elif not is_fenced and fncd:
-            add('```')
+            add(fstop)
+            fncd = False
         add(o)
     if fncd:
-        add('```')
-    return {'res': '\n\n'.join(r), 'formatted': True}
+        add(fstop)
+    res = '\n\n'.join(r)
+    if kw['fmt'] == 'unset':
+        return {'res': res, 'formatted': True}
+    else:
+        return {'res': res}
 
 
 def import_pyplugs(frm):

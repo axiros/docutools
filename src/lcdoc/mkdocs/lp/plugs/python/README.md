@@ -18,14 +18,19 @@ Decide via the language argument (```&lt;language&gt; lp mode=python) what forma
 
 ### Session Support
 
-```python lp mode=python eval=always addsrc new_session=pyexample
+```python lp mode=python addsrc new_session=pyexample
+# fmt not given - then we open and close fenced blocks, based on output mode (print vs show)
 keys = [k for k in ctx.keys()]
 print('variable `keys` assigned')
+show('*variable is initted now*')
 ```
 
-refer to it later:
+-------
 
-```python lp mode=python eval=always addsrc session=pyexample
+We can refer to the variable later:
+
+```python lp mode=python addsrc session=pyexample fmt=mk_console
+# fmt given explicitely - then we show code and result all in one fenced block:
 print(keys)
 ```
 
