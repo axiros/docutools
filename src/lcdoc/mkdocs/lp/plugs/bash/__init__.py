@@ -26,12 +26,12 @@ class Session(lp.SessionNS):
     def pre(cls, session_name, kw):
         # otherwise we handle this within our tmux session:
         if session_name:
-            lp.SessionNS.pre(kw)
+            lp.SessionNS.pre(session_name, kw)
 
     @classmethod
     def post(cls, session_name, kw):
         if session_name:
-            return lp.SessionNS.post(kw)
+            return lp.SessionNS.post(session_name, kw)
 
 
 def run(cmd, kw):

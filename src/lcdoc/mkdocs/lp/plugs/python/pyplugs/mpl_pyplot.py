@@ -1,20 +1,20 @@
-from lcdoc.mkdocs.lp.plugs import python
 import os
+from functools import partial
 
-config, page, Session = python.config, python.page, python.Session
+from lcdoc.mkdocs.lp.plugs import python
+from lcdoc.tools import dirname
+
+config, page, Session = (python.config, python.page, python.Session)
+make_img = python.make_img
 
 
 def register(fmts):
     fmts['matplotlib.pyplot'] = matplotlib_pyplot
 
 
-def matplotlib_pyplot(plt, innerkw):
-    fn = config()['site_dir'] + '/' + page().file.src_path
-    fn = fn.rsplit('.md', 1)[0] + '/img'
-    os.makedirs(fn, exist_ok=True)
-    fnp = 'plot_%(id)s.svg' % Session.kw
-    fn += '/' + fnp
-    plt.savefig(fn, transparent=True)
-    if not innerkw.get('clf'):
-        plt.clf()
-    return '![](./img/%s)' % fnp
+def matplotlib_pyplot(plt, fn=None, clf=True, **kw):
+    f = partial(plt.savefig, transparent=True)
+    try:
+        return make_img(f, fn=fn)
+    finally:
+        plt.clf() if clf else 0

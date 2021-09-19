@@ -369,6 +369,7 @@ class LP:
                 app.warning('Skipping block, not eval match', eval=evl_policy)
                 skip(True)
             else:
+
                 skip(False)
         elif is_page:
             skip(False)
@@ -672,6 +673,14 @@ class LPPlugin(MDPlugin):
             # eval is page[:block match] if not in evals
             if not eval.split(':', 1)[0] in p:
                 return app.debug('LP: Skipping ($LP_EVAL) %s' % p)
+            else:
+                # when working on a page you want to have session state rebuilt. can
+                # tune with skips:
+                app.warning(
+                    'Page specific eval policy provided. Will evaluate ALL blocks of page unless explitly skipped',
+                    page=page,
+                    eval=eval,
+                )
         LP.page = page
         LP.config_lp_plugin = self.config
         LP.page_initted = False

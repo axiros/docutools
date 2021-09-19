@@ -10,15 +10,20 @@ Result will be what is printed on stdout.
 Decide via the language argument (```&lt;language&gt; lp mode=python) what formatting should be applied.
 """
 
-from pprint import pformat
+from importlib import import_module
 from io import StringIO
+from pprint import pformat
+
 from lcdoc import lp
-from lcdoc.tools import os, project, read_file, dirname
+from lcdoc.tools import app, dirname, exists, os, project, read_file, write_file
 
 multi_line_to_list = False
 fmt_default = 'mk_console'
 
 sessions = S = {}
+
+config = lambda: Session.kw['LP'].config
+page = lambda: Session.kw['LP'].page
 
 
 def new_session_ctx():
@@ -60,32 +65,51 @@ def printed(s, **innerkw):
 
 
 def show(s, **innerkw):
-    o = None
-    for k in fmts:
-        if k in str([s, s.__class__]):
-            o = fmts[k](s, innerkw)
-            break
-    s = s if o is None else o
+    f = matching_pyplug(s)
+    if f:
+        s = f(s, **innerkw)
     out(s, 'md', innerkw=innerkw)
 
 
-config = lambda: Session.kw['LP'].config
-page = lambda: Session.kw['LP'].page
+def make_img(create_func, fn):
+    """Takes care about
+    - fn in docs dir or not 
+    - if in docs dir only create if changed. That avoids mkdocs serve loops
 
+    Returns the image link
+    """
+    if fn and fn.startswith('/'):
+        app.error('no absolute filename allowed', fn=fn, page=page())
+        raise
 
-def matplotlib_pyplot(plt, innerkw):
+    ofn = fn
     fn = config()['site_dir'] + '/' + page().file.src_path
     fn = fn.rsplit('.md', 1)[0] + '/img'
     os.makedirs(fn, exist_ok=True)
     fnp = 'plot_%(id)s.svg' % Session.kw
     fn += '/' + fnp
-    plt.savefig(fn, transparent=True)
-    if not innerkw.get('clf'):
-        plt.clf()
-    return '![](./img/%s)' % fnp
+    create_func(fn)
+    if not ofn:
+        return '![](./img/%s)' % fnp
+    fn_in_docs = dirname(page().file.abs_src_path) + '/' + ofn
+    if (
+        not exists(fn_in_docs)
+        or abs(os.stat(fn).st_size - os.stat(fn_in_docs).st_size) > 1
+    ):
+        app.info('Writing svg', fn=fn_in_docs)
+        write_file(fn_in_docs, read_file(fn))
+    return '![](../%s)' % ofn
 
 
-fmts = {'matplotlib.pyplot': matplotlib_pyplot}
+# keys: matching strings on s and s class, with s the argument of `show()`:
+fmts = {}
+
+
+def matching_pyplug(s):
+    """find rendering pyplug based on type of output"""
+    for k in fmts:
+        if k in str([s, s.__class__]):
+            return fmts[k]
 
 
 def fmt(t, s, kw):
@@ -99,10 +123,8 @@ def run(cmd, kw):
     no session, lang = python:
     """
     loc = Session.cur['locals']
-    res = exec(cmd, {'print': printed, 'show': show, 'ctx': kw}, loc)
+    exec(cmd, {'print': printed, 'show': show, 'ctx': kw}, loc)
     o = Session.cur['out']
-    if res:
-        out(res, 'result')
     res = [fmt(*i) for i in o]
     fncd = False
     r = []
@@ -118,3 +140,18 @@ def run(cmd, kw):
     if fncd:
         add('```')
     return {'res': '\n\n'.join(r), 'formatted': True}
+
+
+def import_pyplugs(frm):
+    m = import_module(frm)
+    for k in [i for i in dir(m) if not i.startswith('_')]:
+        v = getattr(m, k)
+        if hasattr(v, 'register'):
+            v.register(fmts)
+
+
+import_pyplugs('lcdoc.mkdocs.lp.plugs.python.pyplugs')
+try:
+    import_pyplugs('lp_python_plugins')  # allow customs
+except ModuleNotFoundError as ex:
+    pass

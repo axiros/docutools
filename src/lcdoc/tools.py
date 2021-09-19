@@ -14,7 +14,13 @@ import toml
 from lcdoc.log import app, now
 
 exists = os.path.exists
-dirname = os.path.dirname
+
+
+def dirname(dir, create=False):
+    d = os.path.dirname(dir)
+    if create:
+        os.makedirs(d, exist_ok=True)
+    return d
 
 
 def require(cmd, name=None, die=True, _have=set()):

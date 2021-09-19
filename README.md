@@ -14,48 +14,6 @@
 
 <!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
 
-<!-- id: 44ba5ca65651b4f36f1927576dd35436 -->
-
-=== "Cmd"
-    
-    ```console
-    $ ls
-    ```
-
-=== "Output"
-
-    
-    <xterm />
-    
-        $ ls
-        build
-        CHANGELOG.md
-        config
-        CONTRIBUTING.md
-        CREDITS.md
-        dist
-        docs
-        environ
-        LICENSE
-        make
-        Makefile
-        mkdocs.yml
-        poetry.lock
-        pyproject.toml
-        r
-        README.md
-        r.py
-        scripts
-        site
-        src
-        test.pyc
-        tests
-        tmp
-    
-    
-
-
-<!-- id: 44ba5ca65651b4f36f1927576dd35436 -->
 
 
 
@@ -72,11 +30,4 @@ Most notable feature: **[Literate Programming](./features/lp/)**.
 Note: Some features are not yet documented.
 
 
-Last modified: Sat, 18 Sep 2021 09h GMT
-
-!!! note
-
-    <!-- id: 03914e609cd3102fe668b6cfac3b28b6 -->
-    <svg id="markmap_03914e609cd3102fe668b6cfac3b28b6" style="width: 100%; height: 100%"></svg>
-    
-    <!-- id: 03914e609cd3102fe668b6cfac3b28b6 -->
+Last modified: Sun, 19 Sep 2021 20h GMT
