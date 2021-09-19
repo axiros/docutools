@@ -64,6 +64,8 @@ toml = "^0.10.1"
 autoflake = "^1.4"
 axblack = "^20201010"
 isort = {version = "<5", extras = ["pyproject"]}
+numpy = "^1*"
+matplotlib = "^3*"
 # one of last versions with site-packages/black.py - overridden by axblack:
 #black = "18.6b4"
 
