@@ -52,8 +52,8 @@ root([
 
 
 """
-import html
 import hashlib
+import html
 import json
 import os
 import string
@@ -632,7 +632,7 @@ def check_inline_lp(cmd):
     return res[1]
 
 
-def run_if_present_and_is_dict(kw, if_present):
+def os_system_if_param_present(kw, if_present):
     """utility for a frequent use case"""
     if not isinstance(kw, dict):
         return
@@ -647,33 +647,59 @@ def err(msg, **kw):
     return {'res': {'lp err': msg, 'kw': kw}}
 
 
+class SessionNS:
+    """Namespace for methods related to session parameters
+
+    Including methods when there is no session support
+    (but different handling when there is)
+    """
+
+    @classmethod
+    def init(cls, cmd, kw):
+        cls.handle_new_session_param(kw)
+        kw['session_name'] = n = kw.pop('session', None)
+        cls.pre(n, kw)
+
+    @classmethod
+    def handle_new_session_param(cls, kw):
+        msg = 'Variable new_session must be string  - (the name of a session which is '
+        msg += 'guaranteed a new one)'
+        ns = kw.pop('new_session', None)
+        if ns == False or isinstance(ns, (int, float)):
+            raise Exception(msg)
+        if ns == True:
+            ns = kw.pop('session')
+            if not ns:
+                raise Exception(msg)
+        if ns:
+            cls.delete(ns, kw)
+            kw['session'] = ns
+
+    @classmethod
+    def delete(cls, session_name, kw):
+        raise Exception('No session support', mode=kw.get('mode'))
+
+    @classmethod
+    def pre(cls, session_name, kw):
+        # pre, if not overwritten here should just os.system it:
+        os_system_if_param_present(kw, 'pre')
+
+    @classmethod
+    def post(cls, session_name, kw):
+        os_system_if_param_present(kw, 'post')
+
+
 def eval_lp(cmd, kw):
     # deprecated alias, not any more docued, did not work for py style args:
     assert_ = kw.get('asserts') or kw.get('assert')
 
-    # mode = kw.get('xmode')
-    # # in python we need tmux session (to start python first):
-    # if not kw.get('session') and mode == 'python':
-    #     kw['session'] = mode
-    ns = kw.pop('new_session', None)
-    if ns in (True, False):
-        msg = 'Variable new_session must be string (the name of a session which is '
-        msg += 'guaranteed a new one)'
-        raise Exception(msg)
-    if ns:
-        from lcdoc import lp_session
-
-        lp_session.tmux_kill_session(ns)
-        kw['session'] = ns
-    session_name = kw['session_name'] = kw.pop('session', None)
-    # with sessions we do it IN tmux:
-    if not session_name:
-        run_if_present_and_is_dict(kw, 'pre')
     mode = kw.get('mode', 'bash')
     old_name, app.name = app.name, app.name + ':' + mode  # for logging with mode
     plug = get_or_import_plug(mode)
-
     g = lambda k, d=None: getattr(plug, k, d)
+    Session = g('Session', SessionNS)
+    Session.init(cmd, kw)
+
     rk = g('req_kw')
     if rk:
         miss = [k for k in rk if not k in kw]
@@ -702,9 +728,8 @@ def eval_lp(cmd, kw):
         if evl is not None:
             res['eval'] = evl
         add_assets(res, g('page_assets'), kw, mode)
+    Session.post(kw.get('session_name'), kw)
     app.name = old_name
-    if not session_name:
-        run_if_present_and_is_dict(kw, 'post')
     check_assert(assert_, res)
     return res
 

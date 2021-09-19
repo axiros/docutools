@@ -14,6 +14,50 @@
 
 <!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
 
+<!-- id: 44ba5ca65651b4f36f1927576dd35436 -->
+
+=== "Cmd"
+    
+    ```console
+    $ ls
+    ```
+
+=== "Output"
+
+    
+    <xterm />
+    
+        $ ls
+        build
+        CHANGELOG.md
+        config
+        CONTRIBUTING.md
+        CREDITS.md
+        dist
+        docs
+        environ
+        LICENSE
+        make
+        Makefile
+        mkdocs.yml
+        poetry.lock
+        pyproject.toml
+        r
+        README.md
+        r.py
+        scripts
+        site
+        src
+        test.pyc
+        tests
+        tmp
+    
+    
+
+
+<!-- id: 44ba5ca65651b4f36f1927576dd35436 -->
+
+
 
 ## [Documentation](https://axgkl.github.io/docutools/) building tools
 
@@ -28,7 +72,7 @@ Most notable feature: **[Literate Programming](./features/lp/)**.
 Note: Some features are not yet documented.
 
 
-Last modified: Fri, 17 Sep 2021 11h GMT
+Last modified: Sat, 18 Sep 2021 09h GMT
 
 !!! note
 

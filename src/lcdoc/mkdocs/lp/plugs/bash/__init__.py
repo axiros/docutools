@@ -12,9 +12,26 @@ them there.
 
 
 from lcdoc import lp
-from lcdoc.lp_session import srun
+from lcdoc.lp_session import srun, tmux_kill_session
 
 multi_line_to_list = True
+
+
+class Session(lp.SessionNS):
+    @classmethod
+    def delete(cls, ns, kw):
+        tmux_kill_session(ns)
+
+    @classmethod
+    def pre(cls, session_name, kw):
+        # otherwise we handle this within our tmux session:
+        if session_name:
+            lp.SessionNS.pre(kw)
+
+    @classmethod
+    def post(cls, session_name, kw):
+        if session_name:
+            return lp.SessionNS.post(kw)
 
 
 def run(cmd, kw):
@@ -30,7 +47,7 @@ def run(cmd, kw):
     res = []
     for c in cmd:
         silent = False
-        lp.run_if_present_and_is_dict(c, 'pre')
+        lp.os_system_if_param_present(c, 'pre')
         c1 = c['cmd'] if isinstance(c, dict) else c
         rcmd = c1
         prompt = kw.get('prompt', '$')
@@ -47,7 +64,7 @@ def run(cmd, kw):
             silent = c.get('silent')
         if not kw.get('hide_cmd'):
             r = ''.join([prompt, ' ', c1, '\n', r])
-        lp.run_if_present_and_is_dict(c, 'post')
+        lp.os_system_if_param_present(c, 'post')
         # res = '%s %s\n' % (prompt, cmd) + res
         if not silent:
             res.append({'cmd': c1, 'res': r})
