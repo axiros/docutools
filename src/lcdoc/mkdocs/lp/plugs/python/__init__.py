@@ -22,7 +22,7 @@ sessions = S = {}
 
 
 def new_session_ctx():
-    return {'out': []}
+    return {'out': [], 'locals': {}}
 
 
 class Session(lp.SessionNS):
@@ -43,7 +43,9 @@ class Session(lp.SessionNS):
 
     @classmethod
     def post(cls, session_name, kw):
+        Session.cur['out'].clear()
         if cls.name is None:
+            Session.cur['locals'].clear()
             sessions.pop(None)  # forget it, no name was given
         # we support post param to run system stuff before python
         lp.SessionNS.post(session_name, kw)
@@ -58,6 +60,12 @@ def printed(s, **innerkw):
 
 
 def show(s, **innerkw):
+    o = None
+    for k in fmts:
+        if k in str([s, s.__class__]):
+            o = fmts[k](s, innerkw)
+            break
+    s = s if o is None else o
     out(s, 'md', innerkw=innerkw)
 
 
@@ -65,26 +73,23 @@ config = lambda: Session.kw['LP'].config
 page = lambda: Session.kw['LP'].page
 
 
-def matplotlib_pyplot(plt, kw):
+def matplotlib_pyplot(plt, innerkw):
     fn = config()['site_dir'] + '/' + page().file.src_path
     fn = fn.rsplit('.md', 1)[0] + '/img'
     os.makedirs(fn, exist_ok=True)
-    fn += '/plot.svg'
+    fnp = 'plot_%(id)s.svg' % Session.kw
+    fn += '/' + fnp
     plt.savefig(fn, transparent=True)
-    return False, '![](./img/plot.svg)'
+    if not innerkw.get('clf'):
+        plt.clf()
+    return '![](./img/%s)' % fnp
 
 
 fmts = {'matplotlib.pyplot': matplotlib_pyplot}
 
 
 def fmt(t, s, kw):
-    o = None
-    for k in fmts:
-        if k in str([s, s.__class__]):
-            o = fmts[k](s, kw)
-            break
-    if not o:
-        o = (False, s) if t == 'md' else (True, pformat(s))
+    o = (False, s) if t == 'md' else (True, pformat(s))
     return o
 
 
@@ -93,10 +98,8 @@ def run(cmd, kw):
     interpret the command as python:
     no session, lang = python:
     """
-
-    # when a breakpoint is in a python block redirection sucks, user wants to debug:
-    # TODO: write cmd to a file for better debugging
-    res = exec(cmd, {'print': printed, 'show': show, 'ctx': kw})
+    loc = Session.cur['locals']
+    res = exec(cmd, {'print': printed, 'show': show, 'ctx': kw}, loc)
     o = Session.cur['out']
     if res:
         out(res, 'result')
