@@ -1,9 +1,9 @@
 /*
-# Yet Another TermCast Viewer
+# Yet Another XTermSupport Viewer
 
-The thingy can play .json files as produced from TermCast
+The thingy can play .json files as produced from XTermSupport
 
-The recordings can be flows with timings or shots, without timings - TermCast offers a switch for that (-S)
+The recordings can be flows with timings or shots, without timings - XTermSupport offers a switch for that (-S)
 
 ## Usage
     <termcast
@@ -833,7 +833,7 @@ function setup_termcasts(window, document) {
       let url = by_tag_name("img", p.parentNode)[0].src;
       function cb(err, resp) {
         code.innerHTML = resp;
-        return window.TermCast.render_xterm(tag);
+        return window.XTermSupport.render_xterm(tag);
       }
       return fetch_term_raw(url, cb);
     }
@@ -1075,7 +1075,7 @@ function setup_termcasts(window, document) {
           `;
   }
 
-  window.TermCast = {
+  window.XTermSupport = {
     stream: stream,
     setup_termcast_tag: setup_termcast_tag,
     all_casts: all_casts,
@@ -1090,9 +1090,9 @@ function setup_termcasts(window, document) {
 function when_available(keys, callback) {
   var interval = 10; // ms
   window.setTimeout(function () {
-    let h = True;
+    let h = true;
     for (let i of keys) {
-      if (!window[i]) h = False;
+      if (!window[i]) h = false;
     }
     h ? callback() : whenAvailable(keys, callback);
   }, interval);
@@ -1101,12 +1101,12 @@ function when_available(keys, callback) {
 function start_lc() {
   when_available(["Rx", "Terminal"], function () {
     setup_termcasts(window, document);
-    var TC = window.TermCast;
+    var XT = window.XTermSupport;
     console.log("href", location.href);
-    TC.stream.from(TC.all_xterm_fetchs()).subscribe(TC.render_xterm);
-    TC.stream.from(TC.all_xterms()).subscribe(TC.render_xterm);
-    TC.stream.from(TC.all_casts()).subscribe(TC.setup_termcast_tag);
-    TC.stream.from(TC.all_callflows).subscribe(TC.linkify_callflow);
+    XT.stream.from(XT.all_xterm_fetchs()).subscribe(XT.render_xterm);
+    XT.stream.from(XT.all_xterms()).subscribe(XT.render_xterm);
+    XT.stream.from(XT.all_casts()).subscribe(XT.setup_termcast_tag);
+    XT.stream.from(XT.all_callflows).subscribe(XT.linkify_callflow);
   });
 }
 start_lc();
