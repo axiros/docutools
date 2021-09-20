@@ -40,7 +40,7 @@ updates do to be done in the next cycle.
 
  */
 function setup_termcasts(window, document) {
-  var TC = this
+  var TC = this;
   const dbg_stream = false; // show the main stream items
   const dbg_store = false; // show the store for any stream new item
   const stream = Rx.Observable; // matter of personal taste
@@ -199,7 +199,7 @@ function setup_termcasts(window, document) {
       console.log(err.message);
       tag.s.hilite = "";
     }
-  }
+  };
 
   do_update_controls_view = (tag) => {
     /* done instantly at any change, i.e. also within stream */
@@ -231,9 +231,7 @@ function setup_termcasts(window, document) {
 
     tag.s.is_playing && tag.s.looping ? clloop.add("fa-spin") : 0;
     return tag;
-  }
-
-
+  };
 
   function show_hide(tag, cls) {
     let el = get_elmt(cls, tag);
@@ -250,16 +248,16 @@ function setup_termcasts(window, document) {
     return before == "hidden";
   }
 
-  do_quit_play = (tag)     => tag.s.is_playing = false
-  do_scroll_top = (tag)    => tag.term.scrollToTop();
-  do_toggle_info = (tag)   => show_hide(tag, "term_help_insert");
+  do_quit_play = (tag) => (tag.s.is_playing = false);
+  do_scroll_top = (tag) => tag.term.scrollToTop();
+  do_toggle_info = (tag) => show_hide(tag, "term_help_insert");
   do_toggle_search = (tag) => show_hide(tag, "search_words_insert");
   do_escape = (tag) => {
     stream
       .from(by_cls_name("draggable", tag))
       .subscribe((el) => (el.style.visibility = "hidden"));
     tag.term.textarea.focus();
-  }
+  };
   do_toggle_maxmin = (tag) => {
     tag.s.fullscreen = !tag.s.fullscreen;
     let tw = get_elmt("term_wrap", tag);
@@ -285,19 +283,19 @@ function setup_termcasts(window, document) {
       cl.add("fa-expand");
       tag.term.resize(tag.s.old_geo[0], tag.s.old_geo[1]);
     }
-  }
+  };
 
   do_toggle_speed = (tag, r) => {
     let cs = tag.s.play_speed;
     tag.s.play_speed = r.ev.key == "s" ? cs - 1 : r.ev.key == "d" ? 0 : cs + 1;
-  }
+  };
 
   do_toggle_loop = (tag) => {
     /* the loop button also starts but does not stop the cast */
     // if playing, keep playing, else start
     tag.s.looping = !tag.s.looping; // || ! tag.s.is_playing
     if (!tag.s.is_playing) do_toggle_play(tag);
-  }
+  };
 
   do_toggle_play = (tag) => {
     tag.s.is_playing = !tag.s.is_playing;
@@ -305,34 +303,31 @@ function setup_termcasts(window, document) {
       reset(tag);
       tag.s.is_playing = true;
     }
-  }
-
+  };
 
   do_toggle_rewind = (tag) => {
     reset(tag);
     tag.s.is_playing = true;
-  }
+  };
 
   do_one = (tag, r) => {
     // realized in push_framesets
     tag.s.do_one = 1;
     tag.s.is_playing = false;
-  }
+  };
 
   do_one_back = (tag, r) => {
     tag.s.jump_frame = Math.max(tag.s.next_frame_nr - 1, 0);
     reset(tag);
-  }
+  };
 
   do_jump = (tag, r) => {
     tag.s.jump_str = tag.s.last_jump;
-  }
-
-
+  };
 
   do_scroll_bottom = (tag) => {
     tag.term.scrollToBottom();
-  }
+  };
 
   function dispatch_intent_function(r) {
     // r.side_effect e.g. "do_scroll_top" - we call the do_scoll_up function here
@@ -561,7 +556,7 @@ function setup_termcasts(window, document) {
       tag.s.last_jump = tag.s.jump_str;
       tag.s.jump_str = false;
     }
-  }
+  };
 
   /* ------------------------------------------------------------------------- *
    *                      DOM STREAM TAG CREATION
@@ -605,7 +600,8 @@ function setup_termcasts(window, document) {
     let meta;
 
     // defaults of recorder:
-    let rows = 24, cols = 80;
+    let rows = 24,
+      cols = 80;
     if (rec[0].rows) {
       meta = rec.shift();
       let author = meta.by || "n.a.";
@@ -704,7 +700,7 @@ function setup_termcasts(window, document) {
   }
 
   function run_main_stream(tag, init_intent) {
-    is_text_input  = (ev) => ev.target.classList.contains('has_user_input')
+    is_text_input = (ev) => ev.target.classList.contains("has_user_input");
     key_up$ = stream.fromEvent(tag, "keyup");
     esc$ = key_up$.filter((ev) => ev.key == "Escape");
     // Esc has no keydown
@@ -714,7 +710,7 @@ function setup_termcasts(window, document) {
       .filter((ev) => ev.key != "Escape")
       .filter((ev) => ev.key != "Meta")
       .map((ev) => {
-          debugger
+        debugger;
         ev.user_input = ev.target.value;
         return ev;
       })
@@ -727,8 +723,8 @@ function setup_termcasts(window, document) {
       .filter((ev) => ev.key != "Meta")
       .filter((ev) => !is_text_input(ev))
       .map((ev) => {
-          console.log("control key", ev.key)
-          return ev
+        console.log("control key", ev.key);
+        return ev;
       });
 
     user_intent$ = stream
@@ -829,91 +825,98 @@ function setup_termcasts(window, document) {
     return tag;
   }
   function render_xterm(tag) {
-
-    let p = tag.parentNode // parent div
-    let pre = p.nextElementSibling // container of raw ansi
-    let code = by_tag_name('code', pre)[0]
-    if (code.innerText.trim() == 'remote_content') {
-        // we attached a markdown img element to it to relative get links resolved by mkdocs:
-        let url = by_tag_name('img', p.parentNode)[0].src
-        function cb(err, resp) {
-            code.innerHTML = resp
-            return window.TermCast.render_xterm(tag)
-        }
-        return fetch_term_raw(url, cb)
+    let p = tag.parentNode; // parent div
+    let pre = p.nextElementSibling; // container of raw ansi
+    let code = by_tag_name("code", pre)[0];
+    if (code.innerText.trim() == "remote_content") {
+      // we attached a markdown img element to it to relative get links resolved by mkdocs:
+      let url = by_tag_name("img", p.parentNode)[0].src;
+      function cb(err, resp) {
+        code.innerHTML = resp;
+        return window.TermCast.render_xterm(tag);
+      }
+      return fetch_term_raw(url, cb);
     }
 
-    let bg = getComputedStyle(pre).getPropertyValue('--md-code-bg-color')
-    codebg = 'black'
+    let bg = getComputedStyle(pre).getPropertyValue("--md-code-bg-color");
+    codebg = "black";
     var term = new Terminal({
-        cursorStyle: 'bar',
-        cursorWidth: 1,
-        theme: {
-            // we must set that
-            background:  codebg,
-            cursor: bg
-        }
-    })
-    code.style['backgroundColor'] = 'black'
-
+      cursorStyle: "bar",
+      cursorWidth: 1,
+      theme: {
+        // we must set that
+        background: codebg,
+        cursor: bg,
+      },
+    });
+    code.style["backgroundColor"] = "black";
 
     //TODO: clipboard btn support
     //by_cls_name("md-clipboard", pre)[0].addEventListener('click', foo)
     //by_cls_name("md-clipboard", pre)[0].setAttribute('data-clipboard-text', '#foo')
     //let fit = new FitAddon.FitAddon()
-      //
+    //
     //TODO: search support
     //let search = new SearchAddon.SearchAddon()
 
     //term.loadAddon(fit)
     //term.loadAddon(search)
     //term.setOption('fontSize', 9)
-    term.setOption('rendererType', 'dom')
-    term.setOption('disableStdin', true)
+    term.setOption("rendererType", "dom");
+    term.setOption("disableStdin", true);
     //term.setOption('scrollback', 0)
 
+    var lines = code.innerText;
+    lines = lines.split("\n");
 
-    var lines = code.innerText
-    lines = lines.split('\n')
-
-    code.innerText = ''
-    term.open(code)
+    code.innerText = "";
+    term.open(code);
     //try {fit.fit()
     //} catch(e) {console.log(e); debugger;}
     //term.element.style['margin-left'] = '-2em' // todo cope with scrollbar
-    if (tag.getAttribute('root') != null) pre.style['border-left'] = '2px solid magenta'
+    if (tag.getAttribute("root") != null)
+      pre.style["border-left"] = "2px solid magenta";
 
-    term.writeln(''); for (var i=0; i<lines.length-1; i++) term.writeln(lines[i])
-    term.write('\x1b[F') //cursor up saves a line
+    term.writeln("");
+    for (var i = 0; i < lines.length - 1; i++) term.writeln(lines[i]);
+    term.write("\x1b[F"); //cursor up saves a line
 
-    term.resize(200, lines.length+1)
-    by_cls_name('xterm-viewport', term.element)[0].style['overflow'] = 'hidden'
-    let set_dbg = () => { window.axcode = code; window.axsearch = search; window.axtag = tag; window.axterm = term; window.axp = p; window.axpre = pre; }
-    set_dbg()
-    const onIntersection = ([{isIntersecting, target}]) => {
-
-        // We have to hook in and make it visible when inside a tab whcih is clicked, since:
-        // the new xterm does not render when not visible, but does not see the tab clicks.
-        if (isIntersecting && !term.is_rendered) {
-            var l = lines.length
-            term.resize(199, l+1)
-            term.is_rendered = true
-        }
-    }
-    const io = new IntersectionObserver(onIntersection, {threshold: 1})
-    const cont = tag.parentNode.parentNode
-    io.observe(cont)
+    term.resize(200, lines.length + 1);
+    by_cls_name("xterm-viewport", term.element)[0].style["overflow"] = "hidden";
+    let set_dbg = () => {
+      window.axcode = code;
+      window.axsearch = search;
+      window.axtag = tag;
+      window.axterm = term;
+      window.axp = p;
+      window.axpre = pre;
+    };
+    set_dbg();
+    const onIntersection = ([{ isIntersecting, target }]) => {
+      // We have to hook in and make it visible when inside a tab whcih is clicked, since:
+      // the new xterm does not render when not visible, but does not see the tab clicks.
+      if (isIntersecting && !term.is_rendered) {
+        var l = lines.length;
+        term.resize(199, l + 1);
+        term.is_rendered = true;
+      }
+    };
+    const io = new IntersectionObserver(onIntersection, { threshold: 1 });
+    const cont = tag.parentNode.parentNode;
+    io.observe(cont);
   }
 
   // --------------------- Handling Sequence Flow Recordings (unrelated) -----------------
 
   //var url_highlight_js_css = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css'
-  var url_highlight_js_css = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/nord.min.css'
-  var url_highlight_js = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js'
+  var url_highlight_js_css =
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/nord.min.css";
+  var url_highlight_js =
+    "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js";
 
   function linkify_callflow(svg) {
     /* Making the callflows interactive.
-     * 
+     *
      * 1) We add a placeholder html after the footer below, when there are callflows on the page
      * placeholder for
      *   a. the svg and (we need it inline to generate click/hover evt handlers)
@@ -928,119 +931,130 @@ function setup_termcasts(window, document) {
      * 10) then we transfer the innerHTMl into W
      * 11) we repeat from 7 at any mouse hover
      *
-    */
+     */
 
-        var seq_diag_nfos = {modules:{}, funcs:{}, rendered: {}} 
-        function got_seq_data(err, result, url) {
-            let depth = 1
-            if (url.indexOf('.json?') > -1) depth=2
-            if (!result) return
-            let sdn = seq_diag_nfos
-            if (url.endsWith('.mod.py')) {
-                sdn.modules[sdn.cur_mod] = result
-                result = sdn.cur_result
-            }
-            if (url.endsWith('.func.py')) {
-                sdn.funcs[sdn.cur_func] = result
-                result = sdn.cur_result
-            }
-            let res=result, l, spec, input, output, dt, d, fn
-            d = x => JSON.stringify(x, null, 2)
-            // the seperator of spec/input/output as written by python into the .json files:
-            l = res.split('\n-\n')
-            spec = JSON.parse(l[0]) 
-            input = l[1]
-            output = l[2]
-            // the index.url and jsons are a level deeper than the module and func docs (to reuse)
-            let base_url = url.split('/').slice(0, -depth).join('/') + '/' 
-            fn = spec.fn_mod
-            let mod = sdn.modules[fn]
-            if (!mod) {
-                let u= base_url +  fn 
-                sdn.cur_result = result // to start over with parsing when we have mod
-                sdn.cur_mod = fn 
-                return fetch_term_raw(u, got_seq_data)
-            }
-            fn = spec.fn_func
-            let func = sdn.funcs[fn]
-            if (!func) {
-                let u= base_url +  fn
-                sdn.cur_result = result
-                sdn.cur_func = fn 
-                return fetch_term_raw(u, got_seq_data)
-            }
+    var seq_diag_nfos = { modules: {}, funcs: {}, rendered: {} };
+    function got_seq_data(err, result, url) {
+      let depth = 1;
+      if (url.indexOf(".json?") > -1) depth = 2;
+      if (!result) return;
+      let sdn = seq_diag_nfos;
+      if (url.endsWith(".mod.py")) {
+        sdn.modules[sdn.cur_mod] = result;
+        result = sdn.cur_result;
+      }
+      if (url.endsWith(".func.py")) {
+        sdn.funcs[sdn.cur_func] = result;
+        result = sdn.cur_result;
+      }
+      let res = result,
+        l,
+        spec,
+        input,
+        output,
+        dt,
+        d,
+        fn;
+      d = (x) => JSON.stringify(x, null, 2);
+      // the seperator of spec/input/output as written by python into the .json files:
+      l = res.split("\n-\n");
+      spec = JSON.parse(l[0]);
+      input = l[1];
+      output = l[2];
+      // the index.url and jsons are a level deeper than the module and func docs (to reuse)
+      let base_url = url.split("/").slice(0, -depth).join("/") + "/";
+      fn = spec.fn_mod;
+      let mod = sdn.modules[fn];
+      if (!mod) {
+        let u = base_url + fn;
+        sdn.cur_result = result; // to start over with parsing when we have mod
+        sdn.cur_mod = fn;
+        return fetch_term_raw(u, got_seq_data);
+      }
+      fn = spec.fn_func;
+      let func = sdn.funcs[fn];
+      if (!func) {
+        let u = base_url + fn;
+        sdn.cur_result = result;
+        sdn.cur_func = fn;
+        return fetch_term_raw(u, got_seq_data);
+      }
 
-            dt = spec.dt
-            let X=by_id('details_win_transfer_content')
-            //let f=x=>
-            let f=x=>X.getElementsByClassName(x)[0]
-            let pth =  ' [' + spec.mod + ']'
-            f('title').innerHTML = '<code>' + spec['name'] + '</code>'
-            f('pth').innerHTML = '<code>' + pth + '</code>'
-            function hil(into, s, typ) {
-                f(into).innerHTML = hljs.highlightAuto(s, [typ]).value
-            }
-            hil('input' , input, 'json')
-            hil('output', output, 'json')
-            hil('module', mod, 'python')
-            hil('func'  , func, 'python')
-            sdn.rendered[url] = X = X.innerHTML
-            into_details_window(X)
-        }
-        function into_details_window(rendered) {
-            let e = window.seq_details_window.document.body.getElementsByTagName('main')
-            e[0].innerHTML = rendered
-        }
+      dt = spec.dt;
+      let X = by_id("details_win_transfer_content");
+      //let f=x=>
+      let f = (x) => X.getElementsByClassName(x)[0];
+      let pth = " [" + spec.mod + "]";
+      f("title").innerHTML = "<code>" + spec["name"] + "</code>";
+      f("pth").innerHTML = "<code>" + pth + "</code>";
+      function hil(into, s, typ) {
+        f(into).innerHTML = hljs.highlightAuto(s, [typ]).value;
+      }
+      hil("input", input, "json");
+      hil("output", output, "json");
+      hil("module", mod, "python");
+      hil("func", func, "python");
+      sdn.rendered[url] = X = X.innerHTML;
+      into_details_window(X);
+    }
+    function into_details_window(rendered) {
+      let e =
+        window.seq_details_window.document.body.getElementsByTagName("main");
+      e[0].innerHTML = rendered;
+    }
 
-        function load_details_json(evt) {
-            // not yet clicked on the chart? then we don't have that attribute:
-            if (!window.seq_details_window) return
-            evt.preventDefault()
-            //let fn = (evt.path[1].href || evt.path[0].href).baseVal
-            let u, t = evt.target
-            let fn = t.href
-            if (!fn) fn = t.parentElement.href
-            while (t.tagName != 'svg') t = t.parentElement
-            u = t.id 
-            // fn like: "1.json?req"
-            fn = fn.baseVal
-            // u like: "test_partition_simple/1.json?req"
-            //let u = location.href.split('src=')[1].split('&')[0] + '/' + fn
-            u +=  '/' + fn
-            let sdn = seq_diag_nfos
-            let have = sdn.rendered[u]
-            if (have) return into_details_window(have)
-            fetch_term_raw('./' + u, got_seq_data)
-        }
+    function load_details_json(evt) {
+      // not yet clicked on the chart? then we don't have that attribute:
+      if (!window.seq_details_window) return;
+      evt.preventDefault();
+      //let fn = (evt.path[1].href || evt.path[0].href).baseVal
+      let u,
+        t = evt.target;
+      let fn = t.href;
+      if (!fn) fn = t.parentElement.href;
+      while (t.tagName != "svg") t = t.parentElement;
+      u = t.id;
+      // fn like: "1.json?req"
+      fn = fn.baseVal;
+      // u like: "test_partition_simple/1.json?req"
+      //let u = location.href.split('src=')[1].split('&')[0] + '/' + fn
+      u += "/" + fn;
+      let sdn = seq_diag_nfos;
+      let have = sdn.rendered[u];
+      if (have) return into_details_window(have);
+      fetch_term_raw("./" + u, got_seq_data);
+    }
 
-        // create click handlers for any arrow, opening the details window:
-        for (let item of by_tag_name('a', svg)) {
-            item.addEventListener('click', evt => {
-                evt.preventDefault()
-                let ev = evt
-                let W = window.open(location.href.split('?')[0])
-                window.seq_details_window = W
-                W.onload = function () {
-                    html = '<div id="details_main"></div>'
-                    W.document.body.getElementsByTagName('main')[0].innerHTML = html
-                    var link = W.document.createElement('link'); 
-                    link.rel = 'stylesheet';  link.type = 'text/css';
-                    link.href = url_highlight_js_css
-                    W.document.body.appendChild(link)
-                    var script = document.createElement('script');
-                    script.onload = () => { load_details_json(ev); }
-                    script.src = url_highlight_js
-                    by_tag_name('head')[0].appendChild(script)
-                }
-            })
-            // add mouse over to load into the details window:
-            item.addEventListener('mouseenter', load_details_json)
-        }
-
+    // create click handlers for any arrow, opening the details window:
+    for (let item of by_tag_name("a", svg)) {
+      item.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        let ev = evt;
+        let W = window.open(location.href.split("?")[0]);
+        window.seq_details_window = W;
+        W.onload = function () {
+          html = '<div id="details_main"></div>';
+          W.document.body.getElementsByTagName("main")[0].innerHTML = html;
+          var link = W.document.createElement("link");
+          link.rel = "stylesheet";
+          link.type = "text/css";
+          link.href = url_highlight_js_css;
+          W.document.body.appendChild(link);
+          var script = document.createElement("script");
+          script.onload = () => {
+            load_details_json(ev);
+          };
+          script.src = url_highlight_js;
+          by_tag_name("head")[0].appendChild(script);
+        };
+      });
+      // add mouse over to load into the details window:
+      item.addEventListener("mouseenter", load_details_json);
+    }
   }
-  var all_callflows = by_cls_name('call_flow_chart')
+  var all_callflows = by_cls_name("call_flow_chart");
   if (all_callflows.length > 0) {
-      by_tag_name('footer')[0].innerHTML += `
+    by_tag_name("footer")[0].innerHTML += `
       <!-- here we'll put the colorized details data, which we transfer over -->
       <div id="details_win_transfer_content" style="visibility: hidden">
        <div style="margin: 20px; overflow: auto">
@@ -1058,34 +1072,39 @@ function setup_termcasts(window, document) {
             <pre style="background-color: #333"><code class="python module"></code></pre>
       </div>
       </div>
-          `
+          `;
   }
 
-
   window.TermCast = {
-      stream: stream,
-      setup_termcast_tag: setup_termcast_tag,
-      all_casts: all_casts,
-      all_xterms: all_xterms,
-      all_xterm_fetchs: all_xterm_fetchs,
-      render_xterm: render_xterm,
-      //open_sequence_flow_svg:open_sequence_flow_svg
-      all_callflows: all_callflows,
-      linkify_callflow: linkify_callflow
+    stream: stream,
+    setup_termcast_tag: setup_termcast_tag,
+    all_casts: all_casts,
+    all_xterms: all_xterms,
+    all_xterm_fetchs: all_xterm_fetchs,
+    render_xterm: render_xterm,
+    //open_sequence_flow_svg:open_sequence_flow_svg
+    all_callflows: all_callflows,
+    linkify_callflow: linkify_callflow,
   };
 }
-setup_termcasts(window, document);
-var TC = window.TermCast;
-console.log('href', location.href)
+function when_available(name, callback) {
+  var interval = 10; // ms
+  window.setTimeout(function () {
+    if (window[name]) {
+      callback(window[name]);
+    } else {
+      whenAvailable(name, callback);
+    }
+  }, interval);
+}
 window.addEventListener("load", function () {
-  TC.stream.from(TC.all_xterm_fetchs()).subscribe(TC.render_xterm);
-  TC.stream.from(TC.all_xterms()).subscribe(TC.render_xterm);
-  TC.stream.from(TC.all_casts()).subscribe(TC.setup_termcast_tag);
-  TC.stream.from(TC.all_callflows).subscribe(TC.linkify_callflow);
-
+  when_available("Rx", function () {
+    setup_termcasts(window, document);
+    var TC = window.TermCast;
+    console.log("href", location.href);
+    TC.stream.from(TC.all_xterm_fetchs()).subscribe(TC.render_xterm);
+    TC.stream.from(TC.all_xterms()).subscribe(TC.render_xterm);
+    TC.stream.from(TC.all_casts()).subscribe(TC.setup_termcast_tag);
+    TC.stream.from(TC.all_callflows).subscribe(TC.linkify_callflow);
+  });
 });
-
-
-
-    
-

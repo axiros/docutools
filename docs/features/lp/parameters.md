@@ -147,6 +147,11 @@ Syntax details [here](./syntax.md#parametrization).
         echo Hello
         ```
 
+
+    !!! note "Custom Formats"
+
+        Plugins can also [decide](./plugs/_tech.md) to deliver their own formatted markdown.
+
 ### hide_cmd
 (`boolean`)
 
@@ -179,7 +184,8 @@ Syntax details [here](./syntax.md#parametrization).
         tmux list-sessions | grep test || true
         ```
 ### mode
-`mode=<plugin name>`
+`mode=<plugin name>` or `<lang> lp:<mode>`
+
 ???+ hint "Pass evaluation into various plugins"
 
     See [here](./plugs/_index.md) for more information.

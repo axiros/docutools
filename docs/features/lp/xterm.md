@@ -72,7 +72,7 @@ This is far more efficient than using [svg](https://yarnpkg.com/package/ansi-to-
     echo -e "Bye!"
     ```
 
-```bash lp
+```bash lp fmt=xt_flat
 
 bash -c /tmp/colordemo.sh
 ```

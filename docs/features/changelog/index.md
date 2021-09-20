@@ -10,13 +10,10 @@ Creates a CHANGELOG.md (using [git-changelog](https://pypi.org/project/git-chang
 
 !!! warning "Example Only for Demo Purpose of the Plugin"
 
-    I include this CHANGELOG.md to show off, what this plugin **could** do, when commits *would* be proper.
+    I include this CHANGELOG.md to show, what this plugin **could** do, when commits *would* be proper.
 
     Naturally the changelog will be no good marketing for your project, if your commits are bad.
-    This might be okayish, when you work alone - but in teams it is a no go.
-
-    The author's diszipline sucks - but up to now I work alone on this repo :sweat:.
-
+    This might be okayish, when you work alone (like the author currently on this repo) - but in teams it is a no go.
 
 
 

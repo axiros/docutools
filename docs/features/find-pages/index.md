@@ -5,9 +5,7 @@ Adds pages to your nav tree, even when not referenced in `mkdocs.yml`.
 The adding is done by inspecting the location of the files within the docs tree.
 
 
-Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-find-pages,t=m
-
-Example: The Literate Programming [plugin docs](../lp/plugs/overview/) are added to nav via find-pages:
+Example: The Literate Programming [plugin docs](../lp/plugs/) are added to nav via find-pages:
 
 In this repos's `mkdocs.yml` we have
 
@@ -18,7 +16,14 @@ In this repos's `mkdocs.yml` we have
         - features/lp/plugs/
 ```
 
-- lcd-lp at config hook time will link all existing plugin docs to the docs tree
+- lcd-lp plugin will, at config hook time, link all existing plugin docs to the docs tree
 - lcd-find-pages, with config above adds them to nav
 
-Note: `find_pages` can be also additionally supplied via an environ variable.
+Notes:
+
+- `find_pages` can be also additionally supplied via an environ variable.
+- correct insertion requires a well defined `h1` header - we will take all upper cased words. If
+  there are none, we will take filename without `.md` or container directory, if filename is `index.md`.
+- correct insertion also requires, that the insertion point of the first doc page not declared in
+  nav is following the intended page before it, when you sort ALL filenames, declared and
+  undeclared, alphabetically.

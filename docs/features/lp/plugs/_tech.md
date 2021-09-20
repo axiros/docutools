@@ -52,7 +52,7 @@ optionally
     - header: html (e.g. scripts) added at start of container element, added after rendering
     - footer: html added at end of container element, added after rendering
 
-    See the [chartist](./chartist/) plugin for an example.
+    See the [chartist](../chartist/) plugin for an example.
 
     Note: https://github.com/squidfunk/mkdocs-material/issues/2338 only inside
 

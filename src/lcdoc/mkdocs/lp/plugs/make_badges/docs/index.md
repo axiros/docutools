@@ -6,14 +6,18 @@ Creates badges. Optionally writes the README.md
 
 Line separated badge function names with statement level lp parameters.
 
-Functions:
+### Builtin Functions
+
+Those (optional) functions will create badges autonomously:
 
 - axblack
 - docs (with value=[pagecount], default "mkdocs-material")
 - gh_action (with action parameter, default ci)
 - pypi
 
-Params:
+### Params
+
+With these you can create static badges (or overwrite values set by the functions):
 
 - value
 - label (if not a function name, we take the lp statement value, see example below)
@@ -21,7 +25,7 @@ Params:
 - color (default: gray)
 - img (when external svg, supply the url)
 
-## Parameters
+## LP Header Parameters
 
 - write_readme: Create the readme with static badges. That file is not managed by mkdocs - so we
   create it.

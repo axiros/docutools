@@ -338,8 +338,9 @@ window.mermaidConfig = {
 
   (function () {
     var onReady = function onReady(fn) {
-      document.addEventListener("DOMContentLoaded", fn);
-      document.addEventListener("DOMContentSwitch", fn);
+        fn()
+      //document.addEventListener("DOMContentLoaded", fn);
+      //document.addEventListener("DOMContentSwitch", fn);
     };
 
     var observer = new MutationObserver(function (mutations) {

@@ -2,10 +2,8 @@
 
 Support for [mermaid.js](https://mermaid-js.github.io/mermaid/#/) graphs.
 
-Source: :srcref:src/lcdoc/mkdocs/lp/plugs/mermaid.py
 
-
-We do not require the snippet but add the necessary :srcref:fn=src/lcdoc/mkdocs/lp/assets/mermaid,t=javascript into the page via
+We do not require the snippet but add the necessary :srcref:fn=src/lcdoc/mkdocs/lp/plugs/mermaid/page.js,t=javascript into the page via
 a lp mode like this:
 
 
