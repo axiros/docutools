@@ -37,7 +37,7 @@ Highlights:
 
 - [**Various Output Formats**](./parameters.md#fmt)
 
-- [**Various Builtin Evaluation Plugins**](./plugs/overview.md). Extendable with your own.
+- [**Various Builtin Evaluation Plugins**](./plugs/_index.md). Extendable with your own.
 
 - [**Caching**](./eval.md): Results are cached and only re-evaluated when source changes. You can edit the
   markdown around, w/o triggering possibly expensive evaluation runs. 
@@ -51,7 +51,7 @@ Highlights:
 - [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
   otherwise non expanded "Output" tabs
 
-- [**Coverage Backrefs**](./plugs/cov_report.md): Dynamic coverage contexts, optionally with
+- [**Coverage Backrefs**](./plugs/cov_report/): Dynamic coverage contexts, optionally with
   [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation
 
 

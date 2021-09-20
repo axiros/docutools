@@ -76,7 +76,7 @@ You need to have `pip/conda install matplotlib` and optionally also `pip/conda i
     plt.ylabel('y label')
     plt.title("Simple Plot")
     plt.legend()
-    show(plt) #, fn='img/testplot.svg')
+    show(plt, fn='img/testplot.svg')
     show('??? hint "You can create *markdown* via the `show()` function"')
     show('    this was created from the python block')
     ```
@@ -90,7 +90,7 @@ You need to have `pip/conda install matplotlib` and optionally also `pip/conda i
        `show(plt, fn='img/myplot')`. This will result in the plot created within your docs dir, so
        that you can commit it, from a system, where you *can* build the docs.
     1. commit the cache file
-    1. optionally, set the [eval policy](../eval.md) to `always` page wide, and to `on_change` for
+    1. optionally, set the [eval policy](../../eval.md) to `always` page wide, and to `on_change` for
        the block, if you want the *other* blocks on the page to be evaluated on the build system
        (e.g. for assertion checks).
 

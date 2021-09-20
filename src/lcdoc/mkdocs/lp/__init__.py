@@ -613,6 +613,10 @@ def patch_mkdocs_to_ignore_res_file_changes():
 
 
 def make_plugin_docs(config):
+    """We want the plugins really self contained, incl. all - also the docs
+    So we scan whats there and symlink over
+    """
+    # TODO: also custom dir?
     dd = config['docs_dir'] + '/features/lp/plugs'
     if not exists(dd):
         os.makedirs(dd, exist_ok=True)
@@ -620,13 +624,14 @@ def make_plugin_docs(config):
     D = dirname(__file__) + '/plugs'
     c = []
     for k in sorted(os.listdir(D)):
+        # k e.g. 'mermaid'
         d = D + '/' + k
-        fnr, fnp = d + '/README.md', d + '/__init__.py'
+        fnr, fnp = d + '/docs/index.md', d + '/__init__.py'
         if not exists(fnr) or not exists(fnp):
             continue
-        t = dd + '/' + k + '.md'
-        if not exists(t):
-            f = '../../../../src/lcdoc/mkdocs/lp/plugs/%s/README.md' % k
+        t = dd + '/' + k
+        if not exists(t + '/index.md'):
+            f = '../../../../src/lcdoc/mkdocs/lp/plugs/%s/docs' % k
             os.symlink(f, t)
             c.append([f, t])
     if c:

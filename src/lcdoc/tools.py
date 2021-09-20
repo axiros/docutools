@@ -10,10 +10,14 @@ import sys
 import time
 
 import toml
-
+import hashlib
 from lcdoc.log import app, now
 
 exists = os.path.exists
+
+# fastest algo:
+def file_hash(fn, algo='blake2b'):
+    return getattr(hashlib, algo)(open(fn, 'rb').read()).hexdigest()
 
 
 def dirname(dir, create=False):
@@ -294,3 +298,36 @@ def parse_deps(deplist, seps='~<>!= '):
         if not h:
             m[dep] = ''
     return m
+
+
+def make_img(create_func, fn, kw):
+    """Takes care about
+    - fn in docs dir or not 
+    - if in docs dir only create if changed. That avoids mkdocs serve loops
+
+    Returns the image link
+    """
+    page = kw['LP'].page
+    config = kw['LP'].config
+    if fn and fn.startswith('/'):
+        app.error('no absolute filename allowed', fn=fn, page=page)
+        raise
+
+    ofn = fn
+    fn = config['site_dir'] + '/' + page.file.src_path
+    fn = fn.rsplit('.md', 1)[0] + '/img'
+    os.makedirs(fn, exist_ok=True)
+    fnp = 'plot_%(id)s.svg' % kw
+    fn += '/' + fnp
+    create_func(fn)
+    if not ofn:
+        return '![](./img/%s)' % fnp
+    fn_in_docs = dirname(page.file.abs_src_path) + '/' + ofn
+    if (
+        not exists(fn_in_docs)
+        or abs(os.stat(fn).st_size - os.stat(fn_in_docs).st_size) > 1
+    ):
+        os.makedirs(dirname(fn_in_docs), exist_ok=True)
+        app.info('Writing svg', fn=fn_in_docs)
+        write_file(fn_in_docs, read_file(fn))
+    return '![](%s)' % ofn

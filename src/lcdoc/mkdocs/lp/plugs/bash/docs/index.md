@@ -8,5 +8,5 @@ When you supply a session parameter, we will send the statements over into tmux 
 them there.
 
 
-Available parameters: See [here](../parameters.md).
+Available parameters: See [here](../../parameters.md).
 

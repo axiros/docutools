@@ -28,14 +28,14 @@ def lp_plugins_descr(**kw):
     d = dirname(kw['page'].file.abs_src_path)
     r = ['']
     for k in os.listdir(d):
-        fn = d + '/' + k
-        if not fn.endswith('.md'):
+        fn = d + '/' + k + '/index.md'
+        if not os.path.exists(fn):
             continue
-        k1 = k.rsplit('.md', 1)[0]
+        k1 = k
         s = read_file(fn).strip().split('\n', 1)[1].strip().split('\n', 1)[0]
         if s:
             s = ': ' + s
-        r.append('- [`%s`](./%s)%s' % (k1, k, s))
+        r.append('- [`%s`](./%s/index.md)%s' % (k1, k1, s))
     r.append('')
     return '\n'.join(r)
 

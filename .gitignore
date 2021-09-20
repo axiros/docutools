@@ -1,4 +1,5 @@
 .idea/
+docs/features/lp/plugs*
 __pycache__/
 *.py[cod]
 *.res.py

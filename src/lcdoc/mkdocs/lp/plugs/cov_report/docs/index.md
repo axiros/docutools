@@ -20,7 +20,7 @@ The report must exist in the file system at evaluation time at
 - When the lp plugin has a non empty config value for `coverage_backrefs`, a link will be created back to the markdown source with the lp block.
 
 ## Example
-![backref](../img/backref.png)
+![backref](./img/backref.png)
 
 
 ## Mechanics

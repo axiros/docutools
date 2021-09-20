@@ -87,10 +87,15 @@ def srcref(**kw):
 
 
 def find_md_files(match, config):
+    flw = ''
+    if ':follow' in match:
+        match = match.replace(':follow', '')
+        flw = '-L'
+
     require('fd --version')
     dd = config['docs_dir']
     # no --type file because we want also symlinks:
-    cmd = "cd '%s' && fd -I -e md | grep '%s'" % (dd, match)
+    cmd = "cd '%s' && fd %s -I -e md | grep '%s'" % (dd, flw, match)
     r = os.popen(cmd).read().strip().splitlines()
     # split off docs dir:
     return r

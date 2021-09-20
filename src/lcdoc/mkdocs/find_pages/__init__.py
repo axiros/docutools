@@ -29,14 +29,15 @@ def find_pages(find, config, stats):
     stats['find_terms'] = len(find)
     if not find:
         return
-    found = []
+    fnd = []
     for m in find:
         found = find_md_files(match=m, config=config)
         if not found:
             app.warning('No pages found', match=m)
-        found.extend(found)
-    stats['matching'] = len(found)
-    return found
+        else:
+            fnd.extend(found)
+    stats['matching'] = len(fnd)
+    return fnd
 
 
 def find_pages_and_add_to_nav(find, config, stats):
@@ -47,6 +48,7 @@ def find_pages_and_add_to_nav(find, config, stats):
     m = {p: None for p in found}
     nav = config['nav']
     navl = flatten(nav, '.')
+    # (all in the search dir merged with all in nav) - all in nav = missing
     m.update({v: k for k, v in navl.items()})
     stats['missing'] = len(m) - len(navl)
 
@@ -59,17 +61,25 @@ def find_pages_and_add_to_nav(find, config, stats):
         h = uppercase_words(h.split('\n# ', 1)[1].split('\n', 1)[0])
         if not h:
             # e.g. # bash alone has no uppercase word. then take the filename:
-            h = fn_page.rsplit('/', 1)[-1].split('.', 1)[0]
+            l = fn_page.rsplit('/', 2)
+            if l[-1] == 'index.md':
+                h = l[-2]
+            else:
+                h = fn_page.rsplit('/', 1)[-1].split('.', 1)[0]
         return h
 
     def clear_digits(t):
         return '.'.join([k for k in t.split('.') if not k.isdigit()])
 
     newt = []
+    # l the sorted merge of nav and new (new stuff w/o a path yet):
     while l:
         new.append(l.pop(0))
         if new[-1][1]:
+            # is in nav, has a path:
             continue
+        # (Pdb) pp new[-1]
+        # ['features/lp/plugs/bash/index.md', None]
         h = get_title(new[-1][0])
         b, cur = new[-2], new[-1]
         app.info('Adding to nav', path=cur[0], title=h)
@@ -113,21 +123,27 @@ def rebuild_nav(l, into, start=''):
             into.append({t: p})
 
 
-def into_path(dm, dh, th):
+def into_path(item, after, last_title):
     """
     (Pdb) pp dm, dh, th (m=miss, h=have)
     ('features/bar/baz.md', 'features/termcasts/index.md', '3.Features.3.TermCasts')
     Then we return '3.Features.3.'
     """
-    dm = dirname(dm)
-    dh = dirname(dh)
-    th = th.rsplit('.', 1)[0]
-    if dm == dh:
-        return th
-    r = th.rsplit('.', 1)
-    if r[-1].isnumeric():
-        th = r[0]
-    return into_path(dm, dh, th)
+    while not item.startswith(after):
+        after = after.rsplit('/', 1)[0]
+    parts = after.split('/')
+    return '.'.join(last_title.split('.', 2 * len(parts) + 1)[:-1])
+    # breakpoint()  # FIXME BREAKPOINT
+    # dm, dh, th = item, after, last_title
+    # dm = dirname(dm)
+    # dh = dirname(dh)
+    # th = th.rsplit('.', 1)[0]
+    # if dm == dh:
+    #     return th
+    # r = th.rsplit('.', 1)
+    # if r[-1].isnumeric():
+    #     th = r[0]
+    # return into_path(dm, dh, th)
 
 
 class MDFindPagesPlugin(MDPlugin):
