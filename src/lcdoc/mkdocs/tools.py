@@ -252,6 +252,52 @@ def wrap_hook(plugin, hook, hookname):
     setattr(plugin, hookname, wrapped_hook)
 
 
+def page_dir(kw):
+    return dirname(kw['LP'].page.file.abs_src_path) + '/'
+
+
+last_img_hash = {}
+
+
+def make_img(create_func, fn=None, kw=None):
+    """Takes care about
+
+    - fn in docs dir or not, then creates in site_dir
+    - creation of containing dir
+
+    Returns the image link
+    """
+    if not fn:
+        fn = kw.get('fn')  # default
+        if not fn.endswith('.svg'):
+            fn += '.svg'
+    f = create_func  # string or creation func
+    if isinstance(f, str):
+        create_func = lambda fn, s=f: write_file(fn, s)
+    LP = kw['LP']
+    page = LP.page
+    config = LP.config
+
+    if fn:
+        # image wanted within docs dir:
+        if fn.startswith('/'):
+            app.error('no absolute filename allowed', fn=fn, page=page)
+            raise
+        # fn parameter was given -> create in docs dir:
+        fn_abs = page_dir(kw) + fn
+    else:
+        fn = 'img/plot_lp_%s.svg' % LP.lpnr  # lp block number on page
+        fn_abs = config['site_dir'] + '/' + page.file.src_path.rsplit('.md', 1)[0]
+        fn_abs += '/' + fn
+
+    os.makedirs(dirname(fn_abs), exist_ok=True)
+    if not exists(fn_abs) or last_img_hash.get(fn_abs) != kw['id']:
+        app.info('Creating svg', fn=fn_abs)
+        create_func(fn_abs)
+    last_img_hash[fn_abs] = kw['id']
+    return '![](%s)' % fn
+
+
 def reset_if_is_first_loaded_plugin_and_hash_changed(plugin, c={}):
     """mkdocs serve, we must detect if this is a new build"""
     cl = clsn(plugin)

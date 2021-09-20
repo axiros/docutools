@@ -1,8 +1,8 @@
 skinparam shadowing false
+skinparam backgroundcolor transparent
 skinparam DefaultFontName Arial
 skinparam ArrowColor #00b2e2
 skinparam DefaultFontColor #aaa
-
 skinparam ActivityBorderColor #2D74BA
 skinparam ActivityDiamondBorderColor #2D74BA
 skinparam ActorBorderColor #2D74BA

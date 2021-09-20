@@ -65,7 +65,8 @@ from importlib import import_module
 
 import pycond
 
-from lcdoc.tools import app, write_file
+from lcdoc.tools import app, write_file, dirname
+from lcdoc.mkdocs.tools import page_dir
 
 # important (colorize)
 I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
@@ -174,6 +175,8 @@ def get_or_import_plug(mode):
         return p
     try:
         p = import_module(mode)
+        if not hasattr(p, 'run'):
+            raise ModuleNotFoundError('')
     except ModuleNotFoundError:
         try:
             p = import_module(our_plugs + '.' + mode)
@@ -693,7 +696,8 @@ def eval_lp(cmd, kw):
     # deprecated alias, not any more docued, did not work for py style args:
     assert_ = kw.get('asserts') or kw.get('assert')
 
-    mode = kw.get('mode', 'bash')
+    full_mode = kw.get('mode', 'bash')
+    mode = full_mode.split(':', 1)[0]
     old_name, app.name = app.name, app.name + ':' + mode  # for logging with mode
     plug = get_or_import_plug(mode)
     g = lambda k, d=None: getattr(plug, k, d)

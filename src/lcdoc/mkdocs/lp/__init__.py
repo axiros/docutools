@@ -29,6 +29,7 @@ from lcdoc.mkdocs.tools import (
     app,
     config_options,
     link_assets,
+    page_dir,
     now,
     split_off_fenced_blocks,
 )
@@ -199,14 +200,27 @@ class LP:
         # if "rm foobar" in source: breakpoint()  # FIXME BREAKPOINT
         a, kw = LP.extract_header_args(src_header)
         # support "bash lp:mermaid" ident to "bash lp mode=mermaid":
+        # also: lp:kroki:plantuml -> mode = 'kroki:plantuml' then, lp will import kroki.
         if not 'mode' in kw:
             l = src_header.split(' ', 2)
-            l = (l[1] + ':').split(':', 2)
+            l = (l[1] + ':').split(':', 1)
             if l[1]:
-                kw['mode'] = l[1]
+                kw['mode'] = l[1][:-1]
+
+        # special param pointing to a file. when mtime changes, then hash must change:
+        # this way we can cope with changes of e.g. drawio files, or ext plantuml diag src
+        # (cope = eval only on change)
+        src = kw.get('src', '')
+        if src:
+            if not src[0] == '/':
+                src = dirname(LP.fn_lp) + '/' + src
+            kw['abs_src'] = src  # convenience for plugins
+            if exists(src):
+                src += ':' + str(os.stat(src).st_mtime)
         # these header args may change eval result, need to go into the hash:
         hashed = ','.join(['%s:%s' % (k, kw.get(k)) for k in hashed_headers if kw.get(k)])
         hashed += '\n'.join(code)
+        hashed += src
         sid = md5(hashed)
         reg = LP.spec_by_id
         # if lang == 'page': breakpoint()  # FIXME BREAKPOINT
@@ -585,6 +599,9 @@ def mark_as_previous_result(s):
 def patch_mkdocs_to_ignore_res_file_changes():
     """sad. we must prevent mkdocs serve to rebuild each time we write a result file
     And we want those result files close to the docs, they should be in that tree.
+
+    Also we save tons of rebuilds when preventing to monitor svgs - since often
+    autocreated, e.g. from kroki or drawio.
     """
     import mkdocs
 
@@ -598,16 +615,19 @@ def patch_mkdocs_to_ignore_res_file_changes():
     S = 'event.is_directory'
     if not S in s:
         return app.warning('Cannot patch mkdocs - version mismatch', missing=fn)
-    k = "'%s'" % lp_res_ext
-    if k in s:
-        return app.info('mkdocs is already patched to ignore %s' % k, fn=fn)
+    if lp_res_ext in s:
+        return app.info('mkdocs is already patched to ignore %s' % lp_res_ext, fn=fn)
     os.system('cp "%s" "%s.orig"' % (fn, fn))
-    new = S + ' or event.src_path.endswith(%s)' % k
+    new = S
+    for ext in [lp_res_ext, '.svg']:
+        new += ' or event.src_path.endswith("%s") ' % ext
     s = s.replace(S, new)
     write_file(fn, s)
     diff = os.popen('diff "%s.orig" "%s"' % (fn, fn)).read().splitlines()
     app.info('Diff', json=diff)
-    msg = 'Have patched mkdocs to not watch %s  files. Please restart.' % k
+    msg = (
+        'Have patched mkdocs to not watch %s and .svg files. Please restart.' % lp_res_ext
+    )
     app.die(msg, fn=fn)
     # :docs:patching_mkdocs
 
@@ -670,26 +690,23 @@ class LPPlugin(MDPlugin):
         [files.remove(f) for f in lpres_files]
 
     def on_page_markdown(self, markdown, page, config, files):
+        LP.fn_lp = page.file.abs_src_path
         eval = env_args.get('eval')
         if eval and eval not in eval_modes:
             # we need to be able to exactly match on docs/index.md
             # -> take all:
-            p = page.file.abs_src_path
             # eval is page[:block match] if not in evals
-            if not eval.split(':', 1)[0] in p:
-                return app.debug('LP: Skipping ($LP_EVAL) %s' % p)
+            if not eval.split(':', 1)[0] in LP.fn_lp:
+                return app.debug('LP: Skipping ($LP_EVAL) %s' % LP.fn_lp)
             else:
                 # when working on a page you want to have session state rebuilt. can
                 # tune with skips:
-                app.warning(
-                    'Page specific eval policy provided. Will evaluate ALL blocks of page unless explitly skipped',
-                    page=page,
-                    eval=eval,
-                )
+                msg = 'Page specific eval policy is matching this page.'
+                hint = 'Will evaluate ALL blocks of page unless explicitly skipped.'
+                app.warning(msg, page=page, eval=eval, hint=hint)
         LP.page = page
         LP.config_lp_plugin = self.config
         LP.page_initted = False
-        LP.fn_lp = page.file.abs_src_path
         mds, lp_blocks = split_off_fenced_blocks(
             markdown, fc_crit=LP.is_lp_block, fc_process=LP.parse_lp_block
         )
@@ -706,7 +723,7 @@ class LPPlugin(MDPlugin):
             if blocks:
                 res = blocks.pop(0)
                 MD += '\n' + res + '\n'
-
+        # special js/css required for lp plugs?:
         pe = getattr(page, 'lp_page_assets', None)
         if pe:
             pe = pe.get('md', {})
@@ -728,7 +745,8 @@ class LPPlugin(MDPlugin):
 
 
 def incl_page_assets(page, html):
-    lc = '\n\n<script>try {start_lc();} catch {}; console.log("after");</script>'
+    # This calls lc.js's digging through all xterm tags. lc loaded later the first time:
+    lc = '\n\n<script>typeof start_lc === "undefined" ? 0 : start_lc() </script>\n'
     PA, o = getattr(page, 'lp_page_assets', None), html
     if not PA:
         return o + lc

@@ -2,12 +2,13 @@ import os
 from functools import partial
 
 from lcdoc.mkdocs.lp.plugs import python
-from lcdoc.tools import make_img
+from lcdoc.mkdocs.tools import make_img
 
 config, page, Session = (python.config, python.page, python.Session)
 
 
 def register(fmts):
+    """registering us as renderer for show(<pyplot module>) within lp python"""
     fmts['matplotlib.pyplot'] = matplotlib_pyplot
 
 

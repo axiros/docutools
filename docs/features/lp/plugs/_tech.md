@@ -25,8 +25,9 @@ it.
 Therefore, by supplying a `$PYTHONPATH`, pointing to a plugin directory of your own, you can have your
 own plugins supported (or overwrite the default ones).
 
-!!! note "README.md required"
-    Those are linked over to the docset.
+!!! note "docs folder required"
+    The docs are linked over to the docset at `lp/plugs` and inserted into nav via the
+    [`find-pages`](../../../find-pages/) plugin.
 
 
 ## Interface
@@ -91,5 +92,13 @@ def run(cmd, kw):
     }
 ```
 
+!!! note "mkdocs material's nav.instant"
 
+    Note that instant loading will, at page navigation events, (**only**) (re-)evaluate all script
+    tags [**that are part of the container
+    component**](https://github.com/squidfunk/mkdocs-material/issues/2338).
+
+    Means: Adding assets *after* the content, e.g. via assets won't work. This is why LP assets mechnics add
+    the scripts and css *within* the container component. 
+    
 

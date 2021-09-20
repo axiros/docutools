@@ -63,8 +63,6 @@ Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-lp,t=m
 - [ripgrep][rg]
 - [fd][fd]
 
-
-
 ## Security
 
 Documentation is source code.
@@ -76,9 +74,16 @@ Documentation is source code.
 
 ## Alternatives
 
+For rather code centric documentation have a look at these
+
 - [Pheasant](https://pheasant.daizutabi.net/)
     - Auto generation of outputs for a fenced code block or inline code in Markdown source using Jupyter client. The code language is not restricted to Python.
     - Auto numbering of headers, figures, tables, and etc. Numbered objects can be linked from other Markdown sources.
+- https://pypi.org/project/mkdocs-jupyter/
+- There are other [notebook converters][1] as well
+
+[1]: https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins#navigation--page-building
+
 
 [tmux]: https://en.wikipedia.org/wiki/Tmux
 [rg]: https://github.com/BurntSushi/ripgrep

@@ -105,14 +105,4 @@ You need to have `pip/conda install matplotlib` and optionally also `pip/conda i
     `show(plt, clf=False)`
 
 
-## Alternatives
-
-For rather code centric documentation have a look at these
-
-- https://pypi.org/project/mkdocs-jupyter/
-- there are other [notebook converters][1] as well
-
-[1]: https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins#navigation--page-building
-
-
 

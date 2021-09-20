@@ -14,10 +14,15 @@ Whenever a given `.drawio` file changes, we trigger an export to svg, so that yo
 ```
 
 
+## Requirements
+
+- A `drawio` executable must be available in your `$PATH`.
+- Alternatively you may specify `$drawio` as in: `$ drawio=/opt/drawio/bin/drawio mkdocs serve`
 
 ## Notes
 
-- As you can see the update is not particularly fast
+- As you can see in the screencast the update is not particularly fast since the exporter has the
+  start the app at every svg build.
 
 - Linux Version:
 

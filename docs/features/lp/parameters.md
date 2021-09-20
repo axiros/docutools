@@ -310,7 +310,20 @@ Syntax details [here](./syntax.md#parametrization).
         The last line shows `silent` on statement level.
 
 
+### src
+`src=<filename, relative to page or absolute>`
+???+ hint "References a source file"
+    
+    This header parameter standardizes the use of external sources, e.g. for diagrams (plantuml,
+    drawio, mermaid, ...). Their `mtime` (last modification time) goes into the [hash](./eval.md) of
+    the whole LP block, thus triggering re-evaluation (e.g. a diagram to svg conversion) when the
+    source changed. Note that the lp block stays constant, i.e. we would otherwise *not* re-eval the block
+    when eval policy is the usual `on_change`.
 
+    For plugin convenience this automatically also adds an `abs_src` parameter into the header
+    arguments, with the page's absolute directory resolved.
+    
+ 
 
 ### timeout
 `timeout=<seconds>` (session only cmd)
