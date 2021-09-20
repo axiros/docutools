@@ -125,7 +125,7 @@ def link_assets(plugin, fn_plugin, config):
     t = to + '/' + n
     plugin.d_assets = t
     if exists(t):
-        return app.debug('Exists already', linkdest=t)
+        return app.debug('Assets link exists already', linkdest=t)
     app.warning('Linking', frm=d, to=t)
     os.makedirs(dirname(t), exist_ok=True)
     cmd = 'ln -s "%s" "%s"' % (d, t)

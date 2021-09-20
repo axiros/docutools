@@ -1087,18 +1087,19 @@ function setup_termcasts(window, document) {
     linkify_callflow: linkify_callflow,
   };
 }
-function when_available(name, callback) {
+function when_available(keys, callback) {
   var interval = 10; // ms
   window.setTimeout(function () {
-    if (window[name]) {
-      callback(window[name]);
-    } else {
-      whenAvailable(name, callback);
+    let h = True;
+    for (let i of keys) {
+      if (!window[i]) h = False;
     }
+    h ? callback() : whenAvailable(keys, callback);
   }, interval);
 }
-window.addEventListener("load", function () {
-  when_available("Rx", function () {
+
+function start_lc() {
+  when_available(["Rx", "Terminal"], function () {
     setup_termcasts(window, document);
     var TC = window.TermCast;
     console.log("href", location.href);
@@ -1107,4 +1108,5 @@ window.addEventListener("load", function () {
     TC.stream.from(TC.all_casts()).subscribe(TC.setup_termcast_tag);
     TC.stream.from(TC.all_callflows).subscribe(TC.linkify_callflow);
   });
-});
+}
+start_lc();

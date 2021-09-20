@@ -728,12 +728,15 @@ class LPPlugin(MDPlugin):
 
 
 def incl_page_assets(page, html):
+    lc = '\n\n<script>try {start_lc();} catch {}; console.log("after");</script>'
     PA, o = getattr(page, 'lp_page_assets', None), html
     if not PA:
-        return o
+        return o + lc
 
     for w in ['header', 'footer']:
         pe = PA.get(w, {})
+        if w == 'footer':
+            pe['z_lc'] = lc
         if not pe:
             continue
 
