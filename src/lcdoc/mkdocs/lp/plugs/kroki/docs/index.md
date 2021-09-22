@@ -44,6 +44,7 @@ main_ts ==> (main.view)
 ```
 
 
-```bash lp:kroki:excalidraw fn=img/k2 addsrc src=excali.json
-```
+`lp:kroki:excalidraw fn=img/k2 addsrc src=excali.json`
+
+`lp:lightbox`
 

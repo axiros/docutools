@@ -10,8 +10,7 @@ Whenever a given `.drawio` file changes, we trigger an export to svg, so that yo
 
 ## Example
 
-```bash lp:drawio addsrc fn=img/example.svg eval=always src=example.drawio
-```
+`lp:drawio addsrc fn=img/example.svg eval=always src=example.drawio`
 
 
 ## Requirements
@@ -33,8 +32,7 @@ Whenever a given `.drawio` file changes, we trigger an export to svg, so that yo
 
 
 
-```bash lp:lightbox
-```
+`lp:lightbox`
 
 
 

@@ -65,8 +65,8 @@ from importlib import import_module
 
 import pycond
 
-from lcdoc.tools import app, write_file, dirname
 from lcdoc.mkdocs.tools import page_dir
+from lcdoc.tools import app, dirname, write_file
 
 # important (colorize)
 I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
@@ -804,7 +804,12 @@ def run(cmd, fn_doc=None, use_prev_res=None, **kw):
     # if 'param' in fn_doc: breakpoint()  # FIXME BREAKPOINT
     if i:
         b = '\n' + kw.get('sourceblock', 'n.a.')
+        bi = b.split('```inline ', 1)[-1]
+        if bi.startswith('lp:'):
+            bi = bi.split('\n', 1)[0]
+            i = 3
         m = {
+            'blocksourcei': bi,
             'blocksource1': b.replace('\n', '\n '),
             'blocksource4': b.replace('\n', '\n    '),
             'res': res,
@@ -842,6 +847,14 @@ Result:
 
     %(res4)s
 '''
+    fmt_3 = '''
+
+LP Source (shortform):
+
+```
+ `%(blocksourcei)s`
+```
+ '''
 
 
 # from lcdoc import session  # noqa

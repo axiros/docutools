@@ -39,6 +39,7 @@ $('.md-content %(match)s').featherlightGallery({
     galleryFadeIn: 300,
     targetAttr: '%(target)s'
 });
+$('.md-content %(match)s').css('cursor', 'zoom-in');
 '''
 
 dflt = lambda: {'match': 'img', 'target': 'src'}
