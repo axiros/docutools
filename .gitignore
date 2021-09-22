@@ -2,7 +2,7 @@
 docs/features/lp/plugs*
 __pycache__/
 *.py[cod]
-*.res.py
+*.lp.py
 *.ansi
 dist/
 **/img/badge_*

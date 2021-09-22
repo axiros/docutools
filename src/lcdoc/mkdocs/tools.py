@@ -142,6 +142,10 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
         l = lines.pop(0)
         lnr += 1
         ls = l.lstrip()
+        if ls[:4] == '`lp:':
+            l = l.replace('`lp:', '```inline lp:')[:-1]
+            ls = l.strip()
+            lines.insert(0, '```')
         if not ls.startswith(fcb):
             mds[-1].append(l)
             continue

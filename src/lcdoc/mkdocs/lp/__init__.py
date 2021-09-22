@@ -29,31 +29,43 @@ from lcdoc.mkdocs.tools import (
     app,
     config_options,
     link_assets,
-    page_dir,
     now,
+    page_dir,
     split_off_fenced_blocks,
 )
 from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
 
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
+# :docs:known_page_assets
+known_assets = {'jquery': {'header': '//code.jquery.com/jquery-latest.js'}}
+# :docs:known_page_assets
+
 
 def add_assets_to_page(page, d):
     """
     d like {'md': {'mermaid': ..., 'header': {'chartist': ...}, 'footer': ...}
     """
+    # support:
+    # page_assets = { 'mode': ['jquery'], 'footer': {...
+    if isinstance(d, list):
+        return [add_assets_to_page(page, i) for i in d]
+    if isinstance(d, str):
+        v = known_assets.get(d)
+        if not v:
+            app.die('Unknown asset', asset=d, json={'known': known_assets})
+        return add_assets_to_page(page, {d: v})
+
     m = getattr(page, 'lp_page_assets', None)
     if not m:
         m = page.lp_page_assets = {'header': {}, 'footer': {}, 'md': {}}
     # lp_page_assets_md lp_page_assets_header lp_page_assets_footer
     for mode, v in d.items():
         for k1, v1 in v.items():
-            try:
+            if k1 == 'mode':
+                add_assets_to_page(page, v1)
+            else:
                 m[k1][mode] = v1
-            except Exception as ex:
-                print('breakpoint set')
-                breakpoint()
-                keep_ctx = True
 
 
 # :docs:hashed_headers
@@ -76,7 +88,7 @@ hashed_headers = [
 ]
 # :docs:hashed_headers
 
-lp_res_ext = '.res.py'  # when opened the ide will format
+lp_res_ext = '.lp.py'  # when opened the ide will format
 
 env_args = {}
 
@@ -744,43 +756,76 @@ class LPPlugin(MDPlugin):
         [i() for i in f]
 
 
+def add_asset(what, to, at, typ=None):
+    """typ = script or style
+    what any asset
+    at: header or footer
+    """
+    if isinstance(what, str):
+        what = [what]
+    for s in what:
+        s = s.strip()
+        ext = s.rsplit('.', 1)[-1]
+        if ext in {'css', 'js'}:
+            s = ('https:' + s) if s.startswith('//') else s
+            r = (T_css_link if ext == 'css' else T_js_url) % s
+            typ = 'script' if ext == 'js' else 'style'
+        elif s[:6] in {'<scrip', '<style'}:
+            r = s
+            typ = s[1:].split(' ', 1)[0].split('>', 1)[0]
+        else:
+            assert typ in {'script', 'style'}, 'typ must be script or style'
+            r = '<%s>\n%s\n</%s>' % (typ, s, typ)
+        app.info('Page asset', adding=at, typ=typ, at=at, asset=s.split('\n', 1)[0])
+        r = '\n\n' + r + '\n\n'
+        to = (r + to) if at == 'header' else (to + r)
+    return to
+
+
 def incl_page_assets(page, html):
     # This calls lc.js's digging through all xterm tags. lc loaded later the first time:
     lc = '\n\n<script>typeof start_lc === "undefined" ? 0 : start_lc() </script>\n'
+    # lc += '''\n\n
+    # <style>
+    # .md-content img {
+    # -webkit-transition: .25s;
+    #    -moz-transition: .25s;
+    #     -ms-transition: .25s;
+    #      -o-transition: .25s;
+    #         transition: .25s;
+    # }
+    # .xmd-content:hover img {
+    # height: 67px;
+    # width: 100px;
+    # }
+    # .md-content img:hover {
+    # height: 90%;
+    # width: 90%;
+    # position: fixed;
+    # top: 20px;
+    # left: 20px;
+
+    # }
+    # </style>
+    # '''
     PA, o = getattr(page, 'lp_page_assets', None), html
     if not PA:
         return o + lc
 
-    for w in ['header', 'footer']:
-        pe = PA.get(w, {})
-        if w == 'footer':
+    for at in ['header', 'footer']:
+        pe = PA.get(at, {})
+        if at == 'footer':
             pe['z_lc'] = lc
         if not pe:
             continue
 
-        for k in sorted(pe):
-            v = pe[k]
-            app.info('Page asset', adding=w, for_=k)
+        for mode in sorted(pe):
+            v = pe[mode]
             if isinstance(v, dict):
-                r = ''
-                for k1, v1 in v.items():
-                    if k1 == 'stylesheet':
-                        for v2 in to_list(v1):
-                            if v2.endswith('.css'):
-                                r += T_css_link % v2
-                            else:
-                                r += '\n<style>\n%s\n</style>\n' % v2
-                    elif k1 == 'script':
-                        for v2 in to_list(v1):
-                            if v2.endswith('.js'):
-                                r += T_js_url % v2
-                            else:
-                                r += '\n<script>\n%s\n</script>\n' % v2
-                    else:
-                        app.warning('Not supported', mode=k1, val=v1)
-                v = r
-            v = '\n\n' + v + '\n\n'
-            o = (v + o) if w == 'header' else (o + v)
+                for typ, v1 in v.items():
+                    o = add_asset(what=v1, to=o, at=at, typ=typ)
+            else:
+                o = add_asset(what=v, to=o, at=at)
     return o
 
 

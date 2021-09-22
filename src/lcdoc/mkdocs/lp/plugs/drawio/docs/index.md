@@ -33,7 +33,8 @@ Whenever a given `.drawio` file changes, we trigger an export to svg, so that yo
 
 
 
-
+```bash lp:lightbox
+```
 
 
 

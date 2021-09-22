@@ -38,5 +38,8 @@ You may use declarative python (use keyword `python` as param before "lp"):
 
     ```
 
+```b lp:lightbox
+```
+
 
 

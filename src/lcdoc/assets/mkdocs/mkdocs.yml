@@ -55,6 +55,7 @@ theme:
     - navigation.top
     - navigation.tabs
     - navigation.sections
+    - toc.integrate
       #- navigation.expand
   name:
     material
@@ -110,18 +111,16 @@ extra:
       link: https://github.com/AXGKl
 
 plugins:
-  # enable for link prooving:
-  #- htmlproofer
-  # - markmap
+  # in this order. e.g. md-replace before lp, so that lp can process its results
   - search
   - lcd-blacklist
   - lcd-changelog
   - lcd-credits
+  - lcd-md-replace
   - lcd-lp
   - lcd-find-pages:
       find-pages:
         - features/lp/plugs/:follow
-  - lcd-md-replace
   - lcd-page-tree
   - lcd-stats
   - macros:

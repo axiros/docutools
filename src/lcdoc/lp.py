@@ -739,7 +739,9 @@ def eval_lp(cmd, kw):
 
 
 def add_assets(res, global_assets, kw, mode):
-    """adding the page_assets structure, with page assets"""
+    """adding the page_assets structure, with page assets
+    Assets in result( res) are executed per block, those in global_assets per page
+    """
     # shortcut, when the run adds one of these we assume it's per block, with id:
     for k in ['header', 'footer', 'md']:
         pa = res.get(k)

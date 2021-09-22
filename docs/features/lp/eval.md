@@ -13,7 +13,7 @@ These are the recommended base settings to control evaluation:
 They are also set by the :srcref:make:on_page_change file.
 
 Within the page header you might want to set `eval` page wide to `on_page_change`, in order to
-prevent CI/CD to re-evaluate the page and commit the `.res.py` file for those pages.
+prevent CI/CD to re-evaluate the page and commit the `.lp.py` file for those pages.
 
 
 Here the Details:
@@ -37,7 +37,7 @@ when changed, result in a different outcome of the evaluation:
 
 ## Cache Files
 
-After a page was evaluated, a file is written, next to the `.md` source file, ending with `.res.py`.
+After a page was evaluated, a file is written, next to the `.md` source file, ending with `.lp.py`.
 The file contains a hash map, with keys the hashes of each block and value the raw (unformatted) result of the evaluation.
 
 The `eval` parameter determines now, if, at page build time, a new evaluation is performed or the
@@ -46,7 +46,7 @@ result from the cache is taken, if available.
 ### Patching the mkdocs file watcher
 
 At first start of mkdocs <build|serve> we have to patch the filewatcher of mkdocs, in order to
-ignore `.res.py` files. That prevents putting them into the site directory but also helps avoid
+ignore `.lp.py` files. That prevents putting them into the site directory but also helps avoid
 evaluation loops.
 
 ```python lp mode=show_src delim=patching_mkdocs dir=src/lcdoc hide=implementation eval=always
@@ -68,7 +68,7 @@ credentials, plus it takes 30 minutes until completed.
 
 Solution: Set `eval` to "on_change" or "on_page_change" 
 
-- You commit the `.res.py` cache files of these pages and
+- You commit the `.lp.py` cache files of these pages and
 - set `eval` to "on_change" or "on_page_change".
 - The result (cache) files, for pages which should be evaluated on CI/CD (e.g. for additional testing purposes) you do NOT
   commit. 

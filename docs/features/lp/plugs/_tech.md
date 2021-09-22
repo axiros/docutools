@@ -71,6 +71,18 @@ They can declare or imperatively add such add ons for either
 
 There are assets which are required once and others which you require per block.
 
+!!! note "mkdocs material's nav.instant"
+
+    Note that instant loading will, at page navigation events, (**only**) (re-)evaluate all script
+    tags [**that are part of the container
+    component**](https://github.com/squidfunk/mkdocs-material/issues/2338).
+
+    Means: Manually adding assets *after* the content, e.g. via assets won't work. This is why LP assets mechnics add
+    the scripts and css *within* the container component. 
+
+    Here is how we do it:
+    
+
 Normal way to achieve this (example, declare on module level):
 
 ```python lp mode=show_src delim=page_assets_example dir=src/lcdoc/mkdocs/lp/plugs eval=always
@@ -92,13 +104,36 @@ def run(cmd, kw):
     }
 ```
 
-!!! note "mkdocs material's nav.instant"
+Alternatively you may return `True` for `formatted`, then we treat `res` like it:
 
-    Note that instant loading will, at page navigation events, (**only**) (re-)evaluate all script
-    tags [**that are part of the container
-    component**](https://github.com/squidfunk/mkdocs-material/issues/2338).
+```python
+def run(cmd, kw):
+    ...
+    return {
+        'formatted': True,
+        'res': <what will be within the block, indented>,
+        'footer': <block specific js>}
+    }
+```
 
-    Means: Adding assets *after* the content, e.g. via assets won't work. This is why LP assets mechnics add
-    the scripts and css *within* the container component. 
-    
+#### Multi Purpose Assets
+
+Sometimes more than one plugin require sth like jquery. You can declare those by their own
+namespace, using the `mode` key as in:
+
+```python
+page_assets = {
+    'mode': 'jquery', # or ['jquery', ...]
+    'footer': {
+        'script': '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js',
+        'css': '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.css',
+```
+
+where the string 'jquery' is a known asset:
+
+```python lp mode=show_src delim=known_page_assets dir=src/lcdoc/mkdocs/lp eval=always
+```
+
+If your multipurpose asset is now known, than declare the full dict under the `mode` key.
+
 

@@ -27,7 +27,6 @@ We detect lp blocks by the "`lp`" keyword as second parameter, after "language".
         ```
 
 
-
 ## Parametrization
 
 Evaluation is parametrized by keys and values, which may be given via the environment, per page, per
@@ -151,7 +150,25 @@ env | grep TMUX
 You can reference any env var as a dollar var within your header args.
 
 
+## Short Form for LP Plugins Without Body
 
+Some plugins do not need a body to evaluate.
+Then you can also express lp blocks via the short form:
+
+```
+ `lp:<mode(plugin name)> [header params like normal]`
+```
+
+Example:
+
+```
+ `lp:lightbox match=img`
+```
+
+!!! caution "Must be within separate lines"
+
+    The short form can *not* work as inline statement (i.e. between other words in a line). You
+    (still) need to have exclusively one statement per line.
 
 ## Evaluation
 
