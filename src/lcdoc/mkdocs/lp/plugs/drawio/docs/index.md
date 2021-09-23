@@ -1,4 +1,4 @@
-# drawio
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/drawio/__init__.py,t=drawio
 
 Whenever a given `.drawio` file changes, we trigger an export to svg, so that your documentation updates.
 

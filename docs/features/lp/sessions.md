@@ -1,56 +1,63 @@
-# Session Mechanics
+# Sessions
 
-Sessions are a required, when you document (or func test) longer command flows, with shared internal or
-external (e.g. filesystem) state.
+Some plugins, currently [bash][bash] and [python][python] support sessions, via which you can
+transfer state between LP blocks. 
 
-- We do *not* keep internal state within the docu building process but rely on [tmux](https://en.wikipedia.org/wiki/Tmux) to keep it.
-- This makes state accessible out of band, i.e. you can attach to tmux sessions created by lp. This
-  way you can, in long lasting, complex command flows (e.g. creating clusters in the cloud) fix
-  failing commands manually until they run, add the fix to the failing last block and continue with
-  the next.
-- Sessions are **not** automatically destroyed, except you [instruct](./parameters.md#kill_session) lp to do so.
+See the specific plugins for technical details.
 
-## Mechanics
+Here we only explain the differences.
 
-- We send the statements to evaluate over to tmux as a byte stream, using it's `send-keys` feature.
-- We capture the output of tmux via it's `tmux capture-pane` feature within a loop, until
-    - the expected output is seen or
-    - the timeout is reached 
+## The Multipurpose [Shell Session](../bash/sessions.md)
 
+- Spawns a tmux process, sends commands in, read results out.
+- Can be used not only for code but e.g. also to control REPLs:
 
-## Tmux Base Index
+### Example Node Session
 
-Reminder tmux:
+Typically this would be [`silent`](../parameters.md#silent)
 
-[![./img/tmux-diag.png](./img/tmux-diag.png)](./img/tmux-diag.png)
-
-In order the mechanics to work we need to know the tmux window and pane base indexes of the window we are
-communicating with, i.e. the number of the first window created within a session.
-
-Problem: Default is 0. But users using tmux configure it normally to 1 (easier window switching via
-shortcuts).
-
-Since we do not want to fully control the life cycle of tmux sessions, i.e. allow the user to
-interact with it before, during and after our mkdocs sessions, it would be hard and prbly. not
-robust to always try find the base index currently in use - there are many things which can go wrong
-here.
-
-So we decided to either
-
-- work out of the box, when base index is already at 1 (configured by the user) OR
-- configure the base index automatically, when there is NOT yet a `~/.tmux.conf` on the system
-- fail when base index is configured to be 0
-
-!!! warning
-    The second option involves a creation of `~/.tmux.conf` (which you can naturally modify to your
-    liking, except setting the base index to a different value than 1).
-
-!!! tip
-    If you absolutely need to have 0 for you normal tmux work: Provide for mkdocs a tmux script, pointing to another config file in the `make` file
-    or the environment ($PATH).
-
-
-```python lp mode=show_src delim=configure_tmux_base_index_1 dir=src/lcdoc
+```javascript lp new_session=nodejs_test addsrc="Starting nodejs" expect=> fmt=xt_flat
+node
 ```
+
+Now you have a node session and can do things - but first keep params at one place:
+
+```page lp session=nodejs_test addsrc prompt=> expect=> fmt=xt_flat
+```
+
+First interaction:
+
+```javascript lp
+answer = 42
+```
+
+
+Second  interaction:
+
+```javascript lp
+console.log('The answer to everything is:', answer)
+```
+
+!!! note
+
+    - As you can see the coloring is from nodejs, not from the javascript html pretty print. We have
+      javascript as language only for syntax highlighting within the editor.
+    - The LP sources are shown only due to the [`addsrc`](../parameters.md#addsrc) parameter in our
+      block headers.
+
+
+
+## The Python Session
+
+While tmux sessions are run within a subprocess, python session state is resident within the mkdocs
+build process itself - no need to send and read strings via the tmux api here (mkdocs *is* a python
+process).
+
+
+
+
+
+[bash]: ../bash/sessions.md
+[python]: ../python/
 
 

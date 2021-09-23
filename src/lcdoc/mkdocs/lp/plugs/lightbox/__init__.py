@@ -22,7 +22,7 @@ fls = fls % {'sl': sl}
 
 page_assets = {
     'mode': 'jquery',
-    'footer': [
+    'header': [
         fl + '.min.js',
         fl + '.min.css',
         fl + '.gallery.min.js',

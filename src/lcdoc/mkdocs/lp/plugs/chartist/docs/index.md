@@ -1,4 +1,4 @@
-# Chartist
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/chartist/__init__.py,t=chartist
 
 Creates [chartist.js](https://gionkunz.github.io/chartist-js/) graphs.
 

@@ -14,6 +14,13 @@ Syntax details [here](./syntax.md#parametrization).
 
 ```
 
+!!! caution "Parameter Support"
+
+    Note that most but not all parameters do make sense for all plugins, e.g. `prompt`.
+
+    - The ones listed are all supported for [`bash`](../bash/) shell mode.
+    - The session specific params make sense only for plugins which do support sessions (`bash`,
+      `python`)
 
 ### addsrc / addsrc=&lt;fmt|title&gt;
 (`boolean` or source format or title)

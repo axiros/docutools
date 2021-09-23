@@ -829,10 +829,15 @@ def run(cmd, fn_doc=None, use_prev_res=None, **kw):
         if isinstance(i, str) and not i.isdigit():
             t = i
             i = 4
+        bb = ''
+        if i == 5:
+            bb = '\n'.join(b.strip().split('\n')[1:-1])
         m = {
+            'lang': kw['lang'],
             'title': t,
             'shortform': bi,
             'blocksource': b.replace('\n', '\n '),
+            'blocksource_body': bb.replace('\n', '\n '),
             'blocksource4': b.replace('\n', '\n     '),
             'res': res,
             'res4': ('\n' + res).replace('\n', '\n    '),
@@ -849,7 +854,7 @@ class AddSrcFormats:
 
 LP Source:
 
-```bash
+```%(lang)s
 %(blocksource)s
 ```
 
@@ -862,7 +867,7 @@ Result:
 
 === "LP Source"
 
-    ```bash
+    ```%(lang)s
      %(blocksource4)s
     ```
 
@@ -891,10 +896,17 @@ Result:
 
 === "Source"
 
-    ```bash
+    ```%(lang)s
      %(blocksource4)s
     ```
 
+    '''
+
+    fmt_5 = '''
+
+```%(lang)s
+%(blocksource_body)s
+```
     '''
 
 

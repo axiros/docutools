@@ -1,4 +1,4 @@
-# make_file
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/make_file/__init__.py,t=make_file
 
 Creates a file and displays it as if we used cat on it.
 

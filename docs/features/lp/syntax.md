@@ -32,7 +32,8 @@ We detect lp blocks by the "`lp`" keyword as second parameter, after "language".
 Evaluation is parametrized by keys and values, which may be given via the environment, per page, per
 block and per statement, with priority in this order.
 
-[Here](./parameters.md) is the list of supported parameters.
+[Here](./parameters.md) is the list of supported parameters, for the default mode:
+[`bash`](../bash/).
 
 ### Environment
 
@@ -59,8 +60,10 @@ i.e. by specifying the conventional keyword "`page`" where normally  "`<language
 param after the opening fences.
 
 !!! caution "Position matters"
-    The parameter is only valid for all lp blocks **below** the declaration. You may set to a different
-    value,  mid-page.
+    The parameter is only valid for all lp blocks **below** the declaration.
+
+    - You may set to a different value,  mid-page. 
+    - You may use more than one `page` block.
     
 
 ### Block Level

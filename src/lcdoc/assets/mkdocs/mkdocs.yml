@@ -25,17 +25,22 @@ nav:
               - Overview: features/lp/index.md
               - Syntax: features/lp/syntax.md
               - Parameters: features/lp/parameters.md
-
-              - Evaluation and Caching: features/lp/eval.md
               - Sessions: features/lp/sessions.md
-              - Terminal Colors: features/lp/xterm.md
+              - Evaluation and Caching: features/lp/eval.md
               - Async Fetching: features/lp/async.md
-              - Tips: features/lp/tips.md
+          - LP Shell Mode:
+              - Overview: features/lp/bash/index.md
+              - Tmux Sessions: features/lp/bash/sessions.md
+              - Terminal Colors: features/lp/xterm.md
               - Examples: features/lp/examples.md
-          - LP Plugins:
+              - Tips: features/lp/tips.md
+          - LP Python Mode:
+              - Overview: features/lp/python/index.md
+              - MatPlotLib: features/lp/python/matplotlib.md
+              - Diagrams: features/lp/python/diagrams.md
+          - Other LP Plugins:
               - Overview: features/lp/plugs/_index.md
               - Mechanics: features/lp/plugs/_tech.md
-
           - Markdown Replace: features/md-replace/index.md
           - Page Tree: features/page-tree/index.md
           - Stats: features/stats/index.md

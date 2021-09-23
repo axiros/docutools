@@ -1,4 +1,4 @@
-# mermaid
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/mermaid/__init__.py,t=mermaid
 
 Support for [mermaid.js](https://mermaid-js.github.io/mermaid/#/) graphs.
 

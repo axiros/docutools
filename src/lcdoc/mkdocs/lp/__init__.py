@@ -40,6 +40,7 @@ md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 # :docs:known_page_assets
 h = 'header'
 known_assets = {
+    'd3': {h: '//unpkg.com/d3@6/dist/d3.min.js'},
     'jquery': {h: '//code.jquery.com/jquery-latest.js'},
     'raphael': {h: '//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js'},
 }
@@ -85,6 +86,9 @@ def add_assets_to_page(page, d):
         m = page.lp_page_assets = {'header': {}, 'footer': {}, 'md': {}}
     # lp_page_assets_md lp_page_assets_header lp_page_assets_footer
     for mode, v in d.items():
+        if mode in known_assets:
+            # to have them sortable first
+            mode = '__' + mode
         for k1, v1 in v.items():
             if k1 == 'mode':
                 add_assets_to_page(page, v1)
@@ -788,6 +792,8 @@ def add_asset(what, to, at, typ=None):
     """
     if isinstance(what, str):
         what = [what]
+    # the assets need to have the order as declared:
+    what = reversed(what)
     for s in what:
         s = s.strip()
         ext = s.rsplit('.', 1)[-1]
@@ -843,8 +849,11 @@ def incl_page_assets(page, html):
             pe['z_lc'] = lc
         if not pe:
             continue
-
-        for mode in sorted(pe):
+        assets = sorted(pe)
+        if at == 'header':
+            # because we insert like: html = asset + html (like .insert(0, ...)
+            assets = reversed(assets)
+        for mode in assets:
             v = pe[mode]
             if isinstance(v, dict):
                 for typ, v1 in v.items():

@@ -1,4 +1,4 @@
-# kroki
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/kroki/__init__.py,t=kroki
 
 Support for [kroki](https://kroki.com/) diagrams.
 

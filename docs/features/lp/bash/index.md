@@ -1,12 +1,12 @@
-# bash
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/bash/__init__.py,t=bash
 
-Runs the given statements within a bash shell.
+This is the default evaluation mode, i.e. run when no `mode` parameter is given in the header.
 
-This is the default evaluation mode.
+It runs the given statements within a bash shell, [`subprocess.call`](https://docs.python.org/3/library/subprocess.html) style.
 
-When you supply a session parameter, we will send the statements over into tmux and run
+Alternatively, When you supply a `[new_]session` parameter, we will [send the statements over into tmux](./sessions.md) and run
 them there.
 
 
-Available parameters: See [here](../../parameters.md).
+Available parameters: See [here](../parameters.md).
 

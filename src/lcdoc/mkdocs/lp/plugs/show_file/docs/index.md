@@ -1,4 +1,4 @@
-# show_file
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/show_file/__init__.py,t=show_file
 
 
 Cats a file.

@@ -1,4 +1,4 @@
-# markmap
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/markmap/__init__.py,t=markmap
 
 Support for [markmap.js](https://markmap.js.org/) style mindmaps.
 

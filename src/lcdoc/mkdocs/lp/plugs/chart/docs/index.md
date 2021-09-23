@@ -1,4 +1,4 @@
-# chart
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/chart/__init__.py,t=chart
 
 Enables [Chart.js](https://www.chartjs.org/)
 

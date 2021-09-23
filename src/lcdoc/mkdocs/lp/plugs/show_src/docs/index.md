@@ -1,4 +1,4 @@
-# show_src
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/show_src/__init__.py,t=show_src
 
 Copies delimitted stanzas within arbitrary files (usually source code) into your docs.
 

@@ -15,8 +15,6 @@
 <!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
 
 
-
-
 ## [Documentation](https://axgkl.github.io/docutools/) building tools
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.
@@ -30,4 +28,4 @@ Most notable feature: **[Literate Programming](./features/lp/)**.
 Note: Some features are not yet documented.
 
 
-Last modified: Thu, 23 Sep 2021 01h GMT
+Last modified: Thu, 23 Sep 2021 15h GMT

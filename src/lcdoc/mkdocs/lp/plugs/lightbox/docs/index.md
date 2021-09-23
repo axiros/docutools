@@ -1,4 +1,4 @@
-# lightbox
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/lightbox/__init__.py,t=lightbox
 
 Wraps content into [featherlight](https://github.com/noelboss/featherlight) lightboxes.
 

@@ -1,4 +1,4 @@
-# cov_report
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/cov_report/__init__.py,t=cov_report
 
 Inserts a coverage report into the docs set.
 

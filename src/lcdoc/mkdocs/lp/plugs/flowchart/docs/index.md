@@ -1,4 +1,4 @@
-# flowchart
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/flowchart/__init__.py,t=flowchart
 
 Enables [flowchart.js](http://flowchart.js.org/)
 

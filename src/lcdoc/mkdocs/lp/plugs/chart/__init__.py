@@ -28,7 +28,7 @@ def run(cmd, kw):
     if isinstance(cmd, str):
         kw['body'] = cmd
     else:
-        kw['body'] = 'const config = %s;' % str(cmd)
+        kw['body'] = 'var config = %s;' % str(cmd)
     js = S % kw
     div = C % kw
     return {'res': div, 'formatted': True, 'footer': js}

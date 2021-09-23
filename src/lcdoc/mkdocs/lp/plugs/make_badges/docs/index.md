@@ -1,4 +1,4 @@
-# make_badges
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/make_badges/__init__.py,t=make_badges
 
 Creates badges. Optionally writes the README.md
 

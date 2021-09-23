@@ -684,7 +684,7 @@ def strip_id(s):
     return '\n'.join(line)
 
 
-class mode(unittest.TestCase):
+class python_mode(unittest.TestCase):
     def test_mode_python_1(self):
         md = '''
             ```python lp:python fmt=mk_console
@@ -728,6 +728,49 @@ class mode(unittest.TestCase):
         assert len(res.split('<!-- id: ')) == 3
         assert not strip_id(res).strip()
 
+    def test_python_new_session(self):
+        """new(!) session same name 2 times:"""
+        md = '''
+            ```python lp:python new_session=pytest1
+            pytest1var='foo'
+            ```
+            '''
+        res = run_lp(md)
+        md = '''
+            ```python lp:python new_session=pytest1
+            print(pytest1var)
+            ```
+            '''
+        res = run_lp(md)
+        assert 'is not defined' in str(res)
+
+    def test_python_session_reuse(self):
+        md = '''
+            ```python lp:python new_session=pytest1
+            pytest1var='foo'
+            ```
+            '''
+        res = run_lp(md)
+        # other session:
+        md = '''
+            ```python lp:python session=pytest2
+            print(pytest1var)
+            ```
+            '''
+        res = run_lp(md)
+        assert 'is not defined' in str(res)
+
+        # firstsession:
+        md = '''
+            ```python lp:python session=pytest1
+            print(pytest1var)
+            ```
+            '''
+        res = run_lp(md)
+        assert 'foo' in str(res) and not 'is not defined' in str(res)
+
+
+class test_other_modes(unittest.TestCase):
     def test_mode_make_file(self):
         fn = '/tmp/test_lp_file_%s' % os.environ['USER']
         md = '''

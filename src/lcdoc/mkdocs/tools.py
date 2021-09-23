@@ -241,7 +241,7 @@ def wrap_hook(plugin, hook, hookname):
             stats = PageStats[n][hookname]
             stats[(page.url, page.title)] = stats = page.stats = {}
             f = page.file.src_path
-            p = ':%s' % f.rsplit('/', 1)[-1]
+            p = ':%s' % '/'.join(f.rsplit('/', 2)[-2:])
             t = ': %s' % f
         on = app.name  # orig name
         app.name = n.replace('Plugin', '') + p  # e.g. LPPlugin
@@ -273,8 +273,8 @@ def make_img(create_func, fn=None, kw=None):
     """
     if not fn:
         fn = kw.get('fn')  # default
-        if not fn.endswith('.svg'):
-            fn += '.svg'
+    if fn and not fn.endswith('.svg'):
+        fn += '.svg'
     f = create_func  # string or creation func
     if isinstance(f, str):
         create_func = lambda fn, s=f: write_file(fn, s)

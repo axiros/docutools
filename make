@@ -32,6 +32,7 @@ help() {
     echo -e "$doc"
 }
 
+
 activate_venv() {
     # must be set in environ:
     local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
@@ -86,6 +87,12 @@ function clean {
     do
         sh rm -rf "$i"
     done
+}
+function clean_lp_caches {
+    find . -print |grep '\.lp.py'
+    echo 'ok to delete all?'
+    read -n ok
+    find . -print |grep '\.lp.py' | xargs rm -f
 }
 
 # :docs:cover_function
@@ -144,10 +151,12 @@ function release {
 }
 
 ## Function Aliases:
-d()   { docs       "$@"; }
-ds()  { docs_serve "$@"; }
-rel() { release    "$@"; }
-t()   { tests      "$@"; }
+
+d()   { docs               "$@" ; }
+ds()  { docs_serve         "$@" ; }
+clc() { clean_lp_caches    "$@" ; }
+rel() { release            "$@" ; }
+t()   { tests              "$@" ; }
 sm()  { source ./make;   } # after changes
 
 make() {

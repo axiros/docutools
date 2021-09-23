@@ -1,15 +1,17 @@
 # Literate Programming :srcref:fn=src/lcdoc/mkdocs/lp/__init__.py,t=
 
-The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows to
-embed executable **code** within markdown sources and insert into the rendering result the
-**evaluated** output, before html build time. This is done through a plugin, with an `on_markdown`
-hook, i.e. before html is generated.
+The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows
 
+- to embed executable parametrizable **code** within markdown sources and
+- insert into the rendering result the **evaluated** output, before html build time, including
+  possibly javascript helper libraries and code plus styles.
+
+This is done through a plugin, with an `on_markdown` hook, i.e. before html is generated.
 
 
 ## Motivation
 
-This plugin is heavily inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
+The lp mkdocs plugin is heavily inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
 
 The main benefit of LP is to keep documentation in sync with the system you are documenting.
 
@@ -18,7 +20,7 @@ And [vice versa](./parameters.md#asserts).
 
 ## Features
 
-[Here](./parameters.md) the list of parameters for the default mode: Evaluation in a shell.
+[Here](./parameters.md) the list of parameters for the default mode: Evaluation in a (bash) shell.
 
 Highlights:
 
@@ -55,13 +57,14 @@ Highlights:
   [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation
 
 
-Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-lp,t=m
+Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-lp,t=m within your `mkdocs.yml` file,
+section plugins.
 
 ## Requirements
 
-- [tmux][tmux]
-- [ripgrep][rg]
-- [fd][fd]
+- [tmux][tmux] (sessions for the default evaluation mode: bash)
+- [ripgrep][rg] (code searching)
+- [fd][fd] (file finding)
 
 ## Security
 

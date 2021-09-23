@@ -1,1 +1,1 @@
-from . import mpl_pyplot
+from . import mpl_pyplot, diag_diagram
