@@ -38,8 +38,32 @@ from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
 md5 = lambda s: hashlib.md5(bytes(s, 'utf-8')).hexdigest()
 
 # :docs:known_page_assets
-known_assets = {'jquery': {'header': '//code.jquery.com/jquery-latest.js'}}
+h = 'header'
+known_assets = {
+    'jquery': {h: '//code.jquery.com/jquery-latest.js'},
+    'raphael': {h: '//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js'},
+}
 # :docs:known_page_assets
+
+
+# Required for urls in bodies of lp plugs like http://foo.bar[blank] in flowcharts.js:
+# Would crash mkdocs:
+from mkdocs.structure.pages import _RelativePathTreeprocessor as RPT
+
+
+def patch_mkdocs_to_not_crash_on_urls():
+    def robust_path_to_url(self, *a, **kw):
+        try:
+            return self.orig_path_to_url(*a, **kw)
+        except:
+            app.error('path_to_url parsing error', args=a, **kw)
+            return 'http://unparsable_url?url=%s' % str(a)
+
+    RPT.orig_path_to_url = RPT.path_to_url
+    RPT.path_to_url = robust_path_to_url
+
+
+patch_mkdocs_to_not_crash_on_urls()
 
 
 def add_assets_to_page(page, d):
@@ -678,6 +702,7 @@ class LPPlugin(MDPlugin):
     )
 
     def on_config(self, config):
+
         LP.cov = coverage.Coverage().current()  # None if we are not run in coverage
         cbr = self.config['coverage_backrefs']
         if cbr:

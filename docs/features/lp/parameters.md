@@ -15,13 +15,22 @@ Syntax details [here](./syntax.md#parametrization).
 ```
 
 
-### addsrc
-(`boolean`)
+### addsrc / addsrc=&lt;fmt|title&gt;
+(`boolean` or source format or title)
 
 ???+ hint "Adds the lp source into the rendered page"
 
     All examples on this page use that header, set on page level.
+    
+    See :srcref:fn=src/lcdoc/lp.py,m=AddSrcFormats,t=AddSrcFormats regarding available formats.
 
+    When you say `addsrc=<a string>` then we'll use format number 4 and set that string as the title.
+
+    Example:
+
+    ```bash lp addsrc=example fmt=mk_console
+    ls /etc | head -n 3
+    ```
 
 
 ### asserts
@@ -63,6 +72,7 @@ Syntax details [here](./syntax.md#parametrization).
 
 ### eval
 `eval=<never|always|on_change|on_page_change|<page match[:block match]>`
+
 ???+ hint "Determines which blocks to evaluate at `mkdocs build` or `mkdocs serve`"
 
      Please see the [specific chapter](./eval.md) about `eval`.

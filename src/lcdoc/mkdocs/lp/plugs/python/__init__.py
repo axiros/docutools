@@ -98,7 +98,8 @@ def run(cmd, kw):
     no session, lang = python:
     """
     loc = Session.cur['locals']
-    exec(cmd, {'print': printed, 'show': show, 'ctx': kw}, loc)
+    loc.update({'print': printed, 'show': show, 'ctx': kw})
+    exec(cmd, loc)
     o = Session.cur['out']
     res = [fmt(*i) for i in o]
     fncd = False
@@ -123,10 +124,15 @@ def run(cmd, kw):
     if fncd:
         add(fstop)
     res = '\n\n'.join(r)
+    r = {'res': res}
+    # python code may explicitly set a result as object, ready to process e.g. in a mode pipe
+    rslt = Session.cur['locals'].get('result')
+    if rslt:
+        r['result'] = rslt
+    # was fmt given by user?
     if kw['fmt'] == 'unset':
-        return {'res': res, 'formatted': True}
-    else:
-        return {'res': res}
+        r['formatted'] = True
+    return r
 
 
 def import_pyplugs(frm):

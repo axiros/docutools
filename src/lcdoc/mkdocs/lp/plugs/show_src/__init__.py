@@ -91,8 +91,6 @@ def run(cmd, kw):
         h = 'Implementation'
     f = mdhide if h else md
     return {
-        'res': res,
-        'formatted': f(
-            header=h, lang=kw['lang'], body=res, srclink=l['link'], url=l['url']
-        ),
+        'formatted': True,
+        'res': f(header=h, lang=kw['lang'], body=res, srclink=l['link'], url=l['url']),
     }

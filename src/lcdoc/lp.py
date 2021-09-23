@@ -695,7 +695,21 @@ class SessionNS:
 def eval_lp(cmd, kw):
     # deprecated alias, not any more docued, did not work for py style args:
     assert_ = kw.get('asserts') or kw.get('assert')
+    mode_chain = kw.get('mode', 'bash').split('|')
+    while mode_chain:
+        kw['mode'] = mode_chain.pop(0).strip()
+        res = eval_single_lp_mode(cmd, kw)
+        if mode_chain:
+            res = cmd = res.get('result') or res.get('res')
+            if isinstance(res, dict) and res.get('header'):
+                kw.update(res.get('header'))
+                cmd = res.get('body')
 
+    check_assert(assert_, res)
+    return res
+
+
+def eval_single_lp_mode(cmd, kw):
     full_mode = kw.get('mode', 'bash')
     mode = full_mode.split(':', 1)[0]
     old_name, app.name = app.name, app.name + ':' + mode  # for logging with mode
@@ -734,7 +748,6 @@ def eval_lp(cmd, kw):
         add_assets(res, g('page_assets'), kw, mode)
     Session.post(kw.get('session_name'), kw)
     app.name = old_name
-    check_assert(assert_, res)
     return res
 
 
@@ -799,38 +812,48 @@ def run(cmd, fn_doc=None, use_prev_res=None, **kw):
         res = rpl(res, kw)
     else:
         res = ''
-
-    i = int(kw.get('addsrc', 0))
-    # if 'param' in fn_doc: breakpoint()  # FIXME BREAKPOINT
+    title = ''
+    try:
+        i = kw.get('addsrc', 0)
+        i = int(i)
+    except:
+        title = i
+        i = 4
     if i:
         b = '\n' + kw.get('sourceblock', 'n.a.')
         bi = b.split('```inline ', 1)[-1]
         if bi.startswith('lp:'):
             bi = bi.split('\n', 1)[0]
             i = 3
+        t = kw.get('title', title)
+        if isinstance(i, str) and not i.isdigit():
+            t = i
+            i = 4
         m = {
-            'blocksourcei': bi,
-            'blocksource1': b.replace('\n', '\n '),
-            'blocksource4': b.replace('\n', '\n    '),
+            'title': t,
+            'shortform': bi,
+            'blocksource': b.replace('\n', '\n '),
+            'blocksource4': b.replace('\n', '\n     '),
             'res': res,
             'res4': ('\n' + res).replace('\n', '\n    '),
         }
-        f = getattr(BlockSrc, 'fmt_%s' % i, BlockSrc.fmt_1)
+        f = getattr(AddSrcFormats, 'fmt_%s' % i, AddSrcFormats.fmt_1)
         res = f % m
     ret['formatted'] = res
     return ret
 
 
-class BlockSrc:
+class AddSrcFormats:
+
     fmt_1 = '''
 
 LP Source:
 
 ```bash
-%(blocksource1)s
+%(blocksource)s
 ```
 
-Result: 
+Result:
 
 %(res)s
 '''
@@ -840,7 +863,7 @@ Result:
 === "LP Source"
 
     ```bash
-    %(blocksource4)s
+     %(blocksource4)s
     ```
 
 === "Result" 
@@ -852,9 +875,27 @@ Result:
 LP Source (shortform):
 
 ```
- `%(blocksourcei)s`
+ `%(shortform)s`
 ```
- '''
+
+Result:
+
+%(res)s
+'''
+
+    fmt_4 = '''
+
+=== "%(title)s"
+
+    %(res4)s
+
+=== "Source"
+
+    ```bash
+     %(blocksource4)s
+    ```
+
+    '''
 
 
 # from lcdoc import session  # noqa
