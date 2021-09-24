@@ -1,6 +1,7 @@
 .idea/
 docs/features/lp/plugs*
 docs/icons_diagrams*
+tmpf
 __pycache__/
 *.py[cod]
 *.lp.py

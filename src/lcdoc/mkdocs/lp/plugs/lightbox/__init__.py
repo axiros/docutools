@@ -8,6 +8,7 @@ from lcdoc.tools import app
 from lcdoc.mkdocs.tools import script, style
 
 nocache = True
+formatted = True
 multi_line_to_list = True
 
 fl = '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight'
@@ -83,7 +84,7 @@ def wrap_next_elmt_into_lightbox():
     '''
     md = md % {'id': id}
     # the caching would insert a marker, not wanted:
-    return {'res': md, 'formatted': True}
+    return md
 
 
 def run(cmd, kw):
@@ -100,4 +101,4 @@ def run(cmd, kw):
             d.update(cmd)
         r.append(fla % d)
     p = '\n'.join(r)
-    return {'res': '', 'formatted': True, 'footer': {'script': p}}
+    return {'res': '', 'footer': {'script': p}}

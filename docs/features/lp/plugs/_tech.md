@@ -40,18 +40,20 @@ information, incl. the mkdocs config, via the LP class.
 - You have to return a string (which would be the cached raw result) or a dict with `res` and
 optionally
     - a `formatted` key.
-    - a `page_assets` key.
+    - a `nocache=<bool>` key
+    - a `page_assets` key
     - `header`, `footer`, `md` (see below, page assets)
 
 - The `formatted` value has to contain directly the markdown to be displayed, exclusive indentation.
   If simply `True` then the `res` value is taken.
 - The `page_assets` value has to contain plain markdown (or javascript, html, css) added unindented once at
   the end of a page. 
-- Alternatively you may declare an `page_assets` dict on module level, with understood keys:
+- You may provide `formatted` and `nocache` also on module level
+- Also you may declare a `page_assets` dict on module level, with understood keys:
 
-    - md: markdown source added to markdown of page, will go into to-html rendering
-    - header: html (e.g. scripts) added at start of container element, added after rendering
-    - footer: html added at end of container element, added after rendering
+    - `md`: markdown source added to markdown of page, will go into to-html rendering
+    - `header`: html (e.g. scripts) added at start of container element, added after rendering
+    - `footer`: html added at end of container element, added after rendering
 
     See the [chartist](../chartist/) plugin for an example.
 

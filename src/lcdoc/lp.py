@@ -744,8 +744,10 @@ def eval_single_lp_mode(cmd, kw):
     if isinstance(res, str):
         res = {'cmd': cmd, 'res': res}
     if isinstance(res, dict):
+        if g('formatted'):
+            res['formatted'] = res.get('formatted', True)
         if g('nocache'):
-            res['nocache'] = True  # prevents writing to res.py
+            res['nocache'] = res.get('nocache', True)
         if res.get('formatted') == True:
             res['formatted'] = res['res']
         if evl is not None:
