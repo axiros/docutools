@@ -21,7 +21,7 @@ function make_conda_py_env { # creates the venv for the project and poetry insta
     }
     conda_act
     set -x
-    conda create -q -n "${n}" python="${pyver}" ripgrep tmux fd-find poetry
+    conda create -q -n "${n}" python="${pyver}" ripgrep tmux fd-find poetry graphviz
     conda activate "$n"
     poetry install
     conda info
