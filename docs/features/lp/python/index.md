@@ -44,7 +44,8 @@ print(keys)
 
 - Plugins register match keys and rendering functions, which when key is matching, will render the
   argument of `show`
-
+- Alternatively if the "key" is a callable, it will be called with the object to be shown and can decide if
+  returns True - then it's value, the actual rendering function will be called (see e.g. datatables python plugin).
 - You can provide your own python plugins, provided you supply an importable module
   `lp_python_plugins`, which at it's `__init__.py` imports all your plugins.
 

@@ -35,8 +35,8 @@ def T(typ, *a, **kw):
     return typ(*a, **kw)
 ```
 
-- Note the `outformat` is `svg`.
-- No restrictions, e.g. overloading the classes would be another option.
+- Note the `outformat` is `svg`
+- No limits regarding sophistication - the factory approach is just an example
 
 Then use the library like normal, added our `show` based renderer at the end:
 
@@ -69,7 +69,7 @@ with diagr(name="Clustered Web Services") as d:
 show(d)
 ```
 
-### Custom colors
+### Inline Colors
 
 ```python lp:python addsrc="Cloud Computing Example" eval=always session=gvdiag
 from diagrams import Cluster, Edge

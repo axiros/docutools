@@ -68,6 +68,10 @@ show(data, columns=h)
 Switch off the builtin style sheet by providing an empty `fnstyle` header, then add your own via
 mkdocs `custom_css`.
 
+!!! tech
+
+    The default style was created by simply omitting all colors from the standard style sheet, plus
+    adding opacity variations for even and odd rows.
 
 ## Renderable Formats
 

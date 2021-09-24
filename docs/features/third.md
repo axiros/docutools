@@ -91,6 +91,8 @@ and elsewhere:
 
 ## Icons and Emojis
 
+See [here](https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/) for an emoji search
+box.
 
 :fontawesome-brands-linux:
 :smile:

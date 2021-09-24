@@ -28,4 +28,4 @@ Most notable feature: **[Literate Programming](./features/lp/)**.
 Note: Some features are not yet documented.
 
 
-Last modified: Thu, 23 Sep 2021 15h GMT
+Last modified: Fri, 24 Sep 2021 08h GMT

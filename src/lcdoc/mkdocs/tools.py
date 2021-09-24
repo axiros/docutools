@@ -21,6 +21,10 @@ from lcdoc.tools import (
 )
 
 
+script = lambda s: '<script>\n%s\n</script>' % s
+style = lambda s: '<style>\n%s\n</style>' % s
+
+
 def add_post_page_func(kw, f):
     p = kw['LP'].page
     h = getattr(p, 'lp_on_post_page', [])

@@ -8,7 +8,7 @@ or external (e.g. filesystem) state.
   way you can, in long lasting, complex command flows (e.g. creating clusters in the cloud) fix
   failing commands manually until they run, add the fix to the failing last block and continue with
   the next.
-- Sessions are **not** automatically destroyed, except you [instruct](./parameters.md#kill_session) lp to do so.
+- Sessions are **not** automatically destroyed, except you [instruct](../parameters.md#kill_session) lp to do so.
 
 ## Mechanics
 

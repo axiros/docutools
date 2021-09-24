@@ -38,6 +38,7 @@ nav:
               - Overview: features/lp/python/index.md
               - MatPlotLib: features/lp/python/matplotlib.md
               - Diagrams: features/lp/python/diagrams.md
+              - DataTables: features/lp/python/datatable.md
           - Other LP Plugins:
               - Overview: features/lp/plugs/_index.md
               - Mechanics: features/lp/plugs/_tech.md

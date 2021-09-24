@@ -752,17 +752,25 @@ def eval_single_lp_mode(cmd, kw):
 
 
 def add_assets(res, global_assets, kw, mode):
-    """adding the page_assets structure, with page assets
-    Assets in result( res) are executed per block, those in global_assets per page
+    """
+    Adding the page_assets structure into the result. I.e. these are practically part of
+    the result of the evaluation - and cached. Therefore present even when res is not
+    evaluated.
+
+    - header, footer, md assets in result( res) are executed per block, indexed by block source id
+    - those in page_assets per page - they can be declared on module level or are within
+      res, key page_assets.
     """
     # shortcut, when the run adds one of these we assume it's per block, with id:
     for k in ['header', 'footer', 'md']:
         pa = res.get(k)
         if pa:
             res.setdefault('page_assets', {}).setdefault(kw['id'], {})[k] = pa
+    # add the global assets - indexed under the current plugin name (mode):
     a = global_assets
     if a:
         m = res.get('page_assets', {})
+        # two same mode blocks will not return *different* page assets:
         m[mode] = M = {}
         for k, v in a.items():
             M[k] = v

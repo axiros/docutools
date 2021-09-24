@@ -7,14 +7,14 @@ See the specific plugins for technical details.
 
 Here we only explain the differences.
 
-## The Multipurpose [Shell Session](../bash/sessions.md)
+## The Multipurpose [Shell Session](./bash/sessions.md)
 
 - Spawns a tmux process, sends commands in, read results out.
 - Can be used not only for code but e.g. also to control REPLs:
 
 ### Example Node Session
 
-Typically this would be [`silent`](../parameters.md#silent)
+Typically this would be [`silent`](./parameters.md#silent)
 
 ```javascript lp new_session=nodejs_test addsrc="Starting nodejs" expect=> fmt=xt_flat
 node
@@ -42,7 +42,7 @@ console.log('The answer to everything is:', answer)
 
     - As you can see the coloring is from nodejs, not from the javascript html pretty print. We have
       javascript as language only for syntax highlighting within the editor.
-    - The LP sources are shown only due to the [`addsrc`](../parameters.md#addsrc) parameter in our
+    - The LP sources are shown only due to the [`addsrc`](./parameters.md#addsrc) parameter in our
       block headers.
 
 
@@ -57,7 +57,7 @@ process).
 
 
 
-[bash]: ../bash/sessions.md
-[python]: ../python/
+[bash]: ./bash/sessions.md
+[python]: ./python/
 
 

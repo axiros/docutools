@@ -27,7 +27,7 @@ page = lambda: Session.kw['LP'].page
 
 
 def new_session_ctx():
-    return {'out': [], 'locals': {}}
+    return {'out': [], 'locals': {}, 'assets': {}}
 
 
 class Session(lp.SessionNS):
@@ -65,7 +65,7 @@ def printed(s, **innerkw):
 
 
 def show(s, **innerkw):
-    f = matching_pyplug(s)
+    f = matching_pyplug(s, innerkw)
     if f:
         s = f(s, **innerkw)
     out(s, 'md', innerkw=innerkw)
@@ -75,11 +75,17 @@ def show(s, **innerkw):
 fmts = {}
 
 
-def matching_pyplug(s):
+def matching_pyplug(s, innerkw):
     """find rendering pyplug based on type of output"""
     for k in fmts:
-        if k in str([s, s.__class__]):
+        if callable(k):
+            r = k(s, innerkw)
+            if r:
+                return fmts[k]
+        elif k in str([s, s.__class__]):
             return fmts[k]
+    if not isinstance(s, str):
+        app.die('No formatter matched', s=s, **innerkw)
 
 
 def fmt(t, s, kw):
@@ -132,6 +138,7 @@ def run(cmd, kw):
     # was fmt given by user?
     if kw['fmt'] == 'unset':
         r['formatted'] = True
+    r.update(Session.cur['assets'])
     return r
 
 

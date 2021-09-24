@@ -1,9 +1,9 @@
 # :docs:page_assets_example
 page_assets = {
-    'header': {
-        'stylesheet': '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css',
-        'script': '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js',
-    }
+    'header': [
+        '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css',
+        '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js',
+    ]
 }
 # :docs:page_assets_example
 

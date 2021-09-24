@@ -22,6 +22,10 @@ from pprint import pformat
 
 import coverage
 
+# Required for urls in bodies of lp plugs like http://foo.bar[blank] in flowcharts.js:
+# Would crash mkdocs:
+from mkdocs.structure.pages import _RelativePathTreeprocessor as RPT
+
 from lcdoc import lp as lit_prog
 from lcdoc.mkdocs import markdown
 from lcdoc.mkdocs.tools import (
@@ -42,14 +46,15 @@ h = 'header'
 known_assets = {
     'd3': {h: '//unpkg.com/d3@6/dist/d3.min.js'},
     'jquery': {h: '//code.jquery.com/jquery-latest.js'},
+    'jquery_datatables': {
+        h: [
+            '//cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js',
+            #'//cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css',
+        ]
+    },
     'raphael': {h: '//cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js'},
 }
 # :docs:known_page_assets
-
-
-# Required for urls in bodies of lp plugs like http://foo.bar[blank] in flowcharts.js:
-# Would crash mkdocs:
-from mkdocs.structure.pages import _RelativePathTreeprocessor as RPT
 
 
 def patch_mkdocs_to_not_crash_on_urls():
@@ -793,7 +798,6 @@ def add_asset(what, to, at, typ=None):
     if isinstance(what, str):
         what = [what]
     # the assets need to have the order as declared:
-    what = reversed(what)
     for s in what:
         s = s.strip()
         ext = s.rsplit('.', 1)[-1]
@@ -809,7 +813,7 @@ def add_asset(what, to, at, typ=None):
             r = '<%s>\n%s\n</%s>' % (typ, s, typ)
         app.info('Page asset', adding=at, typ=typ, at=at, asset=s.split('\n', 1)[0])
         r = '\n\n' + r + '\n\n'
-        to = (r + to) if at == 'header' else (to + r)
+        to += r
     return to
 
 
@@ -850,16 +854,18 @@ def incl_page_assets(page, html):
         if not pe:
             continue
         assets = sorted(pe)
-        if at == 'header':
-            # because we insert like: html = asset + html (like .insert(0, ...)
-            assets = reversed(assets)
+        added = ''
         for mode in assets:
             v = pe[mode]
             if isinstance(v, dict):
                 for typ, v1 in v.items():
-                    o = add_asset(what=v1, to=o, at=at, typ=typ)
+                    added = add_asset(what=v1, to=added, at=at, typ=typ)
             else:
-                o = add_asset(what=v, to=o, at=at)
+                added = add_asset(what=v, to=added, at=at)
+        if at == 'header':
+            o = added + o
+        else:
+            o = o + added
     return o
 
 

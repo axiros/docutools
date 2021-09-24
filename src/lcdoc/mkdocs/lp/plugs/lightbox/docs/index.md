@@ -7,10 +7,11 @@ Wraps content into [featherlight](https://github.com/noelboss/featherlight) ligh
 | ![mountainlake](img/m.jpg)  | ![mountainlake](img/m2.jpeg)
 
 
-`lp:lightbox`
 
 
 ## Syntax
+
+### Matching Many Elements (Lightbox Gallery)
 
 At the bottom of your page add an lp stanza like this
 
@@ -38,6 +39,38 @@ than one), like this:
  ```
 ```
 
+### Lightbox For Single Elements
+
+Adding a colon behind the mode `lightbox` will return a button, which will lift the following
+element into a lightbox:
+
+All javascript in the element should work:
+
+```python
+ `lp:lightbox:`
+ 
+ !!! note "Example"
+ 
+     ```python lp:python
+     show([['Joe', 42], ['Jane', 32]], columns=['name', 'age'])
+     ```
+```
+
+Result:
+
+`lp:lightbox:`
+
+!!! note "Example"
+
+    ```python lp:python
+    show([['Joe', 42], ['Jane', 32]], columns=['name', 'age'])
+    ```
 
 
+!!! tech
+    
+    All javascript in the element should work, since we set `persist` to true, i.e. content is
+    moved, not copied. Before close we move the content back, in order to address [this](https://github.com/noelboss/featherlight/issues/300) bug.
 
+
+`lp:lightbox`
