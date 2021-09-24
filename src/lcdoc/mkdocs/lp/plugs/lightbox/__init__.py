@@ -7,6 +7,7 @@
 from lcdoc.tools import app
 from lcdoc.mkdocs.tools import script, style
 
+nocache = True
 multi_line_to_list = True
 
 fl = '//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight'
@@ -70,16 +71,18 @@ cur_id = [0]
 
 
 def wrap_next_elmt_into_lightbox():
+    """we use html so that it also works *within* html"""
     cur_id[0] += 1
     id = 'feather_below_%s' % cur_id[0]
     md = '''<span id="%(id)s"
              title="View in Lightbox"
              onclick="next_elmt_into_lightbox('%(id)s')"
              style="float:right">
-               :octicons-repo-push-16:{ .button-lightbox }
+             <span class="fa fa-glasses button-lightbox"></span>
             </span>
     '''
     md = md % {'id': id}
+    # the caching would insert a marker, not wanted:
     return {'res': md, 'formatted': True}
 
 

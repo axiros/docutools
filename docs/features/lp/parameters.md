@@ -66,6 +66,22 @@ Syntax details [here](./syntax.md#parametrization).
     As you can see, if given at block level all results of all evaluations of the block are matched.
 
 
+### body
+`body=<lp body string>`
+???+ hint "Provides the body of the LP statement"
+
+    If you only have a short body you may use the short form and provide it within the header using
+    that parameter.
+
+    !!! caution
+        **If** you have a real body as well and it is a string, then we will prefix it with this
+        header value.
+
+    !!! note "Example"
+
+        `lp:bash cwd='/etc', asserts='hosts', body='ls . | grep host'`
+
+
 ### cwd
 `cwd=<directory>`
 ???+ hint "change directory before running the command"

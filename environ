@@ -8,9 +8,12 @@ versioning=calver
 # list of '::' seperated words to fail when occurring in committed files:
 blacklisted_words="$(pass show sensitive/axgkl)"
 pyver="37"
-mkdocs_path=$PROJECT
+nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node"
+mkdocs_path="$PROJECT"
 mkdocs_port=2222
+browser="chromium-browser"
 # giving us make docs, make tests, ..:
 source ./make
-
+echo "sourced ./make"
+# for browser screenshots:
 activate_venv || nfo "Cannot activate venv."

@@ -44,6 +44,41 @@ than one), like this:
 Adding a colon behind the mode `lightbox` will return a button, which will lift the following
 element into a lightbox:
 
+```
+`lp:lightbox:`
+*Example element with the lightbox button to the right*
+```
+
+Renders:
+
+`lp:lightbox:`
+*Example element with the lightbox button to the right*
+
+The next element may also be html.
+
+You may even use the tag *witin* html - then wrapped into an outer tag and on a single line, so that
+we detect the statement while parsing the source markdown page:
+
+Source:
+
+```html
+<div style="color:blue"> Not in box
+<p>
+`lp:lightbox:`
+</p>
+<div style="color:red"> In lightbox </div></div>
+```
+
+Renders:
+
+<div style="color:blue"> Not in box
+<p>
+`lp:lightbox:`
+</p>
+<div style="color:red"> In lightbox </div></div>
+
+Any such lp expression within a page automatically triggers the inclusion of the lightbox and jquery libs into the page.
+
 All javascript in the element should work:
 
 ```python

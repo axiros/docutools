@@ -710,6 +710,9 @@ def eval_lp(cmd, kw):
 
 
 def eval_single_lp_mode(cmd, kw):
+    # `lp:python body='show("http://127.0.0.1:2222")'`:
+    if isinstance(cmd, str):
+        cmd = kw.get('body', '') + cmd
     full_mode = kw.get('mode', 'bash')
     mode = full_mode.split(':', 1)[0]
     old_name, app.name = app.name, app.name + ':' + mode  # for logging with mode
@@ -741,6 +744,8 @@ def eval_single_lp_mode(cmd, kw):
     if isinstance(res, str):
         res = {'cmd': cmd, 'res': res}
     if isinstance(res, dict):
+        if g('nocache'):
+            res['nocache'] = True  # prevents writing to res.py
         if res.get('formatted') == True:
             res['formatted'] = res['res']
         if evl is not None:

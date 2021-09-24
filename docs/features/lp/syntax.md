@@ -1,5 +1,7 @@
 # Literate Programming (lp) Syntax
 
+## Normal Form
+
 lp blocks are special fenced code blocks within a markdown page and look like so:
 
 ```bash lp addsrc fmt=mk_console
@@ -9,22 +11,64 @@ echo "Hello ${User:-World}"
 or more general:
 
 ```
- :fences:<lang> lp [block level parameters]           <---- lp block header
+ :fences:<lang> lp[:mode] [block level (=header) parameters]  <---- lp block header
  statement 1 [per statement parameters]          
- (...)                                           <---- lp block body
+ (...)                                                   <---- lp block body
  [statement n]                                  
  :fences:
 ```
 
-We detect lp blocks by the "`lp`" keyword as second parameter, after "language".
+- The `mode` parameter (default is "bash") may also be supplied via a keyword parameter, i.e. these are 
+ident: `lang lp:foo` and `lang lp mode=foo`.
 
-!!! tip "Indentation supported"
-    You may indent LP blocks, like any fenced code block, with the superfences plugin active, e.g.:
+- `lang` is not[^1] logically relevant for LP itself, but necessary for the editor and, dependent on the result also
+  for the renderer into html.
 
-    !!! note "My Admonition With An Inner LP Block"
-        ```bash lp addsrc
-        echo "hello world"
-        ```
+[^1]: Only exception: [page level](#page-level) blocks.
+
+## Short Form
+
+There is a **short form**, for blocks without a body as well:
+
+```
+ `lp:<mode> [parameters]`
+```
+
+In the short form the mode *must* be added to `lp:`. See below for more about the short form.
+
+## Detection
+
+We detect the normal form of lp blocks by the "`lp`" keyword as second parameter, after "language" of lines starting
+with "S:fences:", where S is any number of spaces.
+
+Therefore syntax wise they are found like any other fenced code block (holds true also with the superfences
+plugin active).
+
+So this works:
+
+!!! note "An Admonition With An Inner LP Block"
+
+    ```bash lp addsrc
+    echo "hello world"
+    ```
+
+Only difference to normal fenced blocks: LP blocks are also found and processed within html:
+
+```html
+ <div style="color:gray">
+ ```_ lp:python
+ import time; now = time.ctime(); show(f"Hello from python, at <b>{now}</b>!")
+ ```
+ </div>
+```
+Result:
+
+<div style="color:gray">
+```_ lp:python
+import time; now = time.ctime(); show(f"Hello from python, at <b>{now}</b>!")
+```
+</div>
+
 
 
 ## Parametrization

@@ -106,6 +106,7 @@ def add_assets_to_page(page, d):
 # a block which is the cache key:
 hashed_headers = [
     'asserts',
+    'body',
     'chmod',
     'cwd',
     'delim',
@@ -468,7 +469,9 @@ class LP:
         else:
             LP.stats['blocks_evaled'] += 1
             ret = LP.eval_block(spec, lp_runner=lp_runner)
-            LP.cur_results[sid] = r = ret['raw']
+            r = ret['raw']
+            if isinstance(r, dict) and not r.get('nocache'):
+                LP.cur_results[sid] = r
             if isinstance(r, dict) and 'page_assets' in r:
                 page_assets = r.get('page_assets')
             res = ret['formatted']
@@ -645,7 +648,7 @@ def patch_mkdocs_to_ignore_res_file_changes():
     """sad. we must prevent mkdocs serve to rebuild each time we write a result file
     And we want those result files close to the docs, they should be in that tree.
 
-    Also we save tons of rebuilds when preventing to monitor svgs - since often
+    Also we save tons of rebuilds when preventing to monitor imgs - since often
     autocreated, e.g. from kroki or drawio.
     """
     import mkdocs
@@ -664,8 +667,9 @@ def patch_mkdocs_to_ignore_res_file_changes():
         return app.info('mkdocs is already patched to ignore %s' % lp_res_ext, fn=fn)
     os.system('cp "%s" "%s.orig"' % (fn, fn))
     new = S
-    for ext in [lp_res_ext, '.svg']:
+    for ext in [lp_res_ext, '.svg', '.png']:
         new += ' or event.src_path.endswith("%s") ' % ext
+    # cannot write a comment due to the ':'
     s = s.replace(S, new)
     write_file(fn, s)
     diff = os.popen('diff "%s.orig" "%s"' % (fn, fn)).read().splitlines()

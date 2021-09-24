@@ -17,6 +17,7 @@ from pprint import pformat
 from lcdoc import lp
 from lcdoc.tools import app, dirname, exists, os, project, read_file, write_file
 
+err = lp.err
 multi_line_to_list = False
 fmt_default = 'unset'
 

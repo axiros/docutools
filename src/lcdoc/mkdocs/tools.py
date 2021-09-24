@@ -144,12 +144,14 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
     lnr = 0
     while lines:
         l = lines.pop(0)
+        # if 'lp:bash' in l: breakpoint()  # FIXME BREAKPOINT
         lnr += 1
         ls = l.lstrip()
         if ls[:4] == '`lp:':
             l = l.replace('`lp:', '```inline lp:')[:-1]
             ls = l.strip()
-            lines.insert(0, '```')
+            s = (len(l) - len(ls)) * ' '
+            lines.insert(0, s + '```')
         if not ls.startswith(fcb):
             mds[-1].append(l)
             continue
@@ -211,6 +213,7 @@ clsn = lambda o: o.__class__.__name__
 
 
 def get_page(hookname, a, kw, c={}):
+    """return the page passed to a hook, if any (run within the hook deco)"""
     pos = c.get(hookname)
     if pos is None:
         if 'page' in kw:

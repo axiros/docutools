@@ -1,6 +1,5 @@
 # :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/__init__.py,t=python
 
-
 This [exec](https://docs.python.org/3/library/functions.html)'s the block within the current python process.
 
 - Namespace is `globals()`
@@ -8,11 +7,13 @@ This [exec](https://docs.python.org/3/library/functions.html)'s the block within
 
 Output via 
 
-- print: what is printed on stdout (embedded in fenced code, language python, [pformatted](https://docs.python.org/3/library/pprint.html) if not a plain string)
-- `show()`: Interpreted as markdown, with rendering support for
+- `print`: what is printed on stdout (embedded in fenced code, language python, [pformatted](https://docs.python.org/3/library/pprint.html) if not a plain string)
+- **`show()`**: Interpreted as markdown, with rendering support for
 
     - [matplotlib](./matplotlib.md)
     - [diagrams](./diagrams.md)
+    - [datatable](./datatable.md)
+    - [urls](./screenshot.md), creating headless browser screenshots
 
 Decide via the language argument (```&lt;language&gt; lp mode=python) what formatting should be applied.
 
