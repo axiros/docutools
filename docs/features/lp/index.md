@@ -1,39 +1,42 @@
 # Literate Programming :srcref:fn=src/lcdoc/mkdocs/lp/__init__.py,t=
 
-The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows
+The ["LP"](https://en.wikipedia.org/wiki/Literate_programming) feature of `docutools` allows to
 
-- to embed executable parametrizable **code** within markdown sources and
+- embed executable parametrizable **code** within markdown sources and
 - insert into the rendering result the **evaluated** output, before html build time, including
-  possibly javascript helper libraries and code plus styles.
+  possibly
+
+    - javascript helper libraries
+    - javascript code
+    - styles.
 
 This is done through a plugin, with an `on_markdown` hook, i.e. before html is generated.
 
 
 ## Motivation
 
-The lp mkdocs plugin is heavily inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
+> The main benefit of the LP plugin is to keep documentation in sync with the system you are documenting.  
+> And [vice versa](./parameters.md#asserts).
 
-The main benefit of LP is to keep documentation in sync with the system you are documenting.
+!!! note
 
-And [vice versa](./parameters.md#asserts).
+    The plugin is heavily inspired by emacs' [org-babel](https://orgmode.org/worg/org-contrib/babel/).
 
 
-## Features
 
-[Here](./parameters.md) the list of parameters for the default mode: Evaluation in a (bash) shell.
-
-Highlights:
+## Feature Highlights
 
 - Concise **[Syntax](./syntax.md)**: Does not distract when reading source
 
 - **Stateless** and [**Stateful**](./sessions.md) Evaluation, using
   [tmux][tmux]  
 
-  Means you can inspect and change what's going on, before, after and during page evaluation.
+  Means you can inspect and even change what's going on, before, after and during page evaluation.
+
   Anything set within the tmux session (e.g. environ, variables) is available in later mkdocs build
   runs, except when you decide to [kill](./parameters#kill_session) the session.
 
-- [**Assertions**](./parameters.md#asserts): You can assert on the evaluation result, means you can
+- [**Assertions**](./parameters.md#asserts): You can assert on the evaluation result, i.e. you can
   turn the code blocks into a functional test suite, documented through your markdown around the
   blocks.
 
@@ -56,6 +59,8 @@ Highlights:
 - [**Coverage Backrefs**](./plugs/cov_report/): Dynamic coverage contexts, optionally with
   [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation
 
+
+[Here](./parameters.md) the list of parameters for the default mode: Evaluation in a (bash) shell.
 
 Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-lp,t=m within your `mkdocs.yml` file,
 section plugins.

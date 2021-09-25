@@ -18,17 +18,16 @@ or more general:
  :fences:
 ```
 
-- The `mode` parameter (default is "bash") may also be supplied via a keyword parameter, i.e. these are 
-ident: `lang lp:foo` and `lang lp mode=foo`.
+- `mode`: The `mode` parameter determines the block processing mode. Default is shell mode ("bash") may also be supplied via a keyword parameter:  
+  `lang lp:foo` equal to `lang lp mode=foo`.
 
-- `lang` is not[^1] logically relevant for LP itself, but necessary for the editor and, dependent on the result also
-  for the renderer into html.
+- `lang`: The word before "lp" is for Markdown not for LP. It is declaring the
+  code block *formatting* language, and is *not* relevant for LP itself.
 
-[^1]: Only exception: [page level](#page-level) blocks.
 
 ## Short Form
 
-There is a **short form**, for blocks without a body as well:
+There is a **short form**, for blocks without a body:
 
 ```
  `lp:<mode> [parameters]`
@@ -38,13 +37,30 @@ In the short form the mode *must* be added to `lp:`. See below for more about th
 
 ## Detection
 
-We detect the normal form of lp blocks by the "`lp`" keyword as second parameter, after "language" of lines starting
-with "S:fences:", where S is any number of spaces.
+- We parse the markdown source line by line.
+- We have a state variable `fenced`, initially `False`.
 
-Therefore syntax wise they are found like any other fenced code block (holds true also with the superfences
-plugin active).
 
-So this works:
+### Normal Form
+
+#### Block Start
+
+1. `fenced` is `False`
+1. A line must start with `n` spaces ( `n` ≥ 0 )
+1. Followed by 3 backticks. `fenced` is set to `True`.
+1. Followed by a word (any letter except space), the formatting language
+1. Followed by "`lp`" then a space OR "`lp:`" then a word, the `mode` parameter
+
+All following lines are the block body - until:
+
+#### Block End
+
+1. `fenced` is True
+1. A line starts with `m` spaces ( `m` = `n` )
+1. Followed by 3 backticks
+1. Followed by any number of spaces. `fenced` is set to `False`
+
+#### Example
 
 !!! note "An Admonition With An Inner LP Block"
 
@@ -52,7 +68,14 @@ So this works:
     echo "hello world"
     ```
 
-Only difference to normal fenced blocks: LP blocks are also found and processed within html:
+#### Summary
+
+In general this means that LP blocks look like normal fenced code blocks except:
+
+- The first (header) line has more parameters than just the formatting language
+- They are also detected within HTML, if the criteria are met:
+
+HTML Example:
 
 ```html
  <div style="color:gray">
@@ -68,6 +91,16 @@ Result:
 import time; now = time.ctime(); show(f"Hello from python, at <b>{now}</b>!")
 ```
 </div>
+
+
+### Short Form
+
+1. `fenced` is False
+1. A line must start with `n` spaces ( `n` ≥ 0 )
+1. Followed by 1 backtick
+1. Followed by `lp:`
+1. Followed by `k` characters except space, with `k` ≥ 1 )
+1. The line ends with a backtick, followed by any number of spaces.
 
 
 
@@ -95,16 +128,24 @@ lp_foo=bar mkdocs build
 
 You may specify a parameter for *all* blocks within a *specific* markdown page like so:
 
+Normal Form:
+
 ```
- :fences:page lp foo=bar
+ :fences:my_lang lp:page foo=bar # or: :fences:my_lang lp mode=page foo=bar
  :fences:
 ```
 
-i.e. by specifying the conventional keyword "`page`" where normally  "`<language>`" is, i.e. first
-param after the opening fences.
+Short Form:
+
+```
+`lp:page foo=bar`
+```
+
+i.e. by specifying the keyword "`page`" as `mode`
 
 !!! caution "Position matters"
-    The parameter is only valid for all lp blocks **below** the declaration.
+
+    The parameters in `mode=page` headers are only valid for all lp blocks **below** the declaration.
 
     - You may set to a different value,  mid-page. 
     - You may use more than one `page` block.
@@ -194,7 +235,7 @@ env | grep TMUX
 ```
 
 
-You can reference any env var as a dollar var within your header args.
+You can reference any env var as a "dollar var" within your header args.
 
 
 ## Short Form for LP Plugins Without Body

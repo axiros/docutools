@@ -18,6 +18,15 @@ or external (e.g. filesystem) state.
     - the timeout is reached 
 
 
+## Terminal Output
+
+You should see output like this in the terminal, when building:
+
+![](./img/tmuxout.png)
+
+
+If the icons are missing then you need a [proper](https://www.slant.co/topics/7014/~fonts-to-use-in-a-terminal-emulator) font.
+
 ## Tmux Base Index
 
 Reminder tmux:

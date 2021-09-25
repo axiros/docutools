@@ -18,8 +18,6 @@ nav:
       - Overview: features/index.md
       - Plugins:
           - Blacklist: features/blacklist/index.md
-          - Changelog: features/changelog/index.md
-          - Credits: features/credits/index.md
           - Find Pages: features/find-pages/index.md
           - Literate Programming (LP):
               - Overview: features/lp/index.md
@@ -35,11 +33,8 @@ nav:
               - Examples: features/lp/examples.md
               - Tips: features/lp/tips.md
           - LP Python Mode:
-              - Overview: features/lp/python/index.md
-              - MatPlotLib: features/lp/python/matplotlib.md
-              - Diagrams: features/lp/python/diagrams.md
-              - DataTables: features/lp/python/datatable.md
-              - Screenshots: features/lp/python/screenshot.md
+              - Overview: features/lp/python/_index.md
+              - Mechanics: features/lp/python/_tech.md
           - Other LP Plugins:
               - Overview: features/lp/plugs/_index.md
               - Mechanics: features/lp/plugs/_tech.md
@@ -121,13 +116,11 @@ plugins:
   # in this order. e.g. md-replace before lp, so that lp can process its results
   - search
   - lcd-blacklist
-  - lcd-changelog
-  - lcd-credits
   - lcd-md-replace
   - lcd-lp
   - lcd-find-pages:
       find-pages:
-        - features/lp/plugs/:follow
+        - features/lp/:follow
   - lcd-page-tree
   - lcd-stats
   - macros:

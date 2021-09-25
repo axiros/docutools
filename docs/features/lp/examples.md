@@ -1,8 +1,6 @@
 # LP Examples
 
-
-```page lp addsrc
-```
+`lp:page addsrc`
 
 ```bash lp asserts=Hello fmt=xt_flat session=foo
 echo "Hello World!"

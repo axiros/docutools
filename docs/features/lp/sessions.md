@@ -22,8 +22,7 @@ node
 
 Now you have a node session and can do things - but first keep params at one place:
 
-```page lp session=nodejs_test addsrc prompt=> expect=> fmt=xt_flat
-```
+`lp:page session=nodejs_test addsrc prompt=> expect=> fmt=xt_flat`
 
 First interaction:
 

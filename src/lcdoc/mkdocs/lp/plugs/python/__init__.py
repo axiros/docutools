@@ -25,6 +25,7 @@ sessions = S = {}
 
 config = lambda: Session.kw['LP'].config
 page = lambda: Session.kw['LP'].page
+lpkw = lambda: Session.kw
 
 
 def new_session_ctx():
@@ -78,6 +79,8 @@ fmts = {}
 
 def matching_pyplug(s, innerkw):
     """find rendering pyplug based on type of output"""
+    if isinstance(s, str) and s in fmts:
+        return fmts[s]
     for k in fmts:
         if callable(k):
             r = k(s, innerkw)
@@ -101,9 +104,12 @@ def fmt(t, s, kw):
 
 def run(cmd, kw):
     """
-    interpret the command as python:
-    no session, lang = python:
+    interpret the command as python
     """
+    # short form convenience: `lp:python show=project_dependencies`
+    shw = kw.pop('show', '')
+    if shw and isinstance(cmd, str):
+        cmd = 'show("%s")' % shw + cmd
     loc = Session.cur['locals']
     loc.update({'print': printed, 'show': show, 'ctx': kw})
     exec(cmd, loc)

@@ -9,13 +9,8 @@ Default for mode is simply "bash", meaning all your evaluation is handled by the
 
 See [here](../parameters.md) for available parameters of the default mode.
 
-Here the currently available builtin plugins:
-
-```bash lp cwd=dir_repo fmt=mk_console
-ls src/lcdoc/mkdocs/lp/plugs | grep -v pycache | sort
-```
-
-They are lazy loaded, i.e. on first use, within a docs build session.
+!!! important
+    Plugins are lazy loaded, i.e. only on first use, within a docs build session.
 
 ## Creating your own plugins
 

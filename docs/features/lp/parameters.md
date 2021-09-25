@@ -10,9 +10,8 @@ They work in session or non session mode.
 
 Syntax details [here](./syntax.md#parametrization).
 
-```page lp addsrc
+`lp:page addsrc`
 
-```
 
 !!! caution "Parameter Support"
 
@@ -221,7 +220,11 @@ Syntax details [here](./syntax.md#parametrization).
 
 ???+ hint "Pass evaluation into various plugins"
 
-    See [here](./plugs/_index.md) for more information.
+    - See [here](./plugs/_index.md) for a list of included plugins.
+    - The value "`page`" is a special mode, not specifying a plugin but setting the following header
+      parameters page wide for all blocks as defaults. Example:
+
+      `lp:page timeout=20` (short form used)
 
 ### new_session
 `new_session=<tmux session name>`

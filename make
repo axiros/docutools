@@ -90,7 +90,7 @@ function clean {
 }
 function clean_lp_caches {
     find . -print |grep '\.lp.py'
-    echo 'ok to delete all?'
+    echo 'ok to delete all? (ctrl-c otherwise)'
     read -n ok
     find . -print |grep '\.lp.py' | xargs rm -f
 }

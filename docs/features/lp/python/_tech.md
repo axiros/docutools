@@ -1,4 +1,4 @@
-# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/__init__.py,t=python
+# Python Plugin Mechanics
 
 This [exec](https://docs.python.org/3/library/functions.html)'s the block within the current python process.
 
@@ -8,14 +8,10 @@ This [exec](https://docs.python.org/3/library/functions.html)'s the block within
 Output via 
 
 - `print`: what is printed on stdout (embedded in fenced code, language python, [pformatted](https://docs.python.org/3/library/pprint.html) if not a plain string)
-- **`show()`**: Interpreted as markdown, with rendering support for
+- **`show()`**: Interpreted as markdown, with rendering support supplied by python
+  [plugins](./_index.md).
 
-    - [matplotlib](./matplotlib.md)
-    - [diagrams](./diagrams.md)
-    - [datatable](./datatable.md)
-    - [urls](./screenshot.md), creating headless browser screenshots
-
-Decide via the language argument (```&lt;language&gt; lp mode=python) what formatting should be applied.
+Decide via the language argument (```&lt;language&gt; lp mode=python) what formatting should be applied for fenced output.
 
 
 ## Features
@@ -26,7 +22,7 @@ Decide via the language argument (```&lt;language&gt; lp mode=python) what forma
 # fmt not given - then we open and close fenced blocks, based on output mode (print vs show)
 keys = [k for k in ctx.keys()]
 print('variable `keys` assigned')
-show('*variable is initted now*')
+show('*The variable is now in session "pyexample"*.')
 ```
 
 -------
@@ -48,8 +44,13 @@ print(keys)
 - Alternatively if the "key" is a callable, it will be called with the object to be shown and can decide if
   returns True - then it's value, the actual rendering function will be called (see e.g. datatables python plugin).
 - You can provide your own python plugins, provided you supply an importable module
-  `lp_python_plugins`, which at it's `__init__.py` imports all your plugins.
+  `lp_python_plugins`, which, at it's `__init__.py`, imports all your plugins.
 
+
+!!! important
+    
+    LP python plugins are not lazily imported. Avoid side effects and expensive code at import time
+    (which you should anyway, always).
 
 #### Rendering Plugin Interface
 

@@ -323,7 +323,7 @@ class LP:
             return app.debug('All eval results found in previous run')
         LP.previous_results_missing = missing
         missing = [LP.spec_by_id[id]['source'] for id in missing]
-        app.info('New lp blocks', json=missing)
+        app.info('Uncached lp blocks', json=missing)
 
     def handle_skips(blocks):
         """
@@ -382,14 +382,15 @@ class LP:
         fnd: '/home/gk/repos/blog/docs/ll/vim/vim.md'
         block.keys: ['nr', 'code', 'lang', 'args', 'kwargs', 'indent', 'source', 'source_id', 'fn']
         """
-        # if 'show_src' in str(spec): breakpoint()  # FIXME BREAKPOINT
         kw = spec['kwargs']
         sid = spec['source_id']
         # handle page level parametrization already here - this is never skipped:
         # we allow change of default args mid-page:
         is_page = False
-        if spec['lang'] == 'page':
-            # if 'param' in LP.fn_lp: breakpoint()  # FIXME BREAKPOINT
+        # if 'lp:page' in str(spec): breakpoint()  # FIXME BREAKPOINT
+        mode = kw.get('mode', '')
+        if mode.startswith('page') and (mode == 'page' or mode.startswith('page:')):
+            kw.pop('mode')
             is_page = True
             LP.stats['blocks_page'] += 1
             m = {k: v for k, v in kw.items() if not k.startswith('skip_')}
@@ -397,6 +398,8 @@ class LP:
             kw['silent'] = True
             kw['lang'] = 'bash'
             kw['addsrc'] = False
+            if ':' in mode:
+                kw['mode'] = mode.split(':', 1)[1]
 
         lp_runner = partial(lit_prog.run, fn_doc=LP.fn_lp)
 
@@ -470,10 +473,14 @@ class LP:
             LP.stats['blocks_evaled'] += 1
             ret = LP.eval_block(spec, lp_runner=lp_runner)
             r = ret['raw']
-            if isinstance(r, dict) and not r.get('nocache'):
+            if not isinstance(r, dict):
                 LP.cur_results[sid] = r
-            if isinstance(r, dict) and 'page_assets' in r:
-                page_assets = r.get('page_assets')
+            else:
+                if not r.get('nocache'):
+                    LP.cur_results[sid] = r
+
+                if 'page_assets' in r:
+                    page_assets = r.get('page_assets')
             res = ret['formatted']
         if page_assets:
             add_assets_to_page(LP.page, page_assets)
@@ -529,7 +536,6 @@ class LP:
 
             t0 = now()
             ret = lp_runner(cmd, *args, **kw)
-
             dt = now() - t0
             if dt > stats['blocks_max_time']:
                 stats['blocks_max_time'] = round(dt, 3)
@@ -685,26 +691,31 @@ def make_plugin_docs(config):
     """We want the plugins really self contained, incl. all - also the docs
     So we scan whats there and symlink over
     """
-    # TODO: also custom dir?
-    dd = config['docs_dir'] + '/features/lp/plugs'
-    if not exists(dd):
-        os.makedirs(dd, exist_ok=True)
 
-    D = dirname(__file__) + '/plugs'
-    c = []
-    for k in sorted(os.listdir(D)):
-        # k e.g. 'mermaid'
-        d = D + '/' + k
-        fnr, fnp = d + '/docs/index.md', d + '/__init__.py'
-        if not exists(fnr) or not exists(fnp):
-            continue
-        t = dd + '/' + k
-        if not exists(t + '/index.md'):
-            f = '../../../../src/lcdoc/mkdocs/lp/plugs/%s/docs' % k
-            os.symlink(f, t)
-            c.append([f, t])
-    if c:
-        app.info('Plugs doc symlink created', json=c)
+    def make(pth, dd):
+        D = dirname(__file__) + '/plugs' + pth
+        dd = config['docs_dir'] + dd
+        if not exists(dd):
+            os.makedirs(dd, exist_ok=True)
+
+        c = []
+        for k in sorted(os.listdir(D)):
+            # k e.g. 'mermaid'
+            d = D + '/' + k
+            fnr, fnp = d + '/docs/index.md', d + '/__init__.py'
+            if not exists(fnr) or not exists(fnp):
+                continue
+            t = dd + '/' + k
+            if not exists(t + '/index.md'):
+                f = '../../../../src/lcdoc/mkdocs/lp/plugs%s/%s/docs' % (pth, k)
+                os.symlink(f, t)
+                c.append([f, t])
+        if c:
+            app.info('Plugs doc symlink created', json=c)
+
+    # TODO: also custom dir?
+    make('', '/features/lp/plugs')
+    make('/python/pyplugs', '/features/lp/python')
 
 
 # ------------------------------------------------------------------------------- Plugin
@@ -778,7 +789,7 @@ class LPPlugin(MDPlugin):
         if pe:
             pe = pe.get('md', {})
             for k, v in pe.items():
-                app.info('Page asset', adding='md', for_=k)
+                app.debug('Page asset', adding='md', for_=k)
                 MD += '\n\n' + v
         return MD
 
@@ -815,7 +826,7 @@ def add_asset(what, to, at, typ=None):
         else:
             assert typ in {'script', 'style'}, 'typ must be script or style'
             r = '<%s>\n%s\n</%s>' % (typ, s, typ)
-        app.info('Page asset', adding=at, typ=typ, at=at, asset=s.split('\n', 1)[0])
+        app.debug('Page asset', adding=at, typ=typ, at=at, asset=s.split('\n', 1)[0])
         r = '\n\n' + r + '\n\n'
         to += r
     return to

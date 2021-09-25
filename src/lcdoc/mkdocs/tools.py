@@ -129,12 +129,14 @@ def link_assets(plugin, fn_plugin, config):
     t = to + '/' + n
     plugin.d_assets = t
     if exists(t):
-        return app.debug('Assets link exists already', linkdest=t)
+        app.debug('Assets link exists already', linkdest=t)
+        return t
     app.warning('Linking', frm=d, to=t)
     os.makedirs(dirname(t), exist_ok=True)
     cmd = 'ln -s "%s" "%s"' % (d, t)
     if os.system(cmd):
         app.die('Could not link assets')
+    return t
 
 
 def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
@@ -147,8 +149,8 @@ def split_off_fenced_blocks(markdown, fc_crit=None, fc_process=None, fcb='```'):
         # if 'lp:bash' in l: breakpoint()  # FIXME BREAKPOINT
         lnr += 1
         ls = l.lstrip()
-        if ls[:4] == '`lp:':
-            l = l.replace('`lp:', '```inline lp:')[:-1]
+        if ls[:4] == '`lp:' and l.rstrip().endswith('`'):
+            l = l.replace('`lp:', '```shortform lp:').rstrip()[:-1]
             ls = l.strip()
             s = (len(l) - len(ls)) * ' '
             lines.insert(0, s + '```')
