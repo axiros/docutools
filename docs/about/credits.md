@@ -9,7 +9,7 @@ These were used to *create* docutools:
 [`mkdocs`](https://www.mkdocs.org/) |
 [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/)
 
-`lp:python show=project_dependencies`
+`lp:python show=project_dependencies eval=on_change`
 
 ## Special Thanks
 

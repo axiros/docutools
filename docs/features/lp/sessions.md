@@ -57,6 +57,6 @@ process).
 
 
 [bash]: ./bash/sessions.md
-[python]: ./python/
+[python]: ./python/_index.md
 
 

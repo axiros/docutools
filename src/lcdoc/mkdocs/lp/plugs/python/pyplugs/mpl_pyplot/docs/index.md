@@ -1,8 +1,6 @@
 # :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/mpl_pyplot.py,t=Matplotlib Rendering Support
 
-This is a builtin plugin for `lp:python`.
-
-See [here](https://matplotlib.org/stable/gallery/index.html) for the vast amount of matplotlib's plotting features.
+Matplotlib Support. See [here](https://matplotlib.org/stable/gallery/index.html) for the vast amount of matplotlib's plotting features.
 
 ## Requirements
 
