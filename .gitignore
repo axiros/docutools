@@ -25,7 +25,7 @@ docs/autodocs
 .resources.json
 # lp:
 docs/features/literate_programming.md
-
+src/lcdoc/mkdocs/lp/plugs/python/pyplugs/mpl_pyplot/docs/img/testplot.svg
 docs/lcd
 CREDITS.md
 foo

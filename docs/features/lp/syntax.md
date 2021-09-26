@@ -92,6 +92,7 @@ import time; now = time.ctime(); show(f"Hello from python, at <b>{now}</b>!")
 ```
 </div>
 
+*See [here](./python/_tech.md) regarding the show function.*
 
 ### Short Form
 
@@ -257,6 +258,16 @@ Example:
 
     The short form can *not* work as inline statement (i.e. between other words in a line). You
     (still) need to have exclusively one statement per line.
+
+
+If you do have a (short) body, you may supply it via the [body](./parameters.md#body) parameter:
+
+```
+ `lp:python body=print(42)`
+```
+
+
+
 
 ## Evaluation
 
