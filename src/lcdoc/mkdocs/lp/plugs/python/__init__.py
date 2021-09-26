@@ -116,7 +116,7 @@ def run(cmd, kw):
     o = Session.cur['out']
     res = [fmt(*i) for i in o]
     fncd = False
-    r = []
+    r = ['']
     add = lambda k: r.append(k) if k is not None else 0
     # if the fmt is given (mk_console usually), then we show the command (python code)
     # and the output within the usual lp fenced code block.
