@@ -3,41 +3,66 @@
 
 Adds pages to nav
 """
+import string
+import time
 from ast import literal_eval
+from collections import OrderedDict as OD
 from functools import partial
 
 from lcdoc.mkdocs.tools import MDPlugin, app, config_options, find_md_files
 from lcdoc.tools import dirname, exists, flatten, os, project, read_file
-import string
 
 
 def uppercase_words(s):
     """titles in nav should only contain the strings, not e.g. links"""
-    l = s.split(" ")
+    l = s.split(' ')
     r = []
     while l[0] == l[0].upper() and l[0] in string.ascii_letters:
         r.append(l)
-    return " ".join(r)
+    return ' '.join(r)
 
 
 def find_pages(find, config, stats):
 
-    ev = [i.strip() for i in os.environ.get("find_pages", "").split(",")]
+    ev = [i.strip() for i in os.environ.get('find_pages', '').split(',')]
     ev = [i for i in ev if i]
     find.extend(ev)
     find = list(set(find))
-    stats["find_terms"] = len(find)
+    stats['find_terms'] = len(find)
     if not find:
         return
     fnd = []
     for m in find:
         found = find_md_files(match=m, config=config)
         if not found:
-            app.warning("No pages found", match=m)
+            app.warning('No pages found', match=m)
         else:
             fnd.extend(found)
-    stats["matching"] = len(fnd)
+    stats['matching'] = len(fnd)
     return fnd
+
+
+def is_after(fn, hfn):
+
+    breakpoint()  # FIXME BREAKPOINT
+
+
+def get_insert_pos(fn, have):
+    while fn:
+        fn, post = fn.rsplit('/', 1)
+        for i in range(len(have)):
+            if not have[i].startswith(fn):
+                continue
+            while have[i] < (fn + '/' + post) and have[i].startswith(fn):
+                i += 1
+            return have[i - 1], have[i]
+
+
+now = time.time
+
+
+def clear_digits(t):
+    return '.'.join([k for k in t.split('.') if not k.isdigit()])
 
 
 def find_pages_and_add_to_nav(find, config, stats):
@@ -45,82 +70,82 @@ def find_pages_and_add_to_nav(find, config, stats):
     if not found:
         return
 
-    m = {p: None for p in found}
-    nav = config["nav"]
-    navl = flatten(nav, ".")
-    # (all in the search dir merged with all in nav) - all in nav = missing
-    m.update({v: k for k, v in navl.items()})
-    stats["missing"] = len(m) - len(navl)
+    # m = OD({p: None for p in found})
+    nav = config['nav']
+    navl = flatten(nav, '.')
+    navll = [[fn, k] for k, fn in navl.items()]
+    have = [fn[0] for fn in navll]
+    ins = {}
+    while found:
+        fn = found.pop(0)
+        if fn in have:
+            continue
+        bef, aft = get_insert_pos(fn, have)
+        ins.setdefault(have.index(bef), []).insert(0, fn)
+    l = {}
+    for k in reversed(sorted([i for i in ins])):
+        fns = ins[k]
+        [have.insert(k + 1, fn) for fn in fns]
+        l[have[k]] = fns
+    app.info('Inserting %s pages into nav' % sum([len(i) for i in ins.values()]), json=l)
+    # have now the complete list with found ones inserted at right places
+    #  'features/lp/python/_tech.md',
+    #  'features/lp/python/data_table/index.md',
+    navl_rev = {v: k for k, v in navl.items()}
+    r = OD()
 
-    # find the right position to insert:
-    b, a, l = None, None, sorted([[k, v] for k, v in m.items()])
-    new, dd = [["", ""]], config["docs_dir"]
+    dd = config['docs_dir']
 
     def get_title(fn_page):
-        h = "\n" + read_file(dd + "/" + fn_page, dflt="") + "\n# Found\n"
-        h = uppercase_words(h.split("\n# ", 1)[1].split("\n", 1)[0])
+        h = '\n' + read_file(dd + '/' + fn_page, dflt='') + '\n# Found\n'
+        h = uppercase_words(h.split('\n# ', 1)[1].split('\n', 1)[0])
         if not h:
             # e.g. # bash alone has no uppercase word. then take the filename:
-            l = fn_page.rsplit("/", 2)
-            if l[-1] == "index.md":
+            l = fn_page.rsplit('/', 2)
+            if l[-1] == 'index.md':
                 h = l[-2]
             else:
-                h = fn_page.rsplit("/", 1)[-1].split(".", 1)[0]
+                h = fn_page.rsplit('/', 1)[-1].split('.', 1)[0]
         return h
 
-    def clear_digits(t):
-        return ".".join([k for k in t.split(".") if not k.isdigit()])
+    to = None
+    for h in have:
+        tit = navl_rev.get(h)
+        if not tit:
+            t = to.rsplit('.', 2)
+            tit = '.'.join((t[0], str(int(t[-2]) + 1), get_title(h)))
+        r[tit] = h
+        to = tit
 
-    newt = []
-    # l the sorted merge of nav and new (new stuff w/o a path yet):
-    while l:
-        new.append(l.pop(0))
-        if new[-1][1]:
-            # is in nav, has a path:
-            continue
-        # (Pdb) pp new[-1]
-        # ['features/lp/plugs/bash/index.md', None]
-        h = get_title(new[-1][0])
-        b, cur = new[-2], new[-1]
-        app.info("Adding to nav", path=cur[0], title=h)
-        title = into_path(cur[0], b[0], b[1])
-        a = [k for k in l if k[1]]
-        if a:
-            a = a[0]
-            titlea = into_path(cur[0], a[0], a[1])
-            if len(titlea) > len(title):
-                title = titlea
-        new[-1][1] = title + "." + h
-        newt.append(clear_digits(new[-1][1]))
-    if not newt:
-        return
-    new = sorted([[v, k] for k, v in new[1:]])
-    new = [[clear_digits(t), i] for t, i in new]
-    out = [[k, ("-- ADDED --> " if k in newt else "") + v] for k, v in new]
-    out = [dict(out), "Added:", newt]
-    app.info("Rebuilt nav tree", json=out)
-    nnav = []
-    rebuild_nav(new, into=nnav)
-    config["nav"].clear()
-    config["nav"].extend(nnav)
+    n = OD()
+    for k, v in r.items():
+        n[clear_digits(k)] = v
+
+    r = unflatten(n)
+    r = to_list(r)
+    config['nav'].clear()
+    config['nav'].extend(r)
 
 
-def rebuild_nav(l, into, start=""):
-    if start:
-        start += "."
-    for t, p in l:
-        if not t.startswith(start):
-            continue
-        if start:
-            t = t.split(start, 1)[1]
-        s = t.split(".")
-        if len(s) > 1:
-            lc = []
-            rebuild_nav(l, into=lc, start=start + s[0])
-            p = lc
-            t = s[0]
-        if not into or list(into[-1].keys())[0] != t:
-            into.append({t: p})
+def to_list(d):
+    l = []
+    for k, v in d.items():
+        v = v if not isinstance(v, dict) else to_list(v)
+        l.append({k: v})
+    return l
+
+
+def unflatten(dictionary):
+    resultDict = OD()
+    for key, value in dictionary.items():
+        parts = key.split('.')
+        d = resultDict
+        for part in parts[:-1]:
+            if part not in d:
+                d[part] = OD()
+            d = d[part]
+        d[parts[-1]] = value
+    return resultDict
 
 
 def into_path(item, after, last_title):
@@ -131,13 +156,15 @@ def into_path(item, after, last_title):
     Then we return '3.Features.3.TermCasts.0'
     """
     while not item.startswith(after):
-        after = after.rsplit("/", 1)[0]
-    parts = after.split("/")
-    return ".".join(last_title.split(".", 2 * len(parts) + 1)[:-1])
+        after = after.rsplit('/', 1)[0]
+    parts = after.split('/')
+    return '.'.join(last_title.split('.', 2 * len(parts) + 1)[:-1])
 
 
 class MDFindPagesPlugin(MDPlugin):
-    config_scheme = (("find-pages", config_options.Type(list, default=[])),)
+    config_scheme = (('find-pages', config_options.Type(list, default=[])),)
 
     def on_config(self, config):
-        find_pages_and_add_to_nav(self.config["find-pages"], config, self.stats)
+        # t0 = now()
+        find_pages_and_add_to_nav(self.config['find-pages'], config, self.stats)
+        # print(now() - t0)  # = 0.02 for docutools. Could be improved
