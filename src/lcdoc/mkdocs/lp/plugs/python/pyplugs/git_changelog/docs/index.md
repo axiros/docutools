@@ -5,14 +5,13 @@ Creates a changelog (using [git-changelog](https://pypi.org/project/git-changelo
 - Heavily based on the work of ["pawamoy"](https://github.com/pawamoy).
 - Example: This repo's [Changelog Page](../../../../about/changelog.md).
 
+## Syntax
 
-### Templates
+```
+`lp:python show=git_changelog style=angular`
+```
 
-Links default jinja templates over to docs/lcd/changelog.
-In order to use your own, overwrite that directory.
-
-
-### Config
+## Parameters
 
 ```python
     style      = Choice(['angular', 'basic', 'atom'], default='angular')

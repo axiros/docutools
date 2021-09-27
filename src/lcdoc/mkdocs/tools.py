@@ -136,6 +136,7 @@ def link_assets(plugin, fn_plugin, config):
     cmd = 'ln -s "%s" "%s"' % (d, t)
     if os.system(cmd):
         app.die('Could not link assets')
+    app.info('Assets for git changelog linked', frm=d, to=t)
     return t
 
 

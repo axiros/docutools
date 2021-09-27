@@ -2,8 +2,7 @@
 
 ## Overall
 
-```bash lp mode=cov_report name=overall
-```
+`lp mode=cov_report name=overall`
 
 
 

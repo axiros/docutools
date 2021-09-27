@@ -322,6 +322,8 @@ class LP:
         if not missing:
             return app.debug('All eval results found in previous run')
         LP.previous_results_missing = missing
+        if 'nocache' in str(r):
+            breakpoint()  # FIXME BREAKPOINT
         missing = [LP.spec_by_id[id]['source'] for id in missing]
         app.info('Uncached lp blocks', json=missing)
 
@@ -421,6 +423,8 @@ class LP:
         any_change = LP.previous_results_missing
         # is THIS one missing?
         prev_res = LP.previous_results.get(sid)
+        if prev_res == 'nocache':
+            prev_res = None
 
         def skip(b, kw=kw):
             kw['skip_this'] = True if b else kw.get('skip_this', False)
@@ -476,8 +480,8 @@ class LP:
             if not isinstance(r, dict):
                 LP.cur_results[sid] = r
             else:
-                if not r.get('nocache'):
-                    LP.cur_results[sid] = r
+                r1 = 'nocache' if r.get('nocache') else r
+                LP.cur_results[sid] = r1
 
                 if 'page_assets' in r:
                     page_assets = r.get('page_assets')

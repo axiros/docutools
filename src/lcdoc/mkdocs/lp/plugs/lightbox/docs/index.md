@@ -26,6 +26,7 @@ or the normal form:
  ```
 ```
 
+
 The library works not only on markdown images but also on html images or other content. 
 
 You may specify jquery element matchers and featherlight targets also in the body (then with more
@@ -50,6 +51,7 @@ element into a lightbox:
 ```
 
 Renders:
+
 
 `lp:lightbox:`
 *Example element with the lightbox button to the right*

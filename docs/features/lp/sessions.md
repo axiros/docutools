@@ -48,7 +48,7 @@ console.log('The answer to everything is:', answer)
 
 ## The Python Session
 
-While tmux sessions are run within a subprocess, python session state is resident within the mkdocs
+While tmux sessions are run within a subprocess, [python][pytech] session state is resident within the mkdocs
 build process itself - no need to send and read strings via the tmux api here (mkdocs *is* a python
 process).
 
@@ -58,5 +58,6 @@ process).
 
 [bash]: ./bash/sessions.md
 [python]: ./python/_index.md
+[pytech]: ./python/_tech.md
 
 

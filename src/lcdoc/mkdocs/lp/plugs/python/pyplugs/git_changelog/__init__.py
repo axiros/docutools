@@ -113,7 +113,8 @@ def make_changelog(s, **show_kw):
     l = (show_kw, lpkw(), os.environ)
     style = g('commit_style', 'angular', *l)
     ver = g('versioning', 'semver', *l)
-
     d_assets = link_assets(python, __file__, config())
+    os.system('ls docs/lcd/git_changelog')
+
     r = gen_change_log(d_assets, ver, style)
     return r
