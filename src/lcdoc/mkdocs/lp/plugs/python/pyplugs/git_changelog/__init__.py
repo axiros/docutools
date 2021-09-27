@@ -83,11 +83,14 @@ def gen_change_log(d_assets, versioning_scheme, commit_style):
             pass
         app.info('Versioning derived from git tags', versioning=ver)
 
+    # '/home/gk/repos/docutools/docs/lcd/git_changelog/keepachangelog'
     for k in os.listdir(dcl):
         fn = dtmp + '/' + k.replace('.tmpl', '')
         shutil.copyfile(dcl + '/' + k, fn)
         if k == 'changelog.md.tmpl':
             set_version_scheme(fn, ver)
+    print('git-changelog -s angular -t path:build/git_changelog_tmpl .')
+    os.system('git-changelog -s angular -t path:build/git_changelog_tmpl .')
     cmd = 'cd "%s"; git-changelog -s %s -t "path:%s" .'
     cmd = cmd % (dr, commit_style, dtmp)
     cl = os.popen(cmd).read()

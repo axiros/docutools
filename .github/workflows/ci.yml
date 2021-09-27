@@ -20,6 +20,7 @@ env:
   PROJECT: "docutools"
   MC: "/home/runner/miniconda3"
   PATH: "$(MC)/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
+  versioning: calver # for git-changelog
 
 jobs:
   tests:
