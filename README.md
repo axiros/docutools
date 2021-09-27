@@ -1,6 +1,10 @@
 #  docutools
 
-<!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
+```python xlp:python make_splash eval=always
+
+```
+
+<!-- id: 316e1c6d93fb4b6b56b7b2ddc40371cc -->
 [![docs pages][docs pages_img]][docs pages] [![gh-ci][gh-ci_img]][gh-ci] [![pkg][pkg_img]][pkg] [![code_style][code_style_img]][code_style] 
 
 [docs pages]: https://AXGKl.github.io/docutools
@@ -12,7 +16,7 @@
 [code_style]: https://pypi.org/project/axblack/
 [code_style_img]: https://AXGKl.github.io/docutools/img/badge_axblack.svg
 
-<!-- id: 58ce0e4068dce84983a2caa8a1e87f12 -->
+<!-- id: 316e1c6d93fb4b6b56b7b2ddc40371cc -->
 
 
 ## [Documentation](https://axgkl.github.io/docutools/) building tools
@@ -28,4 +32,4 @@ Most notable feature: **[Literate Programming](./features/lp/)**.
 Note: Some features are not yet documented.
 
 
-Last modified: Mon, 27 Sep 2021 09h GMT
+Last modified: Mon, 27 Sep 2021 11h GMT

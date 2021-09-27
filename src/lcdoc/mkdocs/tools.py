@@ -276,8 +276,9 @@ last_img_hash = {}
 def make_img(create_func, fn=None, kw=None):
     """Takes care about
 
-    - fn in docs dir or not, then creates in site_dir
+    - fn in docs dir or not
     - creation of containing dir
+    - creates fn also in site_dir always, i.e. change detection for svg may be disabled
 
     Returns the image link
     """
@@ -292,24 +293,41 @@ def make_img(create_func, fn=None, kw=None):
     page = LP.page
     config = LP.config
 
+    def make(fn_abs, copy_frm=None, kw=kw):
+        os.makedirs(dirname(fn_abs), exist_ok=True)
+        if not exists(fn_abs) or last_img_hash.get(fn_abs) != kw['id']:
+            if copy_frm:
+                app.info('Copying svg', frm=copy_frm, to=fn_abs)
+                shutil.copyfile(copy_frm, fn_abs)
+            else:
+                app.info('Creating svg', fn=fn_abs)
+                create_func(fn_abs)
+
+    fn_abs_docs = False
     if fn:
+        in_docs = True
         # image wanted within docs dir:
         if fn.startswith('/'):
             app.error('no absolute filename allowed', fn=fn, page=page)
             raise
         # fn parameter was given -> create in docs dir:
-        fn_abs = page_dir(kw) + fn
-    else:
-        fn = 'img/plot_lp_%s.svg' % LP.lpnr  # lp block number on page
-        fn_abs = config['site_dir'] + '/' + page.file.src_path.rsplit('.md', 1)[0]
-        fn_abs += '/' + fn
+        fn_abs = fn_abs_docs = page_dir(kw) + fn
 
-    os.makedirs(dirname(fn_abs), exist_ok=True)
-    if not exists(fn_abs) or last_img_hash.get(fn_abs) != kw['id']:
-        app.info('Creating svg', fn=fn_abs)
-        create_func(fn_abs)
+    # should work even with svg change detection off:
+    if 'serve' in sys.argv or not fn:
+        if not fn:
+            fn = 'img/plot_lp_%s.svg' % LP.lpnr  # lp block number on page
+        fn_abs = config['site_dir'] + '/' + page.file.src_path.rsplit('.md', 1)[0]
+        if fn_abs.endswith('/index'):
+            fn_abs = fn_abs.rsplit('/', 1)[0]
+        fn_abs += '/' + fn
+        make(fn_abs, copy_frm=fn_abs_docs)
+
     last_img_hash[fn_abs] = kw['id']
     return '![](%s)' % fn
+
+
+import shutil
 
 
 def reset_if_is_first_loaded_plugin_and_hash_changed(plugin, c={}):

@@ -11,8 +11,7 @@ You need to have `pip/conda install matplotlib` and optionally also `pip/conda i
 
 !!! note "Works within Admonitions"
 
-    ```python lp:python addsrc
-
+    ```python lp:python addsrc eval=always
     import matplotlib.pyplot as plt
     import numpy as np
     x = np.linspace(0, 2, 100)
@@ -30,7 +29,7 @@ You need to have `pip/conda install matplotlib` and optionally also `pip/conda i
 
 - The plot is created as svg directly into your html site directory, i.e. will not show up within
   your docs tree.
-- If for some reason you cannot create the svg on the system where you build your docs:
+- If for some reason you can *not* create the svg on the system where you build your docs:
 
     1. supply a `fn` (filename) argument to the show function, relative to your page, e.g.
        `show(plt, fn='img/myplot')`. This will result in the plot created within your docs dir, so
@@ -41,7 +40,7 @@ You need to have `pip/conda install matplotlib` and optionally also `pip/conda i
        (e.g. for assertion checks).
 
 
-!!! important "Implizit `plt.clf()` (clear plot) call"
+!!! important "Implicit `plt.clf()` (clear plot) call"
     The `show` function applied to a pyplot will call `plt.clear()` after having created the svg.
     This is necessary since we exec the lp code in process (of the mkdocs build but also mkdocs
     serve). For serve this is a problem since subsequent runs after page edits
