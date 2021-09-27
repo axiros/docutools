@@ -24,6 +24,10 @@ number > 2000, we set to calver.
 You can set `$versioning` also via environ, which will have precedence then.
 
 
+!!! caution "Works only with full git history"
+    On many CI systems the repo is fechted with --depth=1. If docu is built there, then commit the
+    cache file for the changelog page and have it built locally.
+
 Lastly:
 
 - https://joshuatauberer.medium.com/write-joyous-git-commit-messages-2f98891114c4

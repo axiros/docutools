@@ -89,8 +89,6 @@ def gen_change_log(d_assets, versioning_scheme, commit_style):
         shutil.copyfile(dcl + '/' + k, fn)
         if k == 'changelog.md.tmpl':
             set_version_scheme(fn, ver)
-    print('git-changelog -s angular -t path:build/git_changelog_tmpl .')
-    os.system('git-changelog -s angular -t path:build/git_changelog_tmpl .')
     cmd = 'cd "%s"; git-changelog -s %s -t "path:%s" .'
     cmd = cmd % (dr, commit_style, dtmp)
     cl = os.popen(cmd).read()

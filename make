@@ -140,7 +140,9 @@ function release {
     nfo "New Version = $version"
     sh poetry version "$version"
     sh tests || return 1
-    sh cover
+    #sh cover # cov reports created on ci
+    # create a new changelog, this is committed, since on CI --depth=1:
+    sh rm docs/about/changelog.md.lp.py
     sh docs  || return 1
     sh git commit -am "chore: Prepare release $version"
     sh git tag "$version"
