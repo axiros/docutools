@@ -14,7 +14,8 @@ This repo is providing a set of plugins for [mkdocs material](https://squidfunk.
 
 It is meant to be used as a development dependency for projects.
 
-Most notable feature: **[Literate Programming](./features/lp/)**.
+Most notable feature: **[Literate Programming](./features/lp/)**, tightly integrated within the mkdocs framework.
+
 
 > Most plugins should work in other mkdocs variants as well. No guarantees though.
 
@@ -35,15 +36,18 @@ os.chdir(dr)
 height = lambda fn: imagesize.get(fn)[1]
 
 def spec(fnf):
+    '''title and link is to foo for .../foo/img/gl_bar.png'''
     fn = fnf.split('docs/', 1)[1]
     ti, n = fn.split('/img/', 1)
     t = ti.rsplit('/', 1)[-1]
-    # convention: gl_foo__bar.png -> we set bar.md as target, if exists:
+
+    # Special convention: gl_foo__bar.png -> we set bar.md as target, if exists:
     n = n.rsplit('.', 1)[0].split('__')
     fnmd = 'docs/' + ti + '/' + n[-1]
     if os.path.exists(fnmd+'.md'):
         t = n[-1]
         ti += '/' + n[1]
+
     return {'fn': fn, 'lnk': ti, 'tit': t}
 
 imgs = os.popen("fd -L gl_ docs | grep '.png$'").read().splitlines()
