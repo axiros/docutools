@@ -56,17 +56,19 @@ page_assets = {
 }
 
 fla = '''
-$('%(match)s').featherlightGallery({
+$('%(outer_match)s%(match)s').featherlightGallery({
     nextIcon: '»',
     previousIcon: '«',
     openSpeed: 300,
     galleryFadeIn: 300,
     targetAttr: '%(target)s'
 });
-$('%(match)s').css('cursor', 'zoom-in');
+$('%(outer_match)s%(match)s').css('cursor', 'zoom-in');
 '''
 
-dflt = lambda: {'outer_match': '.md-content', 'match': 'img', 'target': 'src'}
+# :docs:lightbox-defaults
+lb_dflt_params = lambda: {'outer_match': '.md-content ', 'match': 'img', 'target': 'src'}
+# :docs:lightbox-defaults
 
 cur_id = [0]
 
@@ -95,7 +97,7 @@ def run(cmd, kw):
     cmds = [cmd] if not isinstance(cmd, list) else cmd
     r = []
     for cmd in cmds:
-        d = dflt()
+        d = lb_dflt_params()
         d.update(kw)
         if isinstance(cmd, dict):
             d.update(cmd)

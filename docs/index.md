@@ -22,6 +22,7 @@ Most notable feature: **[Literate Programming](./features/lp/)**.
 ## [Feature](https://axgkl.github.io/docutools/features/) Gallery
 
 
+
 ```python lp:python eval=always
 '''
 Finds all shots, starting with "gl_" and creates a table:
@@ -72,7 +73,7 @@ insert_file(dr + '/README.md', R, sep='<!-- gallery -->')
 
 ```
 
-`lp:lightbox`
+`lp:lightbox outer_match='#gallery '`
 
 <style>
 @media only screen and (min-width: 76.25em) {

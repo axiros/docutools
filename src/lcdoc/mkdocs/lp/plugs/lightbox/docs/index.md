@@ -16,13 +16,13 @@ Wraps content into [featherlight](https://github.com/noelboss/featherlight) ligh
 At the bottom of your page add an lp stanza like this
 
 ```
- `lp:lightbox [match=... target=...]`
+ `lp:lightbox [outer_match=... match=... target=...]`
 ```
 
 or the normal form:
 
 ```
- ```sth lp:lightbox match=img target=src
+ ```sth lp:lightbox match=img target=src ...
  ```
 ```
 
@@ -40,10 +40,16 @@ than one), like this:
  ```
 ```
 
-### Lightbox For Single Elements
+Default Parameters:
 
-Adding a colon behind the mode `lightbox` will return a button, which will lift the following
-element into a lightbox:
+`lp:show_src delim=lightbox-defaults dir=src/lcdoc eval=always`
+
+
+
+## Lightbox For Single Elements
+
+Adding a colon behind the mode `lightbox` will return a button, which will lift the **following
+element** into a lightbox:
 
 ```
 `lp:lightbox:`
