@@ -56,17 +56,17 @@ page_assets = {
 }
 
 fla = '''
-$('.md-content %(match)s').featherlightGallery({
+$('%(match)s').featherlightGallery({
     nextIcon: '»',
     previousIcon: '«',
     openSpeed: 300,
     galleryFadeIn: 300,
     targetAttr: '%(target)s'
 });
-$('.md-content %(match)s').css('cursor', 'zoom-in');
+$('%(match)s').css('cursor', 'zoom-in');
 '''
 
-dflt = lambda: {'match': 'img', 'target': 'src'}
+dflt = lambda: {'outer_match': '.md-content', 'match': 'img', 'target': 'src'}
 
 cur_id = [0]
 

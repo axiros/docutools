@@ -28,7 +28,7 @@ style = lambda s: '<style>\n%s\n</style>' % s
 def add_post_page_func(kw, f):
     p = kw['LP'].page
     h = getattr(p, 'lp_on_post_page', [])
-    h.append(partial(f, page=p, config=kw['LP'].config))
+    h.append(f)
     p.lp_on_post_page = h
 
 

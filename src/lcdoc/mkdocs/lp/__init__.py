@@ -322,8 +322,6 @@ class LP:
         if not missing:
             return app.debug('All eval results found in previous run')
         LP.previous_results_missing = missing
-        if 'nocache' in str(r):
-            breakpoint()  # FIXME BREAKPOINT
         missing = [LP.spec_by_id[id]['source'] for id in missing]
         app.info('Uncached lp blocks', json=missing)
 
@@ -805,8 +803,11 @@ class LPPlugin(MDPlugin):
         Note: at https://github.com/squidfunk/mkdocs-material/issues/2338 only inside
         container element is re-evalled at nav.instant events.
         """
-        f = getattr(page, 'lp_on_post_page', ())
-        [i() for i in f]
+        fs = getattr(page, 'lp_on_post_page', ())
+        for f in fs:
+            r = f(output=output, page=page, config=config)
+            output = r or output
+        return output
 
 
 def add_asset(what, to, at, typ=None):

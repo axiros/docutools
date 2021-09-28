@@ -3,6 +3,7 @@ Common tools for all modules
 
 """
 import collections
+import hashlib
 import json
 import os
 import socket
@@ -10,7 +11,7 @@ import sys
 import time
 
 import toml
-import hashlib
+
 from lcdoc.log import app, now
 
 exists = os.path.exists
@@ -75,6 +76,13 @@ def read_file(fn, dflt=None, bytes=-1, strip_comments=False):
             lines = res.splitlines()
             res = '\n'.join([l for l in lines if not l.startswith('#')])
         return res
+
+
+def insert_file(fn, content, sep):
+    s = read_file(fn).split(sep)
+    if not len(s) == 3:
+        raise Exception(f'No 2 times occurrance of sep in file. sep: {sep}, fn: {fn}')
+    write_file(fn, s[0] + sep + content + sep + s[2])
 
 
 def write_file(fn, s, log=0, mkdir=0, chmod=None, mode='w', only_on_change=False):

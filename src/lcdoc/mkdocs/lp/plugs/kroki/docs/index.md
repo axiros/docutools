@@ -7,7 +7,7 @@ Kroki is a metahub for various kinds of diagram types, incl. [plantuml](https://
 
 These are just a few of the growing selection of supported formats:
 
-![](img/cheat.png)
+![](img/gl_kroki_cheat.png)
 
 ## Syntax
 

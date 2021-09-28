@@ -74,11 +74,14 @@ def show(s, **innerkw):
 
 
 # keys: matching strings on s and s class, with s the argument of `show()`:
+
 fmts = {}
 
 
 def matching_pyplug(s, innerkw):
     """find rendering pyplug based on type of output"""
+    if innerkw.get('md'):
+        return  # markdown was forced (show('> foo', md=True)
     if isinstance(s, str) and s in fmts:
         return fmts[s]
     for k in fmts:

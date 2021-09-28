@@ -2,7 +2,7 @@
 
 Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-page-tree,t=m
 
-[![./img/ex.png](./img/ex.png)](./img/ex.png)
+![](./img/gl_tree_ex.png)
 
 
 ## Features

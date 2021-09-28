@@ -38,7 +38,17 @@ from functools import partial
 import anybadge as ab
 
 from lcdoc.mkdocs.tools import add_post_page_func, srclink
-from lcdoc.tools import app, dirname, exists, now, os, project, read_file, write_file
+from lcdoc.tools import (
+    app,
+    dirname,
+    exists,
+    now,
+    os,
+    project,
+    read_file,
+    write_file,
+    insert_file,
+)
 
 multi_line_to_list = True
 
@@ -137,9 +147,9 @@ def make_badge_svg_file(badge_fn, label, value, color='gray', **kw):
     write_file(badge_fn, badge.badge_svg_text, mkdir=True, only_on_change=True)
 
 
-def write_readme(page, config):
+def write_readme(page, config, content=None, **kw):
     fn = project.root(config) + '/README.md'
-    write_file(fn, page.markdown, only_on_change=True)
+    insert_file(fn, content, sep='<!-- badges -->')
     app.info('Have written README', fn=fn)
 
 
@@ -177,6 +187,8 @@ def run(cmd, kw):
         l += ['[%(label)s]: %(lnk)s' % s]
         l += ['[%(label)s_img]: %(img)s' % s]
     l = '\n'.join(l)
+    content = '\n'.join(['', r, '', l, ''])
     if kw.get('write_readme'):
-        add_post_page_func(kw, write_readme)
-    return {'res': specs, 'formatted': '\n'.join(['', r, '', l, ''])}
+        add_post_page_func(kw, partial(write_readme, content=content))
+
+    return {'res': specs, 'formatted': content}
