@@ -8,16 +8,17 @@ axblack
 ```
 
 
-## [Documentation](https://axgkl.github.io/docutools/) Tools *For Developers*
+## [MkDocs Documentation](https://axgkl.github.io/docutools/) Tools For Developers
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.
 
-It is meant to be used as a development dependency for projects.
+It is meant to be used as a development dependency for projects, intended to be used mainly by the
+developers themselves, i.e. for the more technical, code centric parts of software project documentation.
 
-Most notable feature: **[Literate Programming](./features/lp/)**, tightly integrated within the mkdocs framework.
+Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic code execution - tightly integrated within the mkdocs framework.
 
 
-> Most plugins should work in other mkdocs variants as well. No guarantees though.
+> Most plugins should work in [other](https://www.mkdocs.org/dev-guide/themes/) mkdocs themes as well. No guarantees though.
 
 
 ## [Feature](https://axgkl.github.io/docutools/features/) Gallery
@@ -28,7 +29,7 @@ Most notable feature: **[Literate Programming](./features/lp/)**, tightly integr
 '''
 Finds all shots, starting with "gl_" and creates a table:
 '''
-import os#, imagesize
+import os
 from lcdoc.tools import read_file, insert_file
 
 dr = os.environ['LP_PROJECT_ROOT']
@@ -53,7 +54,6 @@ def spec(fnf):
 imgs = os.popen("fd -L gl_ docs | grep '.png$'").read().splitlines()
 imgs = [spec(fn) for fn in imgs]
 imgs = sorted(imgs, key=lambda m: m['tit'])
-#imgs = [k[1] for k in sorted([[height(fn), fn] for fn in imgs])]
 
 rows, columns = int(len(imgs)/3+1), 3
 
@@ -70,7 +70,8 @@ for r in range(rows):
     for c in range(columns):
         nr += 1
         oe = o[nr % 2]
-        add(f'<td class="{oe}">')
+        lnk = imgs[0]['lnk'] if imgs else ''
+        add(f'<td class="{oe}" onclick="window.location.href=\'{lnk}\'">')
         if imgs:
             i = imgs.pop(0)
             add(img(i))
@@ -80,16 +81,17 @@ add('</table>')
 R = '\n'.join(R)
 show(R, md=True)
 
-# into README.md:
+# Put the table also into our README.md, with links adapted:
 D = 'https://axgkl.github.io/docutools/'
 R = R.replace('href="', f'href="{D}')
 R = R.replace('src="', f'src="{D}')
 insert_file(dr + '/README.md', R, sep='<!-- gallery -->')
 
 ```
-
+<!-- lightbox on image click -->
 `lp:lightbox outer_match='#gallery '`
 
+<!-- wide output -->
 <style>
 @media only screen and (min-width: 76.25em) {
   .odd { background-color: var(--md-code-bg-color);}
