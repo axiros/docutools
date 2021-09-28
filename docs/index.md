@@ -47,10 +47,14 @@ def img(fn):
 
 R = ['<table id=gallery>']
 add = R.append
+o = ['odd', 'even']
+nr = 0
 for r in range(rows):
     add('<tr>')
     for c in range(columns):
-        add('<td>')
+        nr += 1
+        oe = o[nr % 2]
+        add(f'<td class="{oe}">')
         if imgs:
             i = imgs.pop(0)
             add(img(i))
@@ -72,6 +76,7 @@ insert_file(dr + '/README.md', R, sep='<!-- gallery -->')
 
 <style>
 @media only screen and (min-width: 76.25em) {
+  .odd { background-color: var(--md-code-bg-color);}
   .md-main__inner {
     max-width: none;
   }
