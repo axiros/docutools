@@ -8,7 +8,7 @@ axblack
 ```
 
 
-## [Documentation](https://axgkl.github.io/docutools/) building tools
+## [Documentation](https://axgkl.github.io/docutools/) Tools *For Developers*
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.
 
@@ -27,24 +27,35 @@ Most notable feature: **[Literate Programming](./features/lp/)**.
 '''
 Finds all shots, starting with "gl_" and creates a table:
 '''
-import os, imagesize
+import os#, imagesize
 from lcdoc.tools import read_file, insert_file
 
 dr = os.environ['LP_PROJECT_ROOT']
 os.chdir(dr)
 height = lambda fn: imagesize.get(fn)[1]
 
+def spec(fnf):
+    fn = fnf.split('docs/', 1)[1]
+    ti, n = fn.split('/img/', 1)
+    t = ti.rsplit('/', 1)[-1]
+    # convention: gl_foo__bar.png -> we set bar.md as target, if exists:
+    n = n.rsplit('.', 1)[0].split('__')
+    fnmd = 'docs/' + ti + '/' + n[-1]
+    if os.path.exists(fnmd+'.md'):
+        t = n[-1]
+        ti += '/' + n[1]
+    return {'fn': fn, 'lnk': ti, 'tit': t}
+
 imgs = os.popen("fd -L gl_ docs | grep '.png$'").read().splitlines()
-imgs = [k[1] for k in sorted([[height(fn), fn] for fn in imgs])]
+imgs = [spec(fn) for fn in imgs]
+imgs = sorted(imgs, key=lambda m: m['tit'])
+#imgs = [k[1] for k in sorted([[height(fn), fn] for fn in imgs])]
 
 rows, columns = int(len(imgs)/3+1), 3
 
-def img(fn):
-    fn = fn.split('docs/', 1)[1]
-    ti = fn.split('/img/', 1)[0]
-    t = ti.rsplit('/', 1)[-1]
-    t = f'<a href="{ti}/">{t}</a><br/>'
-    return t + f'<img src="{fn}" style="max-height: 300px"></img>'
+def img(spec):
+    t = '<a href="{lnk}/">{tit}</a><br/>'
+    return (t + '<img src="{fn}" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>').format(**spec)
 
 R = ['<table id=gallery>']
 add = R.append

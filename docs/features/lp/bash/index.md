@@ -4,9 +4,25 @@ This is the default evaluation mode, i.e. run when no `mode` parameter is given 
 
 It runs the given statements within a bash shell, [`subprocess.call`](https://docs.python.org/3/library/subprocess.html) style.
 
-Alternatively, When you supply a `[new_]session` parameter, we will [send the statements over into tmux](./sessions.md) and run
-them there.
+## Example
+
+```bash lp:bash addsrc
+ls -lta --color=always /etc | head -n 20
+```
+
+## Parameters and Syntax
+
+We have dedicated sections for those:
+
+- [Parameters](../parameters.md).
+- [Syntax](../syntx.md).
 
 
-Available parameters: See [here](../parameters.md).
+## Sessions
+
+When you supply a `session` or `new_session` parameter, we will send the statements over into tmux
+and run them there.
+
+See [here](./sessions.md) for more about that.
+
 

@@ -17,6 +17,15 @@ or external (e.g. filesystem) state.
     - the expected output is seen or
     - the timeout is reached 
 
+## Example
+
+```bash lp:bash session=docs addsrc
+ls -lta /etc/systemd
+```
+
+Note that a `--colors=always` is not necessary here - the commands are run as if you would type them
+into a tmux window - in fact they are, using `tmux send-keys`.
+
 
 ## Terminal Output
 
