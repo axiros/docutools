@@ -13,15 +13,19 @@
 [code_style_img]: https://AXGKl.github.io/docutools/img/badge_axblack.svg
 <!-- badges -->
 
-## [Documentation](https://axgkl.github.io/docutools/) building tools
+
+## [MkDocs Documentation](https://axgkl.github.io/docutools/) Tools For Developers
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.
 
-It is meant to be used as a development dependency for projects.
+It is meant to be used as a development dependency for projects, intended to be used mainly by the
+developers themselves, i.e. for the more technical, code centric parts of software project documentation.
 
-Most notable feature: **[Literate Programming](./features/lp/)**.
+Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic code execution - tightly integrated within the mkdocs framework.
 
-> Most plugins should work in other mkdocs variants as well. No guarantees though.
+
+> Most plugins should work in [other](https://www.mkdocs.org/dev-guide/themes/) mkdocs themes as well. No guarantees though.
+
 
 
 ## [Feature](https://axgkl.github.io/docutools/features/) Gallery
