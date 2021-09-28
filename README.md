@@ -49,84 +49,93 @@ Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic c
 <td class="even" onclick="window.location.href='features/lp/plugs/chartist'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/chartist/">chartist</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/chartist/img/gl_chartist.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/lp/plugs/cov_report'">
+<td class="odd" onclick="window.location.href='features/lp/plugs/column'">
+<a href="https://axgkl.github.io/docutools/features/lp/plugs/column/">column</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/column/img/gl_columns.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
+</td>
+</tr>
+<tr>
+<td class="even" onclick="window.location.href='features/lp/plugs/cov_report'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/cov_report/">cov_report</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/cov_report/img/gl_cov_backref.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td class="even" onclick="window.location.href='features/lp/python/data_table'">
+<td class="odd" onclick="window.location.href='features/lp/python/data_table'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/data_table/">data_table</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/data_table/img/gl_data_tables.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/lp/python/diag_diagram'">
+<td class="even" onclick="window.location.href='features/lp/python/diag_diagram'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/diag_diagram/">diag_diagram</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/diag_diagram/img/gl_diag.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/lp/plugs/drawio'">
+</tr>
+<tr>
+<td class="odd" onclick="window.location.href='features/lp/plugs/drawio'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/drawio/">drawio</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/drawio/img/gl_drawio.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td class="odd" onclick="window.location.href='features/find-pages'">
+<td class="even" onclick="window.location.href='features/find-pages'">
 <a href="https://axgkl.github.io/docutools/features/find-pages/">find-pages</a><br/><img src="https://axgkl.github.io/docutools/features/find-pages/img/gl_find_pages.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/lp/plugs/flowchart'">
+<td class="odd" onclick="window.location.href='features/lp/plugs/flowchart'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/flowchart/">flowchart</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/flowchart/img/gl_flow.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/lp/python/git_changelog'">
+</tr>
+<tr>
+<td class="even" onclick="window.location.href='features/lp/python/git_changelog'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/git_changelog/">git_changelog</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/git_changelog/img/gl_changel.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td class="even" onclick="window.location.href='features/lp/plugs/kroki'">
+<td class="odd" onclick="window.location.href='features/lp/plugs/kroki'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/kroki/">kroki</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/kroki/img/gl_kroki.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/lp/plugs/kroki'">
+<td class="even" onclick="window.location.href='features/lp/plugs/kroki'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/kroki/">kroki</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/kroki/img/gl_kroki_cheat.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/lp/plugs/lightbox'">
+</tr>
+<tr>
+<td class="odd" onclick="window.location.href='features/lp/plugs/lightbox'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/lightbox/">lightbox</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/lightbox/img/gl_light.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td class="odd" onclick="window.location.href='features/lp/plugs/make_badges'">
+<td class="even" onclick="window.location.href='features/lp/plugs/make_badges'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/make_badges/">make_badges</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/make_badges/img/gl_badges.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/lp/plugs/markmap'">
+<td class="odd" onclick="window.location.href='features/lp/plugs/markmap'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/markmap/">markmap</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/markmap/img/gl_mark.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/md-replace'">
+</tr>
+<tr>
+<td class="even" onclick="window.location.href='features/md-replace'">
 <a href="https://axgkl.github.io/docutools/features/md-replace/">md-replace</a><br/><img src="https://axgkl.github.io/docutools/features/md-replace/img/gl_md_repl.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td class="even" onclick="window.location.href='features/lp/plugs/mermaid'">
+<td class="odd" onclick="window.location.href='features/lp/plugs/mermaid'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/mermaid/">mermaid</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/mermaid/img/gl_merm.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/lp/python/mpl_pyplot'">
+<td class="even" onclick="window.location.href='features/lp/python/mpl_pyplot'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/mpl_pyplot/">mpl_pyplot</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/mpl_pyplot/img/gl_mpl.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/page-tree'">
+</tr>
+<tr>
+<td class="odd" onclick="window.location.href='features/page-tree'">
 <a href="https://axgkl.github.io/docutools/features/page-tree/">page-tree</a><br/><img src="https://axgkl.github.io/docutools/features/page-tree/img/gl_tree_ex.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td class="odd" onclick="window.location.href='features/lp/python/project_dependencies'">
+<td class="even" onclick="window.location.href='features/lp/python/project_dependencies'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/project_dependencies/">project_dependencies</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/project_dependencies/img/gl_auto_deps.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/lp/python'">
+<td class="odd" onclick="window.location.href='features/lp/python'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/">python</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/img/gl_lp_html.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
-</td>
-<td class="odd" onclick="window.location.href='features/lp/python/screenshot'">
-<a href="https://axgkl.github.io/docutools/features/lp/python/screenshot/">screenshot</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/screenshot/img/gl_shots.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
 </tr>
 <tr>
-<td class="even" onclick="window.location.href='features/stats'">
+<td class="even" onclick="window.location.href='features/lp/python/screenshot'">
+<a href="https://axgkl.github.io/docutools/features/lp/python/screenshot/">screenshot</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/screenshot/img/gl_shots.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
+</td>
+<td class="odd" onclick="window.location.href='features/stats'">
 <a href="https://axgkl.github.io/docutools/features/stats/">stats</a><br/><img src="https://axgkl.github.io/docutools/features/stats/img/gl_stats.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/lp/xterm'">
+<td class="even" onclick="window.location.href='features/lp/xterm'">
 <a href="https://axgkl.github.io/docutools/features/lp/xterm/">xterm</a><br/><img src="https://axgkl.github.io/docutools/features/lp/img/gl__xterm.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
+</tr>
+<tr>
+<td class="odd" onclick="window.location.href=''">
+</td>
 <td class="even" onclick="window.location.href=''">
+</td>
+<td class="odd" onclick="window.location.href=''">
 </td>
 </tr>
 </table><!-- gallery -->

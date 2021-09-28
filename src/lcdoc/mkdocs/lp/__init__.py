@@ -88,7 +88,7 @@ def add_assets_to_page(page, d):
 
     m = getattr(page, 'lp_page_assets', None)
     if not m:
-        m = page.lp_page_assets = {'header': {}, 'footer': {}, 'md': {}}
+        m = page.lp_page_assets = {'header': {}, 'footer': {}, 'md': {}, 'func': {}}
     # lp_page_assets_md lp_page_assets_header lp_page_assets_footer
     for mode, v in d.items():
         if mode in known_assets:
@@ -817,6 +817,8 @@ def add_asset(what, to, at, typ=None):
     """
     if isinstance(what, str):
         what = [what]
+    elif callable(what):
+        return to
     # the assets need to have the order as declared:
     for s in what:
         s = s.strip()
@@ -867,7 +869,7 @@ def incl_page_assets(page, html):
     if not PA:
         return o + lc
 
-    for at in ['header', 'footer']:
+    for at in ['header', 'footer', 'func']:
         pe = PA.get(at, {})
         if at == 'footer':
             pe['z_lc'] = lc
@@ -884,6 +886,8 @@ def incl_page_assets(page, html):
                 added = add_asset(what=v, to=added, at=at)
         if at == 'header':
             o = added + o
+        elif at == 'func':
+            o = v(html=o, page=page, LP=LP)
         else:
             o = o + added
     return o

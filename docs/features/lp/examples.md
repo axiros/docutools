@@ -23,9 +23,11 @@ say_hello () {
 }
 ```
 
-<hr/>
+`lp:column addsrc=false`
 
-Heredoc, incl. the  previously defined function:
+## Heredocs
+
+the example includes the  previously defined function:
 
 ```bash lp session=test asserts=TMUX
 echo $0 # lp: expect=bash

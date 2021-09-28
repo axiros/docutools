@@ -769,7 +769,7 @@ def add_assets(res, global_assets, kw, mode):
       res, key page_assets.
     """
     # shortcut, when the run adds one of these we assume it's per block, with id:
-    for k in ['header', 'footer', 'md']:
+    for k in ['header', 'footer', 'md', 'func']:
         pa = res.get(k)
         if pa:
             res.setdefault('page_assets', {}).setdefault(kw['id'], {})[k] = pa
