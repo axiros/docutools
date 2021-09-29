@@ -1,4 +1,4 @@
-# Changelog :srcref:fn=src/lcdoc/mkdocs/changelog/__init__.py,t=
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/git-changelog.py,t=Changelog
 
 Creates a changelog (using [git-changelog](https://pypi.org/project/git-changelog/)).
 

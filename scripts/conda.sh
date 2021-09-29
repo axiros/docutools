@@ -15,14 +15,11 @@ function make_conda_py_env { # creates the venv for the project and poetry insta
     # main conda bin is in path
     local n="${PROJECT}_py${pyver}"
     local p="$(conda_root)/envs/$n"
-    test -e "$p" && {
-        nfo "Already present: $p"
-        return 0
-    }
     conda_act
-    set -x
-    conda create -q -n "${n}" python="${pyver}" ripgrep tmux fd-find poetry graphviz
-    conda activate "$n"
+    test -e "$p" || {
+        conda create -q -n "${n}" python="${pyver}" tree ripgrep tmux fd-find poetry graphviz
+    }
+    conda activate "$n" || return 1
     poetry install
     conda info
     ls -a "$(conda_root)/envs/"
