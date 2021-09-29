@@ -10,7 +10,7 @@ from lcdoc.tools import dirname, exists, read_file, walk_dir, write_file
 config, page, Session, stats = (python.config, python.page, python.Session, python.stats)
 project = python.project
 app = python.app
-
+nocache = True  # we always need to embed the svg into the html, need to be called.
 now = time.time
 
 
@@ -67,4 +67,4 @@ def call_flow_log(s, call, trace, **inner_kw):
     d['page'] = page_
     setattr(page_, 'to_svg_' + kw['id'], partial(kroki_run, uml, d))
 
-    return '\n<lp_svg "%s::%s" />\n' % (kw['id'], pth_d)
+    return {'nocache': True, 'res': '\n<lp_svg "%s::%s" />\n' % (kw['id'], pth_d)}

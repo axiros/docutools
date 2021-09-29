@@ -59,7 +59,7 @@ rows, columns = int(len(imgs)/3+1), 3
 
 def img(spec):
     t = '<a href="{lnk}/">{tit}</a><br/>'
-    return (t + '<img src="{fn}" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>').format(**spec)
+    return (t + '<img onclick="event.stopPropagation();" src="{fn}" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>').format(**spec)
 
 R = ['<table id=gallery>']
 add = R.append
@@ -71,7 +71,7 @@ for r in range(rows):
         nr += 1
         oe = o[nr % 2]
         lnk = imgs[0]['lnk'] if imgs else ''
-        add(f'<td class="{oe}" onclick="window.location.href=\'{lnk}\'">')
+        add(f'<td style="cursor: pointer" title="{lnk}" class="{oe}" onclick="window.location.href=\'{lnk}\'">')
         if imgs:
             i = imgs.pop(0)
             add(img(i))

@@ -89,6 +89,7 @@ markdown_extensions:
       mode: view
   - pymdownx.caret
   - pymdownx.mark
+  - pymdownx.keys
   - pymdownx.tilde
   - pymdownx.magiclink
   - pymdownx.superfences

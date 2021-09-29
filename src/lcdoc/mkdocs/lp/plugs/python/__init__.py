@@ -71,6 +71,11 @@ def show(s, **innerkw):
     f = matching_pyplug(s, innerkw)
     if f:
         s = f(s, **innerkw)
+        # need this for call_flow_logging :-/
+        if isinstance(s, dict):
+            if 'nocache' in s:
+                lpkw()['nocache'] = s['nocache']
+            s = s['res']
     out(s, 'md', innerkw=innerkw)
 
 
@@ -117,6 +122,8 @@ def cmd_to_module_file(cmd, kw):
     h = 'from lcdoc.mkdocs.lp.plugs import python'
     h += '\nprint  = python.printed'
     h += '\nshow = python.show'
+    h += '\ndef run_lp_flow():'
+    cmd = ('\n' + cmd).replace('\n', '\n    ')
     write_file(fn, h + '\n' + cmd, mkdir=1)
     sys.path.insert(0, dirname(fn)) if not dirname(fn) in sys.path else 0
     return fn
@@ -137,7 +144,8 @@ def run(cmd, kw):
         cmd = 'show("%s")' % shw + cmd
     if kw.get('cfl'):
         modfn = cmd_to_module_file(cmd, kw)
-        importlib.import_module(kw['id'])
+        m = importlib.import_module(kw['id'])
+        m.run_lp_flow()
     else:
         loc = Session.cur['locals']
         g = {'print': printed, 'show': show, 'ctx': kw}
@@ -175,6 +183,8 @@ def run(cmd, kw):
     # was fmt given by user?
     if kw['fmt'] == 'unset':
         r['formatted'] = True
+    if 'nocache' in kw:
+        r['nocache'] = kw['nocache']
     r.update(Session.cur['assets'])
     return r
 

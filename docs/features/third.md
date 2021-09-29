@@ -114,6 +114,11 @@ box.
 
 ```
 
+### Keyboard Symbols
+
+This `++ctrl+alt+delete++` is rendered: ++ctrl+alt+delete++
+
+
 ## Snippets
 
 Allow to embed complex other content into your markdown.
