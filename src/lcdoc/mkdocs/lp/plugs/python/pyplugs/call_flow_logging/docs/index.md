@@ -70,11 +70,13 @@ show('call_flow', call=test_flow, trace=json)
 
 ```
 
+
 Move the mouse over the arrows and click to see the full data recorded.
 
-You should get details infos like these
+!!! note "Call Flow Details"
+    You should get details infos like these
 
-![](./img/gl_cfl_details.png)
+    ![](./img/gl_cfl_details.png)
 
 ++ctrl+r++ (reload) to get back.
  

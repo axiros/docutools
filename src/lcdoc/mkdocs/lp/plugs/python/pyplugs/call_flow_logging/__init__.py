@@ -24,7 +24,9 @@ def call_flow_log(s, call, trace, **inner_kw):
     from lcdoc.mkdocs.lp.plugs.kroki import run as kroki_run
 
     kw = python.lpkw()
-    use_case = trace.__name__
+    trace = [trace] if not isinstance(trace, list) else trace
+
+    use_case = '_'.join([t.__name__ for t in trace])
     call_name = call.__name__
     os.environ['PYTEST_CURRENT_TEST'] = 'fakepytest.py::%s' % use_case
     dest = project.root() + '/build/autodocs/%s/%s.md' % (kw['id'], use_case)
@@ -56,7 +58,7 @@ def call_flow_log(s, call, trace, **inner_kw):
     d = dict(Session.kw)
     d['mode'] = 'kroki:plantuml'
     pth_up = '../' * (len(page_.file.src_path.split('/')) - 1)
-    fn = 'autodocs/%s/%s/%s/call_flow'
+    fn = 'autodocs/%s/%s/run_lp_flow.%s/call_flow'
     t = kw['id'], use_case, call_name
     d['fn'] = fn = fn % t
     pth_d = pth_up + fn.rsplit('/', 1)[0]
