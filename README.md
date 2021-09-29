@@ -7,7 +7,7 @@
 [docs pages_img]: https://AXGKl.github.io/docutools/img/badge_docs.svg
 [gh-ci]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml
 [gh-ci_img]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml/badge.svg
-[pkg]: https://pypi.org/project/docutools/2021.9.14/
+[pkg]: https://pypi.org/project/docutools/2021.9.30/
 [pkg_img]: https://AXGKl.github.io/docutools/img/badge_pypi.svg
 [code_style]: https://pypi.org/project/axblack/
 [code_style_img]: https://AXGKl.github.io/docutools/img/badge_axblack.svg
