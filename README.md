@@ -140,4 +140,4 @@ Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic c
 </td>
 </tr>
 </table><!-- gallery -->
-Last modified: Tue, 28 Sep 2021 10h GMT
+Last modified: Tue, 28 Sep 2021 10h GMT 
