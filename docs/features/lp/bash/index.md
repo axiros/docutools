@@ -15,7 +15,7 @@ ls -lta --color=always /etc | head -n 20
 We have dedicated sections for those:
 
 - [Parameters](../parameters.md).
-- [Syntax](../syntx.md).
+- [Syntax](../syntax.md).
 
 
 ## Sessions

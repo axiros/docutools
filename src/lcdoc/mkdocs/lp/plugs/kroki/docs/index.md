@@ -20,6 +20,11 @@ These are just a few of the growing selection of supported formats:
       or absolute path
       
 
+Default Parameters:
+
+```python lp:show_src delim=lp_kroki_dflts dir=src/lcdoc/mkdocs eval=always
+```
+
 
 ## Examples
 

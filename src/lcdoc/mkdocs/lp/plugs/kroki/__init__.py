@@ -11,12 +11,21 @@ from lcdoc import lp
 from lcdoc.mkdocs.tools import os, make_img
 from lcdoc.tools import dirname, os, read_file, exists
 
-dflt_server = 'https://kroki.io/'
-dflt_server = os.environ.get('lp_kroki_server', dflt_server)
-dflt_puml = os.environ.get('lp_kroki_puml', 'dark_blue')
+# dflt_server = 'https://kroki.io/'
+# dflt_server = os.environ.get('lp_kroki_server', dflt_server)
+# dflt_puml = os.environ.get('lp_kroki_puml', 'dark_blue')
 s = 'mkdocs/lp/'
 d_assets = dirname(__file__).split(s, 1)[0] + s + '/assets/plantuml'
 pumls = {}
+
+env = os.environ.get
+# :docs:lp_kroki_dflts
+lp_kroki_dflts = {
+    'server': env('lp_kroki_server', 'https://kroki.io/'),
+    'puml': env('lp_kroki_puml', 'dark_blue'),
+    'kroki_mode': 'plantuml',  # when user gave no kroki mode we set this
+}
+# :docs:lp_kroki_dflts
 
 
 def read_puml_file(fn, kw):
@@ -36,6 +45,10 @@ def read_puml_file(fn, kw):
 
 
 def run(cmd, kw):
+
+    d = dict(lp_kroki_dflts)
+    d.update(kw)
+
     if not cmd.strip():
         src = kw.get('abs_src')
         if not src:
@@ -45,11 +58,12 @@ def run(cmd, kw):
             return lp.err('Not found', src=src)
         cmd = read_file(src)
 
-    typ = (kw['mode'] + ':plantuml').split(':', 2)[1]
+    # lp:kroki:plantuml
+    typ = (kw['mode'] + ':' + d['kroki_mode'] + ':').split(':', 2)[1]
     if typ == 'plantuml':
         cmd = cmd.replace('@startuml', '')
         cmd = cmd.replace('@enduml', '')
-        puml = read_puml_file(kw.get('puml', dflt_puml), kw)
+        puml = read_puml_file(d['puml'], kw)
         cmd = puml + '\n' + cmd
         cmd = '@startuml\n%s\n@enduml' % cmd
 
@@ -59,7 +73,7 @@ def run(cmd, kw):
         data = cmd
     #    {'diagram_source': cmd, 'diagram_type': typ, 'output_format': 'svg'}
     # )
-    server = kw.get('server', dflt_server)
+    server = d['server']
     server = server[:-1] if server[-1] == '/' else server
     server += '/%s/svg' % typ
     res = httpx.post(server, data=data)
@@ -72,4 +86,7 @@ def run(cmd, kw):
 
     res = res.text.replace('\r\n', '\n')
     imglnk = make_img(res, kw=kw)
-    return {'res': imglnk, 'formatted': True}
+    r = {'res': imglnk, 'formatted': True}
+    if kw.get('add_svg'):
+        r['svg'] = res
+    return r

@@ -932,7 +932,6 @@ function setup_termcasts(window, document) {
      * 11) we repeat from 7 at any mouse hover
      *
      */
-
     var seq_diag_nfos = { modules: {}, funcs: {}, rendered: {} };
     function got_seq_data(err, result, url) {
       let depth = 1;
@@ -1013,12 +1012,12 @@ function setup_termcasts(window, document) {
       let fn = t.href;
       if (!fn) fn = t.parentElement.href;
       while (t.tagName != "svg") t = t.parentElement;
-      u = t.id;
+      let pth = t.getAttribute("pth_rel") || "";
       // fn like: "1.json?req"
       fn = fn.baseVal;
       // u like: "test_partition_simple/1.json?req"
       //let u = location.href.split('src=')[1].split('&')[0] + '/' + fn
-      u += "/" + fn;
+      u = pth + fn;
       let sdn = seq_diag_nfos;
       let have = sdn.rendered[u];
       if (have) return into_details_window(have);

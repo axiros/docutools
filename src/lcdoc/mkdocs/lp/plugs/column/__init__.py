@@ -37,7 +37,6 @@ ColumnStyle = '''
 
 
 def to_col(html, page, LP, **kw):
-
     html = html.split(sep)
     cols = len(html)
     if cols == 1:

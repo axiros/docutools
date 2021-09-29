@@ -5,4 +5,5 @@ from . import (
     screenshot,
     project_dependencies,
     git_changelog,
+    call_flow_logging,
 )

@@ -21,8 +21,8 @@ def file_hash(fn, algo='blake2b'):
     return getattr(hashlib, algo)(open(fn, 'rb').read()).hexdigest()
 
 
-def dirname(dir, create=False):
-    d = os.path.dirname(dir)
+def dirname(fn, create=False):
+    d = os.path.dirname(fn)
     if create:
         os.makedirs(d, exist_ok=True)
     return d
@@ -57,6 +57,22 @@ def into(d, k, v):
     """the return is important for e.g. rx"""
     d[k] = v
     return d
+
+
+def to_list(o):
+    o = [] if o is None else o
+    t = type(o)
+    return o if t == list else list(o) if t == tuple else [o]
+
+
+# ----------------------------------------------------------------------------- file ops
+def walk_dir(directory, crit=None):
+    crit = (lambda *a: True) if crit is None else crit
+    files = []
+    j = os.path.join
+    for (dirpath, dirnames, filenames) in os.walk(directory):
+        files += [j(dirpath, file) for file in filenames if crit(dirpath, file)]
+    return files
 
 
 def read_file(fn, dflt=None, bytes=-1, strip_comments=False):
@@ -188,6 +204,7 @@ class project:
             c[0] = ret
 
     fn_config = lambda: project.root() + '/pyproject.toml'
+    d_autodocs = lambda: project.root() + '/build/autodocs'
 
     def abs_path(fn, config=None, mkdirs=False):
         r = project.root(config)

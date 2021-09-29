@@ -60,3 +60,27 @@ plugin specific rendering functions.
 See the :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/mpl_pyplot.py,t=matplotlib renderer.
 
 
+## Tips
+
+### Adding Post Page Hooks
+
+Some python plugins want to do sth after the html was rendered.
+
+Say we require in a `show` handler being called back after the html was created, in order to insert
+js or embed svgs (...):
+
+```python
+from lcdoc.mkdocs.tools import add_post_page_func
+add_post_page_func(python.Session.kw, embed_svgs, once=True)
+```
+
+The LP plugin registers an [`on_post_page`](https://www.mkdocs.org/dev-guide/plugins/) hook, where it checks all such registered  functions and
+calls them in insertion order, with parameters `output`, `page`, `config`. 
+
+!!! tip
+    Register a [partial](https://docs.python.org/3/library/functools.html#functools.partial) if you need more infos from during the `show` function call time.
+    The hook may return modified html as a string.
+
+See the callflow python plugin for details.
+
+

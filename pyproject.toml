@@ -62,6 +62,7 @@ toml = "^0.10.1"
 # since we are on same gitlab server for lc-devapp we install from there using the token, see below
 diagrams = "^0.20.0"
 imagesize = "^1.*"
+inflection = "^0.5.1"
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
 axblack = "^20201010"

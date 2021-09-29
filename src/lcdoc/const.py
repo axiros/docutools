@@ -1,6 +1,14 @@
 import time
 
-Stats = {}
+AttrDict = dict
+
+# class AttrDict(dict):
+#     def __getattr__(self, k):
+#         self[k] = 0
+#         return 0
+
+
+Stats = AttrDict()
 PageStats = {}
 LogStats = {}
 

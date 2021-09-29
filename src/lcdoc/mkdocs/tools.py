@@ -7,7 +7,7 @@ from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs.plugins import log as mkdlog
 
-from lcdoc.const import PageStats, Stats, now_ms, t0
+from lcdoc.const import AttrDict, PageStats, Stats, now_ms, t0
 from lcdoc.tools import (
     app,
     dirname,
@@ -25,9 +25,11 @@ script = lambda s: '<script>\n%s\n</script>' % s
 style = lambda s: '<style>\n%s\n</style>' % s
 
 
-def add_post_page_func(kw, f):
+def add_post_page_func(kw, f, once=False):
     p = kw['LP'].page
     h = getattr(p, 'lp_on_post_page', [])
+    if once and f in h:
+        return
     h.append(f)
     p.lp_on_post_page = h
 
@@ -249,7 +251,7 @@ def wrap_hook(plugin, hook, hookname):
         p = t = ''
         if page:
             stats = PageStats[n][hookname]
-            stats[(page.url, page.title)] = stats = page.stats = {}
+            stats[(page.url, page.title)] = stats = page.stats = AttrDict()
             f = page.file.src_path
             p = ':%s' % '/'.join(f.rsplit('/', 2)[-2:])
             t = ': %s' % f
@@ -267,7 +269,8 @@ def wrap_hook(plugin, hook, hookname):
 
 
 def page_dir(kw):
-    return dirname(kw['LP'].page.file.abs_src_path) + '/'
+    page = kw.get('page') or kw['LP'].page
+    return dirname(page.file.abs_src_path) + '/'
 
 
 last_img_hash = {}
@@ -284,13 +287,14 @@ def make_img(create_func, fn=None, kw=None):
     """
     if not fn:
         fn = kw.get('fn')  # default
+    # if fn and 'call_fl' in fn: breakpoint()  # FIXME BREAKPOINT
     if fn and not fn.endswith('.svg'):
         fn += '.svg'
     f = create_func  # string or creation func
     if isinstance(f, str):
         create_func = lambda fn, s=f: write_file(fn, s)
     LP = kw['LP']
-    page = LP.page
+    page = kw.get('page') or LP.page
     config = LP.config
 
     def make(fn_abs, copy_frm=None, kw=kw):
@@ -311,7 +315,8 @@ def make_img(create_func, fn=None, kw=None):
             app.error('no absolute filename allowed', fn=fn, page=page)
             raise
         # fn parameter was given -> create in docs dir:
-        fn_abs = fn_abs_docs = page_dir(kw) + fn
+        fn_abs = fn_abs_docs = os.path.abspath(page_dir(kw) + fn)
+        make(fn_abs)
 
     # should work even with svg change detection off:
     if 'serve' in sys.argv or not fn:
@@ -321,6 +326,7 @@ def make_img(create_func, fn=None, kw=None):
         if fn_abs.endswith('/index'):
             fn_abs = fn_abs.rsplit('/', 1)[0]
         fn_abs += '/' + fn
+        fn_abs = os.path.abspath(fn_abs)
         make(fn_abs, copy_frm=fn_abs_docs)
 
     last_img_hash[fn_abs] = kw['id']

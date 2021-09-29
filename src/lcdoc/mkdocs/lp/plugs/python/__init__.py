@@ -26,6 +26,7 @@ sessions = S = {}
 config = lambda: Session.kw['LP'].config
 page = lambda: Session.kw['LP'].page
 lpkw = lambda: Session.kw
+stats = lambda: page().stats
 
 
 def new_session_ctx():
@@ -105,17 +106,43 @@ def fmt(t, s, kw):
     return o
 
 
+D_lp_py = lambda: project.root() + '/build/autodocs/lp_python/'
+
+import sys
+
+
+def cmd_to_module_file(cmd, kw):
+    dr = D_lp_py()
+    fn = dr + dirname(kw['LP'].page.file.src_path) + '/%(id)s.py' % kw
+    h = 'from lcdoc.mkdocs.lp.plugs import python'
+    h += '\nprint  = python.printed'
+    h += '\nshow = python.show'
+    write_file(fn, h + '\n' + cmd, mkdir=1)
+    sys.path.insert(0, dirname(fn)) if not dirname(fn) in sys.path else 0
+    return fn
+
+
+import importlib
+
+
 def run(cmd, kw):
     """
     interpret the command as python
     """
     # short form convenience: `lp:python show=project_dependencies`
+    # set if not yet done:
+    project.root(kw['LP'].config)
     shw = kw.pop('show', '')
     if shw and isinstance(cmd, str):
         cmd = 'show("%s")' % shw + cmd
-    loc = Session.cur['locals']
-    loc.update({'print': printed, 'show': show, 'ctx': kw})
-    exec(cmd, loc)
+    if kw.get('cfl'):
+        modfn = cmd_to_module_file(cmd, kw)
+        importlib.import_module(kw['id'])
+    else:
+        loc = Session.cur['locals']
+        g = {'print': printed, 'show': show, 'ctx': kw}
+        loc.update(g)
+        exec(cmd, loc)
     o = Session.cur['out']
     res = [fmt(*i) for i in o]
     fncd = False

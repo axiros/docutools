@@ -21,7 +21,7 @@ Syntax details [here](./syntax.md#parametrization).
     - The session specific params make sense only for plugins which do support sessions (`bash`,
       `python`)
 
-### addsrc / addsrc=&lt;fmt|title&gt;
+### addsrc / addsrc=`&lt;fmt|title&gt;`
 (`boolean` or source format or title)
 
 ???+ hint "Adds the lp source into the rendered page"
@@ -34,7 +34,15 @@ Syntax details [here](./syntax.md#parametrization).
 
     Example:
 
-    ```bash lp addsrc=example fmt=mk_console
+    ```
+     ```bash lp addsrc=Example fmt=mk_console
+     ls /etc | head -n 3
+     ```
+    ```
+
+    Renders:
+
+    ```bash lp addsrc=Example fmt=mk_console
     ls /etc | head -n 3
     ```
 

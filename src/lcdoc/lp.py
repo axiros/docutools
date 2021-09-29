@@ -827,40 +827,51 @@ def run(cmd, fn_doc=None, use_prev_res=None, **kw):
         res = rpl(res, kw)
     else:
         res = ''
-    title = ''
+    res = add_src(res, kw)
+
+    ret['formatted'] = res
+    return ret
+
+
+block_indent = lambda s, i: s.replace('\n', '\n' + (' ' * i))
+
+
+def add_src(res, kw):
+    i = kw.get('addsrc', 0)
+    title = ' '
+    if not i:
+        return res
     try:
-        i = kw.get('addsrc', 0)
         i = int(i)
     except:
         title = i
         i = 4
-    if i:
-        b = '\n' + kw.get('sourceblock', 'n.a.')
-        bi = b.split('```inline ', 1)[-1]
-        if bi.startswith('lp:'):
-            bi = bi.split('\n', 1)[0]
-            i = 3
-        t = kw.get('title', title)
-        if isinstance(i, str) and not i.isdigit():
-            t = i
-            i = 4
-        bb = ''
-        if i == 5:
-            bb = '\n'.join(b.strip().split('\n')[1:-1])
-        m = {
-            'lang': kw['lang'],
-            'title': t,
-            'shortform': bi,
-            'blocksource': b.replace('\n', '\n '),
-            'blocksource_body': bb.replace('\n', '\n '),
-            'blocksource4': b.replace('\n', '\n     '),
-            'res': res,
-            'res4': ('\n' + res).replace('\n', '\n    '),
-        }
-        f = getattr(AddSrcFormats, 'fmt_%s' % i, AddSrcFormats.fmt_1)
-        res = f % m
-    ret['formatted'] = res
-    return ret
+
+    b = '\n' + kw.get('sourceblock', 'n.a.')
+    b_shortform = b.split('```shortform ', 1)[-1]
+    if b_shortform.startswith('lp:'):
+        b_shortform = b_shortform.split('\n', 1)[0]
+        i = 3
+    t = kw.get('title', title)
+    if isinstance(i, str) and not i.isdigit():
+        t = i
+        i = 4
+    block_body = ''
+    if i == 5:
+        block_body = '\n'.join(b.strip().split('\n')[1:-1])
+    m = {
+        'lang': kw['lang'],
+        'title': t,
+        'shortform': b_shortform,
+        'blocksource': block_indent(b, 1),
+        'blocksource_body': block_indent(block_body, 1),
+        'blocksource4': block_indent(b, 5),
+        'res': res,
+        'res4': block_indent('\n' + res, 4),
+    }
+    f = getattr(AddSrcFormats, 'fmt_%s' % i, AddSrcFormats.fmt_1)
+    res = f % m
+    return res
 
 
 class AddSrcFormats:

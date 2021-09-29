@@ -104,38 +104,29 @@ Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic c
 <td class="odd" onclick="window.location.href='features/lp/plugs/mermaid'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/mermaid/">mermaid</a><br/><img src="https://axgkl.github.io/docutools/features/lp/plugs/mermaid/img/gl_merm.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/lp/python/mpl_pyplot'">
-<a href="https://axgkl.github.io/docutools/features/lp/python/mpl_pyplot/">mpl_pyplot</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/mpl_pyplot/img/gl_mpl.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
-</td>
-</tr>
-<tr>
-<td class="odd" onclick="window.location.href='features/page-tree'">
+<td class="even" onclick="window.location.href='features/page-tree'">
 <a href="https://axgkl.github.io/docutools/features/page-tree/">page-tree</a><br/><img src="https://axgkl.github.io/docutools/features/page-tree/img/gl_tree_ex.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="even" onclick="window.location.href='features/lp/python/project_dependencies'">
+</tr>
+<tr>
+<td class="odd" onclick="window.location.href='features/lp/python/project_dependencies'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/project_dependencies/">project_dependencies</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/project_dependencies/img/gl_auto_deps.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/lp/python'">
+<td class="even" onclick="window.location.href='features/lp/python'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/">python</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/img/gl_lp_html.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td class="even" onclick="window.location.href='features/lp/python/screenshot'">
+<td class="odd" onclick="window.location.href='features/lp/python/screenshot'">
 <a href="https://axgkl.github.io/docutools/features/lp/python/screenshot/">screenshot</a><br/><img src="https://axgkl.github.io/docutools/features/lp/python/screenshot/img/gl_shots.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td class="odd" onclick="window.location.href='features/stats'">
-<a href="https://axgkl.github.io/docutools/features/stats/">stats</a><br/><img src="https://axgkl.github.io/docutools/features/stats/img/gl_stats.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
-</td>
-<td class="even" onclick="window.location.href='features/lp/xterm'">
-<a href="https://axgkl.github.io/docutools/features/lp/xterm/">xterm</a><br/><img src="https://axgkl.github.io/docutools/features/lp/img/gl__xterm.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
-</td>
 </tr>
 <tr>
-<td class="odd" onclick="window.location.href=''">
+<td class="even" onclick="window.location.href='features/stats'">
+<a href="https://axgkl.github.io/docutools/features/stats/">stats</a><br/><img src="https://axgkl.github.io/docutools/features/stats/img/gl_stats.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
+</td>
+<td class="odd" onclick="window.location.href='features/lp/xterm'">
+<a href="https://axgkl.github.io/docutools/features/lp/xterm/">xterm</a><br/><img src="https://axgkl.github.io/docutools/features/lp/img/gl__xterm.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
 <td class="even" onclick="window.location.href=''">
-</td>
-<td class="odd" onclick="window.location.href=''">
 </td>
 </tr>
 </table><!-- gallery -->
