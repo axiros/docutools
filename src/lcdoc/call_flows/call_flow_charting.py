@@ -69,14 +69,19 @@ def make_call_flow_chart(flow, d_dest, fn=None, viz_name='plantuml', ILS=None):
         return s
 
     def href(s, tooltip, nr, typ, viz=viz, max_tooltip_len=3000):
+        """s the function name, tooltip is the params"""
         if not s:
             return ''
         # [[http://plantuml.com/start{Tooltip for message} some link]]
         s = s.replace('\n', ' ')  # text over arrows should be not multline
+        # s = s.split('(', 1)[0]  # .replace('(', '_').replace(')', '_')
         t = tooltip.replace('\n', viz.ls)
         t = t[:max_tooltip_len]  # bigger? he should click then
         t = t.replace('<', ' ').replace('>', '')
+        t = t.replace('{', '')
+        t = t.replace('}', '')
         r = '%s.json?%s{%s} %s' % (nr, typ, t, s)
+        # r = '%s.json?%s{%s} %s' % (nr, typ, 'a', s)
         # r = 'javascript:onmouseover(x=>alert("foo")){foo} foo'
         r = r.replace(']]', '\\]\\]')
         return '[[%s]]' % r
