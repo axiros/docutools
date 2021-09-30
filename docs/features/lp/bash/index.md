@@ -21,7 +21,8 @@ We have dedicated sections for those:
 ## Sessions
 
 When you supply a `session` or `new_session` parameter, we will send the statements over into tmux
-and run them there.
+and run them there - i.e. you may control blocking subprocesses, including [REPLs](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), i.e. a nodejs
+session (...).
 
 See [here](./sessions.md) for more about that.
 
