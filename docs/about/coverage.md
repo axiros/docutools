@@ -2,7 +2,7 @@
 
 ## Overall
 
-`lp mode=cov_report name=overall`
+`lp:cov_report name=overall`
 
 
 

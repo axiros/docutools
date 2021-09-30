@@ -45,7 +45,7 @@ nav:
       - "TermCasts": features/termcasts/index.md
       - Darkmode: features/darkmode.md
   - About:
-      - Coverage: about/coverage.md
+      #- Coverage: about/coverage.md
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md
       - Credits: about/credits.md
