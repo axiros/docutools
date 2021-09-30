@@ -1,4 +1,4 @@
-# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/diag_diagrams.py,t=Diagrams Rendering Support
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/diag_diagrams/__init__.py,t=Diagrams Rendering Support
 
 [Diagram](https://diagrams.mingrammer.com/) rendering support with svg mode.
 

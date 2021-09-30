@@ -1,4 +1,4 @@
-# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/mpl_pyplot.py,t=Matplotlib Rendering Support
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/mpl_pyplot/__init__.py,t=Matplotlib Rendering Support
 
 Matplotlib Support. See [here](https://matplotlib.org/stable/gallery/index.html) for the vast amount of matplotlib's plotting features.
 

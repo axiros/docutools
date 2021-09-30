@@ -677,6 +677,7 @@ def patch_mkdocs_to_ignore_res_file_changes():
     new = S
     for ext in [lp_res_ext, '.svg', '.png']:
         new += ' or event.src_path.endswith("%s") ' % ext
+    new += ' or "/autodocs" in event.src_path '
     # cannot write a comment due to the ':'
     s = s.replace(S, new)
     write_file(fn, s)

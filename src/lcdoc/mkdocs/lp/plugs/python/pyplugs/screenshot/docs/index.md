@@ -1,4 +1,4 @@
-# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/screenshot.py,t=Screenshots
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/screenshot/__init__.py,t=Screenshots
 
 Creates screenshots for URLs, using [chrome-remote-interface](https://github.com/cyrus-and/chrome-remote-interface)
 

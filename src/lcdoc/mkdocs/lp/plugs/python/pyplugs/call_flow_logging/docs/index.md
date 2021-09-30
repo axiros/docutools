@@ -1,4 +1,4 @@
-# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/call_flow_logging.py,t=Callflow Logging
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/call_flow_logging/__init__.py,t=Callflow Logging
 
 Function calling sequence as a plantuml sequence diagram.
 

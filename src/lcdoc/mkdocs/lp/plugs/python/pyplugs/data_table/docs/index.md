@@ -1,4 +1,4 @@
-# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/data_table.py,t=DataTable Rendering Support
+# :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/data_table/__init__.py,t=DataTable Rendering Support
 
 Renders lists into [jquery data tables](https://www.datatables.net/).
 

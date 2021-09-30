@@ -1,4 +1,4 @@
-# Project :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/project_dependencies.py,t=Dependencies
+# Project :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/project_dependencies/__init__.py,t=Dependencies
 
 Scans a poetry lock file and extracts all project dependencies.
 
