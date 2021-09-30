@@ -2,7 +2,9 @@
 
 ## Overall
 
-`lp:cov_report name=overall`
-
+`lp:lightbox: match=iframe`
+```python lp:python
+show('coverage')
+```
 
 

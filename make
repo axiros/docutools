@@ -96,7 +96,7 @@ function clean_lp_caches {
 }
 
 # :docs:cover_function
-function cover {
+function combine_coverage {
     sh coverage combine
     sh coverage report --precision=2 | tee .code_coverage # comitted, want to see changes
     /bin/rm -rf "$d_cover_html"
@@ -109,8 +109,9 @@ function cover {
 
 function docs {
     export lp_eval="${lp_eval:-always}"
-    rm -f .coverage.lp*
+    # executes a lot of code in lp blocks -> goes into coverage:
     sh coverage run --rcfile=config/coverage.lp.ini $CONDA_PREFIX/bin/mkdocs build "$@"
+    combine_coverage # so that at mkdocs gh-deploy the docu build can copy the files
 }
 
 function docs_checklinks {

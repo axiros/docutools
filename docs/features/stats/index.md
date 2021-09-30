@@ -24,8 +24,7 @@ Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-stats,t=m
 ## Config
 
 
-```python lp mode=show_src delim=stats_config dir=src/lcdoc
-```
+`lp:show_src delim=stats_config dir=src/lcdoc`
 
 ## Stats Output
 
@@ -63,7 +62,22 @@ We keep the stats from the last run and compare at every build, logging the diff
     }
     ```
 
-## Log Dumps
+## Logging
+
+### `$ignore_err`
+
+- `mkdocs build` will fail at error levels including and above `error`.
+- You can lower error logs by setting `$ignore_err`, matching the log message to be lowered from
+  `error` (or higher) to just `warning`.
+
+Example: In ci.yml:
+
+```yaml
+env:
+    ignore_err: "No coverage files"
+```
+
+### Log Dumps
 
 On config setting `dump_logs`, we will dump all created logs in line-sep json form to the given file
 (backing up the previous one)
@@ -88,4 +102,7 @@ On config setting `dump_logs`, we will dump all created logs in line-sep json fo
 ```bash lp fmt=mk_console 
 cat $LP_PROJECT_ROOT/build/lcd-logs.json| head -n 20 || true # on CI the first run will have no such file
 ```
+
+
+
 
