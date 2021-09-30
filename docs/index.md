@@ -114,4 +114,3 @@ insert_file(dr + '/README.md', R, sep='<!-- gallery -->')
 </style>
 
 Last modified: :ctime:
-

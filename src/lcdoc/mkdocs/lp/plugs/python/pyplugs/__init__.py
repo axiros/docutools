@@ -1,9 +1,10 @@
 from . import (
-    mpl_pyplot,
-    diag_diagram,
-    data_table,
-    screenshot,
-    project_dependencies,
-    git_changelog,
     call_flow_logging,
+    cov_report,
+    data_table,
+    diag_diagram,
+    git_changelog,
+    mpl_pyplot,
+    project_dependencies,
+    screenshot,
 )

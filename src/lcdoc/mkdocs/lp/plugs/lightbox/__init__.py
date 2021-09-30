@@ -31,7 +31,6 @@ function next_elmt_into_lightbox(id, event) {
     function flclose(event) {
         let c = this.$content[0];
         $(parent).after(c);
-        $('#foob').focus();
     }
     let el = parent.nextElementSibling;
     $.featherlight({jquery: el, persist: true, beforeClose: flclose})

@@ -72,11 +72,10 @@ jobs:
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-          ignore_err: "No coverage html"
         run: "source ./make && activate_venv && make docs"
 
       - name: Deploy Docs
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && activate_venv && ${{ env.pyver == '3.7' && 'make cover && mkdocs gh-deploy --force' || true }}"
+        run: "source ./make && activate_venv && ${{ env.pyver == '3.7' && mkdocs gh-deploy --force' || true }}"

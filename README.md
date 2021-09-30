@@ -60,8 +60,8 @@ Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic c
 <td style="cursor: pointer" title="features/lp/plugs/column" class="odd" onclick="window.location.href='features/lp/plugs/column'">
 <a href="https://axgkl.github.io/docutools/features/lp/plugs/column/">column</a><br/><img onclick="event.stopPropagation();" src="https://axgkl.github.io/docutools/features/lp/plugs/column/img/gl_columns.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td style="cursor: pointer" title="features/lp/plugs/cov_report" class="even" onclick="window.location.href='features/lp/plugs/cov_report'">
-<a href="https://axgkl.github.io/docutools/features/lp/plugs/cov_report/">cov_report</a><br/><img onclick="event.stopPropagation();" src="https://axgkl.github.io/docutools/features/lp/plugs/cov_report/img/gl_cov_backref.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
+<td style="cursor: pointer" title="features/lp/python/cov_report" class="even" onclick="window.location.href='features/lp/python/cov_report'">
+<a href="https://axgkl.github.io/docutools/features/lp/python/cov_report/">cov_report</a><br/><img onclick="event.stopPropagation();" src="https://axgkl.github.io/docutools/features/lp/python/cov_report/img/gl_cov_backref.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
 </tr>
 <tr>
