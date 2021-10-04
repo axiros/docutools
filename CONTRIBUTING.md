@@ -22,7 +22,7 @@ If you updated the documentation or the project dependencies:
 **Before committing:**
 
 1. run `make tests` to run the tests (fix any issue)
-1. run `make docs` to run the literal programming tests (fix any issue)
+1. run `make docs` to run the literate programming tests (fix any issue)
 1. follow our [commit message convention](#commit-message-convention)
 
 If you are unsure about how to fix or ignore a warning,
