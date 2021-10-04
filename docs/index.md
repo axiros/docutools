@@ -8,7 +8,7 @@ axblack
 ```
 
 
-## [MkDocs Documentation](https://axgkl.github.io/docutools/) Tools For Developers
+## [MkDocs Documentation](https://axiros.github.io/docutools/) Tools For Developers
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.
 
@@ -21,7 +21,7 @@ Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic c
 > Most plugins should work in [other](https://www.mkdocs.org/dev-guide/themes/) mkdocs themes as well. No guarantees though.
 
 
-## [Feature](https://axgkl.github.io/docutools/features/) Gallery
+## [Feature](https://axiros.github.io/docutools/features/) Gallery
 
 
 
@@ -82,7 +82,7 @@ R = '\n'.join(R)
 show(R, md=True)
 
 # Put the table also into our README.md, with links adapted:
-D = 'https://axgkl.github.io/docutools/'
+D = 'https://axiros.github.io/docutools/'
 R = R.replace('href="', f'href="{D}')
 R = R.replace('src="', f'src="{D}')
 insert_file(dr + '/README.md', R, sep='<!-- gallery -->')
