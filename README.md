@@ -3,14 +3,14 @@
 <!-- badges -->
 [![docs pages][docs pages_img]][docs pages] [![gh-ci][gh-ci_img]][gh-ci] [![pkg][pkg_img]][pkg] [![code_style][code_style_img]][code_style] 
 
-[docs pages]: https://AXGKl.github.io/docutools
-[docs pages_img]: https://AXGKl.github.io/docutools/img/badge_docs.svg
-[gh-ci]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml
-[gh-ci_img]: https://github.com/AXGKl/docutools/actions/workflows/ci.yml/badge.svg
-[pkg]: https://pypi.org/project/docutools/2021.9.30/
-[pkg_img]: https://AXGKl.github.io/docutools/img/badge_pypi.svg
+[docs pages]: https://axiros.github.io/docutools
+[docs pages_img]: https://axiros.github.io/docutools/img/badge_docs.svg
+[gh-ci]: https://github.com/axiros/docutools/actions/workflows/ci.yml
+[gh-ci_img]: https://github.com/axiros/docutools/actions/workflows/ci.yml/badge.svg
+[pkg]: https://pypi.org/project/docutools/2021.10.3/
+[pkg_img]: https://axiros.github.io/docutools/img/badge_pypi.svg
 [code_style]: https://pypi.org/project/axblack/
-[code_style_img]: https://AXGKl.github.io/docutools/img/badge_axblack.svg
+[code_style_img]: https://axiros.github.io/docutools/img/badge_axblack.svg
 <!-- badges -->
 
 

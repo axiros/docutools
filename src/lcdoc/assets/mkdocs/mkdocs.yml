@@ -1,7 +1,7 @@
 site_name: "docutools"
 site_description: "Documentation Building Tools"
-site_url: "https://AXGKl.github.io/docutools"
-repo_url: "https://github.com/AXGKl/docutools"
+site_url: "https://axiros.github.io/docutools"
+repo_url: "https://github.com/axiros/docutools"
 repo_name: "docutools"
 
 # configure your own scheme handler for this, dependent on where YOU want to edit (repo server or local fs):
@@ -111,7 +111,7 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/AXGKl
+      link: https://github.com/axiros
 
 plugins:
   # in this order. e.g. md-replace before lp, so that lp can process its results
