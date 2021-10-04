@@ -12,7 +12,13 @@ now = time.time
 
 
 def embed_svgs(output, page, config, **kw):
-    """post page hook """
+    """post page hook
+    During show we inserted markers for the images, like:
+
+    return {'nocache': True, 'res': '\n<lp_svg "%s::%s" />\n' % (kw['id'], pth_d)}
+
+    Now, after html, we replace those with a embedded svgs from the build filesystem.
+    """
     dt = config['docs_dir'] + '/autodocs'
     if not exists(dt):
         os.symlink(project.d_autodocs(), dt)

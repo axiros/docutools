@@ -61,22 +61,25 @@ We trace the standard lib's json module while calling `dumps`:
 import json
 def say_hello(n):
     print(n)
-    return {'name': n}
+    return json.dumps({'name': n})
 
 def test_flow():
-    json.dumps({'name': 'joe'})
+    say_hello('joe')
 
 show('call_flow', call=test_flow, trace=json)
 
 ```
-
 
 Move the mouse over the arrows and click to see the full data recorded.
 
 !!! note "Call Flow Details"
     You should get details infos like these
 
-    ![](./img/gl_cfl_details.png)
+    [](./img/gl_cfl_details.png)
 
 ++ctrl+r++ (reload) to get back.
- 
+
+
+
+??? "Questions and Comments?"
+    `lp:python show=comments theme=icy-dark eval=always`
