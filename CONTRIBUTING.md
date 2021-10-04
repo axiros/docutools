@@ -16,14 +16,13 @@ As usual:
 If you updated the documentation or the project dependencies:
 
 1. `source make`
-1. run `make serve`,
-   go to http://localhost:8000 and check that everything looks good
+1. run `make docs_serve`,
+   go to http://localhost:2222 and check that everything looks good
 
 **Before committing:**
 
-1. run `make format` to auto-format the code
-1. run `make check` to check everything (fix any warning)
-1. run `make test` to run the tests (fix any issue)
+1. run `make tests` to run the tests (fix any issue)
+1. run `make docs` to run the literal programming tests (fix any issue)
 1. follow our [commit message convention](#commit-message-convention)
 
 If you are unsure about how to fix or ignore a warning,
