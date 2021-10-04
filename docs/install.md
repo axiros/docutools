@@ -2,13 +2,18 @@
 
 Add `docutools = "^<version>"` as a development dependency.
 
-If in an airtight environment:
+## If in an airtight environment (no Internet access)
 
 Configure the package server in your build framework (e.g. poetry like [this](https://python-poetry.org/docs/repositories/)).
 
+!!! note
+    Some features do require CDN hosted javascript and CSS libs, pulled by the browsers of the
+    readers - e.g. jquery.
+
+
 ## Development Installation
 
-When you want to add / modify or only debug stuff, we recommend a development installation.
+When you want to add / modify or only debug sources, we suggest a development installation.
 
 - Clone the repo, maybe checkout the tag you want to work with.
 - Create and activate a virtual environment with minimum python3.7
