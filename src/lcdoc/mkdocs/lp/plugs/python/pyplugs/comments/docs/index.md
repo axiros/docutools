@@ -33,11 +33,14 @@ Code:
 ```
 
  ??? "Questions and Comments?"
-     `lp:python show=comments theme=icy-dark eval=always`
+     `lp:python show=comments eval=always`
 
 
 ```
 
 Renders:
 
-![](./img/gl_comments.png)
+??? "Questions and Comments?"
+    `lp:python show=comments eval=always`
+
+

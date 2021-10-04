@@ -20,9 +20,9 @@ dflts_comments = {
 }
 
 
-T = '''<div id="comments"></div>'''
+T = '''<div id="utterance_comments"></div>'''
 gh = 'https://github.com/'
-marker = '<!--- comments -->'
+marker = '<!--- utterance_comments -->'
 
 
 def add_fetcher_script(output, page, config, js=None, **kw):
@@ -36,9 +36,8 @@ scr.setAttribute('repo','%(repo)s');
 scr.setAttribute('issue-term','%(issue_term)s');
 scr.setAttribute('theme','%(theme)s');
 scr.setAttribute('crossorigin','anonymous');
-document.getElementById('comments').appendChild(scr);
+document.getElementById('utterance_comments').appendChild(scr);
 
-// document.getElementsByClassName('utterances')[0].style['max-width'] = '100%%'
 '''
 style = '''
 .utterances {max-width: 100% !important}
@@ -70,7 +69,7 @@ def comments(s, **kw):
     if not gh in repo:
         python.app.die('comments only work with github', your_mkdocs_repo_url=repo)
     d['repo'] = repo.split(gh, 1)[1]
-    js = T % d
+    js = T
     a = {'footer': {'script': reload_iframe % d, 'style': style}}
     Session.cur['assets'].setdefault('page_assets', {})['comments'] = a
     add_post_page_func(python.lpkw(), partial(add_fetcher_script, js=js))
