@@ -14,7 +14,7 @@
 <!-- badges -->
 
 
-## [MkDocs Documentation](https://axgkl.github.io/docutools/) Tools For Developers
+## [MkDocs Documentation](https://axiros.github.io/docutools/) Tools For Developers
 
 This repo is providing a set of plugins for [mkdocs material](https://squidfunk.github.io/mkdocs-material/) compatible documentation.
 
@@ -28,7 +28,7 @@ Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic c
 
 
 
-## [Feature](https://axgkl.github.io/docutools/features/) Gallery
+## [Feature](https://axiros.github.io/docutools/features/) Gallery
 
 <!-- gallery --><table id=gallery>
 <tr>
