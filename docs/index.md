@@ -113,4 +113,7 @@ insert_file(dr + '/README.md', R, sep='<!-- gallery -->')
 
 </style>
 
+???+ "General Questions and Feature Requests"
+    `lp:python show=comments`
+
 Last modified: :ctime:
