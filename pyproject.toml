@@ -10,7 +10,7 @@ authors = ["Gunther Klessinger <gkle_ss_ing_er@gmx.de>"]
 license = "BSD 2-Clause Simplified License"
 readme = "README.md"
 repository = "https://github.com/axiros/docutools"
-homepage = "https://axgkl.github.io/docutools/"
+homepage = "https://axiros.github.io/docutools/"
 keywords = []
 packages = [ { include = "lcdoc", from = "src" } ]
 include = [
