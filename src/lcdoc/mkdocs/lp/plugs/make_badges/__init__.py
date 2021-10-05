@@ -52,33 +52,6 @@ from lcdoc.tools import (
 
 multi_line_to_list = True
 
-# class badges:
-#     """We must the eval results statically into the source - otherwise README won't work"""
-
-#     def gh_action(a, kw):
-#         # a e.g. 'ci'
-#         fn = kw['page'].file.abs_src_path
-#         md = read_file(fn)
-#         # md = kw['markdown']
-#         config = kw['config']
-#         ru = config['repo_url']
-#         while ru.endswith('/'):
-#             ru = ru[:-1]
-#         y = '%s/actions/workflows/%s.yml' % (ru, a)
-#         r = '[![%s](%s/badge.svg)][%s]' % (a, y, a)
-#         if r in md:
-#             return ''
-#         b = '<!-- badges'
-#         l = md.split(b, 1)
-#         if not len(l) == 2:
-#             app.die('have badges within a "<-- badges" html comment block')
-#         k = l[1].split('-->', 1)
-#         md = l[0] + r + '\n' + b + k[0] + '-->\n\n[%s]: %s\n\n' % (a, y) + k[1]
-#         app.warning('Writing file with static badges links', fn=fn, badge=a, url=y)
-#         write_file(fn, md)
-#         return r
-
-
 config = lambda kw: kw['LP'].config
 
 no_end_slash = lambda s: s if not s[-1] == '/' else s[:-1]
@@ -148,9 +121,11 @@ def make_badge_svg_file(badge_fn, label, value, color='gray', **kw):
 
 
 def write_readme(page, config, content=None, **kw):
+    # :docs:insert_readme_badges
     fn = project.root(config) + '/README.md'
     insert_file(fn, content, sep='<!-- badges -->')
-    app.info('Have written README', fn=fn)
+    app.info('Have inserted badges into README', file=fn)
+    # :docs:insert_readme_badges
 
 
 def run(cmd, kw):

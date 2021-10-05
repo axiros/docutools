@@ -28,16 +28,20 @@ fmt_default = 'mk_console'
 
 T = '''
 === "Code"
+
     ```%(lang)s
     %(body)s
     ```
+
 === "%(srclink)s"
     %(url)s
 '''
 
 TM = '''
 ??? note "%(header)s"
+
     %(body)s
+
 '''
 
 

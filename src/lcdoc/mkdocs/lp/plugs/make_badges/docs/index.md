@@ -27,9 +27,9 @@ With these you can create static badges (or overwrite values set by the function
 
 ## LP Header Parameters
 
-- write_readme: Create the readme with static badges. That file is not managed by mkdocs - so we
-  create it.
+`write_readme`: Inserts the badges within your `README.md`, between separators.
 
+`lp:show_src delim=insert_readme_badges dir=src/lcdoc lang=python`
 
 ## Example
 
@@ -38,3 +38,5 @@ hello # lp: value=world lnk=http://github.com
 
 ```
 
+!!! note
+    You can also use dicts to supply params (`{'value': 'world', 'lnk': ...}`).

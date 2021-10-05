@@ -223,6 +223,27 @@ Syntax details [here](./syntax.md#parametrization).
         ```bash lp asserts="not kill_test"
         tmux list-sessions | grep test || true
         ```
+
+### lang
+`lang=<code block highlighting language>`
+
+???+ hint "Sets the highlighting language for code blocks"
+
+    In the normal form the `lang` param is taken from the word after the fences, e.g. "foo" for
+
+    ```
+        ```foo lp ...
+        ```
+    ```
+    
+    When using the shortform we lack that information and the `lang` parameter allows to set it.
+    E.g. for [srcrefs](../plugs/show_src/):
+
+    ```
+        `lp:show_src delim=insert_readme_badges dir=src/lcdoc lang=python`
+    ```
+
+
 ### mode
 `mode=<plugin name>` or `<lang> lp:<mode>`
 

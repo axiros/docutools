@@ -274,6 +274,7 @@ class LP:
         while sid in reg:
             sid += '_'
         # if 'Alice' in str(code): breakpoint()  # FIXME BREAKPOINT
+        lang = kw.get('lang', lang)
         spec = {
             'nr': LP.lpnr,
             'code': code,

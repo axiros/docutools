@@ -26,3 +26,11 @@ We included this sentence and the header between match strings....
 ```python lp mode=show_src delim=this_example hide="This Example" addsrc dir=src/lcdoc/mkdocs/lp/plugs eval=always
 ```
 
+
+
+!!! tip
+    For the shortform you may want to use the `lang` parameter, to get proper highlighting:
+
+    ```
+      `lp:show_src delim=this_example hide="This Example" dir=src/lcdoc/mkdocs/lp/plugs lang=python`
+    ```
