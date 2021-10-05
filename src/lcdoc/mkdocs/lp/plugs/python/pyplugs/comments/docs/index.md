@@ -2,16 +2,16 @@
 
 Adds a Comments Section, using [`utteranc.es`](https://utteranc.es/)
 
-The comments are hosted by github issues and fetched via a central bot.
+The comments are hosted by github issues and fetched via a central bot at `utteranc.es`.
 
 !!! important
     - Based on a central bot
-    - Works for public repos hosted on github exclusively. 
+    - Works for public repos hosted on github *exclusively*. 
 
 
 ## Features
 
-- Supports mkdocs materials' `nav.instant`, i.e. comments sections are (re-)loaded on nav clicks.
+- Supports mkdocs materials' [`navigation.instant`](https://squidfunk.github.io/mkdocs-material/setup/setting-up-navigation/), i.e. comments sections are (re-)loaded on nav clicks.
 - Supports hiding the comments within collapsed details sections
 
 ## Syntax

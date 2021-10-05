@@ -75,9 +75,9 @@ Move the mouse over the arrows and click to see the full data recorded.
 !!! note "Call Flow Details"
     You should get details infos like these
 
-    [](./img/gl_cfl_details.png)
+    ![](./img/gl_cfl_details.png)
 
-++ctrl+r++ (reload) to get back.
+++ctrl+r++ (reload) to get back to your original documentation page.
 
 
 
