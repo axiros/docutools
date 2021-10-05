@@ -116,7 +116,8 @@ function docs {
 
 function docs_checklinks {
     type linkchecker || { echo "pip3 install git+https://github.com/linkchecker/linkchecker.git"; return 1; }
-    linkchecker site
+    # we ignore the x.json links of callflow svgs - they are rewritten in lc.js browser sided:
+    linkchecker site --ignore-url '(.*).json' "$@"
 }
 
 function docs_serve {

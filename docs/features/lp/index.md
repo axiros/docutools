@@ -56,7 +56,7 @@ This is done through a plugin, with an `on_markdown` hook, i.e. before html is g
 - [**Async Results Fetching**](./async.md): Big evaluation results may be fetched only on demand, e.g. on click on
   otherwise non expanded "Output" tabs
 
-- [**Coverage Backrefs**](./plugs/cov_report/): Dynamic coverage contexts, optionally with
+- [**Coverage Backrefs**](./python/cov_report/): Dynamic coverage contexts, optionally with
   [backrefs](../../about/coverage.md) to the markdown source line of the LP block, triggering the evaluation
 
 
