@@ -5,16 +5,17 @@ Function calling sequence as a plantuml sequence diagram.
 
 !!! caution "Experimental Feature"
     
-    Callflow logging was transferred from another project and the code base contains some legacy.
+    Callflow logging is not a wrapper for a 3rd party library but docutools "native". It was
+    transferred from another project and the code base contains some legacy.  
     The feature is useable but in a beta state.
 
 
 ## Mechanics
 
-1. The feature works via the `sys.set_trace` hook, being invoked at function entry and exit, a feature
+1. Callflow logging works via the `sys.set_trace` hook, being invoked at function entry and exit, a feature
 which also the coverage package uses in order to record code coverage.
 
-1. This feature here allows to specify which functions should be traced, so that the call flow charts
+1. This implementation here allows to specify which functions, classes, modules should be traced, so that the call flow charts
 only contain interesting stuff.
 
 1. We record input and exit data plus invokation and exit times.
