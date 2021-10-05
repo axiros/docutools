@@ -72,6 +72,9 @@ matplotlib = "^3*"
 # one of last versions with site-packages/black.py - overridden by axblack:
 #black = "18.6b4"
 
+[tool.poetry.scripts]
+mdr = "lcdoc.lprunner:main"
+
 [tool.poetry.plugins."mkdocs.plugins"]
 "lcd-find-pages" = "lcdoc.mkdocs.find_pages:MDFindPagesPlugin"
 "lcd-custom-dir" = "lcdoc.mkdocs.custom_dir:CustomDirPlugin"

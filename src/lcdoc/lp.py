@@ -65,6 +65,7 @@ from importlib import import_module
 
 import pycond
 
+from lcdoc import lprunner as mdr
 from lcdoc.mkdocs.tools import page_dir
 from lcdoc.tools import app, dirname, write_file
 
@@ -72,6 +73,7 @@ from lcdoc.tools import app, dirname, write_file
 I = lambda s: s if not sys.stdout.isatty() else '\x1b[1;32m%s\x1b[0m' % s
 L = lambda s: s if not sys.stdout.isatty() else '\x1b[0;2;38;5;242m%s\x1b[0m' % s
 
+is_lprunner = sys.argv[0].endswith('mdr')
 env = os.environ
 wait = time.sleep
 now = time.time
@@ -149,6 +151,8 @@ def sprun(*a, no_fail=False, report=False, **kw):
             report('', a[0])
         else:
             report('', a, kw)  # for the user (also in view messages)
+    if is_lprunner:
+        mdr.confirm('Run %s' % str(a))
 
     c = p(sp.check_output, shell=True, stderr=sp.STDOUT, executable='/bin/bash')
     try:

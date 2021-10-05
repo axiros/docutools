@@ -5,6 +5,7 @@ from . import (
     data_table,
     diag_diagram,
     git_changelog,
+    lprunner,
     mpl_pyplot,
     project_dependencies,
     screenshot,

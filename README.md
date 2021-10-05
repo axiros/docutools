@@ -21,7 +21,7 @@ This repo is providing a set of plugins for [mkdocs material](https://squidfunk.
 It is meant to be used as a development dependency for projects, intended to be used mainly by the
 developers themselves, i.e. for the more technical, code centric parts of software project documentation.
 
-Most notable feature: **[Literate Programming](./features/lp/)**, i.e. dynamic code execution - tightly integrated within the mkdocs framework.
+Most notable feature: **[Literate Programming](https://axiros.github.io/docutools/features/lp/)**, i.e. dynamic code execution - tightly integrated within the mkdocs framework.
 
 
 > Most plugins should work in [other](https://www.mkdocs.org/dev-guide/themes/) mkdocs themes as well. No guarantees though.
