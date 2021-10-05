@@ -36,12 +36,12 @@ Using python:
 ```python lp:python|chart addsrc="Example 2"
 import datetime
 
-labels = [datetime.date(1900, m+1, 1).strftime('%B') for m in range(6)]
+labels = [datetime.date(1900, m+1, 1).strftime('%B') for m in range(7)]
 
 data = {
   'labels': labels,
   'datasets': [{
-    'label': 'My First python dataset',
+    'label': 'My First Python Dataset',
     'backgroundColor': '#8bd125',
     'borderColor': '#8bd125',
     'data': [0, 10, 5, 2, 20, 30, 45],
