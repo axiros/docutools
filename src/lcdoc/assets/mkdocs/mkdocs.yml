@@ -49,6 +49,7 @@ nav:
       - Contributing: about/contributing.md
       - Changelog: about/changelog.md
       - Credits: about/credits.md
+      - Navigation: about/navigation.md
       - TODO: about/todo.md
 
 theme:
