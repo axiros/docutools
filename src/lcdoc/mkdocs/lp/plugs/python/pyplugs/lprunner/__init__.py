@@ -1,9 +1,9 @@
 import os
 from functools import partial
 
+from lcdoc.const import lprunner_sep as sep
 from lcdoc.mkdocs.lp.plugs import python
 from lcdoc.mkdocs.tools import make_img
-from lcdoc.const import lprunner_sep as sep
 from lcdoc.tools import write_file
 
 config, page, Session = (python.config, python.page, python.Session)
@@ -14,6 +14,18 @@ def register(fmts):
     fmts['lprunner'] = lprunner
 
 
+msg = '''
+??? "Run this locally"
+    
+    You can run the code on this page locally via:
+
+    ```bash
+    pip install --user git+git:///github.com/axiros/docutools
+    mdrunner "%s"
+    ```
+'''
+
+
 def lprunner(s, **kw):
     """The client requires the source"""
     url = config()['site_dir'] + '/' + page().url
@@ -22,4 +34,5 @@ def lprunner(s, **kw):
     url += 'runner.md'
     src = page().markdown
     write_file(url, src, mkdir=True)
-    return {'res': '', 'nocache': True}
+    url = config()['site_url'] + page().url
+    return {'res': msg % url, 'formatted': True, 'nocache': True}

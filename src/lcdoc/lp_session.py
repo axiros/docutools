@@ -15,12 +15,14 @@ L = lp.L
 
 dbg = lp.dbg
 
+is_lprunner = lp.is_lprunner
+
 
 def init_prompt(n, kw):
     """run before each command"""
-    # -R reset terminal state:
-    lp.sprun('tmux send-keys -R -t %s:1' % n)
-    lp.sprun('tmux clear-history -t %s:1' % n)
+    if not is_lprunner:
+        lp.sprun('tmux send-keys -R -t %s:1' % n)  # -R reset terminal state
+        lp.sprun('tmux clear-history -t %s:1' % n)
     lp.sprun("tmux send-keys -t %s:1 '' Enter" % n)
     t0 = now()
     p = prompt(kw)
@@ -49,6 +51,11 @@ def get(session_name, **kw):
     s = '\n' + os.popen('tmux ls').read()
     if not '\n%s:' % session_name in s:
         create(session_name, kw)
+    if is_lprunner:
+        global lprunner
+        from lcdoc import lprunner
+
+        lprunner.show_tmux(session_name)
 
     res = p(srun_in_tmux, session_name=session_name)
     return res
@@ -164,9 +171,6 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     # undocumented
     wait_after = kw.get('wait_after')
 
-    # c = lp.check_inline_lp(cmd, fn_lp=kw.get('fn_doc'))
-    # if c:
-    #    cmd = c
     do_post = None
     if isinstance(cmd, dict):
         h = handle_cwd_pre_post
@@ -174,12 +178,15 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
         if 'post' in cmd:
             do_post = p(h, 'post', cmd, session_name, **kw)
 
-        timeout = cmd.get('timeout', timeout)
-        expect = cmd.get('expect', expect)
-        assert_ = cmd.get('asserts') or cmd.get('assert', assert_)
-        silent = cmd.get('silent', silent)
+        # fmt:off
+        timeout    = cmd.get('timeout', timeout)
+        expect     = cmd.get('expect', expect)
+        assert_    = cmd.get('asserts') or cmd.get('assert', assert_) # asserts:deprecated
+        silent     = cmd.get('silent', silent)
         wait_after = cmd.get('wait_after', wait_after)
-        cmd = cmd.get('cmd')  # if not given: only produce output
+        cmd        = cmd.get('cmd')  # if not given: only produce output
+        # fmt:on
+
     if cmd.startswith('wait '):
         time.sleep(float(cmd.split()[1]))
         return 'silent'
@@ -204,6 +211,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
         expect_echo_out_cmd = sep + 'echo -n ax_; echo -n done'
         cmd += expect_echo_out_cmd
         expect = 'ax_done'
+
     if expect is False:
         expectb = b'des soid ned bassian - we want timeout'
     else:
@@ -211,6 +219,8 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     if cmd:
         init_prompt(n, kw)
         # send the sequence as hex (-H):
+        if is_lprunner:
+            lprunner.confirm(cmd)
         seq = ' '.join([hex(ord(b))[2:] for b in cmd])
         seq += ' a'
         # if is_multiline:

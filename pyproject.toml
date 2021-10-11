@@ -73,7 +73,7 @@ matplotlib = "^3*"
 #black = "18.6b4"
 
 [tool.poetry.scripts]
-mdr = "lcdoc.lprunner:main"
+mdrun = "lcdoc.lprunner:main"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 "lcd-find-pages" = "lcdoc.mkdocs.find_pages:MDFindPagesPlugin"

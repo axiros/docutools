@@ -140,6 +140,10 @@ class app:
             c[0] = True
 
 
-for lm in log_methods:
-    setattr(app, lm, lambda msg, lm=lm, **kw: log(lm, print, ('[%s] ' % lm) + msg, kw))
-    app.log_stats[lm] = 0
+def set_log_out(f):
+    for lm in log_methods:
+        setattr(app, lm, lambda msg, lm=lm, **kw: log(lm, f, ('[%s] ' % lm) + msg, kw))
+        app.log_stats[lm] = 0
+
+
+set_log_out(print)
