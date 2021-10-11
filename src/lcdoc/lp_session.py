@@ -20,7 +20,7 @@ is_lprunner = lp.is_lprunner
 
 def init_prompt(n, kw):
     """run before each command"""
-    if not is_lprunner:
+    if not is_lprunner[0]:
         lp.sprun('tmux send-keys -R -t %s:1' % n)  # -R reset terminal state
         lp.sprun('tmux clear-history -t %s:1' % n)
     lp.sprun("tmux send-keys -t %s:1 '' Enter" % n)
@@ -51,7 +51,7 @@ def get(session_name, **kw):
     s = '\n' + os.popen('tmux ls').read()
     if not '\n%s:' % session_name in s:
         create(session_name, kw)
-    if is_lprunner:
+    if is_lprunner[0]:
         global lprunner
         from lcdoc import lprunner
 
@@ -219,7 +219,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     if cmd:
         init_prompt(n, kw)
         # send the sequence as hex (-H):
-        if is_lprunner:
+        if is_lprunner[0]:
             lprunner.confirm(cmd)
         seq = ' '.join([hex(ord(b))[2:] for b in cmd])
         seq += ' a'

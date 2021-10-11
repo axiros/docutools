@@ -109,6 +109,7 @@ function combine_coverage {
 
 function docs {
     export lp_eval="${lp_eval:-always}"
+    rm -f docs/autodocs # errors if present but not filled, seen as file at startup, then dir -> mkdocs err
     # executes a lot of code in lp blocks -> goes into coverage:
     sh coverage run --rcfile=config/coverage.lp.ini $CONDA_PREFIX/bin/mkdocs build "$@"
     combine_coverage # so that at mkdocs gh-deploy the docu build can copy the files
@@ -137,6 +138,7 @@ function tests {
 }
 
 function release {
+    test -z "$2" || { echo "say make release <version>"; return 1; }
     version="${1:-}"
     test -z "$version" && { set_version || return 1; }
     nfo "New Version = $version"

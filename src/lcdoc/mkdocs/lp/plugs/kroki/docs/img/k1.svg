@@ -6,7 +6,7 @@ link component to base.component--><path d="M193.66,436.06 C191.21,450.76 187.34
 link main_ts to main.view--><path d="M78,44.14 C78,59.73 78,82.41 78,98.52 " fill="none" id="main_ts-to-main.view" style="stroke:#00B2E2;stroke-width:2.0;"/><polygon fill="#00B2E2" points="78,103.72,82,94.72,78,98.72,74,94.72,78,103.72" style="stroke:#00B2E2;stroke-width:2.0;"/><!--MD5=[4441bedd105933de0d7532f2ab638273]
 link main.view to component--><path d="M85.65,133.87 C98.74,158 125.81,209.45 144,255 C164.54,306.42 182.46,369.34 190.88,400.54 " fill="none" id="main.view-to-component" style="stroke:#00B2E2;stroke-width:1.0;"/><polygon fill="#00B2E2" points="192.25,405.62,193.7727,395.8896,190.9501,400.7919,186.0478,397.9694,192.25,405.62" style="stroke:#00B2E2;stroke-width:1.0;"/><!--MD5=[13ad85ba1f11006a238f12e2f77a82bd]
 link main.view to singleton--><path d="M77.81,134.02 C77.45,160.75 76.67,219.07 76.26,249.56 " fill="none" id="main.view-to-singleton" style="stroke:#00B2E2;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#00B2E2" points="76.19,254.91,80.3182,245.9681,76.2614,249.9105,72.319,245.8538,76.19,254.91" style="stroke:#00B2E2;stroke-width:1.0;"/><!--MD5=[aa7a8951c655979b364d27a3b63fee25]
-link singleton to model--><path d="M74.97,285.02 C72.99,311.75 68.69,370.07 66.44,400.56 " fill="none" id="singleton-to-model" style="stroke:#00B2E2;stroke-width:1.0;"/><polygon fill="#00B2E2" points="66.04,405.91,70.6728,397.2188,66.3973,400.9228,62.6933,396.6472,66.04,405.91" style="stroke:#00B2E2;stroke-width:1.0;"/><!--MD5=[0309a895ce571260201e5cffccca2aa1]
+link singleton to model--><path d="M74.97,285.02 C72.99,311.75 68.69,370.07 66.44,400.56 " fill="none" id="singleton-to-model" style="stroke:#00B2E2;stroke-width:1.0;"/><polygon fill="#00B2E2" points="66.04,405.91,70.6728,397.2188,66.3973,400.9228,62.6933,396.6472,66.04,405.91" style="stroke:#00B2E2;stroke-width:1.0;"/><!--MD5=[7f77099dc233e90945c0b189fe29b72c]
 @startuml
 skinparam shadowing false
 skinparam backgroundcolor transparent
@@ -237,7 +237,7 @@ main_ts ==> (main.view)
 
 @enduml
 
-PlantUML version 1.2021.8(Sat Jun 26 08:20:59 GMT 2021)
+PlantUML version 1.2021.10(Mon Aug 30 13:43:48 GMT 2021)
 (GPL source distribution)
 Java Runtime: OpenJDK Runtime Environment
 JVM: OpenJDK 64-Bit Server VM

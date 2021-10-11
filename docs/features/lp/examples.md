@@ -27,7 +27,7 @@ say_hello () {
 
 ## Heredocs
 
-the example includes the  previously defined function:
+the example includes the previously defined function:
 
 ```bash lp session=test asserts=TMUX
 echo $0 # lp: expect=bash
