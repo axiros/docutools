@@ -18,7 +18,10 @@ echo "Hello World"
 
 If the user now calls the documentation URL with the `mdrun` script he will see sth like this:
 
-```
+```bash
+$ mdrun "https://axiros.github.io/docutools/features/lp/python/lprunner/"
+
+(...) # local tmux window opens, showing the markdown source plus the blocks ready to run:
 
 Via this you can offer the reader of a page to run all or some LP blocks of a page locally on his
 computer.
@@ -40,6 +43,13 @@ Means the user by default needs to confirm every block run.
 
 This currently works for [bash mode](../../bash/), with or without sessions and is intended to allow
 users, trusting you, complex installation automation without tedious copy paste processes. 
+
+
+## Tech
+The `show('lprunner')` statement causes the markdown source of the page to be copied over to site dir, as `runner.md`, so that it is
+available to be downloaded by a http client, contained within the `mdrun` script.
+
+
 
 ## Requirements
 

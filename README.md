@@ -101,43 +101,52 @@ Most notable feature: **[Literate Programming](https://axiros.github.io/docutool
 <td style="cursor: pointer" title="features/lp/plugs/lightbox" class="even" onclick="window.location.href='features/lp/plugs/lightbox'">
 <a href="https://axiros.github.io/docutools/features/lp/plugs/lightbox/">lightbox</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/plugs/lightbox/img/gl_light.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td style="cursor: pointer" title="features/lp/plugs/make_badges" class="odd" onclick="window.location.href='features/lp/plugs/make_badges'">
+<td style="cursor: pointer" title="features/lp/python/lprunner" class="odd" onclick="window.location.href='features/lp/python/lprunner'">
+<a href="https://axiros.github.io/docutools/features/lp/python/lprunner/">lprunner</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/python/lprunner/img/gl_lprunner.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
+</td>
+<td style="cursor: pointer" title="features/lp/plugs/make_badges" class="even" onclick="window.location.href='features/lp/plugs/make_badges'">
 <a href="https://axiros.github.io/docutools/features/lp/plugs/make_badges/">make_badges</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/plugs/make_badges/img/gl_badges.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td style="cursor: pointer" title="features/lp/plugs/markmap" class="even" onclick="window.location.href='features/lp/plugs/markmap'">
+</tr>
+<tr>
+<td style="cursor: pointer" title="features/lp/plugs/markmap" class="odd" onclick="window.location.href='features/lp/plugs/markmap'">
 <a href="https://axiros.github.io/docutools/features/lp/plugs/markmap/">markmap</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/plugs/markmap/img/gl_mark.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td style="cursor: pointer" title="features/md-replace" class="odd" onclick="window.location.href='features/md-replace'">
+<td style="cursor: pointer" title="features/md-replace" class="even" onclick="window.location.href='features/md-replace'">
 <a href="https://axiros.github.io/docutools/features/md-replace/">md-replace</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/md-replace/img/gl_md_repl.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td style="cursor: pointer" title="features/lp/plugs/mermaid" class="even" onclick="window.location.href='features/lp/plugs/mermaid'">
+<td style="cursor: pointer" title="features/lp/plugs/mermaid" class="odd" onclick="window.location.href='features/lp/plugs/mermaid'">
 <a href="https://axiros.github.io/docutools/features/lp/plugs/mermaid/">mermaid</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/plugs/mermaid/img/gl_merm.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td style="cursor: pointer" title="features/page-tree" class="odd" onclick="window.location.href='features/page-tree'">
+</tr>
+<tr>
+<td style="cursor: pointer" title="features/page-tree" class="even" onclick="window.location.href='features/page-tree'">
 <a href="https://axiros.github.io/docutools/features/page-tree/">page-tree</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/page-tree/img/gl_tree_ex.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-</tr>
-<tr>
-<td style="cursor: pointer" title="features/lp/python/project_dependencies" class="even" onclick="window.location.href='features/lp/python/project_dependencies'">
+<td style="cursor: pointer" title="features/lp/python/project_dependencies" class="odd" onclick="window.location.href='features/lp/python/project_dependencies'">
 <a href="https://axiros.github.io/docutools/features/lp/python/project_dependencies/">project_dependencies</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/python/project_dependencies/img/gl_auto_deps.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td style="cursor: pointer" title="features/lp/python" class="odd" onclick="window.location.href='features/lp/python'">
+<td style="cursor: pointer" title="features/lp/python" class="even" onclick="window.location.href='features/lp/python'">
 <a href="https://axiros.github.io/docutools/features/lp/python/">python</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/python/img/gl_lp_html.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
-</td>
-<td style="cursor: pointer" title="features/lp/python/screenshot" class="even" onclick="window.location.href='features/lp/python/screenshot'">
-<a href="https://axiros.github.io/docutools/features/lp/python/screenshot/">screenshot</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/python/screenshot/img/gl_shots.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
 </tr>
 <tr>
-<td style="cursor: pointer" title="features/stats" class="odd" onclick="window.location.href='features/stats'">
+<td style="cursor: pointer" title="features/lp/python/screenshot" class="odd" onclick="window.location.href='features/lp/python/screenshot'">
+<a href="https://axiros.github.io/docutools/features/lp/python/screenshot/">screenshot</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/python/screenshot/img/gl_shots.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
+</td>
+<td style="cursor: pointer" title="features/stats" class="even" onclick="window.location.href='features/stats'">
 <a href="https://axiros.github.io/docutools/features/stats/">stats</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/stats/img/gl_stats.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
-<td style="cursor: pointer" title="features/lp/xterm" class="even" onclick="window.location.href='features/lp/xterm'">
+<td style="cursor: pointer" title="features/lp/xterm" class="odd" onclick="window.location.href='features/lp/xterm'">
 <a href="https://axiros.github.io/docutools/features/lp/xterm/">xterm</a><br/><img onclick="event.stopPropagation();" src="https://axiros.github.io/docutools/features/lp/img/gl__xterm.png" style="display: block; padding: 3%; margin: auto; max-height: 500px"></img>
 </td>
+</tr>
+<tr>
+<td style="cursor: pointer" title="" class="even" onclick="window.location.href=''">
+</td>
 <td style="cursor: pointer" title="" class="odd" onclick="window.location.href=''">
+</td>
+<td style="cursor: pointer" title="" class="even" onclick="window.location.href=''">
 </td>
 </tr>
 </table><!-- gallery -->
