@@ -100,9 +100,9 @@ def log(level_name, meth, msg, kw, _err_levels={'error', 'fatal', 'die'}):
     meth(B(msg + '  ') + tokw(kw))
 
 
-log_methods = ['debug', 'info', 'warning', 'error', 'fatal']
-log_majors = {k: [] if k[:3] not in ['deb', 'inf'] else [] for k in log_methods}
-level_by_name = {n: (i + 1) * 10 for n, i in zip(log_methods, range(len(log_methods)))}
+log_levels = ['debug', 'info', 'warning', 'error', 'fatal']
+log_majors = {k: [] if k[:3] not in ['deb', 'inf'] else [] for k in log_levels}
+level_by_name = {n: (i + 1) * 10 for n, i in zip(log_levels, range(len(log_levels)))}
 
 
 class app:
@@ -116,6 +116,7 @@ class app:
     log_stats = LogStats
 
     def die(msg, **kw):
+        outputter[0] = print
         app.fatal(msg, **kw)
         sys.exit(1)
 
@@ -126,7 +127,7 @@ class app:
             if c[0]:
                 return
             ls = p = logging_system
-            for lm in log_methods:
+            for lm in log_levels:
                 h = getattr(ls, lm)
                 setattr(app, lm, lambda msg, lm=lm, h=h, **kw: log(lm, h, msg, kw))
             try:
@@ -140,10 +141,13 @@ class app:
             c[0] = True
 
 
-def set_log_out(f):
-    for lm in log_methods:
-        setattr(app, lm, lambda msg, lm=lm, **kw: log(lm, f, ('[%s] ' % lm) + msg, kw))
-        app.log_stats[lm] = 0
+for lm in log_levels:
+    setattr(app, lm, lambda msg, lm=lm, **kw: log(lm, printout, ('[%s] ' % lm) + msg, kw))
+    app.log_stats[lm] = 0
 
 
-set_log_out(print)
+def printout(msg):
+    outputter[0](msg)
+
+
+outputter = [print]

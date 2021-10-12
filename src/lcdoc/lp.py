@@ -78,7 +78,7 @@ env = os.environ
 wait = time.sleep
 now = time.time
 exists = os.path.exists
-user = env['USER']
+user = env.get('USER', 'root')  # in docker: Key error, else.
 env['PATH'] = 'bin:%s' % env.get('PATH', '')
 
 

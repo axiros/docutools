@@ -20,8 +20,8 @@ msg = '''
     You can run the code on this page locally via:
 
     ```bash
-    pip install --user git+git:///github.com/axiros/docutools
-    mdrunner "%s"
+    pip install --user docutools # if not yet installed
+    mdrun "%s"
     ```
 '''
 

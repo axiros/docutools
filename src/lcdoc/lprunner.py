@@ -10,7 +10,7 @@ follow the output.
 import os
 import sys
 import time
-
+import traceback
 import httpx
 
 from lcdoc.const import lprunner_sep as sep
@@ -183,7 +183,8 @@ def parse_cli(g=getattr):
     from lcdoc import log
 
     f = open('/tmp/tmux.log.%s' % our_tmx_id, 'w')
-    log.set_log_out(f)
+    w = lambda msg, f=f: f.write(msg + '\n')
+    log.outputter[0] = w
 
 
 class mock:
@@ -233,7 +234,6 @@ def run_fn():
 
 
 def setup_our_tmux():
-
     set_tmx_col(OurTmux, FLG.tmx_ctrl_color)
 
 
@@ -241,6 +241,15 @@ def main():
     if '-h' in sys.argv or '--help' in sys.argv or len(sys.argv) == 1:
         parse_cli()  # will exit
     restart_in_tmux()
+    try:
+        run_in_tmux()
+    except SystemExit as ex:
+        print('Tmux runner exitted with Error')
+        breakpoint()
+        print('Hit q to exit')
+
+
+def run_in_tmux():
     # we are in a subprocess now, running within tmux:
     global LP
     from lcdoc.mkdocs.lp import LP
@@ -256,8 +265,12 @@ def main():
         if not S.exit_after_run:
             S.auto_confirm_all = False
     except Exception as ex:
-        print('Error')
+        traceback.print_exc()
         print(ex)
+        print('Error - entering debug mode')
+        breakpoint()  # FIXME BREAKPOINT
+        print('? for help')
+        sys.exit(1)
     try:
         confirm('All done. Exit Tmux.')
         while True:

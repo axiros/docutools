@@ -18,6 +18,17 @@ dbg = lp.dbg
 is_lprunner = lp.is_lprunner
 
 
+def tmux_ver_check(checked=[0]):
+    """tmux -H only from 3.0"""
+    if checked[0]:
+        return
+    msg = 'Please install tmux, version >= 3.0'
+    t = os.popen('tmux -V').read().replace(' ', '')
+    if not t or 'tmux2' in t or 'tmux1' in t:
+        lp.app.die(msg)
+    checked[0] = 1
+
+
 def init_prompt(n, kw):
     """run before each command"""
     if not is_lprunner[0]:
@@ -107,6 +118,7 @@ def tmux_start(session_name):
 
 def create(session_name, kw):
     # new session:
+    tmux_ver_check()
     s = session_name
     tmux_start(s)
     # all lp vars into the session, maybe of use:

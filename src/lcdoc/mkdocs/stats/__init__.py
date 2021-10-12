@@ -79,7 +79,7 @@ def filter_logs(sever):
     if not sever or not sever in l:
         return
     logs = []
-    m = log.log_methods
+    m = log.log_levels
     [logs.append([k, l.get(k)]) for k in m[m.index(sever) :] if l.get(k)]
     return logs, sum([len(i[1]) for i in logs])
 

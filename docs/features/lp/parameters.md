@@ -338,6 +338,16 @@ Syntax details [here](./syntax.md#parametrization).
     In [sessions](./sessions.md) we do this by exporting `$PS1` to the given value, plus a space, at beginning of the session.
 
 
+### runner
+(`boolean`)
+???+ hint "Will run LP block locally"
+
+    The `runner` parameter will include the LP block into those which are run, when a user calls the
+    URL with the [`mdrun` script](../python/lprunner/).
+
+    !!! note
+        Currently only for bash mode, with or without sessions.
+    
 ### session
 `session=<tmux session name>`
 ???+ hint "Runs the block within a tmux session"
