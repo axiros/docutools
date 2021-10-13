@@ -78,7 +78,7 @@ def load_replacement_file(plugin, config):
         else:
             app.info('Loading replacement file', fn=fn)
             if not exists(fn):
-                app.warning('Cannot replace, no lookup file found', fn=fn)
+                app.info('Will not mdreplace, no lookup file found', fn=fn)
             sys.path.append(os.path.dirname(fn))
             mod = importlib.import_module(fnmod)
             table = getattr(mod, 'table', None)
@@ -171,7 +171,7 @@ class MDReplacePlugin(MDPlugin):
         # hot reload feature:
         load_replacement_file(self, config)
         lines = markdown.splitlines()
-        if self.t_all:
+        if getattr(self, 't_all', None):
             lines = repl(mdblock=lines, table=self.t_all)
 
         # if 'features' in page.url: breakpoint()  # FIXME BREAKPOINT

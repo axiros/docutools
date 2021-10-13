@@ -35,7 +35,7 @@ def find_pages(find, config, stats):
     for m in find:
         found = find_md_files(match=m, config=config)
         if not found:
-            app.warning('No pages found', match=m)
+            app.info('No pages found', match=m)
         else:
             fnd.extend(found)
     stats['matching'] = len(fnd)

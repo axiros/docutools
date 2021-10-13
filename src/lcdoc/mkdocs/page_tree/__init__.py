@@ -14,7 +14,7 @@ def url(base, p):
 
 
 def on_config_add_footer_partial(plugin, config):
-    s = '/src/lcdoc/'
+    s = '/lcdoc/'
     fnf = __file__.split(s, 1)[0] + s + 'assets/mkdocs/lcd/partials/footer.html'
     s = read_file(fnf)
     d0 = config['theme'].dirs[0]
