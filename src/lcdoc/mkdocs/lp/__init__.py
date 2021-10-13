@@ -35,6 +35,7 @@ from lcdoc.mkdocs.tools import (
     link_assets,
     now,
     page_dir,
+    run_docs_hooks,
     split_off_fenced_blocks,
 )
 from lcdoc.tools import dirname, exists, os, project, read_file, sys, write_file
@@ -691,37 +692,6 @@ def patch_mkdocs_to_ignore_res_file_changes():
     # :docs:patching_mkdocs
 
 
-def make_plugin_docs(config):
-    """We want the plugins really self contained, incl. all - also the docs
-    So we scan whats there and symlink over
-    """
-
-    def make(pth, dd):
-        D = dirname(__file__) + '/plugs' + pth
-        dd = config['docs_dir'] + dd
-        if not exists(dd):
-            os.makedirs(dd, exist_ok=True)
-
-        c = []
-        for k in sorted(os.listdir(D)):
-            # k e.g. 'mermaid'
-            d = D + '/' + k
-            fnr, fnp = d + '/docs/index.md', d + '/__init__.py'
-            if not exists(fnr) or not exists(fnp):
-                continue
-            t = dd + '/' + k
-            if not exists(t + '/index.md'):
-                f = '../../../../src/lcdoc/mkdocs/lp/plugs%s/%s/docs' % (pth, k)
-                os.symlink(f, t)
-                c.append([f, t])
-        if c:
-            app.info('Plugs doc symlink created', json=c)
-
-    # TODO: also custom dir?
-    make('', '/features/lp/plugs')
-    make('/python/pyplugs', '/features/lp/python')
-
-
 # ------------------------------------------------------------------------------- Plugin
 class LPPlugin(MDPlugin):
     config_scheme = (
@@ -738,15 +708,14 @@ class LPPlugin(MDPlugin):
             _ += config['docs_dir'].split(project.root(config), 1)[1]
             LP.create_coverage_backrefs = True
         LP.docs_repo_base = _  # e.g. 'https://github.com/AXGKl/docutools/docs'
-
         if 'serve' in sys.argv:
             patch_mkdocs_to_ignore_res_file_changes()
-        make_plugin_docs(config)
+        project.root(config)  # gets root dir from config and caches it
+        run_docs_hooks('on_config', config)
         LP.config = config
         LP.stats = self.stats
         link_assets(self, __file__, config)
         on_config_add_extra_css_and_js(self, config)
-        project.root(config)  # gets root dir from config and caches it
         LP.configure_from_env()
 
     def on_files(self, files, config):

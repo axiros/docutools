@@ -1,4 +1,6 @@
 import datetime
+import importlib
+import shutil
 import sys
 import time
 from functools import partial
@@ -19,7 +21,6 @@ from lcdoc.tools import (
     require,
     write_file,
 )
-
 
 script = lambda s: '<script>\n%s\n</script>' % s
 style = lambda s: '<style>\n%s\n</style>' % s
@@ -268,6 +269,16 @@ def wrap_hook(plugin, hook, hookname):
     setattr(plugin, hookname, wrapped_hook)
 
 
+def run_docs_hooks(hookname, config):
+    d = project.root(config) + '/scripts/docs/hooks/' + hookname
+    if not exists(d):
+        return
+    sys.path.insert(0, d)
+    for h in [i for i in os.listdir(d) if i.endswith('.py')]:
+        mod = importlib.import_module(h[:-3])
+        mod.run(config)
+
+
 def page_dir(kw):
     page = kw.get('page') or kw['LP'].page
     return dirname(page.file.abs_src_path) + '/'
@@ -331,9 +342,6 @@ def make_img(create_func, fn=None, kw=None):
 
     last_img_hash[fn_abs] = kw['id']
     return '![](%s)' % fn
-
-
-import shutil
 
 
 def reset_if_is_first_loaded_plugin_and_hash_changed(plugin, c={}):
