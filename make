@@ -76,8 +76,13 @@ function badges { # inserts badges into readme. defunct for now
 }
 
 function ci { # Trigger a CI Run by pushing and empty commit
-    echo ' ' >> README.md
-    sh git commit README.md -m "ci: trigger CI (empty commit)"
+    msg="ci: trigger CI (empty commit)"
+    if [[ "$1" == "-a" ]]; then
+        git commit -a -m "$msg"
+    else
+        echo ' ' >> README.md
+        sh git commit README.md -m "$msg"
+    fi
     sh git push
 }
 
@@ -184,3 +189,4 @@ make() {
     }
 }
 
+if [[ "${1:-}" == "-a" ]]; then activate_venv; fi

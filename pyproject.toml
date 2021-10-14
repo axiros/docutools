@@ -57,12 +57,12 @@ pytest-sugar = "^0.9.4"
 pytest-xdist = "^2.1.0"
 toml = "^0.10.1"
 
-
 # this would require to  export POETRY_HTTP_BASIC_AX_USERNAME=... and pw on gitlab runner
 # since we are on same gitlab server for lc-devapp we install from there using the token, see below
 diagrams = "^0.20.0"
 imagesize = "^1.*"
 inflection = "^0.5.1"
+coverage = "^6.0.2"
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
 axblack = "^20201010"
