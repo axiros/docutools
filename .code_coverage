@@ -45,6 +45,6 @@ src/lcdoc/mkdocs/page_tree/__init__.py                                         4
 src/lcdoc/mkdocs/replace/__init__.py                                           99     18     48      8    80.95%
 src/lcdoc/mkdocs/stats/__init__.py                                            118    100     78      0    10.20%
 src/lcdoc/mkdocs/tools.py                                                     264     40    117     23    81.36%
-src/lcdoc/tools.py                                                            217     92    108     21    49.85%
+src/lcdoc/tools.py                                                            217     92    108     20    50.15%
 ----------------------------------------------------------------------------------------------------------------
-TOTAL                                                                        4123   1458   1695    245    60.95%
+TOTAL                                                                        4123   1458   1695    244    60.97%
