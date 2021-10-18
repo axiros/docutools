@@ -10,6 +10,8 @@ Result will be what is printed on stdout.
 Decide via the language argument (```&lt;language&gt; lp mode=python) what formatting should be applied.
 """
 
+import importlib
+import sys
 from importlib import import_module
 from io import StringIO
 from pprint import pformat
@@ -113,8 +115,6 @@ def fmt(t, s, kw):
 
 D_lp_py = lambda: project.root() + '/build/autodocs/lp_python/'
 
-import sys
-
 
 def cmd_to_module_file(cmd, kw):
     dr = D_lp_py()
@@ -129,52 +129,53 @@ def cmd_to_module_file(cmd, kw):
     return fn
 
 
-import importlib
-
-
 def run(cmd, kw):
     """
     interpret the command as python
     """
-    # short form convenience: `lp:python show=project_dependencies`
+    l = kw['mode'].split(':')
     # set if not yet done:
     project.root(kw['LP'].config)
-    shw = kw.pop('show', '')
-    if shw and isinstance(cmd, str):
-        cmd = 'show("%s")' % shw + cmd
-    if kw.get('cfl'):
-        modfn = cmd_to_module_file(cmd, kw)
-        m = importlib.import_module(kw['id'])
-        m.run_lp_flow()
+    if len(l) > 1 and l[1] in fmts:
+        res = fmts[l[1]](l[1], **kw)
     else:
-        loc = Session.cur['locals']
-        g = {'print': printed, 'show': show, 'ctx': kw}
-        loc.update(g)
-        exec(cmd, loc)
-    o = Session.cur['out']
-    res = [fmt(*i) for i in o]
-    fncd = False
-    r = ['']
-    add = lambda k: r.append(k) if k is not None else 0
-    # if the fmt is given (mk_console usually), then we show the command (python code)
-    # and the output within the usual lp fenced code block.
-    # if it was unset then we open and close fenced code only for print outs
-    fstart, fstop = (None, None)
-    if kw['fmt'] == 'unset':
-        fstart = '```python'
-        fstop = '```'
-    while res:
-        is_fenced, o = res.pop(0)
-        if is_fenced and not fncd:
-            add(fstart)
-            fncd = True
-        elif not is_fenced and fncd:
+        # short form convenience: `lp:python show=project_dependencies`
+        shw = kw.pop('show', '')
+        if shw and isinstance(cmd, str):
+            cmd = 'show("%s")' % shw + cmd
+        if kw.get('cfl'):
+            modfn = cmd_to_module_file(cmd, kw)
+            m = importlib.import_module(kw['id'])
+            m.run_lp_flow()
+        else:
+            loc = Session.cur['locals']
+            g = {'print': printed, 'show': show, 'ctx': kw}
+            loc.update(g)
+            exec(cmd, loc)
+        o = Session.cur['out']
+        res = [fmt(*i) for i in o]
+        fncd = False
+        r = ['']
+        add = lambda k: r.append(k) if k is not None else 0
+        # if the fmt is given (mk_console usually), then we show the command (python code)
+        # and the output within the usual lp fenced code block.
+        # if it was unset then we open and close fenced code only for print outs
+        fstart, fstop = (None, None)
+        if kw['fmt'] == 'unset':
+            fstart = '```python'
+            fstop = '```'
+        while res:
+            is_fenced, o = res.pop(0)
+            if is_fenced and not fncd:
+                add(fstart)
+                fncd = True
+            elif not is_fenced and fncd:
+                add(fstop)
+                fncd = False
+            add(o)
+        if fncd:
             add(fstop)
-            fncd = False
-        add(o)
-    if fncd:
-        add(fstop)
-    res = '\n\n'.join(r)
+        res = '\n\n'.join(r)
     r = {'res': res}
     # python code may explicitly set a result as object, ready to process e.g. in a mode pipe
     rslt = Session.cur['locals'].get('result')

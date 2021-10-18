@@ -53,7 +53,11 @@ def get_insert_pos(fn, have):
         for i in range(len(have)):
             if not have[i].startswith(fn):
                 continue
-            while have[i] < (fn + '/' + post) and have[i].startswith(fn):
+            while (
+                (i < len(have) - 1)
+                and have[i] < (fn + '/' + post)
+                and have[i].startswith(fn)
+            ):
                 i += 1
             return have[i - 1], have[i]
 

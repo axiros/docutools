@@ -35,12 +35,14 @@ print(keys)
 ```
 
 
-### Rendering Plugins
+## Plugins
 
+- Plugins are addressed via the `show` function
 - The rendering of arguments of the `show` function is based on value and type of the argument.
 
-- Plugins register match keys and rendering functions, which when key is matching, will render the
-  argument of `show`
+### The `show` function
+
+- Plugins register match keys and rendering functions, which when key is matching, will render the argument of `show`
 - Alternatively if the "key" is a callable, it will be called with the object to be shown and can decide if
   returns True - then it's value, the actual rendering function will be called (see e.g. datatables python plugin).
 - You can provide your own python plugins, provided you supply an importable module
@@ -49,15 +51,45 @@ print(keys)
 
 !!! important
     
-    LP python plugins are not lazily imported. Avoid side effects and expensive code at import time
+    LP python plugins are *not* lazily imported. Avoid side effects and expensive code at import time
     (which you should anyway, always).
 
-#### Rendering Plugin Interface
+### Rendering Plugin Interface
 
 A plugin must provide a `register(fmts)` function, where fmts is a dict of match keys pointing to
 plugin specific rendering functions.
 
-See the :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/mpl_pyplot.py,t=matplotlib renderer.
+See e.g. the :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/mpl_pyplot.py,t=matplotlib renderer.
+
+
+### Syntax
+
+#### Normal form:
+
+```python
+# in an lp:python block
+show(<plugin match>, **plugin kws)
+```
+
+#### Short form, w/o kws:
+
+```
+`lp:python show=<plugin match>`
+```
+
+#### Ultrashort form, with kws:
+
+```
+`lp:python:<match> plugin_kw1=val1 plugin_kw2=val2`
+```
+
+Example
+
+```
+`lp:python:convert pdf=img/sample.pdf width=200 addsrc`
+```
+
+
 
 
 ## Tips

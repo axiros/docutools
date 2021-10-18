@@ -160,6 +160,7 @@ function release {
     sh git push --tags
     sh poetry build
     sh poetry publish
+    sh git push
     #sh mkdocs gh-deploy # done by ci
 }
 
