@@ -2,6 +2,8 @@ import os
 import shutil
 from functools import partial
 
+from mkdocs.structure.files import File
+
 from lcdoc.mkdocs.lp.plugs import lightbox, python
 from lcdoc.mkdocs.tools import make_img
 from lcdoc.tools import dirname, exists
@@ -14,8 +16,9 @@ def register(fmts):
 
 
 # :docs:convert_defaults
-# Set keep=True in order to keep the produced pngs within the docs dir:
-dflts = dict(width=400, pages=0, thumbwidth=200, keep=False)
+# Set png=img/foo.png in order to keep the produced pngs within the docs dir:
+# pages: whatever is accepted by convert. E.g. 0-4. 0=first page
+dflts = dict(width=400, pages=0, thumbwidth=200)
 # :docs:convert_defaults
 
 
@@ -25,29 +28,54 @@ def pngs(fn_png):
     return [dir + '/' + i for i in os.listdir(dir) if k in i and i.endswith('.png')]
 
 
-def unlink_old_pngs(fn_png):
+def unlink_old_pngs(fn_png, dd):
+    files = LP().files
     for fn in pngs(fn_png):
         python.app.info('unlinking old', fn=fn)
         os.unlink(fn)
+        fns = fn.replace(dd + '/', '')
+        [files.remove(f) for f in files if f.src_path.endswith(fns)]
 
 
-addsl = lambda d: d if d.endswith('/') else (d + '/')
+# addsl = lambda d: d if d.endswith('/') else (d + '/')
 
 
-def move_to_site_dir(d, fn_png, relp):
-    copy_or_move = shutil.copyfile if d['keep'] else shutil.move
-    sd = config()['site_dir'] + '/' + page().file.src_path
-    # sd = addsl(sd.replace('/index.md', '').replace('.md', ''))
-    sd = addsl(dirname(sd))
-    sd += addsl(dirname(relp(fn_png)))
-    os.makedirs(sd, exist_ok=True)
-    for i in pngs(fn_png):
-        copy_or_move(i, sd + os.path.basename(i))
+# def move_to_site_dir(d, fn_png, relp):
+#     copy_or_move = shutil.copyfile if d['keep'] else shutil.move
+#     sd = config()['site_dir'] + '/' + page().file.src_path
+#     # sd = addsl(sd.replace('/index.md', '').replace('.md', ''))
+#     sd = addsl(dirname(sd))
+#     sd += addsl(dirname(relp(fn_png)))
+#     os.makedirs(sd, exist_ok=True)
+#     for i in pngs(fn_png):
+#         copy_or_move(i, sd + os.path.basename(i))
+
+
+def png_pth(fn_png, relp, page, dd):
+    rp = relp(fn_png)
+    return rp.replace(
+        dd + '/build/', ('../' * (len(page().file.src_path.split('/')) - 1) + 'build/'),
+    )
+
+
+LP = lambda: python.lpkw()['LP']
+
+
+def add_files(dd, fn_png):
+    files = LP().files
+    f = File(fn_png.replace(dd + '/', ''), dd, config()['site_dir'], False)
+    files.append(f)
 
 
 def convert_pdf(fn_pdf, kw):
-    fn_png = kw.get('png', fn_pdf + '.png')
     dp = os.path.dirname(page().file.abs_src_path) + '/'
+    dd = config()['docs_dir']
+    fn_png = kw.get('png')
+    if not fn_png:
+        nr = str(LP().spec['nr']) + '/'
+        fn_png = dp.replace(config()['docs_dir'], '')
+        fn_png = dd + '/build' + fn_png + nr + os.path.basename(fn_pdf) + '.png'
+        os.makedirs(dirname(fn_png), exist_ok=True)
     if not exists(fn_pdf):
         fn_pdf = dp + fn_pdf
         if not exists(fn_pdf):
@@ -58,7 +86,7 @@ def convert_pdf(fn_pdf, kw):
     d.update(kw)
     width = d['width']
     pages = d['pages']
-    unlink_old_pngs(fn_png)
+    unlink_old_pngs(fn_png, dd)
     cmd = f'convert -thumbnail x{width} -background white -alpha remove "{fn_pdf}[{pages}]" "{fn_png}"'
     python.app.info('Converting pdf to png', cmd=cmd)
     if os.system(cmd):
@@ -67,8 +95,10 @@ def convert_pdf(fn_pdf, kw):
     relp = lambda fn, dp=dp: fn.replace(dp, '')
     if str(pages).isdigit():
         # single png with link to pdf:
-        move_to_site_dir(d, fn_png, relp)
-        return '[![](%s)](%s)' % (fn_png.replace(dp, ''), fn_pdf.replace(dp, ''))
+        # move_to_site_dir(d, fn_png, relp)
+        rp = png_pth(fn_png, relp, page, dd)
+        add_files(dd, fn_png)
+        return '[![](%s)](%s)' % (rp, relp(fn_pdf))
 
     python.app.info('Creating slideshow')
     pics = pngs(fn_png)
@@ -77,9 +107,8 @@ def convert_pdf(fn_pdf, kw):
     r = ['<div style="display:flex; flex-wrap:wrap;" class="pdf-slides">']
     twidth = d['thumbwidth']
     for k in pics:
-        p = relp(k)
-        if not page().file.src_path.endswith('/index.md'):
-            p = '../' + p
+        p = png_pth(k, relp, page, dd)
+        add_files(dd, k)
         # pic = f'![]({p})'
         pic = f'<div style="width:{twidth}px;margin: 5px;"><img width=100% src="{p}"></img></div>'
         r.append(pic)
@@ -89,7 +118,7 @@ def convert_pdf(fn_pdf, kw):
     res = lightbox.run('', {'mode': 'lightbox', 'outer_match': '.pdf-slides '})
     res['res'] = '\n\n'.join(r)
     res['page_assets'] = {'lightbox': lightbox.page_assets}
-    move_to_site_dir(d, fn_png, relp)
+    # move_to_site_dir(d, fn_png, relp)
     return res
 
 

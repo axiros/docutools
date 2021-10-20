@@ -15,7 +15,7 @@ Current feature set:
 When you specify only one page to be converted, we'll create a thumbnail for the pdf link:
 
 ```python lp:python addsrc
-show('convert', pdf='img/sample.pdf', png='img/my_sample.png', width=100) # implicit: pages=0 
+show('convert', pdf='img/sample.pdf', xpng='img/my_sample.png', width=100) # implicit: pages=0 
 ```
 
 or using the more [concise](../_tech.md)
@@ -28,13 +28,11 @@ or using the more [concise](../_tech.md)
 When you specify more than one pages to be converted, we'll create a slideshow, incl. a lightbox.
 
 
-
-`lp:python:convert pdf=img/sample.pdf width=1000 thumbwidth=200 pages=0-5 addsrc png=img/slides.png`
-
-
+`lp:python:convert pdf=img/sample.pdf width=1000 thumbwidth=200 pages=0-4 addsrc`
 
 
 ## Requirements
+
 
 You need to have [imagemagick][im][^1] installed (`convert` command available).
 

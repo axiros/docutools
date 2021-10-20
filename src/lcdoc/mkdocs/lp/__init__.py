@@ -725,6 +725,7 @@ class LPPlugin(MDPlugin):
 
     def on_page_markdown(self, markdown, page, config, files):
         LP.fn_lp = page.file.abs_src_path
+        LP.files = files
         eval = env_args.get('eval')
         if eval and eval not in eval_modes:
             # we need to be able to exactly match on docs/index.md
