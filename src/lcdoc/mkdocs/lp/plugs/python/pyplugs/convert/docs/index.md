@@ -29,7 +29,7 @@ When you specify more than one pages to be converted, we'll create a slideshow, 
 
 
 
-`lp:python:convert pdf=img/sample.pdf width=400 thumbwidth=200 pages=0-5 addsrc png=img/slides.png`
+`lp:python:convert pdf=img/sample.pdf width=1000 thumbwidth=200 pages=0-5 addsrc png=img/slides.png`
 
 
 
