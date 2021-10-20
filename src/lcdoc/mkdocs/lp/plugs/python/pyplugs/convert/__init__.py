@@ -10,10 +10,7 @@ from lcdoc.tools import dirname, exists
 
 config, page, Session = (python.config, python.page, python.Session)
 
-
-def register(fmts):
-    fmts['convert'] = convert
-
+LP = lambda: python.lpkw()['LP']
 
 # :docs:convert_defaults
 # Set png=img/foo.png in order to keep the produced pngs within the docs dir:
@@ -37,28 +34,11 @@ def unlink_old_pngs(fn_png, dd):
         [files.remove(f) for f in files if f.src_path.endswith(fns)]
 
 
-# addsl = lambda d: d if d.endswith('/') else (d + '/')
-
-
-# def move_to_site_dir(d, fn_png, relp):
-#     copy_or_move = shutil.copyfile if d['keep'] else shutil.move
-#     sd = config()['site_dir'] + '/' + page().file.src_path
-#     # sd = addsl(sd.replace('/index.md', '').replace('.md', ''))
-#     sd = addsl(dirname(sd))
-#     sd += addsl(dirname(relp(fn_png)))
-#     os.makedirs(sd, exist_ok=True)
-#     for i in pngs(fn_png):
-#         copy_or_move(i, sd + os.path.basename(i))
-
-
 def png_pth(fn_png, relp, page, dd):
     rp = relp(fn_png)
     return rp.replace(
         dd + '/build/', ('../' * (len(page().file.src_path.split('/')) - 1) + 'build/'),
     )
-
-
-LP = lambda: python.lpkw()['LP']
 
 
 def add_files(dd, fn_png):
@@ -95,7 +75,6 @@ def convert_pdf(fn_pdf, kw):
     relp = lambda fn, dp=dp: fn.replace(dp, '')
     if str(pages).isdigit():
         # single png with link to pdf:
-        # move_to_site_dir(d, fn_png, relp)
         rp = png_pth(fn_png, relp, page, dd)
         add_files(dd, fn_png)
         return '[![](%s)](%s)' % (rp, relp(fn_pdf))
@@ -118,7 +97,6 @@ def convert_pdf(fn_pdf, kw):
     res = lightbox.run('', {'mode': 'lightbox', 'outer_match': '.pdf-slides '})
     res['res'] = '\n\n'.join(r)
     res['page_assets'] = {'lightbox': lightbox.page_assets}
-    # move_to_site_dir(d, fn_png, relp)
     return res
 
 
@@ -126,3 +104,6 @@ def convert(s, pdf=None, **kw):
     if pdf:
         return convert_pdf(pdf, kw)
     return 'Not supported: %s' % str(locals())
+
+
+register = {'convert': convert}
