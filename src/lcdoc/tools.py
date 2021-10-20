@@ -173,6 +173,29 @@ def flatten(d, sep='_', tpljoin=None):
     return obj
 
 
+from collections import OrderedDict as OD
+
+
+def unflatten(dictionary, sep='_'):
+    resultDict = OD()
+    for key, value in dictionary.items():
+        parts = key.split(sep)
+        d = resultDict
+        for part in parts[:-1]:
+            if part not in d:
+                d[part] = OD()
+            d = d[part]
+        d[parts[-1]] = value
+    return resultDict
+
+
+def deep_update(o, n, sep):
+    of = flatten(o, sep)
+    nf = flatten(n, sep)
+    of.update(nf)
+    return unflatten(of, sep)
+
+
 class project:
     """loads the project config
 

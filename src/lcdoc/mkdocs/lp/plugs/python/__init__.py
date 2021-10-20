@@ -17,7 +17,7 @@ from io import StringIO
 from pprint import pformat
 
 from lcdoc import lp
-from lcdoc.tools import app, dirname, exists, os, project, read_file, write_file
+from lcdoc.tools import app, deep_update, dirname, project, read_file, write_file
 
 err = lp.err
 multi_line_to_list = False
@@ -74,10 +74,10 @@ def show(s, **innerkw):
     if f:
         s = f(s, **innerkw)
         # need this for call_flow_logging :-/
-        if isinstance(s, dict):
-            if 'nocache' in s:
-                lpkw()['nocache'] = s['nocache']
-            s = s['res']
+        # if isinstance(s, dict):
+        #     if 'nocache' in s:
+        #         lpkw()['nocache'] = s['nocache']
+        #     s = s['res']
     out(s, 'md', innerkw=innerkw)
 
 
@@ -129,6 +129,27 @@ def cmd_to_module_file(cmd, kw):
     return fn
 
 
+def build_res(plug_res):
+    m = {'res': ''}
+    for r in plug_res:
+        if isinstance(r, str):
+            m['res'] += '\n\n' + r
+        elif isinstance(r, dict):
+            for k, v in r.items():
+                vh = m.get(k)
+                if vh == None:
+                    m[k] = v
+                elif isinstance(vh, str):
+                    m[k] += vh + '\n\n' + v
+                elif isinstance(vh, dict):
+                    deep_update(vh, v)
+        elif r is None:
+            pass
+        else:
+            app.die('Not supported result type', res=r)
+    return m
+
+
 def run(cmd, kw):
     """
     interpret the command as python
@@ -136,8 +157,13 @@ def run(cmd, kw):
     l = kw['mode'].split(':')
     # set if not yet done:
     project.root(kw['LP'].config)
+    plug_res = ['']
+
+    def add(r):
+        plug_res.append(r)
+
     if len(l) > 1 and l[1] in fmts:
-        res = fmts[l[1]](l[1], **kw)
+        add(fmts[l[1]](l[1], **kw))
     else:
         # short form convenience: `lp:python show=project_dependencies`
         shw = kw.pop('show', '')
@@ -155,8 +181,6 @@ def run(cmd, kw):
         o = Session.cur['out']
         res = [fmt(*i) for i in o]
         fncd = False
-        r = ['']
-        add = lambda k: r.append(k) if k is not None else 0
         # if the fmt is given (mk_console usually), then we show the command (python code)
         # and the output within the usual lp fenced code block.
         # if it was unset then we open and close fenced code only for print outs
@@ -175,8 +199,7 @@ def run(cmd, kw):
             add(o)
         if fncd:
             add(fstop)
-        res = '\n\n'.join(r)
-    r = {'res': res}
+    r = build_res(plug_res)
     # python code may explicitly set a result as object, ready to process e.g. in a mode pipe
     rslt = Session.cur['locals'].get('result')
     if rslt:
@@ -195,7 +218,10 @@ def import_pyplugs(frm):
     for k in [i for i in dir(m) if not i.startswith('_')]:
         v = getattr(m, k)
         if hasattr(v, 'register'):
-            v.register(fmts)
+            if callable(v.register):
+                v.register(fmts)
+            else:
+                fmts.update(v.register)
 
 
 import_pyplugs('lcdoc.mkdocs.lp.plugs.python.pyplugs')

@@ -7,11 +7,6 @@ from lcdoc.mkdocs.tools import add_post_page_func, script
 config, page, Session = (python.config, python.page, python.Session)
 
 
-def register(fmts):
-    """registering us as renderer for show(<pyplot module>) within lp python"""
-    fmts['comments'] = comments
-
-
 dflts_comments = {
     # :docs:comments_defaults
     'theme': 'github-dark',  # "github-light" "github-dark" "preferred-color-scheme" "github-dark-orange" "icy-dark" "dark-blue" "photon-dark" "boxy-light"
@@ -71,6 +66,8 @@ def comments(s, **kw):
     d['repo'] = repo.split(gh, 1)[1]
     js = T
     a = {'footer': {'script': reload_iframe % d, 'style': style}}
-    Session.cur['assets'].setdefault('page_assets', {})['comments'] = a
     add_post_page_func(python.lpkw(), partial(add_fetcher_script, js=js))
-    return {'nocache': True, 'res': marker}
+    return {'nocache': True, 'res': marker, 'page_assets': {'comments': a}}
+
+
+register = {'comments': comments}

@@ -6,11 +6,10 @@ Adds pages to nav
 import string
 import time
 from ast import literal_eval
-from collections import OrderedDict as OD
 from functools import partial
 
 from lcdoc.mkdocs.tools import MDPlugin, app, config_options, find_md_files
-from lcdoc.tools import dirname, exists, flatten, os, project, read_file
+from lcdoc.tools import dirname, exists, OD, unflatten, flatten, os, project, read_file
 
 
 def uppercase_words(s):
@@ -125,7 +124,7 @@ def find_pages_and_add_to_nav(find, config, stats):
     for k, v in r.items():
         n[clear_digits(k)] = v
 
-    r = unflatten(n)
+    r = unflatten(n, '.')
     r = to_list(r)
     config['nav'].clear()
     config['nav'].extend(r)
@@ -137,19 +136,6 @@ def to_list(d):
         v = v if not isinstance(v, dict) else to_list(v)
         l.append({k: v})
     return l
-
-
-def unflatten(dictionary):
-    resultDict = OD()
-    for key, value in dictionary.items():
-        parts = key.split('.')
-        d = resultDict
-        for part in parts[:-1]:
-            if part not in d:
-                d[part] = OD()
-            d = d[part]
-        d[parts[-1]] = value
-    return resultDict
 
 
 def into_path(item, after, last_title):

@@ -53,8 +53,8 @@ def make_data_table(s, **inner_kw):
         if not isinstance(columns[0], dict):
             columns = [{'title': i} for i in columns]
     kw = python.Session.kw
-    A = Session.cur['assets'].setdefault('page_assets', {}).setdefault('datatables', {})
-    A['mode'] = ['jquery', 'jquery_datatables']
+    # A = Session.cur['assets'].setdefault('page_assets', {}).setdefault('datatables', {})
+    A = {'mode': ['jquery', 'jquery_datatables']}
     # user can disable by setting to empty - and provide his own via mkdocs
     fn_style = kw.get('fnstyle')
     if not fn_style:
@@ -64,5 +64,9 @@ def make_data_table(s, **inner_kw):
     A['header'] = style(styl)
     kw['data'] = s
     kw['columns'] = columns
-    Session.cur['assets']['footer'] = script(js % kw)  # the per block js
-    return '<table id="%(id)s_datatbl" class="display" width="100%%"></table>' % kw
+    # Session.cur['assets']['footer'] = script(js % kw)  # the per block js
+    return {
+        'res': '<table id="%(id)s_datatbl" class="display" width="100%%"></table>' % kw,
+        'footer': script(js % kw),
+        'page_assets': {'datatables': A},
+    }
