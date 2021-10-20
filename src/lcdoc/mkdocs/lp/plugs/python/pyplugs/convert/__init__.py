@@ -31,15 +31,18 @@ def unlink_old_pngs(fn_png):
         os.unlink(fn)
 
 
+addsl = lambda d: d if d.endswith('/') else (d + '/')
+
+
 def move_to_site_dir(d, fn_png, relp):
     copy_or_move = shutil.copyfile if d['keep'] else shutil.move
     sd = config()['site_dir'] + '/' + page().file.src_path
-    sd = sd.replace('/index.md', '').replace('.md', '')
-    sd += '/' if not sd.endswith('/') else ''
-    sd += dirname(relp(fn_png))
+    # sd = addsl(sd.replace('/index.md', '').replace('.md', ''))
+    sd = addsl(dirname(sd))
+    sd += addsl(dirname(relp(fn_png)))
     os.makedirs(sd, exist_ok=True)
     for i in pngs(fn_png):
-        copy_or_move(i, sd)
+        copy_or_move(i, sd + os.path.basename(i))
 
 
 def convert_pdf(fn_pdf, kw):
