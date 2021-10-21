@@ -3,7 +3,7 @@
 Current feature set:
 
 - Creates thumbnails of pdfs, linked to their source.
-- Creates image slideshows
+- Creates image slideshows from pdfs
 
 ## Parameters
 

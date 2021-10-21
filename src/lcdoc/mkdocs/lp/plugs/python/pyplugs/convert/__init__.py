@@ -85,11 +85,12 @@ def convert_pdf(fn_pdf, kw):
     pdfr = relp(fn_pdf)
     r = ['<div style="display:flex; flex-wrap:wrap;" class="pdf-slides">']
     twidth = d['thumbwidth']
+    ni = '' if page().file.src_path.endswith('/index.md') else '../'
     for k in pics:
         p = png_pth(k, relp, page, dd)
         add_files(dd, k)
         # pic = f'![]({p})'
-        pic = f'<div style="width:{twidth}px;margin: 5px;"><img width=100% src="{p}"></img></div>'
+        pic = f'<div style="width:{twidth}px;margin: 5px;"><img width=100% src="{ni}{p}"></img></div>'
         r.append(pic)
     r += ['</div>']
     r += [f'[{pdf}]({pdfr})']
