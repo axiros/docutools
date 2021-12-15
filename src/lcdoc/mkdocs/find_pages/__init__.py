@@ -33,6 +33,7 @@ def find_pages(find, config, stats):
     fnd = []
     for m in find:
         found = find_md_files(match=m, config=config)
+        print('found', found)
         if not found:
             app.info('No pages found', match=m)
         else:
@@ -62,6 +63,7 @@ def get_insert_pos(fn, have):
             return have[i - 1], have[i]
 
 
+# get_insert_pos( './features', ['index.md', 'install.md', 'features/index.md', 'features/blacklist/index.md'],)
 now = time.time
 
 
