@@ -48,6 +48,7 @@ def is_after(fn, hfn):
 
 def get_insert_pos(fn, have):
     while fn:
+        print(fn, have)
         fn, post = fn.rsplit('/', 1)
         for i in range(len(have)):
             if not have[i].startswith(fn):
