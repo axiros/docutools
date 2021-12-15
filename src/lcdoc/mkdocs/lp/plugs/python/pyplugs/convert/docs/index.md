@@ -36,6 +36,10 @@ When you specify more than one pages to be converted, we'll create a slideshow, 
 
 You need to have [imagemagick][im][^1] installed (`convert` command available).
 
+!!! tip
+    If you use [conda](https://docs.conda.io/en/latest/miniconda.html) for your virtual env, you
+    have it, w/o root, via `conda install -c conda-forge imagemagick`
+
 [^1]: Copyright: © 1999-2020 ImageMagick Studio LLC
 [im]: https://imagemagick.org/index.php
 

@@ -828,6 +828,7 @@ function setup_termcasts(window, document) {
     let p = tag.parentNode; // parent div
     let pre = p.nextElementSibling; // container of raw ansi
     let code = by_tag_name("code", pre)[0];
+    if (!code) return; // occurs when <xterm/> is inserted into the html, for lp blocks w/o content, like ```page lp``` blocks
     if (code.innerText.trim() == "remote_content") {
       // we attached a markdown img element to it to relative get links resolved by mkdocs:
       let url = by_tag_name("img", p.parentNode)[0].src;
