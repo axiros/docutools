@@ -33,7 +33,6 @@ def find_pages(find, config, stats):
     fnd = []
     for m in find:
         found = find_md_files(match=m, config=config)
-        print('found', found)
         if not found:
             app.info('No pages found', match=m)
         else:
@@ -49,7 +48,6 @@ def is_after(fn, hfn):
 
 def get_insert_pos(fn, have):
     while fn:
-        print(fn, have)
         fn, post = fn.rsplit('/', 1)
         for i in range(len(have)):
             if not have[i].startswith(fn):

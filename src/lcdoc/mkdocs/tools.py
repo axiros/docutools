@@ -104,6 +104,9 @@ def find_md_files(match, config):
     # no --type file because we want also symlinks:
     cmd = "cd '%s' && fd %s -I -e md | grep '%s'" % (dd, flw, match)
     r = os.popen(cmd).read().strip().splitlines()
+    print('cmd find', cmd)
+    # some versions of fd deliver ./foo others foo -> normalize to the latter:
+    r = [fn[2:] if fn.startswith('./') else fn for fn in r]
     # split off docs dir:
     return r
 
