@@ -12,7 +12,7 @@ src/lcdoc/lp.py                                                               49
 src/lcdoc/lp_session.py                                                       204     42     72     13    77.90%
 src/lcdoc/lprunner.py                                                         207    153     66      3    20.88%
 src/lcdoc/mkdocs/blacklist/__init__.py                                         27      5     12      4    76.92%
-src/lcdoc/mkdocs/find_pages/__init__.py                                       107     10     55      7    88.27%
+src/lcdoc/mkdocs/find_pages/__init__.py                                       105     10     55      7    88.12%
 src/lcdoc/mkdocs/lp/__init__.py                                               530    126    228     29    73.22%
 src/lcdoc/mkdocs/lp/plugs/bash/__init__.py                                     40      4     18      3    87.93%
 src/lcdoc/mkdocs/lp/plugs/chart/__init__.py                                    11      0      2      0   100.00%
@@ -46,6 +46,6 @@ src/lcdoc/mkdocs/page_tree/__init__.py                                         4
 src/lcdoc/mkdocs/replace/__init__.py                                           99     18     48      8    80.95%
 src/lcdoc/mkdocs/stats/__init__.py                                            118    100     78      0    10.20%
 src/lcdoc/mkdocs/tools.py                                                     265     40    119     23    81.51%
-src/lcdoc/tools.py                                                            234     96    114     21    52.01%
+src/lcdoc/tools.py                                                            234     96    114     20    52.30%
 ----------------------------------------------------------------------------------------------------------------
-TOTAL                                                                        4227   1530   1737    249    60.19%
+TOTAL                                                                        4225   1530   1737    248    60.20%
