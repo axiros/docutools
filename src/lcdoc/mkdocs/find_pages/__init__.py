@@ -117,7 +117,11 @@ def find_pages_and_add_to_nav(find, config, stats):
         tit = navl_rev.get(h)
         if not tit:
             t = to.rsplit('.', 2)
-            tit = '.'.join((t[0], str(int(t[-2]) + 1), get_title(h)))
+            try:
+                tit = '.'.join((t[0], str(int(t[-2]) + 1), get_title(h)))
+            except Exception as ex:
+                app.error('Cannot find position or title for page', page=h, to=to)
+                continue
         r[tit] = h
         to = tit
 
