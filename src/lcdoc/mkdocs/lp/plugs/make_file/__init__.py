@@ -13,7 +13,9 @@ Creates a file and displays it as if we used cat on it.
 
 import os, json
 from lcdoc.lp_session import get_cwd
+from lcdoc.tools import write_file
 
+# def write_file(fn, s, log=0, mkdir=0, chmod=None, mode='w', only_on_change=False):
 fmt_default = 'mk_console'
 
 
@@ -62,8 +64,7 @@ def run(cmd, kw):
         if kw.get('lang') in ('js', 'javascript', 'json'):
             if isinstance(c, (dict, list, tuple)):
                 c = json.dumps(c, indent=4)
-        with open(fn, 'w') as fd:
-            fd.write(str(c))
+        write_file(fn, str(c), mkdir=True)
         os.system('chmod %s %s' % (kw.get('chmod', 660), fn))
         return show_file('', kw)
 
