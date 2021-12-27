@@ -120,8 +120,10 @@ def find_pages_and_add_to_nav(find, config, stats):
             try:
                 tit = '.'.join((t[0], str(int(t[-2]) + 1), get_title(h)))
             except Exception as ex:
-                app.error('Cannot find position or title for page', page=h, to=to)
-                continue
+                hint = 'Your filenames in that folder must match mkdocs config'
+                msg = 'Cannot find position or title for page'
+                app.error(msg, page=h, to=to, hint=hint)
+                raise
         r[tit] = h
         to = tit
 
