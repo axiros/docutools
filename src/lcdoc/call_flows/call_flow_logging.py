@@ -168,13 +168,17 @@ def trace_object(
 
     filters: for keys and keys + values
     """
+    nil = '\x01'
     if is_parent(obj):
         if not pth:
             pth = (obj.__name__,)
             ILS.parents[pth] = obj
             containing_mod = pth[0] if inspect.ismodule(obj) else obj.__module__
         for k in filter(filters[0], dir(obj)):
-            v = getattr(obj, k)
+            v = getattr(obj, k, nil)
+            # properties show up in dir but getattr might fail at this point:
+            if v == nil:
+                continue
             if filters[1](k, v):
                 pth1 = pth + (k,)
                 ILS.parents[pth1] = v
