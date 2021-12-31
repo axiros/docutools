@@ -64,7 +64,6 @@ from functools import partial as p
 from importlib import import_module
 
 import pycond
-
 from lcdoc import lprunner as mdr
 from lcdoc.mkdocs.tools import page_dir
 from lcdoc.tools import app, dirname, write_file
@@ -80,7 +79,7 @@ now = time.time
 exists = os.path.exists
 user = env.get('USER', 'root')  # in docker: Key error, else.
 env['PATH'] = 'bin:%s' % env.get('PATH', '')
-
+bash = lambda: os.system('bash')  # debug
 
 _ = lambda f, msg, *a, **kw: f(str(msg) + ' '.join([str(i) for i in a]), **kw)
 dbg = p(_, app.debug)
@@ -159,6 +158,13 @@ def sprun(*a, no_fail=False, report=False, **kw):
 
     c = p(sp.check_output, shell=True, stderr=sp.STDOUT, executable='/bin/bash')
     try:
+        # a line within bash lp ... has e.g. # pdb -> stop before executing command
+        # so that user can try:
+        if a and isinstance(a[0], str) and ' pdb' in a[0]:
+            print('"pdb" was found, interrupting before calling:')
+            print(a[0])
+            print('type bash()` to get a shell.')
+            breakpoint()  # FIXME BREAKPOINT
         res = c(*a, **kw)
         if show_res and res:
             print('Result:')

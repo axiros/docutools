@@ -57,7 +57,10 @@ def call_flow_log(s, call, trace, **inner_kw):
 
     d = dict(Session.kw)
     d['mode'] = 'kroki:plantuml'
-    pth_up = '../' * (len(page_.file.src_path.split('/')) - 1)
+    sp = page_.file.src_path
+    pth_up = '../' * (len(sp.split('/')) - 1)
+    if not sp.endswith('/index.md'):
+        pth_up = '../' + pth_up
     fn = 'autodocs/%s/%s/run_lp_flow.%s/call_flow'
     t = kw['id'], use_case, call_name
     d['fn'] = fn = fn % t
