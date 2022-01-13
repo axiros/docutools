@@ -47,7 +47,7 @@ class PageTreePlugin(MDPlugin):
         me = [[page.title, url(base, page)]]
         if page.ancestors:
             tree_titles = [(x.title, url(base, x)) for x in page.ancestors[::-1]] + me
-            page.parent_titles = join_str.join([x[0] for x in tree_titles])
+            page.parent_titles = join_str.join([str(x[0]) for x in tree_titles])
             page.parent_links = tree_titles
         else:
             page.parent_titles = page.title
