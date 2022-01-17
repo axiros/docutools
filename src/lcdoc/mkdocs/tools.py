@@ -36,6 +36,9 @@ def add_post_page_func(kw, f, once=False):
 
 
 # -------------------------------------------------------- replacements
+def base_rel(page, **kw):
+    l = page.url.split('/')
+    return '../' * (len(l) - 1)
 
 
 def srclink(fn, config, line=None, match=None, title=''):

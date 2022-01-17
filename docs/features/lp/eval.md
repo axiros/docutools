@@ -10,7 +10,7 @@ These are the recommended base settings to control evaluation:
 - Before mkdocs build: `export lp_eval=always`
 - Before mkdocs serve: `export lp_eval=on_page_change`
 
-They are also set by the :srcref:make:on_page_change file.
+They are also set by the :srcref:make file (functions `docs`, `docs_serve`).
 
 Within the page header you might want to set `eval` page wide to `on_page_change`, in order to
 prevent CI/CD to re-evaluate the page and commit the `.lp.py` file for those pages.
