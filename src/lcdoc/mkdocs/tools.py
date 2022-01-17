@@ -5,10 +5,6 @@ import sys
 import time
 from functools import partial
 
-from mkdocs.config import config_options
-from mkdocs.plugins import BasePlugin
-from mkdocs.plugins import log as mkdlog
-
 from lcdoc.const import AttrDict, PageStats, Stats, now_ms, t0
 from lcdoc.tools import (
     app,
@@ -21,6 +17,9 @@ from lcdoc.tools import (
     require,
     write_file,
 )
+from mkdocs.config import config_options
+from mkdocs.plugins import BasePlugin
+from mkdocs.plugins import log as mkdlog
 
 script = lambda s: '<script>\n%s\n</script>' % s
 style = lambda s: '<style>\n%s\n</style>' % s
@@ -33,12 +32,6 @@ def add_post_page_func(kw, f, once=False):
         return
     h.append(f)
     p.lp_on_post_page = h
-
-
-# -------------------------------------------------------- replacements
-def base_rel(page, **kw):
-    l = page.url.split('/')
-    return '../' * (len(l) - 1)
 
 
 def srclink(fn, config, line=None, match=None, title=''):
@@ -63,37 +56,6 @@ def srclink(fn, config, line=None, match=None, title=''):
         'link': '[%s:fontawesome-brands-git-alt:](%s)' % (title, lnk),
         'url': lnk,
     }  # {align=right}'
-
-
-# used in mdreplace
-def srcref(**kw):
-    """Often used as replacement function
-    In mdreplace.py:
-    'srcref': inline_srclink,
-    """
-    line = kw['line']
-    fn = line.split(':srcref:', 1)[1].split(' ', 1)[0]
-    if fn[-1] in {',', ')', ']', '}'}:
-        fn = fn[:-1]
-    repl = ':srcref:' + fn
-    if not ',' in fn:
-        if '=' in fn:
-            l = fn.split('=')
-            spec = {'fn': l[0], 'm': l[1]}
-        else:
-            spec = {'fn': fn}
-    else:
-        try:
-            spec = dict([kv.split('=', 1) for kv in fn.split(',')])
-        except Exception as ex:
-            app.error('inline_srclink failed', line=line, page=kw['page'])
-            return {'line': line}
-    spec['t'] = spec.get('t', '`%s`' % spec['fn'])  # title default: file path
-    if spec['t'] == 'm':
-        spec['t'] = spec['m']
-    # if 'changelog' in line: breakpoint()  # FIXME BREAKPOINT
-    l = srclink(spec['fn'], kw['config'], match=spec.get('m'), title=spec['t'])
-    return {'line': line.replace(repl, l['link'])}
 
 
 def find_md_files(match, config):

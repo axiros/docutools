@@ -1,21 +1,23 @@
-
 ## Markdown Replace
 
-Allows to add replacements into the markdown source, which are replaced by values given
-by a python module.
+Allows to add replacements into the markdown source, which are replaced by
+
+- values or
+- function call results,
+
+given by a hot reloaded configurable python module.
 
 Usage: :srcref:fn=src/lcdoc/assets/mkdocs/mkdocs.yml,m=lcd-md-replace,t=m
 
-You set up replacements in a python file (default is: docs/mdreplace.py), which must have a table
+You set up replacements in a python file (default is: `docs/mdreplace.py`), which must have a table
 attribute, either dict or callable.
 
-When callable and kw args in the signature, it will be called with a lot of context, incl. the mkdocs config and the
-current line. Otherwise it will be simply called.
+When callable it will be called with the mkdocs config and must return a replacement dict.
 
 
 ### Features
 
-- The replace values can themselves be callable, and if so, are called at replacement
+- The values of the replacement dict can themselves be callable, and if so, are called at replacement
   time with contextual information: 
 
   ```python
@@ -29,7 +31,7 @@ current line. Otherwise it will be simply called.
             )
   ```
 
-- If the callable does not require kw args (e.g. time.ctime) we will not pass them
+- If the callable does not require kw args (e.g. `time.ctime`) we will not pass them
 - The callable can return a replacement for the whole line, by returning a dict like
   `{'line': ....}`, i.e. with a "line" key.
 - If the replace values are lists (also as returned by the callable), they will be
@@ -45,6 +47,14 @@ current line. Otherwise it will be simply called.
 - `seperator`: ':' by default.  
     Example: `':curtime:'`, for `{"cur_time": time.ctime}` based replacements.
 - `replacement_file`: when not starting with '/' we'll prefix with docs_dir. Default: "mdreplace.py"
+
+
+### Built in Replacments
+
+Some keys are :srcref:fn=src/lcdoc/mkdocs/replace/__init__.py,m=built_in_replacements,t=hardwired
+(can be overwritten though, within your replacement module):
+
+`lp:show_src delim=built_in_replacements dir=src/lcdoc/mkdocs/replace lang=python eval=always`
 
 
 ### Example
@@ -63,3 +73,4 @@ We find the first occurance of the match string (m=...) in the file and link to 
 Result:
 
 :srcref:fn=src/lcdoc/lp.py,m=remote_content,t=mytitle
+

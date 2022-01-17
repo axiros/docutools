@@ -2,8 +2,6 @@ import os
 import sys
 import time
 
-from lcdoc.mkdocs.tools import srcref
-
 
 def lp_plugins_descr(**kw):
     from lcdoc.tools import read_file, dirname
@@ -24,8 +22,6 @@ def lp_plugins_descr(**kw):
 
 
 table = {
-    'ctime': time.strftime('%a, %d %b %Y %Hh GMT', time.localtime()),
-    'srcref': srcref,
     # only prevents the editor from going crazy, with nested code examples in nested code:
     'fences:all:': '```',
     'lp_plugins_descr': lp_plugins_descr,
