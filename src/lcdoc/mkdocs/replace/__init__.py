@@ -73,6 +73,7 @@ class BuiltInReplacements:
         s = '''
         @page { size: A4; }
         @media print {
+            body {   font-family: Arial, Helvetica, sans-serif; }
             h2,h3,h4 { page-break-inside: avoid; }
             h2::after,h3::after { content: ""; display: block; height: 200px; margin-bottom: -200px; }
             h4::after,h5::after { content: ""; display: block; height: 100px; margin-bottom: -100px; }
