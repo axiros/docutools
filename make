@@ -5,11 +5,12 @@ M="\x1b[1;32m"
 O="\x1b[0m"
 T1="\x1b[48;5;255;38;5;0m"
 T2="\x1b[48;5;124;38;5;255m"
-
+XDG_RUNTIME_DIR=/run/user/$UID
 TERMINAL="${TERMINAL:-st}"
 mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
 set +a
+
 
 nfo() { test -z "$2" && echo -e "${M}$*$O" >&2 || h1 "$@"; }
 h1()  { local a="$1" && shift && echo -e "$T1 $a $T2 $* $O" >&2; }
@@ -32,6 +33,7 @@ help() {
     echo -e "$doc"
 }
 
+url_make="https://raw.githubusercontent.com/axiros/docutools/master/src/lcdoc/assets/make_tools/make"
 
 activate_venv() {
     # must be set in environ:
@@ -61,6 +63,13 @@ conda_act () {
     conda config --add channels conda-forge
 }
 # ----------------------------------------------------------------------------------------- Make Functions:
+self_update() {
+    test -e make || return 1
+    rm -f make.orig
+    mv make make.orig
+    curl -s "$url_make" > make
+    source make && echo "updated make"
+}
 
 function ci_conda_root_env { # creates the root conda env if not present yet
     source scripts/conda.sh && make_conda_root_env
@@ -160,7 +169,6 @@ function release {
     sh git push --tags
     sh poetry build
     sh poetry publish
-    sh git push
     #sh mkdocs gh-deploy # done by ci
 }
 

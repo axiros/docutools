@@ -34,13 +34,6 @@ help() {
 }
 
 url_make="https://raw.githubusercontent.com/axiros/docutools/master/src/lcdoc/assets/make_tools/make"
-self_update() {
-    test -e make || return 1
-    rm -f make.orig
-    mv make make.orig
-    curl -s "$url_make" > make
-    source make && echo "updated make"
-}
 
 activate_venv() {
     # must be set in environ:
@@ -70,6 +63,13 @@ conda_act () {
     conda config --add channels conda-forge
 }
 # ----------------------------------------------------------------------------------------- Make Functions:
+self_update() {
+    test -e make || return 1
+    rm -f make.orig
+    mv make make.orig
+    curl -s "$url_make" > make
+    source make && echo "updated make"
+}
 
 function ci_conda_root_env { # creates the root conda env if not present yet
     source scripts/conda.sh && make_conda_root_env
