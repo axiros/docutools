@@ -1,5 +1,7 @@
 # Features
+
 ## Mkdocs [Plugins](https://www.mkdocs.org/dev-guide/plugins/)
+
 - [Blacklist](blacklist/): Prevents sensitive content showing up in (public) docs
 - [Find Pages](find-pages/): Adds pages to your nav tree, even when not configured in mkdocs.yml
 - **[Literate Programming](lp/)**: Emacs-org babel inspired dynamic evaluation of fenced code blocks

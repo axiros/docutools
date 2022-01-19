@@ -8,7 +8,7 @@ repo_name: "docutools"
 edit_uri: git://$repos/docutools/docs
 
 copyright: |
-  Copyright &copy; 2021 Gunther Klessinger
+  Copyright &copy; 2022 Axiros GmbH (Gk)
 #
 nav:
   - Overview: index.md

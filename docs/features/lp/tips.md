@@ -59,6 +59,27 @@ BUT: The full body, including whitespaces is *always* going into the hash.
 
 I.e. to force a re-evaluation, simply add an empty line or a space in the body of an lp block.
 
+## Gevent
+
+When python code you'll run *within* the mkdocs process will be calling gevent patch, then we have to do
+this [early][gev]. 
+
+You might otherwise get warnings like this one:
+
+```
+/home/runner/work/devapps/devapps/src/devapp/gevent_patched.py:9: MonkeyPatchWarning: Monkey-patching ssl after ssl has already been imported may lead to errors, including RecursionError on Python 3.6. It may also silently lead to incorrect behaviour on Python 3.7. Please monkey-patch earlier.
+```
+
+
+Set this environ variable and gevent patch will be done early:
+
+```bash
+export async_framework=gevent
+```
+
+[gev]: https://github.com/gevent/gevent/issues/1016
+
+
 
 ## Multiline Commands / Here Docs in Sessions
 
