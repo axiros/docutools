@@ -38,7 +38,7 @@ self_update() {
     test -e make || return 1
     rm -f make.orig
     mv make make.orig
-    curl "$url_make" > make
+    curl -s "$url_make" > make
     source make && echo "updated make"
 }
 
