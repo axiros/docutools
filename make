@@ -69,8 +69,8 @@ self_update() {
     rm -f make.orig
     mv make make.orig
     curl -s "$url_make" > make
-    diff make make.orig && { echo "was up to date"; return 0; }
-    source make && echo "updated make"
+    diff make make.orig && { echo "Already up to date"; return 0; }
+    source make && echo "Updated make"
 }
 
 function ci_conda_root_env { # creates the root conda env if not present yet
