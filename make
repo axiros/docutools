@@ -9,6 +9,7 @@ XDG_RUNTIME_DIR=/run/user/$UID
 TERMINAL="${TERMINAL:-st}"
 mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
+make_tools_version="1"
 set +a
 
 
@@ -68,6 +69,7 @@ self_update() {
     rm -f make.orig
     mv make make.orig
     curl -s "$url_make" > make
+    diff make make.orig && { echo "was up to date"; return 0; }
     source make && echo "updated make"
 }
 
@@ -150,7 +152,7 @@ function tests {
     }
     test -n "$1" && sh pytest "$@"
 }
-adf
+
 function release {
     test -z "$2" || { echo "say make release <version>"; return 1; }
     version="${1:-}"
