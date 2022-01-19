@@ -1,5 +1,6 @@
 # lp:
 #poetry.lock
+*.orig
 **/img/badge_*
 *.ansi
 *.egg-info/

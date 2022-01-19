@@ -150,7 +150,7 @@ function tests {
     }
     test -n "$1" && sh pytest "$@"
 }
-
+adf
 function release {
     test -z "$2" || { echo "say make release <version>"; return 1; }
     version="${1:-}"
