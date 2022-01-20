@@ -64,23 +64,18 @@ jobs:
         env:
           pyver: "${{ matrix.python-version }}"
         run: "source ./make && make && make ci-conda-py-env"
-      - name: Conda info
+
+      - name: Run tests
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make -a && conda info; pytest -V; poetry -V"
-#       - name: Run tests
-#         shell: bash -l {0}
-#         env:
-#           pyver: "${{ matrix.python-version }}"
-#         run: "source ./make -a && make tests"
+        run: "source ./make -a && make tests"
 
-#       - name: Test Docs LiterateProgramming
-#         shell: bash -l {0}
-#         env:
-#           pyver: "${{ matrix.python-version }}"
-#         run: "source ./make -a && make docs"
-
+      - name: Test Docs LiterateProgramming
+        shell: bash -l {0}
+        env:
+          pyver: "${{ matrix.python-version }}"
+        run: "source ./make -a && make docs"
 #       - name: Deploy Docs
 #         shell: bash -l {0}
 #         env:
