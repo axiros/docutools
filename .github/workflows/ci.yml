@@ -66,6 +66,8 @@ jobs:
         run: "source ./make && make && make ci-conda-py-env"
       - name: Conda info
         shell: bash -l {0}
+        env:
+          pyver: "${{ matrix.python-version }}"
         run: "source ./make -a && conda info; pytest -V; poetry -V"
 #       - name: Run tests
 #         shell: bash -l {0}
