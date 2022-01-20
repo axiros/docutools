@@ -1,15 +1,40 @@
 # vim: ft=bash
-# KEEP THIS FILE GENERIC - INDEPENDENT of PROJECT. THAT IS ALL IN ENVIRON FILE
+about='
+Development Shortcuts
+
+Purpose: Makefile like access to standard operations.
+
+KEEP THIS FILE GENERIC - INDEPENDENT of PROJECT.
+
+Add project specific kvs to an environ file, which you source (automatically?) when entering this directory.
+
+Known KVs for environ file - with examples:
+
+
+PROJECT                      = "docutools"
+blacklisted_words            = "$(pass show sensitive/axgkl)" # list of '::' seperated words to fail when occurring in committed files
+browser                      = "chromium-browser" # for browser screenshots
+conda_tools                  = "tmux poetry graphviz imagemagick" # will be installed when using ci_conda_py_env for venv
+google_analytics_key         = "$(pass show google/analytics_key_blog 2>/dev/null)"
+mkdocs_port                  = 2222
+nodejs                       = "source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node" # for browser screenshots
+pyver                        = "3.7" # min version
+versioning                   = calver  # for git changelog
+
+
+
+'
+
 set -a
 M="\x1b[1;32m"
 O="\x1b[0m"
 T1="\x1b[48;5;255;38;5;0m"
 T2="\x1b[48;5;124;38;5;255m"
-XDG_RUNTIME_DIR=/run/user/$UID
+XDG_RUNTIME_DIR=/run/user/$UID # for systemd --user mode
 TERMINAL="${TERMINAL:-st}"
+VERSION_MAKE="1"
 mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
-make_tools_version="1"
 set +a
 
 
@@ -69,7 +94,7 @@ self_update() {
     rm -f make.orig
     mv make make.orig
     curl -s "$url_make" > make
-    diff make make.orig && { echo "Already up to date."; return 0; }
+    diff make make.orig && { echo "Already up to date"; rm -f make.orig; return 0; }
     source make && echo "Updated make"
 }
 
@@ -78,7 +103,7 @@ function ci_conda_root_env { # creates the root conda env if not present yet
 }
 
 function ci_conda_py_env { # creates the venv for the project and poetry installs
-    source scripts/conda.sh && make_conda_py_env
+    source scripts/conda.sh && make_conda_py_env "$@"
 }
 
 function badges { # inserts badges into readme. defunct for now
@@ -106,7 +131,7 @@ function clean {
 }
 function clean_lp_caches {
     find . -print |grep '\.lp.py'
-    echo 'ok to delete all? (ctrl-c otherwise)'
+    echo 'ok to delete all cached lp eval results? (ctrl-c otherwise)'
     read -n ok
     find . -print |grep '\.lp.py' | xargs rm -f
 }

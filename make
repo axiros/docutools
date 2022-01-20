@@ -69,16 +69,16 @@ self_update() {
     rm -f make.orig
     mv make make.orig
     curl -s "$url_make" > make
-    diff make make.orig && { echo "Already up to date"; return 0; }
+    diff make make.orig && { echo "Already up to date."; return 0; }
     source make && echo "Updated make"
 }
 
 function ci_conda_root_env { # creates the root conda env if not present yet
-    source scripts/conda.sh && make_conda_root_env
+    source scripts/conda.sh && make_conda_root_env "$@"
 }
 
 function ci_conda_py_env { # creates the venv for the project and poetry installs
-    source scripts/conda.sh && make_conda_py_env
+    source scripts/conda.sh && make_conda_py_env "$@"
 }
 
 function badges { # inserts badges into readme. defunct for now

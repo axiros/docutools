@@ -1,7 +1,8 @@
 #!/usr/bin/sh
+
 PROJECT="docutools"
 pyver="3.7" # min version
-
+conda_tools="tmux poetry graphviz imagemagick"
 git config user.email "g_kl_es_sing_er@gmx.de"
 google_analytics_key="$(pass show google/analytics_key_blog 2>/dev/null)"
 # for git changelog:
