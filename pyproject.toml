@@ -65,6 +65,7 @@ diagrams = "^0.20.0"
 imagesize = "^1.*"
 inflection = "^0.5.1"
 coverage = "^6.0.2"
+
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
 axblack = "^20201010"

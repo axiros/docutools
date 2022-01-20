@@ -1,4 +1,4 @@
-core_tools="tree fd-find ripgrep pytest"
+core_tools="tree fd-find ripgrep"
 
 function make_conda_root_env { # creates the root conda env if not present yet
     # main conda bin is in path
