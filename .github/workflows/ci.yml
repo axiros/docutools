@@ -20,7 +20,7 @@ env:
   PROJECT: "docutools"
   MC: "/home/runner/miniconda3"
   PATH: "$(MC)/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
-  conda_tools: "tmux poetry graphviz imagemagick"
+  conda_project_tools: "tmux poetry graphviz imagemagick"
   versioning: calver # for git-changelog
 
 jobs:
@@ -54,7 +54,7 @@ jobs:
         # they delete unused ones after 7 days.
         uses: actions/cache@v2
         env:
-          cache_name: miniconda-envs-1-${{ env.PROJECT }}_py${{ matrix.python-version }}_${{ hashFiles('pyproject.toml', 'scripts/**') }}
+          cache_name: miniconda-envs-2-${{ env.PROJECT }}_py${{ matrix.python-version }}_${{ hashFiles('pyproject.toml', 'scripts/**') }}
         with:
           path: ~/miniconda3/envs/${{ env.PROJECT }}_py${{ matrix.python-version }}
           key: ${{ runner.os }}-build-${{ env.cache_name }}
