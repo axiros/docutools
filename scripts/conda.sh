@@ -9,7 +9,7 @@ function make_conda_root_env { # creates the root conda env if not present yet
     }
     wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     chmod +x miniconda.sh
-    ./miniconda.sh -b -p "$p" 2>/dev/null
+    ./miniconda.sh -b -p "$p" 1>/dev/null 2>/dev/null && echo 'conda root installed to '$p''
     conda_act
     ls -a $HOME
 }
