@@ -44,7 +44,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache_name }}
       - name: Install Miniconda Root and ProjEnv
         shell: bash -l {0}
-        run: "source ./make && make ci-conda-root-env && make-ci-conda-py-env"
+        run: "source ./make && make ci-conda-root-env && make ci-conda-py-env"
       - name: Conda info
         shell: bash -l {0}
         run: conda info
