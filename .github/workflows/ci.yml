@@ -44,7 +44,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache_name }}
       - name: Install Miniconda Root
         shell: bash -l {0}
-        run: "source ./make && make ci-conda-root-env"
+        run: "source ./make -a && make ci-conda-root-env"
       - name: Conda info
         shell: bash -l {0}
         run: conda info
@@ -61,22 +61,22 @@ jobs:
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && make && make ci-conda-py-env"
+        run: "source ./make && make ci-conda-py-env"
 
       - name: Run tests
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && act && make tests"
+        run: "source ./make -a && make tests"
 
       - name: Test Docs LiterateProgramming
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && act && make docs"
+        run: "source ./make -a && make docs"
 
       - name: Deploy Docs
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "source ./make && act && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy --force' || true }}"
+        run: "source ./make -a && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy --force' || true }}"
