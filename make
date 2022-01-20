@@ -14,15 +14,12 @@ Known KVs for environ file - with examples:
 PROJECT                      = "docutools"
 blacklisted_words            = "$(pass show sensitive/axgkl)" # list of '::' seperated words to fail when occurring in committed files
 browser                      = "chromium-browser" # for browser screenshots
-conda_tools                  = "tmux poetry graphviz imagemagick" # will be installed when using ci_conda_py_env for venv
+conda_tools                  = "tmux poetry graphviz imagemagick" # will be installed when using ci-conda-py-env for venv
 google_analytics_key         = "$(pass show google/analytics_key_blog 2>/dev/null)"
 mkdocs_port                  = 2222
 nodejs                       = "source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node" # for browser screenshots
 pyver                        = "3.7" # min version
 versioning                   = calver  # for git changelog
-
-
-
 '
 
 set -a
@@ -59,7 +56,6 @@ help() {
     echo -e "$doc"
 }
 
-url_make="https://raw.githubusercontent.com/axiros/docutools/master/src/lcdoc/assets/make_tools/make"
 
 activate_venv() {
     # must be set in environ:
@@ -89,20 +85,16 @@ conda_act () {
     conda config --add channels conda-forge
 }
 # ----------------------------------------------------------------------------------------- Make Functions:
-self_update() {
-    test -e make || return 1
-    rm -f make.orig
-    mv make make.orig
-    curl -s "$url_make" > make
-    diff make make.orig && { echo "Already up to date"; rm -f make.orig; return 0; }
-    source make && echo "Updated make"
+function self-update {
+    source scripts/self_update
+    run_self_update "$@"
 }
 
-function ci_conda_root_env { # creates the root conda env if not present yet
-    source scripts/conda.sh && make_conda_root_env
+function ci-conda-root-env { # creates the root conda env if not present yet
+    source scripts/conda.sh && make_conda_root_env "$@"
 }
 
-function ci_conda_py_env { # creates the venv for the project and poetry installs
+function ci-conda-py-env { # creates the venv for the project and poetry installs
     source scripts/conda.sh && make_conda_py_env "$@"
 }
 
@@ -129,7 +121,8 @@ function clean {
         sh rm -rf "$i"
     done
 }
-function clean_lp_caches {
+
+function clean-lp-caches {
     find . -print |grep '\.lp.py'
     echo 'ok to delete all cached lp eval results? (ctrl-c otherwise)'
     read -n ok
@@ -156,13 +149,13 @@ function docs {
     combine_coverage # so that at mkdocs gh-deploy the docu build can copy the files
 }
 
-function docs_checklinks {
+function docs-checklinks {
     type linkchecker || { echo "pip3 install git+https://github.com/linkchecker/linkchecker.git"; return 1; }
     # we ignore the x.json links of callflow svgs - they are rewritten in lc.js browser sided:
     linkchecker site --ignore-url '(.*).json' "$@"
 }
 
-function docs_serve {
+function docs-serve {
     export lp_eval="${lp_eval:-on_page_change}"
     echo $lp_eval
     ps ax| grep mkdocs | grep serve | grep $mkdocs_port | xargs | cut -d ' ' -f1 | xargs kill 2>/dev/null
@@ -202,8 +195,8 @@ function release {
 ## Function Aliases:
 
 d()   { docs               "$@" ; }
-ds()  { docs_serve         "$@" ; }
-clc() { clean_lp_caches    "$@" ; }
+ds()  { docs-serve         "$@" ; }
+clc() { clean-lp-caches    "$@" ; }
 rel() { release            "$@" ; }
 t()   { tests              "$@" ; }
 sm()  { source ./make;   } # after changes

@@ -1,0 +1,17 @@
+docs='
+We are in the root folder of a dev setup
+
+This function will update to the latest version, based on the status in docutools
+'
+
+url_make="https://raw.githubusercontent.com/axiros/docutools/master/make"
+
+function run_self_update {
+    # Right now we only update make
+    test -e make || return 1
+    rm -f make.orig
+    mv make make.orig
+    curl -s "$url_make" > make
+    diff make make.orig && { echo "Already up to date"; rm -f make.orig; return 0; }
+    source make && echo "Updated make"
+}

@@ -1,21 +1,16 @@
 #!/usr/bin/sh
 
 PROJECT="docutools"
-pyver="3.7" # min version
-conda_tools="tmux poetry graphviz imagemagick"
-git config user.email "g_kl_es_sing_er@gmx.de"
+blacklisted_words="$(pass show sensitive/axgkl)" # list of '::' seperated words to fail when occurring in committed files
+browser="chromium-browser"                       # for browser screenshots
+conda_project_tools="tmux poetry graphviz imagemagick"
 google_analytics_key="$(pass show google/analytics_key_blog 2>/dev/null)"
-# for git changelog:
-versioning=calver
-#lit_prog_eval_match="on_demand" # we use locks
-# list of '::' seperated words to fail when occurring in committed files:
-blacklisted_words="$(pass show sensitive/axgkl)"
-# for browser screenshots:
-nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node"
-browser="chromium-browser"
-# mkdocs serve:
-mkdocs_port=2222
 mkdocs_path="$PROJECT"
-# giving us make docs, make tests, .. -a activates venv:
-source ./make -a
+mkdocs_port=2222
+nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node" # for browser screenshots
+pyver="3.7"                                                                              # min version
+versioning=calver                                                                        # for git changelog
+
+git config user.email "g_kl_es_sing_er@gmx.de"
+source ./make -a # giving us make docs, make tests, .. -a activates venv
 echo "sourced ./make"
