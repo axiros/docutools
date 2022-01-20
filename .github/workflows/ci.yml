@@ -76,8 +76,8 @@ jobs:
         env:
           pyver: "${{ matrix.python-version }}"
         run: "source ./make -a && make docs"
-#       - name: Deploy Docs
-#         shell: bash -l {0}
-#         env:
-#           pyver: "${{ matrix.python-version }}"
-#         run: "source ./make -a && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy --force' || true }}"
+      - name: Deploy Docs
+        shell: bash -l {0}
+        env:
+          pyver: "${{ matrix.python-version }}"
+        run: "source ./make -a && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy --force' || true }}"
