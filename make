@@ -63,6 +63,8 @@ activate_venv() {
     test -e "$conda_env" || { nfo "No $conda_env"; return 1; }
     test -z "$CONDA_SHLVL" && conda_act
     test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
+    nfo 'Adding conda root env $PATH'
+    export PATH="$(conda_root)/bin:$PATH"
     nfo Activating "$conda_env"
     conda activate "$conda_env"
 }
