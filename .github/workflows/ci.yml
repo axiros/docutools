@@ -33,6 +33,7 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
         python-version: ["3.7", "3.8"]
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up the Miniconda Root Cache
@@ -42,6 +43,9 @@ jobs:
         with:
           path: ~/miniconda3
           key: ${{ runner.os }}-build-${{ env.cache_name }}
+      - name: Conda info
+        shell: bash -l {0}
+        run: "env | sort"
       - name: Install Miniconda Root and ProjEnv
         shell: bash -l {0}
         run: "source ./make && make ci-conda-root-env && make ci-conda-py-env"
