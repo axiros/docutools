@@ -5,7 +5,6 @@ blacklisted_words="$(pass show sensitive/axgkl)" # list of '::' seperated words 
 browser="chromium-browser"                       # for browser screenshots
 conda_project_tools="tmux poetry graphviz imagemagick"
 google_analytics_key="$(pass show google/analytics_key_blog 2>/dev/null)"
-mkdocs_path="$PROJECT"
 mkdocs_port=2222
 nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node" # for browser screenshots
 pyver="3.7"                                                                              # min version

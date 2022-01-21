@@ -30,6 +30,7 @@ T2="\x1b[48;5;124;38;5;255m"
 XDG_RUNTIME_DIR=/run/user/$UID # for systemd --user mode
 TERMINAL="${TERMINAL:-st}"
 VERSION_MAKE="1"
+mkdocs_path="${mkdocs_path:-$PROJECT}"
 mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
 set +a

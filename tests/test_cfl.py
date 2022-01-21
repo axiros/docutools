@@ -2,6 +2,7 @@ import lcdoc.call_flows.call_flow_logging as cfl
 from lcdoc.tools import dirname as d
 from lcdoc.tools import os, project, write_file
 
+# we nail this - since in actual lp we have the mkdocs.yml, since then running under mkdocs:
 project.root({'docs_dir': d(d(__file__)) + '/docs'})
 assert 'tests' in os.listdir(project.root())
 
