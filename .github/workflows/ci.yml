@@ -69,7 +69,7 @@ jobs:
         shell: bash -l {0}
         env:
           pyver: "${{ matrix.python-version }}"
-        run: "pkill tmux; source ./make -a && make tests"
+        run: "source ./make -a && make tests"
 
       - name: Test Docs LiterateProgramming
         shell: bash -l {0}
