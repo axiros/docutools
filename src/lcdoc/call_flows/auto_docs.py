@@ -120,7 +120,7 @@ def functions_by_line_nr(obj, code):
 
 def mod_doc(mod, dest='auto'):
 
-    from lcdoc.call_flow_logging import autodoc_dir
+    from lcdoc.call_flows.call_flow_logging import autodoc_dir
 
     d = autodoc_dir(mod, dest)
     os.makedirs(d, exist_ok=True)

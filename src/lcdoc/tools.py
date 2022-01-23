@@ -219,7 +219,7 @@ class project:
             if config and hasattr(config, '__getitem__'):
                 dd = config.get('docs_dir')
                 if dd:
-                    ret = dirname(dd)
+                    ret = c[0] = dirname(dd)
                     return ret
             # todo: look at git here
             raise Exception('Cannot derive project root')
