@@ -209,7 +209,9 @@ class project:
     config, dir_home, fn_cfg = {}, None, None
 
     def root(config=None, root=None, c=[0]):
-        # config maybe given. Understood currently: mkdocs config
+        """
+        config must given first time. Understood currently: mkdocs config
+        """
         if root is not None:
             c[0] = root  # for tests, to force it
         if c[0]:
@@ -221,6 +223,15 @@ class project:
                 if dd:
                     ret = c[0] = dirname(dd)
                     return ret
+            try:
+                # if we run in pytest *and* have devapp, we can create call flow logs
+                # for devapps:
+                from devapp.tools import project
+
+                ret = c[0] = project.root()
+                return ret
+            except:
+                pass
             # todo: look at git here
             raise Exception('Cannot derive project root')
         finally:
