@@ -72,9 +72,10 @@ activate_venv() {
 
 set_version() {
     if [ "${versioning:-}" = "calver" ]; then
-        local M="$(date "+%m" | sed -e 's/^0//g')"
+        #local M="$(date "+%m" | sed -e 's/^0//g')"
         test -z "${1:-}" && {
-            version="$(date "+%Y.$M.%d")"
+            #version="$(date "+%Y.$M.%d")"
+            version="$(date "+%Y.%m.%d")"
             return 0
         }
     fi
