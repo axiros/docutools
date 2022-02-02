@@ -308,6 +308,7 @@ def document(
     call_seq_closed=True,
     flags=None,
     dest=None,
+    wait_before=0,
 ):
     """
     Decorating call flow triggering functions (usually pytest functions) with this
@@ -370,6 +371,8 @@ def document(
                 for k, v in flags.items():
                     flg[k] = v() if callable(v) else v
                 set_flags(flg)
+            ##if wait_before:
+            #    time.sleep(wait_before)
             try:
                 throw = None
                 # set_flags(flags)

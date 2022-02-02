@@ -20,7 +20,7 @@ function make_conda_py_env { # creates the venv for the project and poetry insta
     local p="$(conda_root)/envs/$n"
     conda_act
     test -e "$p" || eval conda create -q -n "${n}" python="${pyver}" ${conda_project_tools:-} $*
-    conda activate "$n" || return 1
+    activate_venv || return 1
     poetry install
     conda info
     ls -a "$(conda_root)/envs/"
