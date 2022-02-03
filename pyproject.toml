@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "docutools"
-version = "2022.02.03"
+version = "2022.02.04"
 description = "Documentation Tools for the Mkdocs Material Framework"
 authors = ["Gunther Klessinger <gkle_ss_ing_er@gmx.de>"]
 license = "BSD 2-Clause Simplified License"
