@@ -25,7 +25,7 @@ Params:
 
 #### Parameters
 
-- write_readme: Create the readme with static badges.
+- write_readme: Create the readme with static badges. All img links then to remote URLs.
 
 """
 
@@ -65,6 +65,11 @@ class badges:
             value='axblack',
             color='#222222',
         )
+
+    def gl_ci(spec, kw):
+        # https://gitlab.axiros.com/klessinger/lc-python/-/pipelines
+        u = no_end_slash(config(kw)['repo_url']) + '/-/pipelines'
+        return dict(lnk=u, label='gl-ci')
 
     def gh_action(spec, kw):
         a = spec.get('action', 'ci')
@@ -145,10 +150,14 @@ def run(cmd, kw):
             fn = dirname(kw['LP'].page.file.abs_src_path) + '/img/' + bdg
             spec['badge_fn'] = fn
             # need an absolute path for the readme.md:
-            u = no_end_slash(configured_site_url(kw))
-            k = '/' + dirname(kw['LP'].page.file.src_path)
-            u = no_end_slash(u + k) + '/img/' + bdg
-            spec['img'] = u  # .replace('//', '/')
+            if kw.get('write_readme'):
+                u = no_end_slash(configured_site_url(kw))
+                k = '/' + dirname(kw['LP'].page.file.src_path)
+                u = no_end_slash(u + k) + '/img/' + bdg
+                spec['img'] = u  # .replace('//', '/')
+            else:
+                # else just normal rel. path:
+                spec['img'] = './img/' + bdg
             try:
                 make_badge_svg_file(**spec)
             except Exception as ex:
