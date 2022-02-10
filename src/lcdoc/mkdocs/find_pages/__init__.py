@@ -3,6 +3,7 @@
 
 Adds pages to nav
 """
+
 import string
 import time
 from ast import literal_eval
@@ -10,6 +11,7 @@ from functools import partial
 
 from lcdoc.mkdocs.tools import MDPlugin, app, config_options, find_md_files
 from lcdoc.tools import dirname, exists, OD, unflatten, flatten, os, project, read_file
+from lcdoc.mkdocs.find_pages.autodocs import autodocs, find_pages
 
 
 def uppercase_words(s):
@@ -19,26 +21,6 @@ def uppercase_words(s):
     while l[0] == l[0].upper() and l[0] in string.ascii_letters:
         r.append(l)
     return ' '.join(r)
-
-
-def find_pages(find, config, stats):
-
-    ev = [i.strip() for i in os.environ.get('find_pages', '').split(',')]
-    ev = [i for i in ev if i]
-    find.extend(ev)
-    find = list(set(find))
-    stats['find_terms'] = len(find)
-    if not find:
-        return
-    fnd = []
-    for m in find:
-        found = find_md_files(match=m, config=config)
-        if not found:
-            app.info('No pages found', match=m)
-        else:
-            fnd.extend(found)
-    stats['matching'] = len(fnd)
-    return fnd
 
 
 def is_after(fn, hfn):
@@ -67,6 +49,32 @@ now = time.time
 
 def clear_digits(t):
     return '.'.join([k for k in t.split('.') if not k.isdigit()])
+
+
+def get_title(fn_page, dd):
+    s = read_file(dd + '/' + fn_page, dflt='')
+    h = '\n' + s + '\n# Found\n'
+    tit = ''
+    for k in range(5, 0, -1):
+        head = '\n' + k * '#' + ' '
+        _ = h.split(head)
+        if len(_) == 1:
+            continue
+        h = _[0]
+        tit = _[1].split('\n', 1)[0]
+    if not tit:
+        tit = fn_page
+
+    if not h:
+        # e.g. # bash alone has no uppercase word. then take the filename:
+        l = fn_page.rsplit('/', 2)
+        if l[-1] == 'index.md':
+            h = l[-2]
+        else:
+            h = fn_page.rsplit('/', 1)[-1].split('.', 1)[0]
+    else:
+        h = uppercase_words(tit)
+    return h
 
 
 def find_pages_and_add_to_nav(find, config, stats):
@@ -100,25 +108,17 @@ def find_pages_and_add_to_nav(find, config, stats):
 
     dd = config['docs_dir']
 
-    def get_title(fn_page):
-        h = '\n' + read_file(dd + '/' + fn_page, dflt='') + '\n# Found\n'
-        h = uppercase_words(h.split('\n# ', 1)[1].split('\n', 1)[0])
-        if not h:
-            # e.g. # bash alone has no uppercase word. then take the filename:
-            l = fn_page.rsplit('/', 2)
-            if l[-1] == 'index.md':
-                h = l[-2]
-            else:
-                h = fn_page.rsplit('/', 1)[-1].split('.', 1)[0]
-        return h
-
     to = None
     for h in have:
         tit = navl_rev.get(h)
         if not tit:
             t = to.rsplit('.', 2)
             try:
-                tit = '.'.join((t[0], str(int(t[-2]) + 1), get_title(h)))
+                T = get_title(h, dd)
+                if t[-1].isdigit():
+                    tit = '.'.join((t[0], t[1], str(int(t[2]) + 1), T))
+                else:
+                    tit = '.'.join((t[0], str(int(t[-2]) + 1), T))
             except Exception as ex:
                 hint = 'Your filenames in that folder must match mkdocs config'
                 msg = 'Cannot find position or title for page'
@@ -131,7 +131,11 @@ def find_pages_and_add_to_nav(find, config, stats):
     for k, v in r.items():
         n[clear_digits(k)] = v
 
-    r = unflatten(n, '.')
+    try:
+        r = unflatten(n, '.')
+    except Exception as ex:
+        hint = 'Try supplying a title. E.g. "- \'foo": page.md\' (not "- page.md")'
+        app.die('Error building find_pages', exc=ex, hint=hint)
     r = to_list(r)
     config['nav'].clear()
     config['nav'].extend(r)
@@ -159,9 +163,15 @@ def into_path(item, after, last_title):
 
 
 class MDFindPagesPlugin(MDPlugin):
-    config_scheme = (('find-pages', config_options.Type(list, default=[])),)
+    config_scheme = (
+        ('find-pages', config_options.Type(list, default=[])),
+        ('autodocs', config_options.Type(dict, default={}),),
+    )
 
     def on_config(self, config):
         # t0 = now()
+        ad = self.config['autodocs']
+        if ad:
+            [autodocs.do_spec(ad, k, v, config, self.stats) for k, v in ad.items()]
         find_pages_and_add_to_nav(self.config['find-pages'], config, self.stats)
         # print(now() - t0)  # = 0.02 for docutools. Could be improved
