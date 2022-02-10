@@ -28,20 +28,20 @@ lp_kroki_dflts = {
 # :docs:lp_kroki_dflts
 
 
-def read_puml_file(fn, kw):
-    ofn = fn
-    p = pumls.get(fn)
+def read_puml_file(puml, kw):
+    ofn = puml
+    p = pumls.get(puml)
     if p:
         return p
-    fnp = dirname(kw['LP'].page.file.abs_src_path)
-    if not '/' in fn:
+    if not '/' in puml:
         # default dir:
-        fn = '%s/%s.puml' % (d_assets, fn)
-    elif fn[0] == '/':
-        fn = fn
+        puml = '%s/%s.puml' % (d_assets, puml)
+    elif puml[0] == '/':
+        puml = puml
     else:
-        fn = fnp + '/' + fn
-    return pumls.setdefault(ofn, read_file(fn, ''))
+        fnp = dirname(kw['LP'].page.file.abs_src_path)
+        puml = fnp + '/' + puml
+    return pumls.setdefault(ofn, read_file(puml, ''))
 
 
 def run(cmd, kw):
@@ -85,6 +85,8 @@ def run(cmd, kw):
         )
 
     res = res.text.replace('\r\n', '\n')
+    if kw.get('get_svg'):
+        return res
     imglnk = make_img(res, kw=kw)
     r = {'res': imglnk, 'formatted': True}
     if kw.get('add_svg'):
