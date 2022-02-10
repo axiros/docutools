@@ -556,8 +556,10 @@ def add_flow_json_and_graph_easy_links(fn, T):
             l = T.closed_admon('Flow Json', p + T.code('js', s), 'info')
             # os.unlink(fn) # will be analysed by ops refs doc page
         s = f.replace(ext, '')
-        dl = d.rsplit('/', 1)[-1]
-        r = '\n\n![](./%s/%s.svg)\n\n' % (dl, s)
+        parts = d.rsplit('/', 2)
+        test = parts[-2]
+        dl = parts[-1]
+        r = '\n\n![](./%s/%s/%s.svg)\n\n' % (test, dl, s)
         # when s = 'test_build.py::Sharing::test_share_deep_copy.tests.post_build.svg'
         # then n = 'tests.post_build':
         if l:

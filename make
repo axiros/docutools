@@ -35,6 +35,9 @@ mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
 set +a
 
+me="${BASH_SOURCE[0]:-${(%):-%x}}" # bash and zsh/ksh compliant
+here="$(builtin cd "$(dirname "$me")" && pwd)"
+
 
 nfo() { test -z "$2" && echo -e "${M}$*$O" >&2 || h1 "$@"; }
 h1()  { local a="$1" && shift && echo -e "$T1 $a $T2 $* $O" >&2; }
@@ -72,10 +75,9 @@ activate_venv() {
 
 set_version() {
     if [ "${versioning:-}" = "calver" ]; then
-        #local M="$(date "+%m" | sed -e 's/^0//g')"
+        local M="$(date "+%m" | sed -e 's/^0//g')"
         test -z "${1:-}" && {
-            #version="$(date "+%Y.$M.%d")"
-            version="$(date "+%Y.%m.%d")"
+            version="$(date "+%Y.$M.%d")"
             return 0
         }
     fi
@@ -223,3 +225,4 @@ make() {
 }
 
 if [[ "${1:-}" == "-a" ]]; then activate_venv; fi
+[[ -d "$here/bin" ]] && [[ "$PATH" != *"$here/bin:"* ]] && PATH="$here/bin:$PATH" # add bin folder if present to PATH

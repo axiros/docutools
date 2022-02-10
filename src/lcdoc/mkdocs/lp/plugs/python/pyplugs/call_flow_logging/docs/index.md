@@ -74,6 +74,7 @@ show('call_flow', call=test_flow, trace=json)
 Move the mouse over the arrows and click to see the full data recorded.
 
 !!! note "Call Flow Details"
+
     You should get details infos like these
 
     ![](./img/gl_cfl_details.png)
@@ -81,6 +82,13 @@ Move the mouse over the arrows and click to see the full data recorded.
 ++ctrl+r++ (reload) to get back to your original documentation page.
 
 
+!!! tip "Open Seperate Details Window"
+
+    The details window is updated when you move the mose over the call flow:
+
+    ![](./img/hover.gif)
+
 
 ??? "Questions and Comments?"
+
     `lp:python show=comments theme=icy-dark eval=always`
