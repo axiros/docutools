@@ -91,7 +91,8 @@ def check_assert(ass, res):
     def raise_():
         msg = 'Assertion failed: Expected "%s" not found in result' % ass
         app.error(msg, asserts=ass, json={'result': res})
-        raise Exception(msg)
+        # raise Exception(msg)
+        sys.exit(1)  # raise is not enough, in gevent we would be stuck here
 
     if ass is None:
         return
