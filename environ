@@ -1,5 +1,5 @@
 #!/usr/bin/sh
-
+set -a
 PROJECT="docutools"
 blacklisted_words="$(pass show sensitive/axgkl)" # list of '::' seperated words to fail when occurring in committed files
 browser="chromium-browser"                       # for browser screenshots
@@ -9,7 +9,8 @@ mkdocs_port=2222
 nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node" # for browser screenshots
 pyver="3.7"                                                                              # min version
 versioning=calver                                                                        # for git changelog
+set +a
 
 git config user.email "g_kl_es_sing_er@gmx.de"
 source ./make -a # giving us make docs, make tests, .. -a activates venv
-echo "sourced ./make"
+nfo "Sourced ./make -a"

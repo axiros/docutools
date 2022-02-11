@@ -59,7 +59,7 @@ BUT: The full body, including whitespaces is *always* going into the hash.
 
 I.e. to force a re-evaluation, simply add an empty line or a space in the body of an lp block.
 
-## Gevent
+## Gevent / Async Framework
 
 When python code you'll run *within* the mkdocs process will be calling gevent patch, then we have to do
 this [early][gev]. 
@@ -76,6 +76,8 @@ Set this environ variable and gevent patch will be done early:
 ```bash
 export async_framework=gevent
 ```
+
+A good place to do this might be your environ file.
 
 [gev]: https://github.com/gevent/gevent/issues/1016
 
