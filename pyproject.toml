@@ -44,7 +44,7 @@ httpx = "^0.17.1"
 # lc-devapp = { path = "build/lc-devapp" } # see above and .gitlab-ci.yaml
 markdown-include = "^0.6.0"
 mkdocs = "^1.1.2"
-mkdocs-material = "^6.1.0"
+mkdocs-material = "^7"
 # Optional:
 mkdocs-macros-plugin = "^0.5.12"
 mkdocs-exclude = "^1.0.2"

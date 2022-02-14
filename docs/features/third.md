@@ -37,6 +37,47 @@ Below a few important extensions - but check the above pages for details on usag
     this is an admonition.
 ```
 
+
+## Inline Admonitions
+
+Admonitions can also be rendered as inline blocks (i.e. for sidebars), placing
+them to the right using the `inline` + `end` modifiers, or to the left using
+only the `inline` modifier:
+
+=== ":octicons-arrow-right-16: inline end"
+
+    !!! info inline end
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
+        euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
+        purus auctor massa, nec semper lorem quam in massa.
+
+    The content block we put the admon next to (can be anything, incl. an admonition)
+    
+    Use `inline end` to align to the right (left for rtl languages).
+
+=== ":octicons-arrow-left-16: inline"
+
+    !!! info inline
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et
+        euismod nulla. Curabitur feugiat, tortor non consequat finibus, justo
+        purus auctor massa, nec semper lorem quam in massa.
+
+    The content block we put the admon next to
+
+
+    Use `inline` to align to the left (right for rtl languages).
+
+__Important__: admonitions that use the `inline` modifiers _must_ be declared
+prior to the content block you want to place them beside. If there's
+insufficient space to render the admonition next to the block, the admonition
+will stretch to the full width of the viewport, e.g. on mobile viewports.
+
+  [Inline support]: https://github.com/squidfunk/mkdocs-material/releases/tag/7.0.0
+
+### Supported types
+
 See https://squidfunk.github.io/mkdocs-material/reference/admonitions/
 
 ## Critic

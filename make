@@ -222,12 +222,14 @@ make() {
 }
 
 test -n "$sourcing_make" && return 0
-if [[ "${1:-}" == "-e" ]]; then
+arg="${1:-xx}"
+if [[ "$arg" == "-e" ]] || [[ "$arg" == "-ea" ]] ; then
     shift
     sourcing_make=true
     nfo "Sourcing ./environ"
     set -a; source ./environ; set +a
     unset sourcing_make
 fi
-if [[ "${1:-}" == "-a" ]]; then activate_venv; fi
+if [[ "$arg" == "-a" ]] || [[ "$arg" == "-ea" ]]; then activate_venv; fi
 [[ -d "$here/bin" ]] && [[ "$PATH" != *"$here/bin:"* ]] && PATH="$here/bin:$PATH" || true # add bin folder if present to PATH
+
