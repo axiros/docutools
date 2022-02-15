@@ -48,6 +48,6 @@ src/lcdoc/mkdocs/replace/__init__.py                                          14
 src/lcdoc/mkdocs/replace/admons.py                                             42      5     16      7    79.31%
 src/lcdoc/mkdocs/stats/__init__.py                                            118    100     80      0    11.11%
 src/lcdoc/mkdocs/tools.py                                                     244     35    111     22    81.69%
-src/lcdoc/tools.py                                                            240    105    116     21    50.56%
+src/lcdoc/tools.py                                                            240    105    116     20    50.84%
 ----------------------------------------------------------------------------------------------------------------
-TOTAL                                                                        4505   1693   1934    268    59.29%
+TOTAL                                                                        4505   1693   1934    267    59.31%
