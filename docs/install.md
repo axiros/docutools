@@ -2,7 +2,9 @@
 
 Add `docutools = "^<version>"` as a development dependency.
 
-## If in an airtight environment (no Internet access)
+## Airtight Environment
+
+("airtight"=no Internet access)
 
 Configure the package server in your build framework (e.g. poetry like [this](https://python-poetry.org/docs/repositories/)).
 
