@@ -1,6 +1,7 @@
 #!/usr/bin/sh
 set -a
 PROJECT="docutools"
+async_framework="gevent"
 blacklisted_words="$(pass show sensitive/axgkl)" # list of '::' seperated words to fail when occurring in committed files
 browser="chromium-browser"                       # for browser screenshots
 conda_project_tools="tmux poetry graphviz imagemagick"

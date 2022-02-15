@@ -58,6 +58,9 @@ from lcdoc.tools import exists, now, os, read_file, sys
 fn_ts = [0]
 last_check = [0]
 
+# required if we want to add global stuff like style defs:
+page_markdown = {'head': '', 'foot': ''}
+
 
 class BuiltInReplacements:
     #:docs:built_in_replacements
@@ -213,6 +216,8 @@ def replace(**kw):
             if isinstance(v, dict):
                 # a replacement func may deliver the whole new line:
                 l = v['line']
+                page_markdown['head'] += v.get('markdown_header', '')
+                page_markdown['foot'] += v.get('markdown_footer', '')
             else:
                 l = l.replace(k, v)
         r.append(l)
@@ -236,6 +241,8 @@ class MDReplacePlugin(MDPlugin):
 
     def on_page_markdown(self, markdown, page, config, files):
         # a lot of context for the replacement funcs:
+        for h in 'head', 'foot':
+            page_markdown[h] = ''
         repl = partial(
             replace,
             plugin=self,
@@ -263,4 +270,5 @@ class MDReplacePlugin(MDPlugin):
             MD += '\n'.join(repl(mdblock=md, table=self.table))
             if fcs:
                 MD += '\n' + '\n'.join(fcs.pop(0)) + '\n'
+        MD = page_markdown['head'] + '\n' + MD + '\n' + page_markdown['foot']
         return MD

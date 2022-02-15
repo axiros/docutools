@@ -1,7 +1,106 @@
+"""
+We replace via md-find
+
+    !!! :foo: ["some title"]
+
+with
+
+    <style>
+    ...
+    </style>
+
+    !!! some-title "some title"
+
+see: https://squidfunk.github.io/mkdocs-material/reference/admonitions/#customization
+"""
+
+import os
+from functools import partial
+from lcdoc.mkdocs.tools import read_file, app
+import material
+
+
+def style(typ, ico, col, bgcol=None):
+    if not bgcol:
+        if not 'rgb(' in col:
+            raise Exception('You need an rgb col if you do not specify bgcol')
+        bgcol = col.strip().replace('rgb(', 'rgba(')[:-1] + ', 0.1)'
+    s = '''
+<style>
+:root { --md-admonition-icon--%(typ)s: url('data:image/svg+xml;charset=utf-8,%(ico)s') }
+.md-typeset .admonition.%(typ)s,
+.md-typeset details.%(typ)s {
+  border-color: %(col)s;
+}
+.md-typeset .%(typ)s > .admonition-title,
+.md-typeset .%(typ)s > summary {
+  background-color: %(bgcol)s;
+  border-color: %(col)s;
+}
+.md-typeset .%(typ)s > .admonition-title::before,
+.md-typeset .%(typ)s > summary::before {
+  background-color: %(col)s;
+  -webkit-mask-image: var(--md-admonition-icon--%(typ)s);
+          mask-image: var(--md-admonition-icon--%(typ)s);
+}
+</style>
+'''
+    return s % locals()
+
+
+import httpx
+
+
 def admons(*which):
-    admons = {
-        'dev': dict(name='Developer Tip', ico=ico_dev, col='rgb(255, 0, 0)'),
-    }
+    _ = cust_admons
+    return {k: partial(admon, **v) for k, v in _.items() if k in which}
 
 
-ico_dev = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M120.12 208.29c-3.88-2.9-7.77-4.35-11.65-4.35H91.03v104.47h17.45c3.88 0 7.77-1.45 11.65-4.35 3.88-2.9 5.82-7.25 5.82-13.06v-69.65c-.01-5.8-1.96-10.16-5.83-13.06zM404.1 32H43.9C19.7 32 .06 51.59 0 75.8v360.4C.06 460.41 19.7 480 43.9 480h360.2c24.21 0 43.84-19.59 43.9-43.8V75.8c-.06-24.21-19.7-43.8-43.9-43.8zM154.2 291.19c0 18.81-11.61 47.31-48.36 47.25h-46.4V172.98h47.38c35.44 0 47.36 28.46 47.37 47.28l.01 70.93zm100.68-88.66H201.6v38.42h32.57v29.57H201.6v38.41h53.29v29.57h-62.18c-11.16.29-20.44-8.53-20.72-19.69V193.7c-.27-11.15 8.56-20.41 19.71-20.69h63.19l-.01 29.52zm103.64 115.29c-13.2 30.75-36.85 24.63-47.44 0l-38.53-144.8h32.57l29.71 113.72 29.57-113.72h32.58l-38.46 144.8z"/></svg>'
+d_material = os.path.dirname(material.__file__)
+
+
+def get_raw(svg):
+    """
+    ico = '<svg ....' # raw svg from anywhere. 
+    ico = 'https://twemoji.maxcdn.com/v/latest/svg/1f4f7.svg' # url
+    ico = 'material/camera-account.svg' # file in your site-directories/material/.icons
+    """
+    if svg.startswith('<svg'):
+        return svg
+    if svg.startswith('http'):
+        return httpx.get(svg).text
+    fn = os.path.join(d_material + '/.icons/', svg)
+    s = read_file(fn, dflt='')
+    if s:
+        return s
+    app.die('Icon not loadable', ico=svg)
+
+
+def admon(title, ico, col, bgcol=None, **kw):
+    p = kw['page']
+    ind = kw['line'].split('!!!', 1)[0]
+    l = kw['line'].split(':')
+    t = title.lower().replace(' ', '-')
+    if len(l) == 3 and l[2]:
+        title = l[2]
+    # avoid duplicate style defs in one page:
+    s, tn = '', 'admon_style_' + t
+    if not hasattr(p, tn):
+        ico = get_raw(ico)
+        s = style(t, ico, col, bgcol)
+        setattr(p, tn, True)
+    r = {'line': '''%s!!! %s "%s"''' % (ind, t, title), 'markdown_header': s}
+    return r
+
+
+ico_dev = 'fontawesome/brands/dev.svg'
+
+# import this within mdreplace and extend to your liking
+cust_admons = {
+    'dev': dict(title='Developer Tip', ico=ico_dev, col='rgb(139, 209, 36)'),
+}
+
+
+# then say e.g.
+
+# table.update(admons.admons('dev'))

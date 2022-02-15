@@ -2,6 +2,9 @@ import os
 import sys
 import time
 
+from functools import partial
+from lcdoc.mkdocs.replace import admons
+
 
 def lp_plugins_descr(**kw):
     from lcdoc.tools import read_file, dirname
@@ -26,3 +29,6 @@ table = {
     'fences:all:': '```',
     'lp_plugins_descr': lp_plugins_descr,
 }
+
+# provides !!! :dev: admonition:
+table.update(admons.admons('dev'))
