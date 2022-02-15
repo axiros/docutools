@@ -74,7 +74,10 @@ You might otherwise get warnings like this one:
 Set this environ variable and gevent patch will be done early:
 
 ```bash
+export try_preload=gevent
+# or
 export async_framework=gevent
+
 ```
 
 A good place to do this might be your environ file.

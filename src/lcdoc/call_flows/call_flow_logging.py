@@ -16,7 +16,7 @@ from .auto_docs import mod_doc
 try:
     # *IF* we are in a project based on devapps, we can build call flow logs also
     # from pytest, not just from docs/lp. Requirements are these imports:
-    from devapp.tools import FLG, exists, project, write_file, read_file
+    from devapp.tools import FLG, exists, project
     from devapp.tools import define_flags, project, to_list
     from absl.flags._exceptions import UnparsedFlagAccessError
 except:

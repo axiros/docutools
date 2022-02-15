@@ -87,13 +87,19 @@ nfo = p(_, app.info)
 
 
 # ---------------------------------------------------------------------------- Utilities
-def check_assert(ass, res):
-    def raise_():
+class Raiser:
+    def raise_(ass):
         msg = 'Assertion failed: Expected "%s" not found in result' % ass
-        app.error(msg, asserts=ass, json={'result': res})
-        # raise Exception(msg)
-        sys.exit(1)  # raise is not enough, in gevent we would be stuck here
+        # app.error(msg, asserts=ass, json={'result': res})
+        print('RAISING EXCEPTION: %s' % msg)
+        Raiser.die(msg)
 
+    def die(msg):
+        # this is monkey patched for gevent in lcdoc.__init__:
+        raise Exception(msg)
+
+
+def check_assert(ass, res):
     if ass is None:
         return
     s = str(res)
@@ -110,7 +116,7 @@ def check_assert(ass, res):
         r = pycond.pycond(ass, f)
         a = r(state={'res': s})
         if not a:
-            raise_()
+            Raiser.raise_(ass)
         return
 
     if not isinstance(ass, (list, tuple)):
@@ -119,7 +125,7 @@ def check_assert(ass, res):
     for a in ass:
 
         if not a in s:
-            raise_()
+            Raiser.raise_(ass)
 
 
 # aliases = {}
