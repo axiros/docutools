@@ -80,7 +80,10 @@ will stretch to the full width of the viewport, e.g. on mobile viewports.
 
 See https://squidfunk.github.io/mkdocs-material/reference/admonitions/
 
-See also the [md-replace](../md-replace/) feature.
+
+!!! :dev: "Tip: Custom Admonitions"
+
+    See also the [md-replace](../md-replace/) feature, for custom admonitions like this one.
 
 
 

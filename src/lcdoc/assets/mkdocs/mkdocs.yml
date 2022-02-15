@@ -15,7 +15,7 @@ nav:
   - Installation:
       - install.md
   - Features:
-      - Overview: features/index.md
+      - "Features Intro": features/index.md
       - Plugins:
           - Blacklist: features/blacklist/index.md
           - Find Pages: features/find-pages/index.md
