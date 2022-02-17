@@ -62,9 +62,16 @@ def patch_mkdocs_to_not_crash_on_urls():
     def robust_path_to_url(self, *a, **kw):
         try:
             return self.orig_path_to_url(*a, **kw)
+        except ValueError as ex:
+            if a and '[' in a[0]:
+                try:
+                    return self.orig_path_to_url(a[0].split('[', 1)[0], **kw)
+                except:
+                    pass
         except:
-            app.error('path_to_url parsing error', args=a, **kw)
-            return 'http://unparsable_url?url=%s' % str(a)
+            pass
+        app.error('path_to_url parsing error', args=a, **kw)
+        return 'http://unparsable_url?url=%s' % str(a)
 
     RPT.orig_path_to_url = RPT.path_to_url
     RPT.path_to_url = robust_path_to_url
