@@ -184,7 +184,10 @@ def unflatten(dictionary, sep='_'):
         for part in parts[:-1]:
             if part not in d:
                 d[part] = OD()
+            if isinstance(d[part], str):
+                d[part] = OD({None: d[part]})
             d = d[part]
+
         d[parts[-1]] = value
     return resultDict
 

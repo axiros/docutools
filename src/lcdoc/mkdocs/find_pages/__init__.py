@@ -131,11 +131,7 @@ def find_pages_and_add_to_nav(find, config, stats):
     for k, v in r.items():
         n[clear_digits(k)] = v
 
-    try:
-        r = unflatten(n, '.')
-    except Exception as ex:
-        hint = 'Try supplying a title. E.g. "- \'foo": page.md\' (not "- page.md")'
-        app.die('Error building find_pages', exc=ex, hint=hint)
+    r = unflatten(n, '.')
     r = to_list(r)
     config['nav'].clear()
     config['nav'].extend(r)
@@ -144,6 +140,9 @@ def find_pages_and_add_to_nav(find, config, stats):
 def to_list(d):
     l = []
     for k, v in d.items():
+        if k == None:  # inserted by unflatten, when there was no title
+            l.append(v)
+            continue
         v = v if not isinstance(v, dict) else to_list(v)
         l.append({k: v})
     return l
