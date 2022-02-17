@@ -95,7 +95,11 @@ class BuiltInReplacements:
     def srcref(**kw):
         """Finds and links source code
 
-        Example: :srcref:fn=src/lcdoc/mkdocs/replace/__init__.py,m=built_in_replacements,t=hardwired
+        Examples:
+        :srcref:src/lcdoc/mkdocs/replace/__init__.py
+        :srcref:fn=src/lcdoc/mkdocs/replace/__init__.py
+        :srcref:src/lcdoc/mkdocs/replace/__init__.py=somematch
+        :srcref:fn=src/lcdoc/mkdocs/replace/__init__.py,m=built_in_replacements,t=hardwired
         """
         line = kw['line']
         fn = line.split(':srcref:', 1)[1].split(' ', 1)[0]
@@ -105,7 +109,10 @@ class BuiltInReplacements:
         if not ',' in fn:
             if '=' in fn:
                 l = fn.split('=')
-                spec = {'fn': l[0], 'm': l[1]}
+                if l[0] == 'fn':
+                    spec = {'fn': l[1]}
+                else:
+                    spec = {'fn': l[0], 'm': l[1]}
             else:
                 spec = {'fn': fn}
         else:
