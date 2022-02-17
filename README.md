@@ -161,4 +161,4 @@ Most notable feature: **[Literate Programming](https://axiros.github.io/docutool
 </td>
 </tr>
 </table><!-- gallery -->
-Last modified: Tue, 28 Sep 2021 10h GMT  
+Last modified: Tue, 28 Sep 2021 10h GMT   
