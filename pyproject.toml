@@ -13,10 +13,7 @@ repository = "https://github.com/axiros/docutools"
 homepage = "https://axiros.github.io/docutools/"
 keywords = []
 packages = [ { include = "lcdoc", from = "src" } ]
-include = [
-    "README.md",
-    "pyproject.toml"
-]
+include = []
 exclude = [ "**/docs/**/*" ]
 
 

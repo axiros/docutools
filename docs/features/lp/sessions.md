@@ -16,7 +16,7 @@ Here we only explain the differences.
 
 Typically this would be [`silent`](./parameters.md#silent)
 
-```javascript lp new_session=nodejs_test addsrc="Starting nodejs" expect=> fmt=xt_flat
+```javascript lp new_session=nodejs_test addsrc="Starting nodejs" timeout=10 expect=> fmt=xt_flat
 node
 ```
 

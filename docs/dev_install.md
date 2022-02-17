@@ -23,7 +23,7 @@ virtual environment related tasks.
 
 ### Usage
 
-- The task runner is based on a collection of shell functions for common developer duties, within a sourceable file: :srcref:fn=make
+- The task runner is a collection of shell functions for common developer duties, within a sourceable file: :srcref:fn=make
 - The file is generic and can be taken from the [docutools repo](https://github.com/axiros/docutools/blob/master/make).
 - The file is parametrized through a set of variables, within this file :srcref:fn=environ
 - Additionally, make sources a typcially git-ignored file, `environ.personal` - for personal
