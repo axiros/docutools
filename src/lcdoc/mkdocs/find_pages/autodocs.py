@@ -5,7 +5,6 @@ from contextlib import contextmanager
 from functools import partial
 from hashlib import md5
 
-from devapp.tools import walk_dir
 
 from lcdoc.mkdocs.tools import MDPlugin, app, config_options, find_md_files
 from lcdoc.tools import (
@@ -84,6 +83,15 @@ class autodocs:
 
 
 hsh = lambda src: md5(src.encode('utf-8')).hexdigest()
+
+
+def walk_dir(directory, crit=None):
+    crit = (lambda *a: True) if crit is None else crit
+    files = []
+    j = os.path.join
+    for (dirpath, dirnames, filenames) in os.walk(directory):
+        files += [j(dirpath, file) for file in filenames if crit(dirpath, file)]
+    return files
 
 
 def scan_d_autodocs(typ):
@@ -179,11 +187,7 @@ class S:
                     S.stats['plantuml_count'] += 1
                     res = kroki(
                         src,
-                        {
-                            'mode': 'kroki:plantuml',
-                            'puml': 'dark_blue',
-                            'get_svg': True,
-                        },
+                        {'mode': 'kroki:plantuml', 'puml': 'dark_blue', 'get_svg': True,},
                     )
                     # g = base64.urlsafe_b64encode(zlib.compress(s.encode('utf-8')))
                     write_file(fn_svg, res)
@@ -198,9 +202,7 @@ class S:
                 s = read_file(md + '.md')
                 for f in [i for i in fs if i.startswith(md)]:
                     fsvg = f.replace('.plantuml', '.svg')
-                    svg = (
-                        read_file(fsvg).split('>', 1)[1].strip().split('<!--MD5', 1)[0]
-                    )
+                    svg = read_file(fsvg).split('>', 1)[1].strip().split('<!--MD5', 1)[0]
                     if not svg.endswith('</svg>'):
                         svg += '</g></svg>'
                     # testname (e.g. test02_foo) for links building in js
