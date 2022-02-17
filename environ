@@ -2,16 +2,22 @@
 set -a
 PROJECT="docutools"
 try_preload="gevent"
-blacklisted_words="$(pass show sensitive/axgkl)" # list of '::' seperated words to fail when occurring in committed files
-browser="chromium-browser"                       # for browser screenshots
+browser="chromium-browser" # for browser screenshots
+# if you don't use conda, then install elsewhere. Must be in path:
 conda_project_tools="tmux poetry graphviz imagemagick"
-google_analytics_key="$(pass show google/analytics_key_blog 2>/dev/null)"
 mkdocs_port=2222
-nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node" # for browser screenshots
-pyver="3.7"                                                                              # min version
-versioning=calver                                                                        # for git changelog
-set +a
+pyver="3.7"       # min version
+versioning=calver # for git changelog
 
+# following ones go usually into environ.personal, sourced within make:
+blacklisted_words="$(pass show sensitive/axgkl)" # list of '::' seperated words to fail when occurring in committed files
+# not yet in use:
+google_analytics_key="$(pass show google/analytics_key_blog 2>/dev/null)"
+# for browser screenshots:
+nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs && node"
+# sanitize to reach me:
 git config user.email "g_kl_es_sing_er@gmx.de"
+
+set +a
 source ./make -a # giving us make docs, make tests, .. -a activates venv
 nfo "Sourced ./make -a"

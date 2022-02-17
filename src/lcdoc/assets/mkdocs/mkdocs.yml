@@ -11,11 +11,12 @@ copyright: |
   Copyright &copy; 2022 Axiros GmbH (Gk)
 #
 nav:
-  - Overview: index.md
+  - "Overview": index.md
   - Installation:
       - install.md
+      - "Development Installation": dev_install.md
   - Features:
-      - "Features Intro": features/index.md
+      - features/index.md
       - Plugins:
           - Blacklist: features/blacklist/index.md
           - Find Pages: features/find-pages/index.md
