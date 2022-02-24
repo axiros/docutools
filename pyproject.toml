@@ -40,6 +40,8 @@ httpx = "^0.17.1"
 # making trouble when poetry installing lc-devapp with us as depency. Unsure why a dev dep matters ...
 # lc-devapp = { path = "build/lc-devapp" } # see above and .gitlab-ci.yaml
 markdown-include = "^0.6.0"
+# have to pin(https://github.com/pallets/markupsafe/issues/284):
+markupsafe = "2.0.1"
 mkdocs = "^1.1.2"
 mkdocs-material = "^8"
 # Optional:
