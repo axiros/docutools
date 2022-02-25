@@ -33,6 +33,7 @@ VERSION_MAKE="1"
 mkdocs_path="${mkdocs_path:-$PROJECT}"
 mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
+fn_changelog="${fn_changelog:-docs/about/changelog.md.lp.py}"
 set +a
 
 skip_func_after_hook="42"
@@ -216,7 +217,7 @@ function release {
     sh tests
     #sh cover # cov reports created on ci
     # create a new changelog, this is committed, since on CI --depth=1:
-    sh rm docs/about/changelog.md.lp.py
+    sh rm -f "$fn_changelog"
     lp_eval=changelog docs
     sh docs
     sh poetry build
