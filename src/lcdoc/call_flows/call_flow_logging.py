@@ -152,7 +152,7 @@ class SetTrace:
 
 
 is_parent = lambda o: inspect.isclass(o) or inspect.ismodule(o)
-is_func = inspect.isfunction or inspect.ismethod
+is_func = lambda o: inspect.isfunction(o) or inspect.ismethod(o)
 
 
 def trace_object(
