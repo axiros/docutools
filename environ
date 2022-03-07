@@ -19,5 +19,6 @@ nodejs="source $HOME/miniconda3/etc/profile.d/conda.sh && conda activate nodejs 
 git config user.email "g_kl_es_sing_er@gmx.de"
 
 set +a
+
 source ./make -a # giving us make docs, make tests, .. -a activates venv
 nfo "Sourced ./make -a"

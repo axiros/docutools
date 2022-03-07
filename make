@@ -99,8 +99,9 @@ activate_venv() {
     # must be set in environ:
     local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
     test -e "$conda_env" || { nfo "No $conda_env"; return 1; }
-    test -z "$CONDA_SHLVL" && conda_act
+    test -z "$CONDA_SHLVL" && conda_src
     test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
+    while [ -n "$CONDA_PREFIX" ]; do conda deactivate; done
     nfo 'Adding conda root env $PATH'
     export PATH="$(conda_root)/bin:$PATH"
     nfo Activating "$conda_env"
@@ -118,7 +119,7 @@ set_version() {
 
 conda_root () { echo "$HOME/miniconda3"; }
 
-conda_act () {
+conda_src () {
     source "$(conda_root)/etc/profile.d/conda.sh";
     conda config --set always_yes yes # --set changeps1 no
     conda config --add channels conda-forge
@@ -223,7 +224,6 @@ function release {
     sh poetry build
     sh git commit -am "chore: Prepare release $version"
     sh git tag "$version"
-
     sh poetry publish
     sh git push --tags
 }

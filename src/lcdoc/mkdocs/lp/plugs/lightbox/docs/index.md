@@ -4,7 +4,7 @@ Wraps content into [featherlight](https://github.com/noelboss/featherlight) ligh
 
 | click on an image below ||
 |---|---|
-| ![mountainlake](img/m.jpg)  | ![mountainlake](img/m2.jpeg)
+| ![mountainlake](img/m.png)  | ![mountainlake](img/m2.png)
 
 
 
