@@ -209,18 +209,25 @@ function tests {
 }
 
 function release {
-
+    local tests=true
+    test "${1:-}" = "notests" && { 
+        nfo "Release w/o Tests!"
+        tests=false
+        shift
+    }
     test -z "$2" || { echo "say make release <version>"; return 1; }
     version="${1:-}"
     test -z "$version" && { set_version || return 1; }
     nfo "New Version = $version"
     sh poetry version "$version"
-    sh tests
-    #sh cover # cov reports created on ci
-    # create a new changelog, this is committed, since on CI --depth=1:
-    sh rm -f "$fn_changelog"
-    lp_eval=changelog docs
-    sh docs
+    $tests && {
+        sh tests
+        #sh cover # cov reports created on ci
+        # create a new changelog, this is committed, since on CI --depth=1:
+        sh rm -f "$fn_changelog"
+        lp_eval=changelog docs
+        sh docs
+    }
     sh poetry build
     sh git commit -am "chore: Prepare release $version"
     sh git tag "$version"

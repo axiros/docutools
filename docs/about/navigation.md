@@ -19,7 +19,7 @@ We added to our browser the excellent [vimium-c](https://github.com/gdh1995/vimi
 
 ## Demo
 
-![](./img/navdemo.gif)
+![](https://axiros.github.io/docutools/about/img/navdemo.gif)
 
 
 !!! note "Edit Link"
