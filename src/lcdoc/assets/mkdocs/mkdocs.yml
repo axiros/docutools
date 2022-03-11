@@ -15,6 +15,7 @@ nav:
   - Installation:
       - install.md
       - "Development Installation": dev_install.md
+      - "About Conda": conda.md
   - Features:
       - features/index.md
       - Plugins:

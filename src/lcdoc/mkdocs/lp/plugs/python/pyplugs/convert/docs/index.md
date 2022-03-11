@@ -1,9 +1,8 @@
 # Image :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/convert/__init__.py,t=Convert
 
-Current feature set:
+Creates thumbnails of pdfs, linked to their source and image slideshows from pdfs.
 
-- Creates thumbnails of pdfs, linked to their source.
-- Creates image slideshows from pdfs
+This is the current feature set.
 
 ## Parameters
 

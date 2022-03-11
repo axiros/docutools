@@ -20,20 +20,17 @@ A task runner automates common developer jobs. You may want to use the same task
     - Or use a plain Makefile.
 
 
-!!! note "Why Conda"
-    
-    The taskrunner uses conda, because we use quite a lot of tooling outside of python.
+The taskrunner uses [conda][cond], because we use quite a lot of tooling outside of python.
 
-    Conda allows to have those installed independent of distributions, transferrable and cacheable
-    (e.g. in a CI pipeline): All is under one path prefix.
-
-
+See [why conda](./conda.md) regarding rationale.
 
 
 ### Usage
 
-- The task runner is a collection of shell functions for common developer duties, within a sourceable file: :srcref:fn=make.
-- The file is generic and can be taken from the [docutools repo](https://github.com/axiros/docutools/blob/master/make).
+- The task runner is a collection of shell functions for common developer duties, within a
+  sourceable file: :srcref:fn=make.
+- The file is generic and can be taken from the [docutools
+  repo](https://github.com/axiros/docutools/blob/master/make).
 - The file is parametrized through a set of variables, within this file: :srcref:fn=environ
 - Additionally, make sources a (typically git-ignored) file, `environ.personal` - for personal
   settings you don't want to keep within your repo.
