@@ -2,18 +2,17 @@
 
 When you want to use docutools within your project, in order to generate documentation for it:
 
-- Add `docutools = "^<version>"` as a development dependency, e.g. within a
-  :srcref:fn=pyproject.toml file.
-- Set required :srcref:fn=environ,t=environment variables
-- Adapt your `mkdocs.yml` file for the plugins you want to use. We do not interfere with any custom
-  css or js
+- Add `docutools = "^<version>"` as a **development dependency**, e.g. within a :srcref:fn=pyproject.toml file.
+- Some :srcref:fn=environ,t=environment variables are required for specific features
+- Adapt your `mkdocs.yml` file for the plugins you want to use. We do not interfere with any custom css or js.
 
 ## Using `docutools` Task Runner
 
 A task runner automates common developer jobs. You may want to use the same task runner within your project than we do.
 
-docutools' task runner is based on shell functions and currently supports only [conda][cond] for
-virtual environment related tasks.
+- docutools' task runner is based on shell functions
+- for virtual environment related tasks it currently supports only [conda][cond]
+- See the section about hooks below, regarding how to modify that, e.g. in favor of venvs
 
 !!! hint "Alternatives"
    
@@ -21,17 +20,28 @@ virtual environment related tasks.
     - Or use a plain Makefile.
 
 
+!!! note "Why Conda"
+    
+    The taskrunner uses conda, because we use quite a lot of tooling outside of python.
+
+    Conda allows to have those installed independent of distributions, transferrable and cacheable
+    (e.g. in a CI pipeline): All is under one path prefix.
+
+
+
+
 ### Usage
 
-- The task runner is a collection of shell functions for common developer duties, within a sourceable file: :srcref:fn=make
+- The task runner is a collection of shell functions for common developer duties, within a sourceable file: :srcref:fn=make.
 - The file is generic and can be taken from the [docutools repo](https://github.com/axiros/docutools/blob/master/make).
-- The file is parametrized through a set of variables, within this file :srcref:fn=environ
-- Additionally, make sources a typcially git-ignored file, `environ.personal` - for personal
+- The file is parametrized through a set of variables, within this file: :srcref:fn=environ
+- Additionally, make sources a (typically git-ignored) file, `environ.personal` - for personal
   settings you don't want to keep within your repo.
 
 !!! tip "environ file"
 
-    I source the `environ` file on `cd` (if not yet sourced) within a shell function in my .zshrc. It
+    I source the `environ` file on `cd` (if not yet sourced) within a shell function in my `.zshrc`.
+    So I can simple `cd` into the dir and have all ready.
 
 The environ file sources make and activates the virtual (conda) environment.
 
