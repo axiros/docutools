@@ -21,22 +21,30 @@ from lcdoc.tools import (
 
 
 def find_pages(find, config, stats):
+    """
+    find: [{'after': 'index.md', 'dir': 'blueprint'}] or just 'blueprint'
+    """
     ev = [i.strip() for i in os.environ.get('find_pages', '').split(',')]
     ev = [i for i in ev if i]
     find.extend(ev)
-    find = list(set(find))
+    f = {}
+    for k in find:
+        if isinstance(k, str):
+            f[k] = {'dir': k, 'after': None}
+        elif isinstance(k, dict):
+            f[k['dir']] = k
+        else:
+            app.die('format problem', element=k)
+    find = f.values()
     stats['find_terms'] = len(find)
     if not find:
         return
-    fnd = []
     for m in find:
-        found = find_md_files(match=m, config=config)
-        if not found:
-            app.info('No pages found', match=m)
-        else:
-            fnd.extend(found)
-    stats['matching'] = len(fnd)
-    return fnd
+        m['found'] = f = find_md_files(match=m['dir'], config=config)
+        if not f:
+            app.info('No pages found', match=m['dir'])
+    stats['matching'] = sum([len(f['found']) for f in find])
+    return find
 
 
 class autodocs:
@@ -48,7 +56,9 @@ class autodocs:
         d_target = project.root() + '/docs/autodocs/' + name
         autodocs.link_over(d_src, d_target)
         d = 'autodocs/%s:follow' % name
-        found = find_pages([d], config, stats)
+        # find pages returns list of dicts where 'found' key is the list of pages found:
+        f = [k['found'] for k in find_pages([d], config, stats)]
+        found = [j for i in f for j in i]
         if not found:
             return
         s = spec.get('nav', 'autodocs')

@@ -27,3 +27,22 @@ Notes:
 - correct insertion also requires, that the insertion point of the first doc page not declared in
   nav is following the intended page before it, when you sort ALL filenames, declared and
   undeclared, alphabetically.
+
+You can also *force* a certain insertion point, by supplying the searched dir together with an
+`after` key as dict(s), like:
+
+```yaml
+nav:
+  - Overview: index.md
+  - Blueprint:
+      - Overview: blueprint/index.md
+  - About:
+ 
+(...)
+
+  - lcd-find-pages:
+      find-pages:
+        - dir: blueprint
+          after: blueprint/index.md
+
+```

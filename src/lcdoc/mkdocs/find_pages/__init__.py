@@ -88,12 +88,15 @@ def find_pages_and_add_to_nav(find, config, stats):
     navll = [[fn, k] for k, fn in navl.items()]
     have = [fn[0] for fn in navll]
     ins = {}
-    while found:
-        fn = found.pop(0)
-        if fn in have:
-            continue
-        bef, aft = get_insert_pos(fn, have)
-        ins.setdefault(have.index(bef), []).insert(0, fn)
+    for spec in found:
+        while spec['found']:
+            fn = spec['found'].pop(0)
+            if fn in have:
+                continue
+            aft = spec.get('after')
+            if not aft:
+                aft, _ = get_insert_pos(fn, have)
+            ins.setdefault(have.index(aft), []).insert(0, fn)
     l = {}
     for k in reversed(sorted([i for i in ins])):
         fns = ins[k]
