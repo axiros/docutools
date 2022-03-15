@@ -41,8 +41,8 @@ directories:
     - index.md
     # autocreated, from running literal programming blocks within md file of same name:
     - index.md.lp.py 
-    - "..."
     - mdreplace.py # parametrizes the docutools markdown replace feature
+    - "..."
 # holds automatically created files, created during test and docu runs
 # e.g. call flow logs - re-useable between docu runs:
 - build/ 
