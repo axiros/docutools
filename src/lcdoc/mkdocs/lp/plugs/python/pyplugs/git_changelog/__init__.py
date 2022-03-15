@@ -47,6 +47,40 @@ config, page, Session, lpkw = (python.config, python.page, python.Session, pytho
 formatted = True
 
 
+def latest_ver(changelog):
+    # depends on presence of 'Compare with' within the templates
+    try:
+        return changelog.split('Compare with', 1)[1].split('\n', 1)[0].split(']', 1)[0]
+    except Exception as exc:
+        msg = 'Not able to extract latest ver'
+        app.warn(msg, exc=exc)
+        return msg
+
+
+def git_changelog(commit_style, d_root, d_tmpl):
+    """A version of git-changelog monkey patched, so that versions have zero padded
+    months and days replaced to non zero padded versions
+
+    Otherwise the semver lib would complain about non-compliancy. 
+    """
+    argv = ['-s', commit_style, '-t', 'path:%s' % d_tmpl, d_root]
+    from git_changelog import build
+
+    # monkey patched bump function:
+    bmp = lambda v, p, b: b(v.replace('.0', '.'), p)
+    build.bump = lambda version, part='patch', b=build.bump: bmp(version, part, b)
+    from git_changelog import cli
+    from io import StringIO
+    from contextlib import redirect_stdout
+
+    c = StringIO()
+    with redirect_stdout(c):
+        cli.main(argv)
+    cl = c.getvalue()
+    app.info('changelog created', latest=latest_ver(cl))
+    return cl
+
+
 def gen_change_log(d_assets, versioning_scheme, commit_style):
     """
     Problem: The git-changelog cmd uses Jinja and wants .md
@@ -89,13 +123,7 @@ def gen_change_log(d_assets, versioning_scheme, commit_style):
         shutil.copyfile(dcl + '/' + k, fn)
         if k == 'changelog.md.tmpl':
             set_version_scheme(fn, ver)
-    cmd = 'cd "%s"; git-changelog -s %s -t "path:%s" .'
-    cmd = cmd % (dr, commit_style, dtmp)
-    cl = os.popen(cmd).read()
-    if not cl:
-        app.die('changelog creation failed', cmd=cmd)
-    app.info('changelog created')
-    return cl
+    return git_changelog(commit_style, dr, dtmp)
 
 
 def register(fmts):
