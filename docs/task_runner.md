@@ -44,7 +44,7 @@ directories:
     - mdreplace.py # parametrizes the docutools markdown replace feature
     - "..."
 # holds automatically created files, created during test and docu runs
-# e.g. call flow logs - re-useable between docu runs:
+# e.g. call flow logs or coverage results - re-useable between docu runs:
 - build/ 
 - tmp/ # holds temporay files for one docu run
    
