@@ -16,10 +16,11 @@ from lcdoc.mkdocs.find_pages.autodocs import autodocs, find_pages
 
 def uppercase_words(s):
     """titles in nav should only contain the strings, not e.g. links"""
-    l = s.split(' ')
+    L = s.split(' ')
     r = []
-    while l[0] == l[0].upper() and l[0] in string.ascii_letters:
-        r.append(l)
+    for l in L:
+        if l[0] == l[0].upper() and l[0] in string.ascii_letters:
+            r.append(l)
     return ' '.join(r)
 
 
@@ -29,6 +30,7 @@ def is_after(fn, hfn):
 
 
 def get_insert_pos(fn, have):
+    """when "after" is not given we have to find out ourselves"""
     while fn:
         fn, post = fn.rsplit('/', 1)
         for i in range(len(have)):
@@ -52,28 +54,28 @@ def clear_digits(t):
 
 
 def get_title(fn_page, dd):
+    # TODO: find the mkdocs way of deriving the title from the header within content
     s = read_file(dd + '/' + fn_page, dflt='')
-    h = '\n' + s + '\n# Found\n'
+    h = '\n' + s + '\n# Found\n'  # so that we find *something* when there is no head
     tit = ''
+    # find the highest header, could be also "### My Title"
     for k in range(5, 0, -1):
-        head = '\n' + k * '#' + ' '
+        head = '\n' + k * '#' + ' '  #  "\n#### " for k = 3
         _ = h.split(head)
         if len(_) == 1:
             continue
-        h = _[0]
+        h = _[0]  # the content above, is there a higher header?
         tit = _[1].split('\n', 1)[0]
     if not tit:
         tit = fn_page
-
+    h = uppercase_words(tit)
     if not h:
-        # e.g. # bash alone has no uppercase word. then take the filename:
+        # e.g. # `bash` alone has no uppercase word. then take the filename:
         l = fn_page.rsplit('/', 2)
         if l[-1] == 'index.md':
             h = l[-2]
         else:
             h = fn_page.rsplit('/', 1)[-1].split('.', 1)[0]
-    else:
-        h = uppercase_words(tit)
     return h
 
 
