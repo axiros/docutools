@@ -14,12 +14,25 @@ from lcdoc.tools import dirname, exists, OD, unflatten, flatten, os, project, re
 from lcdoc.mkdocs.find_pages.autodocs import autodocs, find_pages
 
 
+def repl_src_refs(s):
+    if not s.startswith(':srcref:'):
+        return s
+    s = s.split(',t=', 1)
+    if len(s) == 1:
+        return ''
+    return s[-1].split(',', 1)[0]
+
+
 def uppercase_words(s):
-    """titles in nav should only contain the strings, not e.g. links"""
-    L = s.split(' ')
+    """titles in nav should only contain the strings, not e.g. links
+
+    s: "Local LP Blocks :srcref:fn=src/lcdoc/mkdocs/lp/plugs/python/pyplugs/lprunner/__init__.py,t=Runner"
+
+    """
+    L = [repl_src_refs(i) for i in s.split(' ')]
     r = []
     for l in L:
-        if l[0] == l[0].upper() and l[0] in string.ascii_letters:
+        if l and l[0] == l[0].upper() and l[0] in string.ascii_letters:
             r.append(l)
     return ' '.join(r)
 
