@@ -59,7 +59,13 @@ fn_ts = [0]
 last_check = [0]
 
 # required if we want to add global stuff like style defs:
-page_markdown = {'head': '', 'foot': ''}
+page_markdown_init = {'head': '', 'foot': ''}
+page_markdown = {}
+
+
+def init_page_markdown(table):
+    h, f = d.pop(':head:', ''), d.pop(':foot:', '')
+    page_markdown_init.update({'head': h, 'foot': f})
 
 
 class BuiltInReplacements:
@@ -83,6 +89,26 @@ class BuiltInReplacements:
         }
         '''
         return style(s)
+
+    # this widens the content on big screens to full width:
+    cssfullwidth = style(
+        '''
+          @media only screen and (min-width: 76.25em) {
+            .md-main__inner {
+              max-width: none;
+            }
+            .md-sidebar--primary {
+              left: 0;
+            }
+            .md-sidebar--secondary {
+              right: 0;
+              margin-left: 0;
+              -webkit-transform: none;
+              transform: none;   
+            }
+          }
+        '''
+    )
 
     def pthbase(page, **kw):
         """Relative path to base.
@@ -178,12 +204,20 @@ def load_replacement_file(plugin, config):
         d.update(du)
 
         s = plugin.config['seperator']
+
+        def repl(s, sep=s):
+            """If a repl key startwith a bang we replace w/o sep!
+
+            """
+            return s[1:] if s.startswith('!') else f'{sep}{s}{sep}'
+
+        init_page_markdown(table=d)
         l = lambda v: v.splitlines() if isinstance(v, str) and '\n' in v else v
         d1 = {k: v for k, v in d.items() if not ':all:' in k}
         d2 = {k: v for k, v in d.items() if ':all:' in k}
         d2 = {k.replace(':all:', ''): v for k, v in d2.items()}
-        plugin.table = dict([('%s%s%s' % (s, k, s), l(v)) for k, v in d1.items()])
-        plugin.t_all = dict([('%s%s%s' % (s, k, s), l(v)) for k, v in d2.items()])
+        plugin.table = {repl(k): l(v) for k, v in d1.items()}
+        plugin.t_all = {repl(k): l(v) for k, v in d2.items()}
     except Exception as ex:
         app.warning('replacement table load error', exc=ex)
         plugin.table = {}
@@ -221,7 +255,8 @@ def replace(**kw):
                 ind = ' ' * len(l.split(k, 1)[0])
                 v = ind.join([i for i in v])
             if isinstance(v, dict):
-                # a replacement func may deliver the whole new line:
+                # a replacement func may deliver the whole new line and also header and
+                # footer:
                 l = v['line']
                 page_markdown['head'] += v.get('markdown_header', '')
                 page_markdown['foot'] += v.get('markdown_footer', '')
@@ -248,8 +283,11 @@ class MDReplacePlugin(MDPlugin):
 
     def on_page_markdown(self, markdown, page, config, files):
         # a lot of context for the replacement funcs:
-        for h in 'head', 'foot':
-            page_markdown[h] = ''
+
+        # reset: new page:
+        page_markdown.update(page_markdown_init)
+        for k, f in page_markdown.items():
+            page_markdown[k] = f(**locals) if callable(f) else f
         repl = partial(
             replace,
             plugin=self,

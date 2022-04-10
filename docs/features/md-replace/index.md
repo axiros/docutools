@@ -42,9 +42,34 @@ When callable it will be called with the mkdocs config and must return a replace
 
 #### Controlling Replacements Within Fenced Blocks
 
-    - fenced blocks are omitted EXCEPT:
-    - if the replacement key is specified like this `key:all:` - then even `:key:` in fenced blocks
-      is replaced
+- fenced blocks are omitted EXCEPT:
+- if the replacement key is specified like this `key:all:` - then even `:key:` in fenced blocks
+  is replaced
+
+
+#### Always Present Keys
+
+- `:head:`
+- `:foot:`
+
+These keys (with the colons) will always be found, on any page - you can insert e.g. page level
+styles.
+
+???? "Example"
+
+    Say we wanted *every* page to have the full width style. Instead of inserting everywhere the
+    `:cssfullwidth:` builtin (see below), we add this into our custom `mdreplace.py`:
+
+    ``` python
+    from lcdoc.mkdocs.replace import BuiltInReplacements as BI
+
+    table = {
+        ':head:'  :  BI.cssfullwidth,
+        'foo'     :  ...
+    ```
+
+
+
 
 ### Config
 
