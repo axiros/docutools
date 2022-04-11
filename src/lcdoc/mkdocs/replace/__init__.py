@@ -67,11 +67,8 @@ def init_page_markdown(table):
     h, f = d.pop(':head:', ''), d.pop(':foot:', '')
     page_markdown_init.update({'head': h, 'foot': f})
 
-
-class BuiltInReplacements:
-    #:docs:built_in_replacements
-    # inserts the current time at process start:
-    ctime = time.strftime('%a, %d %b %Y %Hh GMT', time.localtime())
+#:docs:built_in_replacements
+class css:
 
     def csspdf(**kw):
         """
@@ -91,24 +88,32 @@ class BuiltInReplacements:
         return style(s)
 
     # this widens the content on big screens to full width:
-    cssfullwidth = style(
-        '''
-          @media only screen and (min-width: 76.25em) {
-            .md-main__inner {
-              max-width: none;
-            }
-            .md-sidebar--primary {
+    width = lambda max_width='none', min_width='76.25em':  style(
+        f'''
+          @media only screen and (min-width: {min_width}) {{
+            .md-main__inner {{
+              max-width: {max_width};
+            }}
+            .md-sidebar--primary {{
               left: 0;
-            }
-            .md-sidebar--secondary {
+            }}
+            .md-sidebar--secondary {{
               right: 0;
               margin-left: 0;
               -webkit-transform: none;
               transform: none;   
-            }
-          }
+            }}
+          }}
         '''
     )
+    fullwidth = width(max_width='none', min_width='76.25em')
+
+
+
+
+class BuiltInReplacements(css):
+    # inserts the current time at process start:
+    ctime = time.strftime('%a, %d %b %Y %Hh GMT', time.localtime())
 
     def pthbase(page, **kw):
         """Relative path to base.
@@ -154,7 +159,7 @@ class BuiltInReplacements:
         l = srclink(spec['fn'], kw['config'], match=spec.get('m'), title=spec['t'])
         return {'line': line.replace(repl, l['link'])}
 
-    #:docs:built_in_replacements
+#:docs:built_in_replacements
 
 
 d = {}

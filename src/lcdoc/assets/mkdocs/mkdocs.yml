@@ -61,7 +61,7 @@ theme:
     - navigation.top
     - navigation.tabs
     - navigation.sections
-    - toc.integrate
+      # toc.integrate
       #- navigation.expand
   name:
     material

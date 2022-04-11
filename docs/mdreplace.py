@@ -3,7 +3,7 @@ import sys
 import time
 
 from functools import partial
-from lcdoc.mkdocs.replace import admons
+from lcdoc.mkdocs.replace import admons, css
 
 
 def lp_plugins_descr(**kw):
@@ -26,6 +26,7 @@ def lp_plugins_descr(**kw):
 
 table = {
     # only prevents the editor from going crazy, with nested code examples in nested code:
+    ':head:': css.fullwidth,
     'fences:all:': '```',
     'lp_plugins_descr': lp_plugins_descr,
 }
