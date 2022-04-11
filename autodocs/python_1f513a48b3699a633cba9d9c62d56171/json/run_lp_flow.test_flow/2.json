@@ -1,0 +1,19 @@
+{"line": 183, "fn_func": "home__runner__miniconda3__envs__docutools_py3.7__lib__python3.7__json____init__.mod.py.183.func.py", "fn_mod": "home__runner__miniconda3__envs__docutools_py3.7__lib__python3.7__json____init__.mod.py", "dt": 0.000110626220703125, "name": "dumps", "mod": "home.runner.miniconda3.envs.docutools_py3.7.lib.python3.7.json..init."}
+-
+{
+    "allow_nan": true,
+    "check_circular": true,
+    "cls": null,
+    "default": null,
+    "ensure_ascii": true,
+    "indent": null,
+    "kw": {},
+    "obj": {
+        "name": "joe"
+    },
+    "separators": null,
+    "skipkeys": false,
+    "sort_keys": false
+}
+-
+"{\"name\": \"joe\"}"
