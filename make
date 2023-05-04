@@ -162,6 +162,8 @@ function help {
 function self-update {
 
     url_make="https://raw.githubusercontent.com/AXGKl/docutools/master/make"
+    nfo "Updating to: $url_make"
+    
 
     function run_self_update {
         # Right now we only update make. in post_self_update one could do other stuff
@@ -169,10 +171,10 @@ function self-update {
         rm -f make.orig
         mv make make.orig
         curl -s "$url_make" > './make'
-        diff make make.orig && { echo "Already up to date (ver $VERSION_MAKE)"; rm -f make.orig; return 0; }
+        diff make make.orig && { nfo "Already up to date (ver $VERSION_MAKE)"; rm -f make.orig; return 0; }
         # updates
         rm -f scripts/self_update
-        . make post_self_update && echo "Updated make (ver $VERSION_MAKE)"
+        . make post_self_update && nfo "Updated make (ver $VERSION_MAKE)"
     }
     run_self_update "$@"
 }
