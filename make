@@ -1,4 +1,4 @@
-# vim: ft=bash
+# vim: ft=sh
 about='
 Development Shortcuts
 
@@ -17,6 +17,8 @@ Modifying Parameters, Adding Functionality:
 
 '
 
+VERSION_MAKE="2"
+
 me="${BASH_SOURCE[0]:-${(%):-%x}}" # bash and zsh/ksh compliant
 builtin cd "$(dirname "$me")"
 here="$(pwd)"
@@ -28,8 +30,6 @@ O="\x1b[0m"
 T1="\x1b[48;5;255;38;5;0m"
 T2="\x1b[48;5;124;38;5;255m"
 XDG_RUNTIME_DIR=/run/user/$UID # for systemd --user mode
-TERMINAL="${TERMINAL:-st}"
-VERSION_MAKE="1"
 mkdocs_path="${mkdocs_path:-$PROJECT}"
 mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
@@ -38,55 +38,120 @@ set +a
 
 skip_func_after_hook="42"
 
-nfo() { test -z "$2" && echo -e "${M}$*$O" >&2 || h1 "$@"; }
-h1()  { local a="$1" && shift && echo -e "$T1 $a $T2 $* $O" >&2; }
-sh()  {
-    hook pre "$@"
-    if [[ "$?" != "$skip_func_after_hook" ]]; then call "$@"; fi
-    hook post "$@"
-}
 
-hook () {
-    local fn="scripts/$2_$1.sh"
-    test -e "$fn" || return 0
-    shift
-    shift
-    unset hookfunc
-    source "$fn" "$@"
-    test -n "$hookfunc" || return
-    call "$hookfunc" "$@"
-}
+helper_funcs () {
+    function nfo { test -z "$2" && echo -e "${M}$*$O" >&2 || h1 "$@"; }
+    function h1  { local a="$1" && shift && echo -e "$T1 $a $T2 $* $O" >&2; }
+    function sh  {
+        hook pre "$@"
+        if [[ "$?" != "$skip_func_after_hook" ]]; then call "$@"; fi
+        hook post "$@"
+    }
 
-call () {
-    nfo "$@"
-    "$@" || {
-        ret="$?"
-        if [[ "$ret" == "$skip_func_after_hook" ]]; then return "$skip_func_after_hook"; fi
-        nfo "ERR" $1
-        test -n "$lc_exit_err" && exit 1
+    function hook  {
+        local fn="scripts/$2_$1.sh"
+        test -e "$fn" || return 0
+        shift
+        shift
+        unset hookfunc
+        source "$fn" "$@"
+        test -n "$hookfunc" || return
+        call "$hookfunc" "$@"
+    }
+
+    function call  {
+        nfo "$@"
+        "$@" || {
+            ret="$?"
+            if [[ "$ret" == "$skip_func_after_hook" ]]; then return "$skip_func_after_hook"; fi
+            nfo "ERR" $1
+            test -n "$lc_exit_err" && exit 1
+            return 1
+        }
+    }
+
+    function as_subproc  {
+        # call the func within a subproc, so that we have global exit after fail of first sh called func
+        ( lc_exit_err=true; sh "$@" ) || { nfo "ERR" $1; return 1; }
+        return 0
+    }
+
+
+
+
+    function activate_venv {
+        # must be set in environ:
+        local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
+        test -e "$conda_env" || { nfo "No $conda_env"; return 1; }
+        test -z "$CONDA_SHLVL" && conda_src
+        test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
+        while [ -n "$CONDA_PREFIX" ]; do conda deactivate; done
+        nfo 'Adding conda root env $PATH'
+        export PATH="$(conda_root)/bin:$PATH"
+        nfo Activating "$conda_env"
+        conda activate "$conda_env"
+    }
+
+    function set_version {
+        if [ "${versioning:-}" = "calver" ]; then
+                version="$(date "+%Y.%m.%d")"
+                return 0
+        fi
+        nfo "Say ./make release <version>"
         return 1
     }
+    function conda_root  { echo "$HOME/${conda_root:-miniconda3}"; }
+
+    function conda_src  {
+        source "$(conda_root)/etc/profile.d/conda.sh";
+        conda config --set always_yes yes # --set changeps1 no
+        conda config --add channels conda-forge
+    }
+    
+    function make {
+        test -z "$1" && {
+            help
+            return
+        }
+        local f="$1"
+        type $f >/dev/null 2>/dev/null || {
+            help
+            return
+        }
+        shift
+        as_subproc $f "$@"
+    }
+
+    ## Function Aliases:
+
+    function d   {  make docs               "$@"  ; }
+    function ds  {  make docs-serve         "$@"  ; }
+    function clc {  make clean-lp-caches    "$@"  ; }
+    function rel {  make release            "$@"  ; }
+    function t   {  make tests              "$@"  ; }
+    function sm  {  source ./make            "$@"  ; } # after changes
+    # End
+
 }
 
-as_subproc () {
-    # call the func within a subproc, so that we have global exit after fail of first sh called func
-    ( lc_exit_err=true; sh "$@" ) || { nfo "ERR" $1; return 1; }
-    return 0
-}
+# ----------------------------------------------------------------------------------------- Make Functions:
 
 
-help() {
-    funcs()   { local a="func" && grep "${a}tion" ./make | grep " {" | sed -e "s/${a}tion/- /g" | sed -e 's/{//g' | sort; }
-    aliases() { local a="## Function" && grep -A 30 "$a Aliases:" ./make | grep -B 30 'make()' | grep -v 'make()'; }
+function help {
+    funcs()   { local a="func" && grep "^${a}tion" ./make | grep " {" | sed -e "s/${a}tion/- /g" | sed -e 's/{//g' | sort; }
+    aliases() { local a="## Function" && grep -A 30 "$a Aliases:" "$here/make" | head -n 8 | tail -n 7 | sed -e 's/function/-/g' | sed -e 's/{//g' | cut -d '"' -f 1; }
     local doc="
-    # Repo Maintenance Functions
+    # Repo Ops and Maintenance Functions
 
-    ## Usage: ./make <function> [args]
+    ## Usage: make <function> [args]
+    
+    ℹ️ Source the ./environ file before calling make
 
     ## Functions:
 
     $(funcs)
 
+    ## Aliases
     $(aliases)
 
     "
@@ -94,41 +159,21 @@ help() {
     echo -e "$doc\n"
 }
 
-
-activate_venv() {
-    # must be set in environ:
-    local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
-    test -e "$conda_env" || { nfo "No $conda_env"; return 1; }
-    test -z "$CONDA_SHLVL" && conda_src
-    test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
-    while [ -n "$CONDA_PREFIX" ]; do conda deactivate; done
-    nfo 'Adding conda root env $PATH'
-    export PATH="$(conda_root)/bin:$PATH"
-    nfo Activating "$conda_env"
-    conda activate "$conda_env"
-}
-
-set_version() {
-    if [ "${versioning:-}" = "calver" ]; then
-            version="$(date "+%Y.%m.%d")"
-            return 0
-    fi
-    nfo "Say ./make release <version>"
-    return 1
-}
-
-conda_root () { echo "$HOME/miniconda3"; }
-
-conda_src () {
-    source "$(conda_root)/etc/profile.d/conda.sh";
-    conda config --set always_yes yes # --set changeps1 no
-    conda config --add channels conda-forge
-}
-
-
-# ----------------------------------------------------------------------------------------- Make Functions:
 function self-update {
-    source scripts/self_update
+
+    url_make="https://raw.githubusercontent.com/AXGKl/docutools/master/make"
+
+    function run_self_update {
+        # Right now we only update make. in post_self_update one could do other stuff
+        test -e make || return 1
+        rm -f make.orig
+        mv make make.orig
+        curl -s "$url_make" > './make'
+        diff make make.orig && { echo "Already up to date"; rm -f make.orig; return 0; }
+        # updates
+        rm -f scripts/self_update
+        . make post_self_update && echo "Updated make"
+    }
     run_self_update "$@"
 }
 
@@ -136,7 +181,7 @@ function ci-conda-root-env { # creates the root conda env if not present yet
     source scripts/conda.sh && make_conda_root_env "$@"
 }
 
-function ci-conda-py-env { # creates the venv for the project and poetry installs
+function ci-conda-py-env {   # creates the venv for the project and poetry installs
     source scripts/conda.sh && make_conda_py_env "$@"
 }
 
@@ -229,36 +274,13 @@ function release {
         sh docs
     }
     sh poetry build
-    sh git commit -am "chore: Prepare release $version"
+    sh git commit -am "chore: Prepare release $version" || true
     sh git tag "$version"
     sh poetry publish
     sh git push --tags
 }
 
-
-## Function Aliases:
-
-d()   {  make docs               "$@"  ; }
-ds()  {  make docs-serve         "$@"  ; }
-clc() {  make clean-lp-caches    "$@"  ; }
-rel() {  make release            "$@"  ; }
-t()   {  make tests              "$@"  ; }
-sm()  { source ./make;   } # after changes
-
-make() {
-    test -z "$1" && {
-        help
-        return
-    }
-    local f="$1"
-    type $f >/dev/null 2>/dev/null || {
-        help
-        return
-    }
-    shift
-    as_subproc $f "$@"
-}
-
+helper_funcs
 test -n "$sourcing_make" && return 0
 arg="${1:-xx}"
 if [[ "$arg" == "-e" ]] || [[ "$arg" == "-ea" ]] ; then
