@@ -169,10 +169,10 @@ function self-update {
         rm -f make.orig
         mv make make.orig
         curl -s "$url_make" > './make'
-        diff make make.orig && { echo "Already up to date"; rm -f make.orig; return 0; }
+        diff make make.orig && { echo "Already up to date (ver $VERSION_MAKE)"; rm -f make.orig; return 0; }
         # updates
         rm -f scripts/self_update
-        . make post_self_update && echo "Updated make"
+        . make post_self_update && echo "Updated make (ver $VERSION_MAKE)"
     }
     run_self_update "$@"
 }
