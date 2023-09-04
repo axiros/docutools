@@ -17,7 +17,7 @@ Modifying Parameters, Adding Functionality:
 
 '
 
-VERSION_MAKE="2"
+VERSION_MAKE="3" # micromamaba
 
 me="${BASH_SOURCE[0]:-${(%):-%x}}" # bash and zsh/ksh compliant
 builtin cd "$(dirname "$me")"
@@ -34,6 +34,7 @@ mkdocs_path="${mkdocs_path:-$PROJECT}"
 mkdocs_port="${mkdocs_port:-8000}"
 d_cover_html="${d_cover_html:-build/coverage/overall}"
 fn_changelog="${fn_changelog:-docs/about/changelog.md.lp.py}"
+PROJECT="${PROJECT:-$(basename "$here")}"
 set +a
 
 skip_func_after_hook="42"
@@ -46,6 +47,13 @@ helper_funcs () {
         hook pre "$@"
         if [[ "$?" != "$skip_func_after_hook" ]]; then call "$@"; fi
         hook post "$@"
+    }
+    function download {
+        type wget 2>/dev/null 1>/dev/null && {
+             wget -O "$2" "$1" 
+             return $?
+        }
+        curl -L -o "$2" "$1"
     }
 
     function hook  {
@@ -78,18 +86,19 @@ helper_funcs () {
 
 
 
+    function conda_root  { echo "${conda_root:-$MAMBA_ROOT_PREFIX}"; }
 
     function activate_venv {
         # must be set in environ:
         local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
         test -e "$conda_env" || { nfo "No $conda_env"; return 1; }
-        test -z "$CONDA_SHLVL" && conda_src
+        test -z "$CONDA_SHLVL" && { micromamba activate || return 1; }
         test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
-        while [ -n "$CONDA_PREFIX" ]; do conda deactivate; done
-        nfo 'Adding conda root env $PATH'
+        while [ -n "$CONDA_PREFIX" ]; do micromamba deactivate; done
+        nfo 'Adding micromamba root env $PATH'
         export PATH="$(conda_root)/bin:$PATH"
         nfo Activating "$conda_env"
-        conda activate "$conda_env"
+        micromamba activate "$conda_env"
     }
 
     function set_version {
@@ -100,13 +109,8 @@ helper_funcs () {
         nfo "Say ./make release <version>"
         return 1
     }
-    function conda_root  { echo "$HOME/${conda_root:-miniconda3}"; }
 
-    function conda_src  {
-        source "$(conda_root)/etc/profile.d/conda.sh";
-        conda config --set always_yes yes # --set changeps1 no
-        conda config --add channels conda-forge
-    }
+    function ci-conda-root-env { ci-conda-base-env "$@"; } # backwards compat
     
     function make {
         test -z "$1" && {
@@ -179,7 +183,7 @@ function self-update {
     run_self_update "$@"
 }
 
-function ci-conda-root-env { # creates the root conda env if not present yet
+function ci-conda-base-env { # creates the root conda env if not present yet
     source scripts/conda.sh && make_conda_root_env "$@"
 }
 
