@@ -91,7 +91,7 @@ helper_funcs () {
     function activate_venv {
         # must be set in environ:
         local conda_env="$(conda_root)/envs/${PROJECT}_py${pyver}"
-        test -e "$conda_env" || { nfo "No $conda_env"; echo -e "Run$M \nmake ci-conda-py-env$O"; return 1; }
+        test -e "$conda_env" || { nfo "No $conda_env"; echo -e "Hint:${M}make ci-conda-py-env$O\n"; return 1; }
         test -z "$CONDA_SHLVL" && { micromamba activate || return 1; }
         test "$CONDA_PREFIX" = "${conda_env:-x}" && return 0
         while [ -n "$CONDA_PREFIX" ]; do micromamba deactivate; done
