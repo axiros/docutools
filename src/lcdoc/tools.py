@@ -331,20 +331,16 @@ class project:
                 return dd
             return parse_deps(dd)
 
-        r = [
-            l
-            for k in project.conf()['tool']['pdm']['dev-dependencies'].values()
-            for l in k
-        ]
+        r = project.conf().get('project', {}).get('optional-dependencies').get('dev', [])
         return parse_deps(r)
 
     def lock_data():
         fn = []
-        for k in 'pdm', 'poetry':
+        for k in 'uv', 'pdm', 'poetry':
             fn.insert(0, project.root() + '/%s.lock' % k)
             if exists(fn[0]):
                 return toml.load(fn[0])
-        app.die('No lock file in root', fn)
+        app.die('No lock file in root', tried='uv pdm poetry')
 
 
 def parse_deps(deplist, seps='~<>!= '):
