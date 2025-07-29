@@ -9,13 +9,12 @@ description = "Documentation Tools for the Mkdocs Material Framework"
 authors = [{ name = "Gunther Klessinger", email = "gkle_ss_ing_er@gmx.de" }]
 license = { text = "BSD 2-Clause Simplified License" }
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 keywords = []
 classifiers = [
   "Development Status :: 4 - Beta",
   "License :: OSI Approved :: BSD License",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -98,7 +97,7 @@ inline-quotes = "single"
 quote-style = "single"
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
