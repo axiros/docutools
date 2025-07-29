@@ -1,5 +1,12 @@
 #  Task Runner
 
+!!! warning
+    Removed the self hacked bash taskrunner, in favor of the aweome [just](https://github.com/casey/just)
+
+---
+
+Below only for reference
+
 You may want to use the same task runner within your project than we do.
 
 A task runner automates common developer jobs, like starting tests, preparing and running docu,
@@ -105,7 +112,7 @@ The environ file sources make and activates the virtual (conda) environment - if
 
 Then all functions are available:
 
-```bash lp fmt=xt_flat
+```bash xxxlp fmt=xt_flat
 ( source environ && make )
 ```
 
