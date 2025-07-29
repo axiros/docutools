@@ -100,7 +100,6 @@ new-version VERSION="":
     git tag "{{VERSION}}"
     git push --tags
 
-    just publish "{{VERSION}}"
 
 
 publish: 

@@ -331,7 +331,10 @@ class project:
                 return dd
             return parse_deps(dd)
 
-        r = project.conf().get('project', {}).get('optional-dependencies').get('dev', [])
+        r = project.conf().get('project', {})
+        r = r.get('dependency-groups') or r.get('optional-dependencies')
+        r = r or {}
+        r = r.get('dev', [])
         return parse_deps(r)
 
     def lock_data():

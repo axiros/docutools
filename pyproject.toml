@@ -26,7 +26,7 @@ dependencies = [
   "anybadge>=1.7.0",
   "git-changelog",
   "httpx>=0.17.1",
-  "markdown-include>=0.6.0",
+  "markdown-include>=0.8.1",
   "markupsafe==2.0.1",
   "mkdocs>=1.1.2",
   "mkdocs-material>=8.0.0",
@@ -123,9 +123,7 @@ directory = "build/coverage/overall"
 
 # Hatch configuration for package discovery
 [tool.hatch.build]
-include = [
-  "src/lcdoc/**/*",
-]
+include = ["src/lcdoc/**/*"]
 exclude = [
   "src/lcdoc/**/__pycache__",
   "src/lcdoc/**/*.pyc",
