@@ -69,10 +69,31 @@ def get_raw(svg):
         return svg
     if svg.startswith('http'):
         return httpx.get(svg).text
-    fn = os.path.join(d_material + '/.icons/', svg)
-    s = read_file(fn, dflt='')
-    if s:
-        return s
+    
+    # Try multiple possible icon locations
+    possible_paths = [
+        os.path.join(d_material, '.icons', svg),
+        os.path.join(d_material, 'templates', '.icons', svg),
+        os.path.join(d_material, '..', 'material', 'templates', '.icons', svg),
+    ]
+    
+    for fn in possible_paths:
+        if os.path.exists(fn):
+            s = read_file(fn, dflt='')
+            if s:
+                return s
+    
+    # If not found, try to find the actual icons directory
+    import glob
+    icon_dirs = glob.glob(os.path.join(d_material, '**', '.icons'), recursive=True)
+    for icon_dir in icon_dirs:
+        fn = os.path.join(icon_dir, svg)
+        if os.path.exists(fn):
+            s = read_file(fn, dflt='')
+            if s:
+                return s
+    
+    app.warning(f'Icon not found: {svg}. Searched paths: {possible_paths}')
     app.die('Icon not loadable', ico=svg)
 
 

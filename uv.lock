@@ -859,6 +859,13 @@ dev = [
     { name = "ruff" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "matplotlib", version = "3.7.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "matplotlib", version = "3.9.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "matplotlib", version = "3.10.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "anybadge", specifier = ">=1.7.0" },
@@ -888,6 +895,9 @@ requires-dist = [
     { name = "toml", specifier = ">=0.10.1" },
 ]
 provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [{ name = "matplotlib", specifier = ">=3.7.5" }]
 
 [[package]]
 name = "exceptiongroup"
