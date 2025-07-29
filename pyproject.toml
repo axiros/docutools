@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "docutools"
-version = "2025.07.31"
+version = "2025.08.01"
 description = "Documentation Tools for the Mkdocs Material Framework"
 authors = [{ name = "Gunther Klessinger", email = "gkle_ss_ing_er@gmx.de" }]
 license = "BSD-2-Clause"
@@ -123,7 +123,14 @@ directory = "build/coverage/overall"
 
 # Hatch configuration for package discovery
 [tool.hatch.build]
-include = ["src/lcdoc/**/*.py"]
+include = [
+  "src/lcdoc/**/*",
+]
+exclude = [
+  "src/lcdoc/**/__pycache__",
+  "src/lcdoc/**/*.pyc",
+  "src/lcdoc/**/*.pyo",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/lcdoc"]

@@ -77,8 +77,13 @@ clean-lp:
 build:
     uv build
 
-# Release a new version
-release VERSION="": 
+# Run tests and lp doc tests:
+doctest:
+    just test
+    just docs
+
+# Calcs a version, adds to pyproject, git tags, calls publish <version>
+new-version VERSION="": 
     #!/usr/bin/env bash
     set -euo pipefail
     
@@ -91,21 +96,17 @@ release VERSION="":
     
     echo "Releasing version $VERSION_ARG"
     sed -i '' "s/^version = .*/version = \"$VERSION_ARG\"/" pyproject.toml
-    just publish "{{VERSION}}"
-
-# Run tests and lp doc tests:
-doctest:
-    just test
-    just docs
-
-publish VERSION: 
-    echo "Publishing {{VERSION}}."
-    just clean
-    just build
     git commit -am "chore: Prepare release {{VERSION}}" || true
     git tag "{{VERSION}}"
     git push --tags
-    uv publish dist/*
+
+    just publish "{{VERSION}}"
+
+
+publish: 
+    just clean
+    just build
+    uv publish --token "$(pass pypitoken)"
 
 # Development shortcuts
 alias t := test
