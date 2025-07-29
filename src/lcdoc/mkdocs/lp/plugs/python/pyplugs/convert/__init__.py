@@ -31,7 +31,8 @@ def unlink_old_pngs(fn_png, dd):
         python.app.info('unlinking old', fn=fn)
         os.unlink(fn)
         fns = fn.replace(dd + '/', '')
-        [files.remove(f) for f in files if f.src_path.endswith(fns)]
+        fls = list(files)
+        [files.remove(f) for f in fls if f.src_path.endswith(fns)]
 
 
 def png_pth(fn_png, relp, page, dd):

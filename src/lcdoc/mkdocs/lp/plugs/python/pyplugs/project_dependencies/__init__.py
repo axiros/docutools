@@ -34,7 +34,7 @@ _ID_
 
 def fetch_pypi(pkg, attrs):
     app.info('from pypi', pkg=pkg)
-    p = httpx.get('https://pypi.python.org/pypi/%s/json' % pkg)
+    p = httpx.get('https://pypi.python.org/pypi/%s/json' % pkg, follow_redirects=True)
     p = p.json()['info']
     p['home-page'] = p['home_page'] or p['project_url'] or p['package_url']
     p = {_: p[_] for _ in attrs}
