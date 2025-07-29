@@ -343,7 +343,7 @@ Whenever a statement fails, we stop evaluation and except.
         
         ```bash lp
         ls /notexisting || true # would except here without the `|| true`
-        ls /etc |grep hosts
+        ls /usr/bin |grep env
         ```
 
 #### On Timeouts

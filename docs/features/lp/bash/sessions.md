@@ -20,7 +20,7 @@ or external (e.g. filesystem) state.
 ## Example
 
 ```bash lp:bash session=docs addsrc
-ls -lta /etc/systemd
+ls -lta /usr/bin
 ```
 
 Note that a `--colors=always` is not necessary here - the commands are run as if you would type them

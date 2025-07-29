@@ -7,7 +7,7 @@ It runs the given statements within a bash shell, [`subprocess.call`](https://do
 ## Example
 
 ```bash lp:bash addsrc
-ls -lta --color=always /etc | head -n 20
+ls -lta --color=always /usr/bin | head -n 20
 ```
 
 ## Parameters and Syntax

@@ -3,14 +3,14 @@
 `lp:page addsrc`
 
 ```bash lp asserts=Hello fmt=xt_flat session=foo
-echo "Hello World!"
+echo "Hello World"
 ```
 
 <hr/>
 
 ```bash lp asserts=Hello fmt=xt_flat
-ls -lta /etc | grep hosts # lp: asserts=hosts
-echo "Hello World!"       # lp: asserts="[World and Hello] or Foo" 
+ls -lta /usr/bin | grep env # lp: asserts=env
+echo "Hello World"          # lp: asserts="[World and Hello] or Foo" 
 ```
 
 <hr/>

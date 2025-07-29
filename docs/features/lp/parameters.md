@@ -36,14 +36,14 @@ Syntax details [here](./syntax.md#parametrization).
 
     ```
      ```bash lp addsrc=Example fmt=mk_console
-     ls /etc | head -n 3
+     ls /usr | head -n 3
      ```
     ```
 
     Renders:
 
     ```bash lp addsrc=Example fmt=mk_console
-    ls /etc | head -n 3
+    ls /usr | head -n 3
     ```
 
 
@@ -64,10 +64,10 @@ Syntax details [here](./syntax.md#parametrization).
 
     !!! note "Example"
 
-        ```bash lp asserts=etc
+        ```bash lp asserts=usr
         ls /
         # statement specific assertion:
-        echo hi # lp: asserts="hi and not [bar or etc]"
+        echo hi # lp: asserts="hi and not [bar or usr]"
         ```
 
     As you can see, if given at block level all results of all evaluations of the block are matched.
@@ -86,7 +86,7 @@ Syntax details [here](./syntax.md#parametrization).
 
     !!! note "Example"
 
-        `lp:bash cwd='/etc', asserts='hosts', body='ls . | grep host'`
+        `lp:bash cwd='/usr/bin', asserts='env', body='ls . | grep env'`
 
 
 ### cwd
@@ -95,8 +95,8 @@ Syntax details [here](./syntax.md#parametrization).
 
     !!! note "Example"
 
-        ```bash lp cwd=/etc asserts=hosts
-        ls  . | grep hosts
+        ```bash lp cwd=/usr/bin asserts=env
+        ls  . | grep env
         ```
 
 
@@ -201,8 +201,8 @@ Syntax details [here](./syntax.md#parametrization).
 
     !!! note "Example"
 
-        ```bash lp cwd=/etc hide_cmd
-        ls . | grep hosts
+        ```bash lp cwd=/usr/bin hide_cmd
+        ls . | grep env
         ```
 
 
