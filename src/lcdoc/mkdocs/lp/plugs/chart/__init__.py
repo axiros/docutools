@@ -3,17 +3,16 @@
 
 """
 
-
 from lcdoc.tools import app
 
 page_assets = {'header': '//cdn.jsdelivr.net/npm/chart.js'}
 
 
-C = '''<div>
+C = """<div>
 <canvas id="%(id)s"></canvas>
-</div>'''
+</div>"""
 
-S = '''
+S = """
 <script>
 %(body)s
 var myChart = new Chart(
@@ -21,7 +20,7 @@ var myChart = new Chart(
     config
   );
 </script>
-'''
+"""
 
 
 def run(cmd, kw):

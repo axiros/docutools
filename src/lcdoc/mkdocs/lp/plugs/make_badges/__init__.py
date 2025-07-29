@@ -29,7 +29,6 @@ Params:
 
 """
 
-
 import json
 import os
 import readline

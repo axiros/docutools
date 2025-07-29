@@ -42,7 +42,6 @@ class CustomDirPlugin(MDPlugin):
         if exists(link):
             return
         if not exists('docs'):
-
             # we cannot raise here, we can't dissallow being started from elsewhere user
             # won't have the link but he'll read the docs hopefully when mkdocs fails
             # with custom dir not found and call correctly the first time then:

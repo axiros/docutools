@@ -4,7 +4,7 @@
 [org babel](https://orgmode.org/worg/org-contrib/babel/intro.html) inspired dyanamic code evaluation plugin.
 
 ```bash
- ```<bash|python> lp <header args> 
+ ```<bash|python> lp <header args>
  echo "Hello World"
  ```
 ```
@@ -12,6 +12,7 @@
 Details see [here](../features/lp/)
 
 """
+
 import contextlib
 import hashlib
 import json
@@ -134,6 +135,7 @@ lp_res_ext = '.lp.py'  # when opened the ide will format
 
 env_args = {}
 
+
 # :docs:eval_parameter_values
 class Eval:
     never = 'never'  # not even when not cached
@@ -255,7 +257,7 @@ class LP:
         a, kw = LP.extract_header_args(src_header)
         # support "bash lp:mermaid" ident to "bash lp mode=mermaid":
         # also: lp:kroki:plantuml -> mode = 'kroki:plantuml' then, lp will import kroki.
-        if not 'mode' in kw:
+        if 'mode' not in kw:
             l = src_header.split(' ', 2)
             l = (l[1] + ':').split(':', 1)
             if l[1]:
@@ -327,7 +329,7 @@ class LP:
             app.warning(msg, exc=ex, content_start=r[:100], fn=fn)
             r = {}
         LP.previous_results = r
-        missing = [id for id in LP.spec_by_id if not id in r]
+        missing = [id for id in LP.spec_by_id if id not in r]
         if not missing:
             return app.debug('All eval results found in previous run')
         LP.previous_results_missing = missing
@@ -345,7 +347,7 @@ class LP:
 
         def check_skip_syntax(b, h=skip_tags):
             l = [k for k in b['kwargs'].keys() if k.startswith('skip_')]
-            n = [k for k in l if not k in h]
+            n = [k for k in l if k not in h]
             if n:
                 app.die('Not understood skip statment', unknown=n, allowed=h)
 
@@ -439,11 +441,10 @@ class LP:
         evl_policy = kw.get('eval', Eval.default)
         # block level eval set?:
         if ':' in evl_policy:
-            if not evl_policy.split(':', 1)[1] in spec['source']:
+            if evl_policy.split(':', 1)[1] not in spec['source']:
                 app.warning('Skipping block, not eval match', eval=evl_policy)
                 skip(True)
             else:
-
                 skip(False)
         elif is_page:
             skip(False)
@@ -618,13 +619,13 @@ class LP:
 
 def on_config_add_extra_css_and_js(plugin, config):
     """
-        extra_css:
-          - lp/css/xterm.min.css
-          (..)
-        extra_javascript:
-          - lp/javascript/xterm.4.9.0.min.js
-          - lp/javascript/xterm-addon-fit.min.js
-          (...)
+    extra_css:
+      - lp/css/xterm.min.css
+      (..)
+    extra_javascript:
+      - lp/javascript/xterm.4.9.0.min.js
+      - lp/javascript/xterm-addon-fit.min.js
+      (...)
     """
 
     for da in 'css', 'javascript':
@@ -637,25 +638,25 @@ def on_config_add_extra_css_and_js(plugin, config):
         app.debug('Added assets', typ=da, count=i, dir=d)
 
 
-T_skipped = '''
+T_skipped = """
 
 SKIPPED:
 ```
 %s
 ```
 
-'''
+"""
 
 skipped = lambda s: T_skipped % s
 
 
 def mark_as_previous_result(s):
     return (
-        '''
+        """
 %s
 
 <hr/>
-    '''
+    """
         % s
     )
 
@@ -678,7 +679,7 @@ def patch_mkdocs_to_ignore_res_file_changes():
 
     s = read_file(fn)
     S = 'event.is_directory'
-    if not S in s:
+    if S not in s:
         return app.warning('Cannot patch mkdocs - version mismatch', missing=fn)
     if lp_res_ext in s:
         return app.info('mkdocs is already patched to ignore %s' % lp_res_ext, fn=fn)
@@ -707,7 +708,6 @@ class LPPlugin(MDPlugin):
     )
 
     def on_config(self, config):
-
         LP.cov = coverage.Coverage().current()  # None if we are not run in coverage
         cbr = self.config['coverage_backrefs']
         if cbr:
@@ -738,7 +738,7 @@ class LPPlugin(MDPlugin):
             # we need to be able to exactly match on docs/index.md
             # -> take all:
             # eval is page[:block match] if not in evals
-            if not eval.split(':', 1)[0] in LP.fn_lp:
+            if eval.split(':', 1)[0] not in LP.fn_lp:
                 return app.debug('LP: Skipping ($LP_EVAL) %s' % LP.fn_lp)
             else:
                 # when working on a page you want to have session state rebuilt. can

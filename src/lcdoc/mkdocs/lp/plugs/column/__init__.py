@@ -3,7 +3,6 @@
 
 """
 
-
 from lcdoc.mkdocs.tools import style
 
 nocache = True
@@ -20,7 +19,7 @@ lp_column_dflts = {
     'custom_style': False,  # when set we do NOT include our Column Style, user must.
 }
 
-ColumnStyle = '''
+ColumnStyle = """
 @media screen and (min-width: %(min_total_width)s) {
     .md-grid { max-width: initial;}
     .lp-row { display: flex; }
@@ -32,7 +31,7 @@ ColumnStyle = '''
       max-width: %(max_width)s;
     }
 }
-'''
+"""
 # :docs:lp_column_dflts
 
 

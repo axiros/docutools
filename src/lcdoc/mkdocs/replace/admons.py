@@ -22,10 +22,10 @@ import material
 
 def style(typ, ico, col, bgcol=None):
     if not bgcol:
-        if not 'rgb(' in col:
+        if 'rgb(' not in col:
             raise Exception('You need an rgb col if you do not specify bgcol')
         bgcol = col.strip().replace('rgb(', 'rgba(')[:-1] + ', 0.1)'
-    s = '''
+    s = """
 <style>
 :root { --md-admonition-icon--%(typ)s: url('data:image/svg+xml;charset=utf-8,%(ico)s') }
 .md-typeset .admonition.%(typ)s,
@@ -44,7 +44,7 @@ def style(typ, ico, col, bgcol=None):
           mask-image: var(--md-admonition-icon--%(typ)s);
 }
 </style>
-'''
+"""
     return s % locals()
 
 
@@ -61,7 +61,7 @@ d_material = os.path.dirname(material.__file__)
 
 def get_raw(svg):
     """
-    ico = '<svg ....' # raw svg from anywhere. 
+    ico = '<svg ....' # raw svg from anywhere.
     ico = 'https://twemoji.maxcdn.com/v/latest/svg/1f4f7.svg' # url
     ico = 'material/camera-account.svg' # file in your site-directories/material/.icons
     """

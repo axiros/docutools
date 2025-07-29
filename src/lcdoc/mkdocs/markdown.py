@@ -1,6 +1,6 @@
 from lcdoc.tools import exists, read_file, write_file, hostname, time, os, sys, app
 
-auto_gen_cmt = '''
+auto_gen_cmt = """
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
@@ -9,11 +9,10 @@ Command Line:
 
     %s
 -->
-'''
+"""
 
 
 def mark_auto_created(fn):
-
     if exists(fn):
         s = read_file(fn)
     else:
@@ -32,7 +31,7 @@ def mark_auto_created(fn):
 
 
 class Mkdocs:
-    details = '''
+    details = """
 
 <details>
     <summary>%s</summary>
@@ -41,29 +40,29 @@ class Mkdocs:
 
 </details>
 
-'''
-    code_ = '''
+"""
+    code_ = """
 
 ```_code_
 %s
 ```
 
-    '''
-    admon_ = '''
+    """
+    admon_ = """
 
 !!! %s "%s"
 
 %s 
 
-    '''
+    """
     admon_closed_ = admon_.replace('!!!', '???')
     admon_clsabl_ = admon_.replace('!!!', '???+')
-    tab_ = '''
+    tab_ = """
 === "%s"
 
 %s
 
-    '''
+    """
     js = code_.replace('_code_', 'js')
     py = code_.replace('_code_', 'python')
 

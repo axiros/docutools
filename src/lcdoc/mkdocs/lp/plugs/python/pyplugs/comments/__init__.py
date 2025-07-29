@@ -15,7 +15,7 @@ dflts_comments = {
 }
 
 
-T = '''<div id="utterance_comments"></div>'''
+T = """<div id="utterance_comments"></div>"""
 gh = 'https://github.com/'
 marker = '<!--- utterance_comments -->'
 
@@ -24,7 +24,7 @@ def add_fetcher_script(output, page, config, js=None, **kw):
     return output.replace(marker, js)
 
 
-reload_iframe = '''
+reload_iframe = """
 var scr = document.createElement('script');
 scr.setAttribute('src','https://utteranc.es/client.js');
 scr.setAttribute('repo','%(repo)s');
@@ -33,10 +33,10 @@ scr.setAttribute('theme','%(theme)s');
 scr.setAttribute('crossorigin','anonymous');
 document.getElementById('utterance_comments').appendChild(scr);
 
-'''
-style = '''
+"""
+style = """
 .utterances {max-width: 100% !important}
-'''
+"""
 # var cmt_el = document.getElementById('comments')
 # if (typeof window.comment != "undefined") {
 #     cmt_el.innerHTML = window.comment
@@ -61,7 +61,7 @@ def comments(s, **kw):
     repo = d.get('repo_url', config().get('repo_url'))
     while repo[-1] == '/':
         repo = repo[:-1]
-    if not gh in repo:
+    if gh not in repo:
         python.app.die('comments only work with github', your_mkdocs_repo_url=repo)
     d['repo'] = repo.split(gh, 1)[1]
     js = T

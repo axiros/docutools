@@ -10,8 +10,8 @@ Creates a file and displays it as if we used cat on it.
 - chmod: optional chmod params
 """
 
-
-import os, json
+import os
+import json
 from lcdoc.lp_session import get_cwd
 from lcdoc.tools import write_file
 
@@ -46,7 +46,6 @@ def show_file(cmd, kw):
 
 
 def run(cmd, kw):
-
     kw['content'] = cmd
     session_name = kw.get('session_name')
 

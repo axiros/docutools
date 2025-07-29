@@ -22,7 +22,6 @@ Mechanics how to create coverage reports in general: See the coverage setup in t
 
 """
 
-
 import os
 import shutil
 from functools import partial
@@ -43,7 +42,7 @@ cov_files = lambda d: [k for k in os.listdir(d) if k.startswith('.coverage')]
 err = lp.err
 
 # thanks timothy:
-T = ''' 
+T = """ 
 <style>
 .md-main__inner {
     max-width: none;
@@ -69,7 +68,7 @@ coviframe.contentWindow.document.body.onclick = function() {
 }
 </script>
 
-'''
+"""
 
 
 def incl_html_report(**kw):

@@ -16,7 +16,6 @@ The plugin uses ripgrep to find matches.
 
 """
 
-
 import json
 import os
 
@@ -26,7 +25,7 @@ from lcdoc.tools import app, dirname, exists, now, os, read_file, require
 
 fmt_default = 'mk_console'
 
-T = '''
+T = """
 === "Code"
 
     ```%(lang)s
@@ -35,14 +34,14 @@ T = '''
 
 === "%(srclink)s"
     %(url)s
-'''
+"""
 
-TM = '''
+TM = """
 ??? note "%(header)s"
 
     %(body)s
 
-'''
+"""
 
 
 def md(**kw):

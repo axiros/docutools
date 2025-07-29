@@ -2,7 +2,7 @@ from inspect import getsource
 
 
 class Mkdocs:
-    details = '''
+    details = """
 
 <details>
     <summary>%s</summary>
@@ -11,29 +11,29 @@ class Mkdocs:
 
 </details>
 
-'''
-    code_ = '''
+"""
+    code_ = """
 
 ```_code_
 %s
 ```
 
-    '''
-    admon_ = '''
+    """
+    admon_ = """
 
 !!! %s "%s"
 
 %s 
 
-    '''
+    """
     admon_closed_ = admon_.replace('!!!', '???')
     admon_clsabl_ = admon_.replace('!!!', '???+')
-    tab_ = '''
+    tab_ = """
 === "%s"
 
 %s
 
-    '''
+    """
     js = code_.replace('_code_', 'js')
     py = code_.replace('_code_', 'python')
 
@@ -113,7 +113,7 @@ def extract_docstr_head(docstr):
     """
     Finding Docstrings
 
-    Example: The one of this func would be 'Finding Docstrings'  
+    Example: The one of this func would be 'Finding Docstrings'
     """
     s, rest = docstr.strip(), ''
     if not s:

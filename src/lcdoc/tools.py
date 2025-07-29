@@ -2,6 +2,7 @@
 Common tools for all modules
 
 """
+
 import collections
 import hashlib
 import json
@@ -15,6 +16,7 @@ import toml
 from lcdoc.log import app, now
 
 exists = os.path.exists
+
 
 # fastest algo:
 def file_hash(fn, algo='blake2b'):
@@ -70,7 +72,7 @@ def walk_dir(directory, crit=None):
     crit = (lambda *a: True) if crit is None else crit
     files = []
     j = os.path.join
-    for (dirpath, dirnames, filenames) in os.walk(directory):
+    for dirpath, dirnames, filenames in os.walk(directory):
         files += [j(dirpath, file) for file in filenames if crit(dirpath, file)]
     return files
 
@@ -102,7 +104,7 @@ def insert_file(fn, content, sep):
 
 
 def write_file(fn, s, log=0, mkdir=0, chmod=None, mode='w', only_on_change=False):
-    'API: Write a file. chmod e.g. 0o755 (as octal integer)'
+    "API: Write a file. chmod e.g. 0o755 (as octal integer)"
 
     fn = os.path.abspath(fn)
 
@@ -119,7 +121,7 @@ def write_file(fn, s, log=0, mkdir=0, chmod=None, mode='w', only_on_change=False
         sep = '\n----------------------\n'
         ps = (
             s
-            if not 'key' in fn and not 'assw' in fn and not 'ecret' in fn
+            if 'key' not in fn and 'assw' not in fn and 'ecret' not in fn
             else '<hidden>'
         )
         app.debug('Content', content=sep + ps + sep[:-1])
@@ -156,7 +158,6 @@ def flatten(d, sep='_', tpljoin=None):
     obj = collections.OrderedDict()
 
     def recurse(t, parent_key=''):
-
         if isinstance(t, list):
             for i in range(len(t)):
                 recurse(t[i], parent_key + sep + str(i) if parent_key else str(i))
@@ -255,7 +256,6 @@ class project:
 
     # TODO: understand also poetry and piptools:
     def load_config():
-
         fn = project.fn_config()
         if not exists(fn):
             app.die('no config found', fn=fn)
@@ -264,7 +264,7 @@ class project:
         app.info('loaded config', filename=fn)
         c = project.config
         c.update(cfg)
-        if not 'project' in c:
+        if 'project' not in c:
             c['project'] = {'urls': {}}
         if 'tool' in c and 'poetry' in c['tool']:
             c['project'].update(c['tool']['poetry'])
@@ -309,7 +309,7 @@ class project:
         p = project.conf()['project']
         v = p['version']
         if isinstance(v, dict) and v.get('use_scm'):
-            raise NotImplemented('currently only poetry')
+            raise NotImplementedError('currently only poetry')
             # from pdm.pep517.scm import get_version_from_scm
             # v = get_version_from_scm(project.root())
         return str(v)

@@ -37,7 +37,8 @@ def unlink_old_pngs(fn_png, dd):
 def png_pth(fn_png, relp, page, dd):
     rp = relp(fn_png)
     return rp.replace(
-        dd + '/build/', ('../' * (len(page().file.src_path.split('/')) - 1) + 'build/'),
+        dd + '/build/',
+        ('../' * (len(page().file.src_path.split('/')) - 1) + 'build/'),
     )
 
 

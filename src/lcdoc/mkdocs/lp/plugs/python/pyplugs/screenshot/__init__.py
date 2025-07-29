@@ -1,6 +1,7 @@
 """
 https://dschnurr.medium.com/using-headless-chrome-as-an-automated-screenshot-tool-4b07dffba79a
 """
+
 import shutil
 import string
 import subprocess as sp

@@ -77,8 +77,7 @@ def find_md_files(match, config):
 
 
 def theme_dir(config):
-    """strangly we don't see custom_dir in config.theme - it only inserts it, when given, into config.theme.dirs
-    """
+    """strangly we don't see custom_dir in config.theme - it only inserts it, when given, into config.theme.dirs"""
     cd = config['theme'].dirs[0]
     if cd.endswith('/' + config['theme'].name):
         app.debug('Theme dir is docs dir')
@@ -315,7 +314,7 @@ def make_img(create_func, fn=None, kw=None):
 def reset_if_is_first_loaded_plugin_and_hash_changed(plugin, c={}):
     """mkdocs serve, we must detect if this is a new build"""
     cl = clsn(plugin)
-    if c and not cl in c:
+    if c and cl not in c:
         return
     if not c:
         c[cl] = 0

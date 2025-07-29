@@ -3,7 +3,6 @@
 
 """
 
-
 from lcdoc.tools import app
 
 page_assets = {
@@ -12,14 +11,14 @@ page_assets = {
 }
 
 
-C = '''<div id="%(id)s"></div>'''
-S = '''
+C = """<div id="%(id)s"></div>"""
+S = """
 <script>
 var code = '%(body)s';
 var diag = flowchart.parse(code);
 diag.drawSVG('%(id)s', %(opts)s);
 </script>
-'''
+"""
 
 
 def run(cmd, kw):

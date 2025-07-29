@@ -8,15 +8,14 @@ import json
 import subprocess as sp
 
 from lcdoc import lp
-from lcdoc.tools import file_hash, app, dirname, exists, os, read_file, write_file, os
+from lcdoc.tools import file_hash, app, dirname, exists, read_file, write_file, os
 
 multi_line_to_list = True
 req_kw = ['fn', 'src']
 
 
 def run(cmd, kw):
-    """
-    """
+    """ """
     D = lp.page_dir(kw)
     src = kw['abs_src']
     if not exists(src):

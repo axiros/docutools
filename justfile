@@ -28,10 +28,10 @@ test-cov:
     uv run coverage combine
     uv run coverage report --precision=2
 
-# Format code with black
+# Format code with ruff
 format:
-    uv run black src tests
-    uv run isort src tests
+    uv run ruff format src tests
+    uv run ruff check --fix src tests
 
 # Run type checking
 typecheck:
@@ -39,7 +39,7 @@ typecheck:
 
 # Lint code
 lint:
-    uv run flake8 src tests
+    uv run ruff check src tests
 
 # Run all quality checks (format, lint, typecheck)
 check: format lint typecheck

@@ -9,7 +9,7 @@ page_assets = {
 
 
 # for convenience we allow to declare aspect not only as name but also as ratio:
-ar = '''
+ar = """
 ct-square>1
 ct-minor-second>15:16
 ct-major-second>8:9
@@ -27,7 +27,7 @@ ct-major-tenth>2:5
 ct-major-eleventh>3:8
 ct-major-twelfth>1:3
 ct-double-octave>1:4
-'''
+"""
 
 ar = [l for l in ar.strip().splitlines()]
 ar = dict([l.split('>') for l in ar])
@@ -36,21 +36,21 @@ AR = {v: k for k, v in ar.items()}
 
 C = '<div class="ct-chart %(aspect)s" id="%(id)s"></div>'
 
-JSF = '''
+JSF = """
 
 <script >
 function do_%(id)s () { %(body)s };
 do_%(id)s();
 </script>
 
-'''
+"""
 
 
-P2J = '''
+P2J = """
 var data = %(data)s;
 var options = %(options)s;
 new Chartist.%(type)s('_id_', data, options);
-'''
+"""
 
 
 def py_to_js(cmd):

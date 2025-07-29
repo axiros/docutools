@@ -30,13 +30,13 @@ def register(fmts):
 
 
 # https://datatables.net/manual/tech-notes/3 (=> retrieve: true)
-js = '''
+js = """
 function do_%(id)s () {
     let data = %(data)s
     $('#%(id)s_datatbl').DataTable( { data: data, columns: %(columns)s, retrieve: true } );
 }
 do_%(id)s()
-'''
+"""
 
 here = os.path.dirname(os.path.abspath(__file__))
 dflt_style = read_file(here + '/assets/jquery.dataTables.css')

@@ -10,6 +10,7 @@ Intended for piping into / consolidation with [jq](https://stedolan.github.io/jq
     config_scheme = (('round_digits', config_options.Type(int, default=4)),)
 
 """
+
 from lcdoc import log
 import json
 import os
@@ -51,7 +52,7 @@ def get_fn_and_set_last(self, config):
 def get_diff(s, minval):
     isminv = lambda v, m=minval: isinstance(v, float) and v == m
     d, o = {'added': {}, 'changed': {}}, last_stats
-    d['removed'] = [k for k in o if not k in s and not isminv(o[k])]
+    d['removed'] = [k for k in o if k not in s and not isminv(o[k])]
     for k, v in s.items():
         vo = o.get(k)
         if vo is None:
@@ -76,7 +77,7 @@ def filter_logs(sever):
     """
 
     l = log.log_majors
-    if not sever or not sever in l:
+    if not sever or sever not in l:
         return
     logs = []
     m = log.log_levels
@@ -123,7 +124,7 @@ class StatsPlugin(MDPlugin):
 
         fn = get_fn_and_set_last(self, config)
         rd = self.config['round_digits']
-        minval = 5 * 10 ** -rd
+        minval = 5 * 10**-rd
         filter_0 = self.config['filter_0']
 
         s = {'Global': Stats, 'Pages': PageStats, 'Log': LogStats}

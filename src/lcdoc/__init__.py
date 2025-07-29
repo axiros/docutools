@@ -3,7 +3,9 @@ docutools package.
 
 Documentation tools for lc projects
 """
-import os, sys
+
+import os
+import sys
 
 # for apps on gevent we must patch early => Set that env variable:
 # (see docs lp tips.md)

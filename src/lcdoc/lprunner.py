@@ -152,7 +152,7 @@ def exit_help(flgs, shts):
 
 
 def chck_book(flg, flags):
-    if not flags[flg].v in (True, False):
+    if flags[flg].v not in (True, False):
         return False
     flags[flg].v = not flags[flg].v
     return True

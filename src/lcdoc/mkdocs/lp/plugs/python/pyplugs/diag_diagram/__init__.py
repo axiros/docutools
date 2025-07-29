@@ -47,11 +47,11 @@ def register(fmts):
 #     b = str(diag.dot.body)
 #     diag.dot.body = le(b.replace('/home/gk/repos/docutools', '../../..'))
 
-T = '''
+T = """
 <div class="diagrams_container" id="%(id)s">
 <svg%(body)s
 </div>
-'''
+"""
 
 
 def make_diag(diag, fn=None, **kw):

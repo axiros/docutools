@@ -38,7 +38,6 @@ def uppercase_words(s):
 
 
 def is_after(fn, hfn):
-
     breakpoint()  # FIXME BREAKPOINT
 
 
@@ -182,7 +181,10 @@ def into_path(item, after, last_title):
 class MDFindPagesPlugin(MDPlugin):
     config_scheme = (
         ('find-pages', config_options.Type(list, default=[])),
-        ('autodocs', config_options.Type(dict, default={}),),
+        (
+            'autodocs',
+            config_options.Type(dict, default={}),
+        ),
     )
 
     def on_config(self, config):

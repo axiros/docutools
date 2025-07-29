@@ -10,7 +10,6 @@ them there.
 
 """
 
-
 from lcdoc import lp
 from lcdoc.lp_session import srun, tmux_kill_session
 

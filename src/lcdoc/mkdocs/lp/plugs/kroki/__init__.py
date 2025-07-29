@@ -33,7 +33,7 @@ def read_puml_file(puml, kw):
     p = pumls.get(puml)
     if p:
         return p
-    if not '/' in puml:
+    if '/' not in puml:
         # default dir:
         puml = '%s/%s.puml' % (d_assets, puml)
     elif puml[0] == '/':
@@ -45,7 +45,6 @@ def read_puml_file(puml, kw):
 
 
 def run(cmd, kw):
-
     d = dict(lp_kroki_dflts)
     d.update(kw)
 

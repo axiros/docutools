@@ -60,7 +60,7 @@ def get(session_name, **kw):
     parametrized for that session.
     """
     s = '\n' + os.popen('tmux ls').read()
-    if not '\n%s:' % session_name in s:
+    if '\n%s:' % session_name not in s:
         create(session_name, kw)
     if is_lprunner[0]:
         global lprunner
@@ -140,9 +140,7 @@ def create(session_name, kw):
                 configure_tmux_base_index_1(session_name)
                 continue
 
-            msg = (
-                'tmux session start failed. Do you have tmux, configured with'
-            )
+            msg = 'tmux session start failed. Do you have tmux, configured with'
             msg += 'base index 1? 0 is default but will NOT work!!'
             raise Exception(msg)
 
@@ -208,9 +206,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
     sk = 'send-keys:'
     if cmd.startswith('send-keys:'):
         cmd = cmd.split('#', 1)[0]
-        lp.spresc(
-            'tmux send-keys -t %s:1 %s' % (n, cmd.split(sk, 1)[1].strip())
-        )
+        lp.spresc('tmux send-keys -t %s:1 %s' % (n, cmd.split(sk, 1)[1].strip()))
         # at ci seen delays after C-c:
         wait(0.1)
         return 'silent'
@@ -238,7 +234,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
         if is_lprunner[0]:
             lprunner.confirm(cmd)
         seq = ' '.join([hex(ord(b))[2:] for b in cmd])
-        seq += ' a'   # Enter
+        seq += ' a'  # Enter
         # if is_multiline:
         #     breakpoint()  # FIXME BREAKPOINT
         #     for line in cmd.splitlines():
@@ -272,9 +268,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
             )
 
         if now() - last_msg > 5:
-            dbg(
-                '%ss[%s] Inspect:  tmux att -t %s' % (round(dt, 1), timeout, n)
-            )
+            dbg('%ss[%s] Inspect:  tmux att -t %s' % (round(dt, 1), timeout, n))
             lst_msg = now()
         wait(wait_dt)  # fast first
         wait_dt = min(timeout / 10.0, max_wait)
@@ -286,9 +280,7 @@ def srun_in_tmux(cmd, session_name, expect=None, timeout=1, **kw):
         # expect_echo_out_cmd is empty then
         res = res.split(expect, 1)[0].strip()
         a = expect_echo_out_cmd
-        a = (
-            a[1:] if a.startswith('\n') else a
-        )  # when \n is the sep we won't see it
+        a = a[1:] if a.startswith('\n') else a  # when \n is the sep we won't see it
         res = res.replace(a, '')
     else:
         # the tmux window contains a lot of white space after the last output when

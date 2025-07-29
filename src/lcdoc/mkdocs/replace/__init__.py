@@ -14,7 +14,7 @@ current line. Otherwise it will be simply called.
 ### Features
 
 - The replace values can themselves be callable, and if so, are called at replacement
-  time with contextual information: 
+  time with contextual information:
 
   ```python
     replace(
@@ -40,7 +40,7 @@ current line. Otherwise it will be simply called.
 
 ### Config
 
-- `seperator`: ':' by default.  
+- `seperator`: ':' by default.
     Example: `':curtime:'`, for `{"cur_time": time.ctime}` based replacements.
 - `replacement_file`: when not starting with '/' we'll prefix with docs_dir. Default: "mdreplace.py"
 """
@@ -67,16 +67,16 @@ def init_page_markdown(table):
     h, f = d.pop(':head:', ''), d.pop(':foot:', '')
     page_markdown_init.update({'head': h, 'foot': f})
 
+
 #:docs:built_in_replacements
 class css:
-
     def csspdf(**kw):
         """
         No loose headers in pdf print outs via a CSS hack.
 
         (page-break-after:avoid not supported in browsers)
         """
-        s = '''
+        s = """
         @page { size: A4; }
         @media print {
             body {   font-family: Arial, Helvetica, sans-serif; }
@@ -84,12 +84,12 @@ class css:
             h2::after,h3::after { content: ""; display: block; height: 200px; margin-bottom: -200px; }
             h4::after,h5::after { content: ""; display: block; height: 100px; margin-bottom: -100px; }
         }
-        '''
+        """
         return style(s)
 
     # this widens the content on big screens to full width:
-    width = lambda max_width='none', min_width='76.25em':  style(
-        f'''
+    width = lambda max_width='none', min_width='76.25em': style(
+        f"""
           @media only screen and (min-width: {min_width}) {{
             .md-main__inner {{
               max-width: {max_width};
@@ -104,11 +104,9 @@ class css:
               transform: none;   
             }}
           }}
-        '''
+        """
     )
     fullwidth = width(max_width='none', min_width='76.25em')
-
-
 
 
 class BuiltInReplacements(css):
@@ -137,7 +135,7 @@ class BuiltInReplacements(css):
         if fn[-1] in {',', ')', ']', '}'}:
             fn = fn[:-1]
         repl = ':srcref:' + fn
-        if not ',' in fn:
+        if ',' not in fn:
             if '=' in fn:
                 l = fn.split('=')
                 if l[0] == 'fn':
@@ -158,6 +156,7 @@ class BuiltInReplacements(css):
         # if 'changelog' in line: breakpoint()  # FIXME BREAKPOINT
         l = srclink(spec['fn'], kw['config'], match=spec.get('m'), title=spec['t'])
         return {'line': line.replace(repl, l['link'])}
+
 
 #:docs:built_in_replacements
 
@@ -211,14 +210,12 @@ def load_replacement_file(plugin, config):
         s = plugin.config['seperator']
 
         def repl(s, sep=s):
-            """If a repl key startwith a bang we replace w/o sep!
-
-            """
+            """If a repl key startwith a bang we replace w/o sep!"""
             return s[1:] if s.startswith('!') else f'{sep}{s}{sep}'
 
         init_page_markdown(table=d)
         l = lambda v: v.splitlines() if isinstance(v, str) and '\n' in v else v
-        d1 = {k: v for k, v in d.items() if not ':all:' in k}
+        d1 = {k: v for k, v in d.items() if ':all:' not in k}
         d2 = {k: v for k, v in d.items() if ':all:' in k}
         d2 = {k.replace(':all:', ''): v for k, v in d2.items()}
         plugin.table = {repl(k): l(v) for k, v in d1.items()}
@@ -245,7 +242,7 @@ def replace(**kw):
         l = mdlines.pop(0)
         # if 'plugin_do' in str(l): breakpoint()  # FIXME BREAKPOINT
         for k in t:
-            if not k in l:
+            if k not in l:
                 continue
             stats['total'] += 1
             v = t[k]

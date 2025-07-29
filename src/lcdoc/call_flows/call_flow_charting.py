@@ -111,7 +111,7 @@ def make_call_flow_chart(flow, d_dest, fn=None, viz_name='plantuml', ILS=None):
         if inp:
             if t0 > time_:
                 # r_add('d <-> t: %s' viz.req('d', 't', what=str(round(time_, rnd))))
-                #% (last_thread[0], round(time_, rnd))
+                # % (last_thread[0], round(time_, rnd))
                 r_add('[-[#888888]-> MainThread: %s' % round(time_, rnd))
                 time_ += dt
             n_with_url = href(n, str(inp), nr, 'req')

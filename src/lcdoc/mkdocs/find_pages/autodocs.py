@@ -99,7 +99,7 @@ def walk_dir(directory, crit=None):
     crit = (lambda *a: True) if crit is None else crit
     files = []
     j = os.path.join
-    for (dirpath, dirnames, filenames) in os.walk(directory):
+    for dirpath, dirnames, filenames in os.walk(directory):
         files += [j(dirpath, file) for file in filenames if crit(dirpath, file)]
     return files
 
@@ -159,7 +159,12 @@ class S:
                 fn_svg, src = nfos
                 app.info('rebuilding', fmt='svg', fn=fn_svg)
                 cmd = '"%s" --as %s --output "%s" "%s"'
-                cmd = cmd % (S.graph_easy.cmd(), 'svg', fn_svg, fn,)
+                cmd = cmd % (
+                    S.graph_easy.cmd(),
+                    'svg',
+                    fn_svg,
+                    fn,
+                )
                 t0 = now()
                 err = os.system(cmd)
                 if err:
@@ -197,7 +202,11 @@ class S:
                     S.stats['plantuml_count'] += 1
                     res = kroki(
                         src,
-                        {'mode': 'kroki:plantuml', 'puml': 'dark_blue', 'get_svg': True,},
+                        {
+                            'mode': 'kroki:plantuml',
+                            'puml': 'dark_blue',
+                            'get_svg': True,
+                        },
                     )
                     # g = base64.urlsafe_b64encode(zlib.compress(s.encode('utf-8')))
                     write_file(fn_svg, res)

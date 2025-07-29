@@ -15,7 +15,6 @@ Requires rg ([ripgrep](https://github.com/BurntSushi/ripgrep)) tool.
 
 """
 
-
 from lcdoc.mkdocs.tools import MDPlugin, app, config_options
 from lcdoc.tools import os, project, require, sys
 
@@ -36,7 +35,7 @@ def fail_on_blacklisted_words(config, envkey, envsep):
             h = os.popen("rg -i '%s'" % w).read()
             if h.strip():
                 H = True
-                f = app.die if not 'serve' in sys.argv else app.error
+                f = app.die if 'serve' not in sys.argv else app.error
                 f('Found blacklisted word', word=w, json=h.splitlines()[:10])
         if not H:
             app.info(

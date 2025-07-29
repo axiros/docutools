@@ -1,6 +1,10 @@
-import os, json, sys, time
+import os
+import json
+import sys
+import time
 from lcdoc.tools import exists, project, write_file, read_file, to_list
-import inspect, shutil
+import inspect
+import shutil
 from functools import partial, wraps
 from lcdoc.call_flows.call_flow_charting import make_call_flow_chart
 
@@ -17,7 +21,7 @@ try:
     # *IF* we are in a project based on devapps, we can build call flow logs also
     # from pytest, not just from docs/lp. Requirements are these imports:
     from devapp.tools import FLG, exists, project
-    from devapp.tools import define_flags, project, to_list
+    from devapp.tools import define_flags, to_list
     from absl.flags._exceptions import UnparsedFlagAccessError
 except:
     pass
@@ -141,7 +145,7 @@ class SetTrace:
 
     def tracer(frame, event, arg, counter=0):
         """The settrace function. You can't pdb here!"""
-        if not frame.f_code in ILS.traced:
+        if frame.f_code not in ILS.traced:
             return
         if event == 'call':
             SetTrace.request(frame)
@@ -263,10 +267,6 @@ def set_flags(flags, unset=False):
         M = flag_defaults
 
     return [setattr(FLG, k, v) for k, v in M.items()]
-
-
-import os
-from functools import partial
 
 
 def pytest_plot_dest(dest):
@@ -402,7 +402,7 @@ def document(
                 min_header_level = 5
                 section, n = n.rsplit('.', 1)
                 have = written_sect_headers.setdefault(n_mod, {})
-                if not section in have:
+                if section not in have:
                     doc += '\n\n#### ' + section
                     have[section] = True
 
@@ -492,7 +492,7 @@ def document(
 
 
 def strip_no_ad(s, sep='# /--'):
-    if not sep in s:
+    if sep not in s:
         return s
     r, add, lines = [], True, s.splitlines()
     while lines:
@@ -510,15 +510,14 @@ written_sect_headers = {}
 
 
 def import_mod(test_mod_file):
-    """
-    """
-    if not 'pytest' in sys.argv[0]:
+    """ """
+    if 'pytest' not in sys.argv[0]:
         return
 
-    if not '/' in test_mod_file:
+    if '/' not in test_mod_file:
         test_mod_file = os.getcwd() + '/' + test_mod_file
     d, fn = test_mod_file.rsplit('/', 1)
-    sys.path.insert(0, d) if not d in sys.path else 0
+    sys.path.insert(0, d) if d not in sys.path else 0
     mod = import_module(fn.rsplit('.py', 1)[0])
 
     fn_md = mod_doc(mod, dest='auto')

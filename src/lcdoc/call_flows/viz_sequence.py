@@ -1,21 +1,21 @@
 from functools import partial
 
 # fmt:off
-code = lambda typ, body: '''
+code = lambda typ, body: """
 
 ```%s
 %s
 ```
 
-''' % (typ, body)
+""" % (typ, body)
 
-call_seq_diag = '''
+call_seq_diag = """
 
 
 [![](.%(f)s.svg)](%(l)scall_sequence.html?src=%(f)s)
 
 
-'''
+"""
 # fmt:on
 
 

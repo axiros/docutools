@@ -32,6 +32,7 @@ number > 2000 we set to calver.
 You can set $versioning also via environ, which will have precedence then.
 
 """
+
 import shutil
 
 from mkdocs.config import config_options
@@ -61,7 +62,7 @@ def git_changelog(commit_style, d_root, d_tmpl):
     """A version of git-changelog monkey patched, so that versions have zero padded
     months and days replaced to non zero padded versions
 
-    Otherwise the semver lib would complain about non-compliancy. 
+    Otherwise the semver lib would complain about non-compliancy.
     """
     argv = ['-s', commit_style, '-t', 'path:%s' % d_tmpl, d_root]
     from git_changelog import build

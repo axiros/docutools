@@ -1,4 +1,7 @@
-import os, sys, socket, time
+import os
+import sys
+import socket
+import time
 import inspect
 from lcdoc.call_flows import markdown as MD
 from lcdoc.tools import write_file, read_file, exists
@@ -7,7 +10,7 @@ T = MD.Mkdocs
 h = lambda level, s: '#' * level + ' ' + s
 source = inspect.getsource
 
-auto_gen_cmt = '''
+auto_gen_cmt = """
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT DIRECTLY EDIT!
 
 Direct edits will be gone after next CI build.
@@ -16,7 +19,7 @@ Command Line (see duties.py):
 
     %s
 -->
-'''
+"""
 
 
 def mark_auto_created(fn):
@@ -119,7 +122,6 @@ def functions_by_line_nr(obj, code):
 
 
 def mod_doc(mod, dest='auto'):
-
     from lcdoc.call_flows.call_flow_logging import autodoc_dir
 
     d = autodoc_dir(mod, dest)

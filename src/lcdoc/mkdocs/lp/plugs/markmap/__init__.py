@@ -17,11 +17,11 @@ page_assets = {
 }
 
 
-R = '''
+R = """
 <svg id="%(id)s" style="width: %(width)s; height: %(height)s"></svg>
-'''
+"""
 
-JSF = '''
+JSF = """
 
 <script>
 function do_%(id)s () {
@@ -40,7 +40,7 @@ do_%(id)s ()
 
 
 
-'''
+"""
 
 
 def run(cmd, kw):

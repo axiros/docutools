@@ -14,7 +14,7 @@ def register(fmts):
     fmts['lprunner'] = lprunner
 
 
-msg = '''
+msg = """
 ??? "Run this locally"
     
     You can run the code on this page locally via:
@@ -23,7 +23,7 @@ msg = '''
     pip install --user docutools # if not yet installed
     mdrun "%s"
     ```
-'''
+"""
 
 
 def lprunner(s, **kw):
