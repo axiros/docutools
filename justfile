@@ -90,24 +90,20 @@ release VERSION="":
     fi
     
     echo "Releasing version $VERSION_ARG"
-    
-    # Update version in pyproject.toml
     sed -i '' "s/^version = .*/version = \"$VERSION_ARG\"/" pyproject.toml
-    
-    # Run tests
+    just publish "{{VERSION}}"
+
+
+publish VERSION: 
+    echo "Publishing {{VERSION}}."
+    just clean
     just test
-    
-    # Build docs
     just docs
-    
-    # Build package  
     just build
-    
-    # Commit and tag
-    git commit -am "chore: Prepare release $VERSION_ARG" || true
-    git tag "$VERSION_ARG"
-    
-    echo "Release $VERSION_ARG ready. Run 'git push --tags' and publish manually."
+    git commit -am "chore: Prepare release {{VERSION}}" || true
+    git tag "{{VERSION}}"
+    git push --tags
+    uv publish dist/*
 
 # Development shortcuts
 alias t := test

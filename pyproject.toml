@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "docutools"
-version = "2025.07.29"
+version = "2025.07.30"
 description = "Documentation Tools for the Mkdocs Material Framework"
 authors = [{ name = "Gunther Klessinger", email = "gkle_ss_ing_er@gmx.de" }]
 license = "BSD-2-Clause"
