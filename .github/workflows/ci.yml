@@ -1,83 +1,166 @@
-name: ci
+name: CI
 
 on:
   push:
     branches:
+      - main
       - master
   pull_request:
     branches:
+      - main
       - master
-
-defaults:
-  run:
-    shell: bash
 
 env:
   LANG: "en_US.utf-8"
   LC_ALL: "en_US.utf-8"
-  POETRY_VIRTUALENVS_IN_PROJECT: "true"
   PYTHONIOENCODING: "UTF-8"
-  PROJECT: "docutools"
-  MC: "/home/runner/miniconda3"
-  PATH: "$(MC)/bin:/home/runner/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
-  conda_project_tools: "tmux poetry graphviz imagemagick"
-  versioning: calver # for git-changelog
 
 jobs:
-  tests:
-    name: Tests (${{ matrix.python-version }}, ${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 6
       matrix:
-        os: ["ubuntu-latest"]
-        python-version: ["3.7", "3.8"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up the Miniconda Root Cache
-        uses: actions/cache@v2
-        env:
-          cache_name: miniconda-root-2
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz imagemagick
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
         with:
-          path: ~/miniconda3
-          key: ${{ runner.os }}-build-${{ env.cache_name }}
-      - name: Install Miniconda Root
-        shell: bash -l {0}
-        run: "source ./make && make ci-conda-root-env"
-      - name: Conda info
-        shell: bash -l {0}
-        run: conda info
+          python-version: ${{ matrix.python-version }}
 
-      - name: Set up the Miniconda Envs Cache
-        # they delete unused ones after 7 days.
-        uses: actions/cache@v2
-        env:
-          cache_name: miniconda-envs-3-${{ env.PROJECT }}_py${{ matrix.python-version }}_${{ hashFiles('pyproject.toml', 'scripts/**') }}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
         with:
-          path: ~/miniconda3/envs/${{ env.PROJECT }}_py${{ matrix.python-version }}
-          key: ${{ runner.os }}-build-${{ env.cache_name }}
-      - name: Install Miniconda PyEnv
-        shell: bash -l {0}
-        env:
-          pyver: "${{ matrix.python-version }}"
-        run: "source ./make && make && make ci-conda-py-env"
+          version: "latest"
 
-      - name: Run tests
-        shell: bash -l {0}
-        env:
-          pyver: "${{ matrix.python-version }}"
-        run: "source ./make -a && make tests"
+      - name: Install just
+        uses: extractions/setup-just@v2
+        with:
+          just-version: "latest"
 
-      - name: Test Docs LiterateProgramming
-        shell: bash -l {0}
-        env:
-          pyver: "${{ matrix.python-version }}"
-        run: "source ./make -a && make docs"
-      - name: Deploy Docs
-        shell: bash -l {0}
-        env:
-          pyver: "${{ matrix.python-version }}"
-        run: "source ./make -a && ${{ env.pyver == '3.7' && 'mkdocs gh-deploy --force' || true }}"
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run tests with coverage
+        run: |
+          uv run coverage run --rcfile=config/coverage.pytest.ini -m pytest tests -c config/pytest.ini
+          uv run coverage combine
+          uv run coverage report --precision=2
+          uv run coverage xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: false
+
+  docs:
+    name: Build and Deploy Documentation
+    runs-on: ubuntu-latest
+    needs: test
+    # Only run on main/master branch pushes
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for git-changelog
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz imagemagick
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Install just
+        uses: extractions/setup-just@v2
+        with:
+          just-version: "latest"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Build documentation
+        run: just docs
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          cname: ${{ vars.DOCS_CNAME }}  # Optional: set this in repository variables if you have a custom domain
+
+  coverage-badge:
+    name: Update Coverage Badge
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz imagemagick
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Install just
+        uses: extractions/setup-just@v2
+        with:
+          just-version: "latest"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Generate coverage report
+        run: |
+          uv run coverage run --rcfile=config/coverage.pytest.ini -m pytest tests -c config/pytest.ini
+          uv run coverage combine
+          uv run coverage report --precision=2 > coverage_report.txt
+
+      - name: Extract coverage percentage
+        id: coverage
+        run: |
+          COVERAGE=$(grep "TOTAL" coverage_report.txt | awk '{print $4}' | sed 's/%//')
+          echo "percentage=$COVERAGE" >> $GITHUB_OUTPUT
+
+      - name: Create coverage badge
+        uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GITHUB_TOKEN }}
+          gistID: ${{ vars.COVERAGE_GIST_ID }}  # Set this in repository variables
+          filename: docutools-coverage.json
+          label: Coverage
+          message: ${{ steps.coverage.outputs.percentage }}%
+          color: ${{ steps.coverage.outputs.percentage > 80 && 'green' || steps.coverage.outputs.percentage > 60 && 'yellow' || 'red' }}

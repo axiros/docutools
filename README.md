@@ -1,12 +1,14 @@
 #  docutools
 
 <!-- badges -->
-[![docs pages][docs pages_img]][docs pages] [![gh-ci][gh-ci_img]][gh-ci] [![pkg][pkg_img]][pkg] [![code_style][code_style_img]][code_style] 
+[![docs pages][docs pages_img]][docs pages] [![gh-ci][gh-ci_img]][gh-ci] [![coverage][coverage_img]][coverage] [![pkg][pkg_img]][pkg] 
 
 [docs pages]: https://axiros.github.io/docutools
 [docs pages_img]: https://axiros.github.io/docutools/img/badge_docs.svg
 [gh-ci]: https://github.com/axiros/docutools/actions/workflows/ci.yml
 [gh-ci_img]: https://github.com/axiros/docutools/actions/workflows/ci.yml/badge.svg
+[coverage]: https://github.com/axiros/docutools/actions/workflows/ci.yml
+[coverage_img]: https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/YOUR_USERNAME/YOUR_GIST_ID/raw/docutools-coverage.json
 [pkg]: https://pypi.org/project/docutools/2022.04.11/
 [pkg_img]: https://axiros.github.io/docutools/img/badge_pypi.svg
 [code_style]: https://github.com/astral-sh/ruff
