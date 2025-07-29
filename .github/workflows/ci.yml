@@ -44,9 +44,7 @@ jobs:
           version: "latest"
 
       - name: Install just
-        uses: extractions/setup-just@v2
-        with:
-          just-version: "latest"
+        uses: extractions/setup-just@v3
 
       - name: Install dependencies
         run: uv sync
@@ -93,9 +91,7 @@ jobs:
           version: "latest"
 
       - name: Install just
-        uses: extractions/setup-just@v2
-        with:
-          just-version: "latest"
+        uses: extractions/setup-just@v3
 
       - name: Install dependencies
         run: uv sync
@@ -136,9 +132,7 @@ jobs:
           version: "latest"
 
       - name: Install just
-        uses: extractions/setup-just@v2
-        with:
-          just-version: "latest"
+        uses: extractions/setup-just@v3
 
       - name: Install dependencies
         run: uv sync
