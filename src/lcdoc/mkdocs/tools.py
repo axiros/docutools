@@ -20,6 +20,7 @@ from lcdoc.tools import (
 from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 from mkdocs.plugins import log as mkdlog
+import subprocess
 
 script = lambda s: '<script>\n%s\n</script>' % s
 style = lambda s: '<style>\n%s\n</style>' % s
@@ -34,9 +35,22 @@ def add_post_page_func(kw, f, once=False):
     p.lp_on_post_page = h
 
 
+def get_default_branch():
+    """Get the default branch name (main or master)"""
+    try:
+        l = ['git', 'symbolic-ref', 'refs/remotes/origin/HEAD']
+        result = subprocess.run(l, capture_output=True, text=True, check=True)
+        return result.stdout.strip().split('/')[-1]
+    except Exception:
+        return 'main'
+
+
 def srclink(fn, config, line=None, match=None, title=''):
     # TODO: allow others:
-    u = config['repo_url'] + 'blob/master'
+    u = config['repo_url']
+    if not u.endswith('/'):
+        u += '/'
+    u += f'blob/{get_default_branch()}'
     r = project.root(config)
     if fn[0] == '/':
         fnr = fn.split(r, 1)[1]
