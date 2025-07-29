@@ -812,7 +812,7 @@ wheels = [
 
 [[package]]
 name = "docutools"
-version = "2022.4.11"
+version = "2025.7.29"
 source = { editable = "." }
 dependencies = [
     { name = "anybadge" },
@@ -861,6 +861,9 @@ dev = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "matplotlib", version = "3.7.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "matplotlib", version = "3.9.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "matplotlib", version = "3.10.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "mypy", version = "1.14.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
     { name = "mypy", version = "1.17.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.9'" },
 ]
@@ -896,7 +899,10 @@ requires-dist = [
 provides-extras = ["dev"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "mypy", specifier = ">=1.14.1" }]
+dev = [
+    { name = "matplotlib", specifier = ">=3.0.0" },
+    { name = "mypy", specifier = ">=1.14.1" },
+]
 
 [[package]]
 name = "exceptiongroup"

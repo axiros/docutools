@@ -90,7 +90,8 @@ nfo = p(_, app.info)
 # ---------------------------------------------------------------------------- Utilities
 class Raiser:
     def raise_(ass):
-        msg = 'Assertion failed: Expected "%s" not found in result' % ass
+        msg = '💥 Assertion failed: Expected "%s" not found in result. 💡Hint: just clean and kill tmux.'
+        msg = msg % ass
         # app.error(msg, asserts=ass, json={'result': res})
         print('RAISING EXCEPTION: %s' % msg)
         Raiser.die(msg)
