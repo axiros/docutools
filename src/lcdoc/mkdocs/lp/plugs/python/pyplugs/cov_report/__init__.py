@@ -24,7 +24,7 @@ Mechanics how to create coverage reports in general: See the coverage setup in t
 
 
 import os
-from distutils.dir_util import copy_tree
+import shutil
 from functools import partial
 
 from lcdoc import lp
@@ -96,7 +96,10 @@ def copy_files_to_html_site_dir(LP, d_rel_html, d_cover):
     python.app.info('copying coverage html', frm=d_cover, to=d_dest)
     os.makedirs(d_dest, exist_ok=True)
     try:
-        copy_tree(d_cover, d_dest)
+        # Remove destination if it exists (shutil.copytree fails if target exists)
+        if os.path.exists(d_dest):
+            shutil.rmtree(d_dest)
+        shutil.copytree(d_cover, d_dest)
     except Exception as ex:
         return err('Could not copy cover html', frm=d_cover, to=d_dest)
 
