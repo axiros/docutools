@@ -137,3 +137,8 @@ include = [
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/lcdoc"]
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.7.5",
+]
