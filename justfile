@@ -57,8 +57,8 @@ docs-serve PORT="2222":
 
 # Check documentation links
 docs-checklinks:
-    @command -v linkchecker >/dev/null || (echo "Install linkchecker: pip install git+https://github.com/linkchecker/linkchecker.git" && exit 1)
-    linkchecker site --ignore-url '(.*).json'
+    uv run linkchecker --help | cat >/dev/null || (echo "Install linkchecker: pip install git+https://github.com/linkchecker/linkchecker.git" && exit 1)
+    uv run linkchecker site --ignore-url '(.*).json'
 
 # Clean build artifacts and caches
 clean:
