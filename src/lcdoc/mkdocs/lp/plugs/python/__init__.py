@@ -21,18 +21,18 @@ from lcdoc.tools import app, deep_update, dirname, project, read_file, write_fil
 
 err = lp.err
 multi_line_to_list = False
-fmt_default = 'unset'
+fmt_default = "unset"
 
 sessions = S = {}
 
-config = lambda: Session.kw['LP'].config
-page = lambda: Session.kw['LP'].page
+config = lambda: Session.kw["LP"].config
+page = lambda: Session.kw["LP"].page
 lpkw = lambda: Session.kw
 stats = lambda: page().stats
 
 
 def new_session_ctx():
-    return {'out': [], 'locals': {}, 'assets': {}}
+    return {"out": [], "locals": {}, "assets": {}}
 
 
 class Session(lp.SessionNS):
@@ -53,20 +53,20 @@ class Session(lp.SessionNS):
 
     @classmethod
     def post(cls, session_name, kw):
-        Session.cur['out'].clear()
+        Session.cur["out"].clear()
         if cls.name is None:
-            Session.cur['locals'].clear()
+            Session.cur["locals"].clear()
             sessions.pop(None)  # forget it, no name was given
         # we support post param to run system stuff before python
         lp.SessionNS.post(session_name, kw)
 
 
 def out(s, t=None, innerkw=None):
-    Session.cur['out'].append([t, s, innerkw])
+    Session.cur["out"].append([t, s, innerkw])
 
 
 def printed(s, **innerkw):
-    out(s, 'printed', innerkw=innerkw)
+    out(s, "printed", innerkw=innerkw)
 
 
 def show(s, **innerkw):
@@ -78,7 +78,7 @@ def show(s, **innerkw):
         #     if 'nocache' in s:
         #         lpkw()['nocache'] = s['nocache']
         #     s = s['res']
-    out(s, 'md', innerkw=innerkw)
+    out(s, "md", innerkw=innerkw)
 
 
 # keys: matching strings on s and s class, with s the argument of `show()`:
@@ -88,7 +88,7 @@ fmts = {}
 
 def matching_pyplug(s, innerkw):
     """find rendering pyplug based on type of output"""
-    if innerkw.get('md'):
+    if innerkw.get("md"):
         return  # markdown was forced (show('> foo', md=True)
     if isinstance(s, str) and s in fmts:
         return fmts[s]
@@ -100,11 +100,11 @@ def matching_pyplug(s, innerkw):
         elif k in str([s, s.__class__]):
             return fmts[k]
     if not isinstance(s, str):
-        app.die('No formatter matched', s=s, **innerkw)
+        app.die("No formatter matched", s=s, **innerkw)
 
 
 def fmt(t, s, kw):
-    if t == 'md':
+    if t == "md":
         o = (False, s)
     elif isinstance(s, str):
         o = (True, s)
@@ -113,40 +113,40 @@ def fmt(t, s, kw):
     return o
 
 
-D_lp_py = lambda: project.root() + '/build/autodocs/lp_python/'
+D_lp_py = lambda: project.root() + "/build/autodocs/lp_python/"
 
 
 def cmd_to_module_file(cmd, kw):
     dr = D_lp_py()
-    fn = dr + dirname(kw['LP'].page.file.src_path) + '/%(id)s.py' % kw
-    h = 'from lcdoc.mkdocs.lp.plugs import python'
-    h += '\nprint  = python.printed'
-    h += '\nshow = python.show'
-    h += '\ndef run_lp_flow():'
-    cmd = ('\n' + cmd).replace('\n', '\n    ')
-    write_file(fn, h + '\n' + cmd, mkdir=1)
+    fn = dr + dirname(kw["LP"].page.file.src_path) + "/%(id)s.py" % kw
+    h = "from lcdoc.mkdocs.lp.plugs import python"
+    h += "\nprint  = python.printed"
+    h += "\nshow = python.show"
+    h += "\ndef run_lp_flow():"
+    cmd = ("\n" + cmd).replace("\n", "\n    ")
+    write_file(fn, h + "\n" + cmd, mkdir=1)
     sys.path.insert(0, dirname(fn)) if not dirname(fn) in sys.path else 0
     return fn
 
 
 def build_res(plug_res):
-    m = {'res': ''}
+    m = {"res": ""}
     for r in plug_res:
         if isinstance(r, str):
-            m['res'] += '\n\n' + r
+            m["res"] += "\n\n" + r
         elif isinstance(r, dict):
             for k, v in r.items():
                 vh = m.get(k)
                 if vh == None:
                     m[k] = v
                 elif isinstance(vh, str):
-                    m[k] += vh + '\n\n' + v
+                    m[k] += vh + "\n\n" + v
                 elif isinstance(vh, dict):
                     deep_update(vh, v)
         elif r is None:
             pass
         else:
-            app.die('Not supported result type', res=r)
+            app.die("Not supported result type", res=r)
     return m
 
 
@@ -154,10 +154,10 @@ def run(cmd, kw):
     """
     interpret the command as python
     """
-    l = kw['mode'].split(':')
+    l = kw["mode"].split(":")
     # set if not yet done:
-    project.root(kw['LP'].config)
-    plug_res = ['']
+    project.root(kw["LP"].config)
+    plug_res = [""]
 
     def add(r):
         plug_res.append(r)
@@ -166,28 +166,28 @@ def run(cmd, kw):
         add(fmts[l[1]](l[1], **kw))
     else:
         # short form convenience: `lp:python show=project_dependencies`
-        shw = kw.pop('show', '')
+        shw = kw.pop("show", "")
         if shw and isinstance(cmd, str):
             cmd = 'show("%s")' % shw + cmd
-        if kw.get('cfl'):
+        if kw.get("cfl"):
             modfn = cmd_to_module_file(cmd, kw)
-            m = importlib.import_module(kw['id'])
+            m = importlib.import_module(kw["id"])
             m.run_lp_flow()
         else:
-            loc = Session.cur['locals']
-            g = {'print': printed, 'show': show, 'ctx': kw}
+            loc = Session.cur["locals"]
+            g = {"print": printed, "show": show, "ctx": kw}
             loc.update(g)
             exec(cmd, loc)
-        o = Session.cur['out']
+        o = Session.cur["out"]
         res = [fmt(*i) for i in o]
         fncd = False
         # if the fmt is given (mk_console usually), then we show the command (python code)
         # and the output within the usual lp fenced code block.
         # if it was unset then we open and close fenced code only for print outs
         fstart, fstop = (None, None)
-        if kw['fmt'] == 'unset':
-            fstart = '```python'
-            fstop = '```'
+        if kw["fmt"] == "unset":
+            fstart = "```python"
+            fstop = "```"
         while res:
             is_fenced, o = res.pop(0)
             if is_fenced and not fncd:
@@ -201,31 +201,31 @@ def run(cmd, kw):
             add(fstop)
     r = build_res(plug_res)
     # python code may explicitly set a result as object, ready to process e.g. in a mode pipe
-    rslt = Session.cur['locals'].get('result')
+    rslt = Session.cur["locals"].get("result")
     if rslt:
-        r['result'] = rslt
+        r["result"] = rslt
     # was fmt given by user?
-    if kw['fmt'] == 'unset':
-        r['formatted'] = True
-    if 'nocache' in kw:
-        r['nocache'] = kw['nocache']
-    r.update(Session.cur['assets'])
+    if kw["fmt"] == "unset":
+        r["formatted"] = True
+    if "nocache" in kw:
+        r["nocache"] = kw["nocache"]
+    r.update(Session.cur["assets"])
     return r
 
 
 def import_pyplugs(frm):
     m = import_module(frm)
-    for k in [i for i in dir(m) if not i.startswith('_')]:
+    for k in [i for i in dir(m) if not i.startswith("_")]:
         v = getattr(m, k)
-        if hasattr(v, 'register'):
+        if hasattr(v, "register"):
             if callable(v.register):
                 v.register(fmts)
             else:
                 fmts.update(v.register)
 
 
-import_pyplugs('lcdoc.mkdocs.lp.plugs.python.pyplugs')
+import_pyplugs("lcdoc.mkdocs.lp.plugs.python.pyplugs")
 try:
-    import_pyplugs('lp_python_plugins')  # allow customs
+    import_pyplugs("lp_python_plugins")  # allow customs
 except ModuleNotFoundError as ex:
     pass
