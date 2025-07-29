@@ -2879,10 +2879,10 @@ command will be running even after <code>mkdocs build</code>.</p>
 </div>
 <div class="tabbed-block">
 <p><xterm /></p>
-<pre><code>[1m[32mrunner@pkrvmpptgkbjq6m[0m:[1m[34m~/work/docutools/docutools[0m$ while true; do date; sleep 0.05; done
-Tue Jul 29 09:16:31 PM UTC 2025
-Tue Jul 29 09:16:31 PM UTC 2025
-Tue Jul 29 09:16:31 PM UTC 2025
+<pre><code>[1m[32mrunner@pkrvmjbmru5nbw0[0m:[1m[34m~/work/docutools/docutools[0m$ while true; do date; sleep 0.05; done
+Tue Jul 29 10:31:54 PM UTC 2025
+Tue Jul 29 10:31:54 PM UTC 2025
+Tue Jul 29 10:31:54 PM UTC 2025
 </code></pre>
 </div>
 </div>
@@ -3061,7 +3061,7 @@ printenv
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ tmux list-sessions | grep kill_test
-kill_test: 1 windows (created Tue Jul 29 21:16:32 2025)
+kill_test: 1 windows (created Tue Jul 29 22:31:54 2025)
 $ ls . | grep hosts
 </code></pre>
 </div>
@@ -3084,7 +3084,7 @@ $ ls . | grep hosts
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ tmux list-sessions | grep test || true
-test: 1 windows (created Tue Jul 29 21:16:31 2025)
+test: 1 windows (created Tue Jul 29 22:31:53 2025)
 </code></pre>
 </div>
 </div>
@@ -3141,9 +3141,9 @@ E.g. for <a href="../plugs/show_src/">srcrefs</a>:</p>
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ date
-Tue Jul 29 09:16:32 PM UTC 2025
+Tue Jul 29 10:31:55 PM UTC 2025
 $ tmux list-sessions | grep docutest
-docutest: 1 windows (created Tue Jul 29 21:16:32 2025)
+docutest: 1 windows (created Tue Jul 29 22:31:54 2025)
 </code></pre>
 </div>
 </div>
@@ -3200,11 +3200,11 @@ LP Source:
 </div>
 <div class="tabbed-block">
 <p><xterm /></p>
-<pre><code>[1m[32mrunner@pkrvmpptgkbjq6m[0m:[1m[34m/tmp[0m$ ls foo*
+<pre><code>[1m[32mrunner@pkrvmjbmru5nbw0[0m:[1m[34m/tmp[0m$ ls foo*
 foobar
-[1m[32mrunner@pkrvmpptgkbjq6m[0m:[1m[34m/tmp[0m$ ls foobar # lp: asserts="cannot"
+[1m[32mrunner@pkrvmjbmru5nbw0[0m:[1m[34m/tmp[0m$ ls foobar # lp: asserts="cannot"
 ls: cannot access 'foobar': No such file or directory
-[1m[32mrunner@pkrvmpptgkbjq6m[0m:[1m[34m/tmp[0m$
+[1m[32mrunner@pkrvmjbmru5nbw0[0m:[1m[34m/tmp[0m$
 </code></pre>
 </div>
 </div>
@@ -3246,7 +3246,7 @@ LP Source:
 </div>
 <div class="tabbed-block">
 <p><xterm /></p>
-<pre><code>[1m[32mrunner@pkrvmpptgkbjq6m[0m:[1m[34m/tmp[0m$ ls foo*
+<pre><code>[1m[32mrunner@pkrvmjbmru5nbw0[0m:[1m[34m/tmp[0m$ ls foo*
 foobar
 </code></pre>
 </div>
@@ -3323,7 +3323,7 @@ URL with the <a href="../python/lprunner/"><code>mdrun</code> script</a>.</p>
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ tmux list-sessions | grep docutest
-docutest: 1 windows (created Tue Jul 29 21:16:32 2025)
+docutest: 1 windows (created Tue Jul 29 22:31:54 2025)
 </code></pre>
 </div>
 </div>
@@ -3386,7 +3386,7 @@ nothing is shown for block execution but the command was executed:</p>
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ ls -lta /tmp/silent_test
--rw-r--r-- 1 runner docker 0 Jul 29 21:16 /tmp/silent_test
+-rw-r--r-- 1 runner docker 0 Jul 29 22:31 /tmp/silent_test
 </code></pre>
 </div>
 </div>
