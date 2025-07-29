@@ -4,7 +4,7 @@
 docs # lp: value=pagecount
 gh-action # lp: action=ci
 pypi
-axblack
+ruff
 ```
 
 

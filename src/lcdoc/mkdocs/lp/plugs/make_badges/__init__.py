@@ -10,7 +10,7 @@ Line separated badge function names with statement level lp parameters.
 
 Functions:
 
-    - axblack
+    - ruff
     - docs (with value=[pagecount], default "mkdocs-material")
     - gh_action (with action parameter, default ci)
     - pypi
@@ -57,12 +57,12 @@ no_end_slash = lambda s: s if not s[-1] == '/' else s[:-1]
 
 
 class badges:
-    def axblack(spec, kw):
+    def ruff(spec, kw):
         return dict(
-            lnk='https://pypi.org/project/axblack/',
+            lnk='https://github.com/astral-sh/ruff',
             label='code_style',
-            value='axblack',
-            color='#222222',
+            value='ruff',
+            color='#d7ff64',
         )
 
     def gl_ci(spec, kw):

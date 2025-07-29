@@ -9,8 +9,8 @@
 [gh-ci_img]: https://github.com/axiros/docutools/actions/workflows/ci.yml/badge.svg
 [pkg]: https://pypi.org/project/docutools/2022.04.11/
 [pkg_img]: https://axiros.github.io/docutools/img/badge_pypi.svg
-[code_style]: https://pypi.org/project/axblack/
-[code_style_img]: https://axiros.github.io/docutools/img/badge_axblack.svg
+[code_style]: https://github.com/astral-sh/ruff
+[code_style_img]: https://axiros.github.io/docutools/img/badge_ruff.svg
 <!-- badges -->
 
 

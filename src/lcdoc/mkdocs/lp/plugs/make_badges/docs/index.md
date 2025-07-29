@@ -10,7 +10,7 @@ Line separated badge function names with statement level lp parameters.
 
 Those (optional) functions will create badges autonomously:
 
-- axblack
+- ruff
 - docs (with value=[pagecount], default "mkdocs-material")
 - gh_action (with action parameter, default ci)
 - pypi

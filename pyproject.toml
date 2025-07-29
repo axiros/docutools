@@ -50,13 +50,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "autoflake>=1.4",
-    "black>=22.0.0",
-    "isort>=5.0.0",
+    "ruff>=0.1.0",
     "numpy>=1.0.0",
     "matplotlib>=3.0.0",
     "mypy>=0.900",
-    "flake8>=4.0.0",
 ]
 
 [project.urls]
@@ -80,21 +77,35 @@ mdrun = "lcdoc.lprunner:main"
 "lcd-stats" = "lcdoc.mkdocs.stats:StatsPlugin"
 
 # Tool configurations
-[tool.black]
+[tool.ruff]
+# https://docs.astral.sh/ruff/rules/
 line-length = 90
-exclude = "tests/fixtures"
 
-[tool.isort]
-line_length = 90
-multi_line_output = 3
-force_single_line = false
-balanced_wrapping = true
-default_section = "THIRDPARTY"
-known_first_party = ["lcdoc"]
-include_trailing_comma = true
+[tool.ruff.lint]
+extend-select = ["Q"]
+select = ["E", "F", "B"] # Enable flake8-bugbear (`B`) rules.
+ignore = [
+  "E501", # Never enforce `E501` (line length violations).
+  "E741", # short var names
+  "E731", # lambda
+  "B006", # mutables in signature
+]
+fixable = ["ALL"]
+unfixable = [
+  "B",    # Avoid trying to fix flake8-bugbear (`B`) violations.
+  "F401", # Unused Import
+  "F841", # variable assigned but not used
+]
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "single"
+
+[tool.ruff.format]
+quote-style = "single"
 
 [tool.mypy]
-python_version = "3.7"
+python_version = "3.8"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
