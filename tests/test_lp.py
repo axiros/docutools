@@ -756,7 +756,6 @@ class python_mode(unittest.TestCase):
             ```
             """
         res = run_lp(md)
-        breakpoint()  # FIXME BREAKPOINT
         assert "is not defined" in str(res)
 
         # firstsession:
