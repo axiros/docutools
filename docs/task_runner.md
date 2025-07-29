@@ -5,7 +5,9 @@
 
 ---
 
-Below only for reference
+> Below only for reference, when having to deal with non updatable legacy  📜🕸️
+
+---
 
 You may want to use the same task runner within your project than we do.
 
@@ -112,7 +114,7 @@ The environ file sources make and activates the virtual (conda) environment - if
 
 Then all functions are available:
 
-```bash xxxlp fmt=xt_flat
+```bash
 ( source environ && make )
 ```
 

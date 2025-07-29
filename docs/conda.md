@@ -1,5 +1,15 @@
 # About Conda
 
+!!! warning
+    While we still find conda a must have tool in the belt, we switched in docutools to uv.
+
+---
+
+> Below only for reference, when having to deal with non updatable legacy  📜🕸️
+
+---
+
+
 Docutools (and other projects which use the docutools task runner) are using [conda][cond] as
 environment for required packages.
 
