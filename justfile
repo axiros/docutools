@@ -93,12 +93,14 @@ release VERSION="":
     sed -i '' "s/^version = .*/version = \"$VERSION_ARG\"/" pyproject.toml
     just publish "{{VERSION}}"
 
+# Run tests and lp doc tests:
+doctest:
+    just test
+    just docs
 
 publish VERSION: 
     echo "Publishing {{VERSION}}."
     just clean
-    just test
-    just docs
     just build
     git commit -am "chore: Prepare release {{VERSION}}" || true
     git tag "{{VERSION}}"
