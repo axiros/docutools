@@ -394,7 +394,10 @@ class embedded_sessions(unittest.TestCase):
         '''
         res = run_lp(md, raise_on_errs=True)
         with open('test.pyc') as fd:
-            assert fd.read().strip() == 'foobarbaz\nline2'
+            s = fd.read()
+        if not s.strip() == 'foobarbaz\nline2':
+            raise Exception(s)
+
         os.unlink('test.pyc')
 
     def test_cmd_out(self):

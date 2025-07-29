@@ -7,7 +7,7 @@ File: `<project root>/CHANGELOG.md`. Reference in docs like:
 
 ```bash
 ~/repos/docutools❯ cat docs/about/changelog.md
-\{\!CHANGELOG.md!}
+\\{!CHANGELOG.md!}
 ```
 
 (without the backslashes)
