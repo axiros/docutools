@@ -2,307 +2,238 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://axiros.github.io/docutools/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/conda/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/dev_install/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/install/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/task_runner/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/about/changelog/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/about/contributing/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/about/coverage/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/about/credits/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/about/navigation/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/about/todo/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://axiros.github.io/docutools/autodocs/python_1f513a48b3699a633cba9d9c62d56171/json/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://axiros.github.io/docutools/autodocs/tests/testlog/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/darkmode/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/third/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/blacklist/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/find-pages/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/async/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/eval/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/examples/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/parameters/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/sessions/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/syntax/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/tips/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/xterm/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/bash/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/bash/sessions/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/_index/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/_tech/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/chart/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/chartist/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/column/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/drawio/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/flowchart/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/kroki/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/lightbox/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/make_badges/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/make_file/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/markmap/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/mermaid/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/show_file/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/plugs/show_src/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/_index/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/_tech/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/call_flow_logging/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/comments/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/convert/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/cov_report/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/data_table/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/diag_diagram/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/git_changelog/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/lprunner/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/mpl_pyplot/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/project_dependencies/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/lp/python/screenshot/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/md-replace/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/page-tree/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/stats/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
     <url>
          <loc>https://axiros.github.io/docutools/features/termcasts/</loc>
-         <lastmod>2022-04-11</lastmod>
-         <changefreq>daily</changefreq>
+         <lastmod>2025-07-29</lastmod>
     </url>
 </urlset>

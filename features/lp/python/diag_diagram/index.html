@@ -12,8 +12,15 @@
       
         <link rel="canonical" href="https://axiros.github.io/docutools/features/lp/python/diag_diagram/">
       
+      
+        <link rel="prev" href="../data_table/">
+      
+      
+        <link rel="next" href="../git_changelog/">
+      
+      
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -21,17 +28,17 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2d9f7617.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#546d78">
-        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
+      
+
+
     
+    
+      
     
     
       
@@ -45,10 +52,11 @@
     
       <link rel="stylesheet" href="../../../../lcd/lp/css/xterm.min.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -61,7 +69,6 @@
     
     <body dir="ltr" data-md-color-scheme="preference" data-md-color-primary="blue-grey" data-md-color-accent="deep-purple">
   
-    
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -86,11 +93,12 @@
     <a href="../../../.." title="docutools" class="md-header__button md-logo" aria-label="docutools" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5V2M6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -109,47 +117,57 @@
       </div>
     </div>
     
+      
     
     
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
   </div>
 </div>
+      
     
     
       <div class="md-header__source">
-        <a href="https://github.com/axiros/docutools/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/axiros/docutools" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     docutools
@@ -168,50 +186,23 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
   
   
-
-
-  <li class="md-tabs__item">
-    <a href="../../../.." class="md-tabs__link">
-      Overview
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  
   
   
     <li class="md-tabs__item">
-      <a href="../../../../install/" class="md-tabs__link">
-        Installation
-      </a>
-    </li>
-  
-
-      
+      <a href="../../../.." class="md-tabs__link">
         
   
   
     
   
+  Overview
 
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../" class="md-tabs__link md-tabs__link--active">
-        Features
       </a>
     </li>
   
@@ -220,16 +211,62 @@
         
   
   
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../install/" class="md-tabs__link">
+          
+  
+  
+  Installation
 
+        </a>
+      </li>
+    
+  
 
+      
+        
   
   
   
-    <li class="md-tabs__item">
-      <a href="../../../../about/coverage/" class="md-tabs__link">
-        About
-      </a>
-    </li>
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../about/coverage/" class="md-tabs__link">
+          
+  
+  
+  About
+
+        </a>
+      </li>
+    
   
 
       
@@ -249,6 +286,7 @@
                   <div class="md-sidebar__inner">
                     
 
+
   
 
 
@@ -257,17 +295,17 @@
     <a href="../../../.." title="docutools" class="md-nav__button md-logo" aria-label="docutools" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5V2M6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
 
     </a>
     docutools
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/axiros/docutools/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/axiros/docutools" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     docutools
@@ -279,14 +317,21 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../.." class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -294,564 +339,911 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2">
-          Installation
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Installation" data-md-level="1">
-        <label class="md-nav__title" for="__nav_2">
-          <span class="md-nav__icon md-icon"></span>
-          Installation
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
           
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../install/" class="md-nav__link">
-        Installation
+        
+  
+  
+  <span class="md-ellipsis">
+    Install
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../dev_install/" class="md-nav__link">
-        Development Installation
+        
+  
+  
+  <span class="md-ellipsis">
+    Development Installation
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../task_runner/" class="md-nav__link">
-        Task Runner
+        
+  
+  
+  <span class="md-ellipsis">
+    Task Runner
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../conda/" class="md-nav__link">
-        About Conda
+        
+  
+  
+  <span class="md-ellipsis">
+    About Conda
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
   
   
     
   
   
+  
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    
+    
+      
+        
+        
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        
       
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-      
-      
-        <label class="md-nav__link" for="__nav_3">
-          Features
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Features" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Features
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../" class="md-nav__link">
-        Features
+        
+  
+  
+  <span class="md-ellipsis">
+    Index
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+  
+    
+    
+    
     
       
+      
+        
+          
+          
+        
+      
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          Plugins
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Plugins" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          Plugins
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
           
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Plugins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../blacklist/" class="md-nav__link">
-        Blacklist
+        
+  
+  
+  <span class="md-ellipsis">
+    Blacklist
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../find-pages/" class="md-nav__link">
-        Find Pages
+        
+  
+  
+  <span class="md-ellipsis">
+    Find Pages
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_3" type="checkbox" id="__nav_3_2_3" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_3">
-          Literate Programming (LP)
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Literate Programming (LP)" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_3">
-          <span class="md-nav__icon md-icon"></span>
-          Literate Programming (LP)
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
           
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Literate Programming (LP)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Literate Programming (LP)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../syntax/" class="md-nav__link">
-        Syntax
+        
+  
+  
+  <span class="md-ellipsis">
+    Syntax
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../parameters/" class="md-nav__link">
-        Parameters
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameters
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../sessions/" class="md-nav__link">
-        Sessions
+        
+  
+  
+  <span class="md-ellipsis">
+    Sessions
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../eval/" class="md-nav__link">
-        Evaluation and Caching
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation and Caching
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../async/" class="md-nav__link">
-        Async Fetching
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Fetching
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_4" type="checkbox" id="__nav_3_2_4" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_4">
-          LP Shell Mode
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="LP Shell Mode" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_4">
-          <span class="md-nav__icon md-icon"></span>
-          LP Shell Mode
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_4" >
+        
           
+          <label class="md-nav__link" for="__nav_3_2_4" id="__nav_3_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    LP Shell Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            LP Shell Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../bash/" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../bash/sessions/" class="md-nav__link">
-        Tmux Sessions
+        
+  
+  
+  <span class="md-ellipsis">
+    Tmux Sessions
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../xterm/" class="md-nav__link">
-        Terminal Colors
+        
+  
+  
+  <span class="md-ellipsis">
+    Terminal Colors
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../examples/" class="md-nav__link">
-        Examples
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../tips/" class="md-nav__link">
-        Tips
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_5" type="checkbox" id="__nav_3_2_5" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_5">
-          LP Python Mode
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="LP Python Mode" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_5">
-          <span class="md-nav__icon md-icon"></span>
-          LP Python Mode
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_5" checked>
+        
           
+          <label class="md-nav__link" for="__nav_3_2_5" id="__nav_3_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    LP Python Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            LP Python Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../_index/" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../_tech/" class="md-nav__link">
-        Mechanics
+        
+  
+  
+  <span class="md-ellipsis">
+    Mechanics
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../call_flow_logging/" class="md-nav__link">
-        Callflow Logging
+        
+  
+  
+  <span class="md-ellipsis">
+    Callflow Logging
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../comments/" class="md-nav__link">
-        Comments
+        
+  
+  
+  <span class="md-ellipsis">
+    Comments
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../convert/" class="md-nav__link">
-        Image Convert
+        
+  
+  
+  <span class="md-ellipsis">
+    Image Convert
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../cov_report/" class="md-nav__link">
-        Coverage Report
+        
+  
+  
+  <span class="md-ellipsis">
+    Coverage Report
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../data_table/" class="md-nav__link">
-        DataTable Rendering Support
+        
+  
+  
+  <span class="md-ellipsis">
+    DataTable Rendering Support
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+  
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Diagrams Rendering Support
+          
+  
+  
+  <span class="md-ellipsis">
+    Diagrams Rendering Support
+    
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Diagrams Rendering Support
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrams Rendering Support
+    
+  </span>
+  
+
       </a>
       
         
@@ -871,14 +1263,18 @@
       
         <li class="md-nav__item">
   <a href="#requirements" class="md-nav__link">
-    Requirements
+    <span class="md-ellipsis">
+      Requirements
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
-    Example
+    <span class="md-ellipsis">
+      Example
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Example">
@@ -886,7 +1282,9 @@
         
           <li class="md-nav__item">
   <a href="#inline-colors" class="md-nav__link">
-    Inline Colors
+    <span class="md-ellipsis">
+      Inline Colors
+    </span>
   </a>
   
 </li>
@@ -898,7 +1296,9 @@
       
         <li class="md-nav__item">
   <a href="#tech" class="md-nav__link">
-    Tech
+    <span class="md-ellipsis">
+      Tech
+    </span>
   </a>
   
 </li>
@@ -910,539 +1310,864 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../git_changelog/" class="md-nav__link">
-        Changelog
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../lprunner/" class="md-nav__link">
-        Local LP Blocks Runner
+        
+  
+  
+  <span class="md-ellipsis">
+    Local LP Blocks Runner
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../mpl_pyplot/" class="md-nav__link">
-        Matplotlib Rendering Support
+        
+  
+  
+  <span class="md-ellipsis">
+    Matplotlib Rendering Support
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../project_dependencies/" class="md-nav__link">
-        Project Dependencies
+        
+  
+  
+  <span class="md-ellipsis">
+    Project Dependencies
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../screenshot/" class="md-nav__link">
-        Screenshots
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_6" type="checkbox" id="__nav_3_2_6" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_6">
-          Other LP Plugins
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Other LP Plugins" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_6">
-          <span class="md-nav__icon md-icon"></span>
-          Other LP Plugins
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_6" >
+        
           
+          <label class="md-nav__link" for="__nav_3_2_6" id="__nav_3_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Other LP Plugins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Other LP Plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/_index/" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/_tech/" class="md-nav__link">
-        Mechanics
+        
+  
+  
+  <span class="md-ellipsis">
+    Mechanics
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/chart/" class="md-nav__link">
-        chart
+        
+  
+  
+  <span class="md-ellipsis">
+    chart
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/chartist/" class="md-nav__link">
-        chartist
+        
+  
+  
+  <span class="md-ellipsis">
+    chartist
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/column/" class="md-nav__link">
-        column
+        
+  
+  
+  <span class="md-ellipsis">
+    column
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/drawio/" class="md-nav__link">
-        drawio
+        
+  
+  
+  <span class="md-ellipsis">
+    drawio
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/flowchart/" class="md-nav__link">
-        flowchart
+        
+  
+  
+  <span class="md-ellipsis">
+    flowchart
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/kroki/" class="md-nav__link">
-        kroki
+        
+  
+  
+  <span class="md-ellipsis">
+    kroki
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/lightbox/" class="md-nav__link">
-        lightbox
+        
+  
+  
+  <span class="md-ellipsis">
+    lightbox
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/make_badges/" class="md-nav__link">
-        make_badges
+        
+  
+  
+  <span class="md-ellipsis">
+    make_badges
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/make_file/" class="md-nav__link">
-        make_file
+        
+  
+  
+  <span class="md-ellipsis">
+    make_file
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/markmap/" class="md-nav__link">
-        markmap
+        
+  
+  
+  <span class="md-ellipsis">
+    markmap
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/mermaid/" class="md-nav__link">
-        mermaid
+        
+  
+  
+  <span class="md-ellipsis">
+    mermaid
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/show_file/" class="md-nav__link">
-        show_file
+        
+  
+  
+  <span class="md-ellipsis">
+    show_file
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/show_src/" class="md-nav__link">
-        show_src
+        
+  
+  
+  <span class="md-ellipsis">
+    show_src
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../md-replace/" class="md-nav__link">
-        Markdown Replace
+        
+  
+  
+  <span class="md-ellipsis">
+    Markdown Replace
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../page-tree/" class="md-nav__link">
-        Page Tree
+        
+  
+  
+  <span class="md-ellipsis">
+    Page Tree
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../stats/" class="md-nav__link">
-        Stats
+        
+  
+  
+  <span class="md-ellipsis">
+    Stats
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../third/" class="md-nav__link">
-        Third Party
+        
+  
+  
+  <span class="md-ellipsis">
+    Third Party
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../termcasts/" class="md-nav__link">
-        TermCasts
+        
+  
+  
+  <span class="md-ellipsis">
+    TermCasts
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../darkmode/" class="md-nav__link">
-        Darkmode
+        
+  
+  
+  <span class="md-ellipsis">
+    Darkmode
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4">
-          About
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="About" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
-          About
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
           
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/coverage/" class="md-nav__link">
-        Coverage
+        
+  
+  
+  <span class="md-ellipsis">
+    Coverage
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/contributing/" class="md-nav__link">
-        Contributing
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/changelog/" class="md-nav__link">
-        Changelog
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/credits/" class="md-nav__link">
-        Credits
+        
+  
+  
+  <span class="md-ellipsis">
+    Credits
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/navigation/" class="md-nav__link">
-        Navigation
+        
+  
+  
+  <span class="md-ellipsis">
+    Navigation
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/todo/" class="md-nav__link">
-        TODO
+        
+  
+  
+  <span class="md-ellipsis">
+    TODO
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1475,14 +2200,18 @@
       
         <li class="md-nav__item">
   <a href="#requirements" class="md-nav__link">
-    Requirements
+    <span class="md-ellipsis">
+      Requirements
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
-    Example
+    <span class="md-ellipsis">
+      Example
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Example">
@@ -1490,7 +2219,9 @@
         
           <li class="md-nav__item">
   <a href="#inline-colors" class="md-nav__link">
-    Inline Colors
+    <span class="md-ellipsis">
+      Inline Colors
+    </span>
   </a>
   
 </li>
@@ -1502,7 +2233,9 @@
       
         <li class="md-nav__item">
   <a href="#tech" class="md-nav__link">
-    Tech
+    <span class="md-ellipsis">
+      Tech
+    </span>
   </a>
   
 </li>
@@ -1515,14 +2248,15 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-<a href="git://$repos/docutools/docs/features/lp/python/diag_diagram/index.md" title="Edit this page" class="md-content__button md-icon">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-</a>
+                  
 
+
+  
+  
 
 
 
@@ -1596,7 +2330,7 @@ function next_elmt_into_lightbox(id, event) {
           }
 
 </style>
-<h1 id="diagrams-rendering-support"><a href="https://github.com/axiros/docutools/blob/master/src/lcdoc/mkdocs/lp/plugs/python/pyplugs/diag_diagram/__init__.py">Diagrams <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg></span></a> Rendering Support<a class="headerlink" href="#diagrams-rendering-support" title="Permanent link">¤</a></h1>
+<h1 id="diagrams-rendering-support"><a href="https://github.com/axiros/docutools/blob/main/src/lcdoc/mkdocs/lp/plugs/python/pyplugs/diag_diagram/__init__.py">Diagrams <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg></span></a> Rendering Support<a class="headerlink" href="#diagrams-rendering-support" title="Permanent link">¤</a></h1>
 <p><a href="https://diagrams.mingrammer.com/">Diagram</a> rendering support with svg mode.</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">¤</a></h2>
 <p><code>pip install diagrams</code></p>
@@ -1612,9 +2346,9 @@ function next_elmt_into_lightbox(id, event) {
      <span class="s2">&quot;bgcolor&quot;</span><span class="p">:</span> <span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
  <span class="p">}</span>
  
- <span class="k">def</span> <span class="nf">diagr</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-     <span class="sd">&#39;&#39;&#39;factory creating same style Diagram context mgr objects&#39;&#39;&#39;</span>
-     <span class="kn">from</span> <span class="nn">diagrams</span> <span class="kn">import</span> <span class="n">Diagram</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">diagr</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">     </span><span class="sd">&#39;&#39;&#39;factory creating same style Diagram context mgr objects&#39;&#39;&#39;</span>
+     <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams</span><span class="w"> </span><span class="kn">import</span> <span class="n">Diagram</span>
      <span class="n">setup</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">outformat</span><span class="o">=</span><span class="s1">&#39;svg&#39;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;tmpf&#39;</span><span class="p">,</span>
                   <span class="n">graph_attr</span><span class="o">=</span><span class="n">gv</span><span class="p">,</span>
                   <span class="n">node_attr</span><span class="o">=</span><span class="n">gv</span><span class="p">,</span>
@@ -1622,7 +2356,7 @@ function next_elmt_into_lightbox(id, event) {
      <span class="n">setup</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span>
      <span class="k">return</span> <span class="n">Diagram</span><span class="p">(</span><span class="o">**</span><span class="n">setup</span><span class="p">)</span>
  
- <span class="k">def</span> <span class="nf">T</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">T</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
      <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;graph_attr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gv</span>
      <span class="k">return</span> <span class="n">typ</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 </code></pre></div>
@@ -1637,11 +2371,11 @@ function next_elmt_into_lightbox(id, event) {
 
 <p>LP Source:</p>
 <div class="highlight"><pre><span></span><code> <span class="err">```</span><span class="n">python</span> <span class="n">lp</span><span class="p">:</span><span class="n">python</span> <span class="n">addsrc</span> <span class="nb">eval</span><span class="o">=</span><span class="n">always</span> <span class="n">session</span><span class="o">=</span><span class="n">gvdiag</span>
- <span class="kn">from</span> <span class="nn">diagrams</span> <span class="kn">import</span> <span class="n">Cluster</span><span class="p">,</span> <span class="n">Diagram</span>
- <span class="kn">from</span> <span class="nn">diagrams.aws.compute</span> <span class="kn">import</span> <span class="n">ECS</span>
- <span class="kn">from</span> <span class="nn">diagrams.aws.database</span> <span class="kn">import</span> <span class="n">ElastiCache</span><span class="p">,</span> <span class="n">RDS</span>
- <span class="kn">from</span> <span class="nn">diagrams.aws.network</span> <span class="kn">import</span> <span class="n">ELB</span>
- <span class="kn">from</span> <span class="nn">diagrams.aws.network</span> <span class="kn">import</span> <span class="n">Route53</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cluster</span><span class="p">,</span> <span class="n">Diagram</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.aws.compute</span><span class="w"> </span><span class="kn">import</span> <span class="n">ECS</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.aws.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">ElastiCache</span><span class="p">,</span> <span class="n">RDS</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.aws.network</span><span class="w"> </span><span class="kn">import</span> <span class="n">ELB</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.aws.network</span><span class="w"> </span><span class="kn">import</span> <span class="n">Route53</span>
  
  <span class="k">with</span> <span class="n">diagr</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Clustered Web Services&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">d</span><span class="p">:</span>
      <span class="n">dns</span> <span class="o">=</span> <span class="n">Route53</span><span class="p">(</span><span class="s2">&quot;dns&quot;</span><span class="p">)</span>
@@ -1667,7 +2401,7 @@ function next_elmt_into_lightbox(id, event) {
 <p>Result:</p>
 <div class="diagrams_container" id="python_97aa5932608fd16f937755373e91187a">
 <svg width="1025pt" height="866pt"
- viewBox="0.00 0.00 1025.00 866.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(144 722)"><title>Clustered Web Services</title><text text-anchor="middle" x="368.5" y="-9.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Clustered Web Services</text><g id="clust1" class="cluster"><title>cluster_Services</title><path fill="#e5f5fd" stroke="#aeb6be" d="M314,-35C314,-35 407,-35 407,-35 413,-35 419,-41 419,-47 419,-47 419,-558 419,-558 419,-564 413,-570 407,-570 407,-570 314,-570 314,-570 308,-570 302,-564 302,-558 302,-558 302,-47 302,-47 302,-41 308,-35 314,-35"/><text text-anchor="middle" x="335.5" y="-556.4" font-family="Sans-Serif" font-size="12.00" fill="gray">Services</text></g><g id="clust2" class="cluster"><title>cluster_DB Cluster</title><path fill="#e5f5fd" stroke="#aeb6be" d="M469,-305C469,-305 717,-305 717,-305 723,-305 729,-311 729,-317 729,-317 729,-468 729,-468 729,-474 723,-480 717,-480 717,-480 469,-480 469,-480 463,-480 457,-474 457,-468 457,-468 457,-317 457,-317 457,-311 463,-305 469,-305"/><text text-anchor="middle" x="497" y="-466.4" font-family="Sans-Serif" font-size="12.00" fill="gray">DB Cluster</text></g><!-- 5ad92c7896d0492b927941a46ec0188b --><g id="node1" class="node"><title>5ad92c7896d0492b927941a46ec0188b</title><image xlink:href="../../../../icons_diagrams/aws_network_route-53.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="0" y="-342.5"/><text text-anchor="middle" x="50.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">dns</text></g><!-- 60bbcd9a5452478ca0caf7490f4f117b --><g id="node2" class="node"><title>60bbcd9a5452478ca0caf7490f4f117b</title><image xlink:href="../../../../icons_diagrams/aws_network_elastic-load-balancing.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="155" y="-342.5"/><text text-anchor="middle" x="205.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">lb</text></g><!-- 5ad92c7896d0492b927941a46ec0188b&#45;&gt;60bbcd9a5452478ca0caf7490f4f117b --><g id="edge2" class="edge"><title>5ad92c7896d0492b927941a46ec0188b&#45;&gt;60bbcd9a5452478ca0caf7490f4f117b</title><path fill="none" stroke="#7b8894" d="M101.25,-292C101.25,-292 144.9,-292 144.9,-292"/><polygon fill="#7b8894" stroke="#7b8894" points="144.9,-295.5 154.9,-292 144.9,-288.5 144.9,-295.5"/></g><!-- 8b25a1b49ee74d2b86c75c7d6e8591b9 --><g id="node3" class="node"><title>8b25a1b49ee74d2b86c75c7d6e8591b9</title><image xlink:href="../../../../icons_diagrams/aws_compute_elastic-container-service.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="310" y="-342.5"/><text text-anchor="middle" x="360.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">web1</text></g><!-- 60bbcd9a5452478ca0caf7490f4f117b&#45;&gt;8b25a1b49ee74d2b86c75c7d6e8591b9 --><g id="edge3" class="edge"><title>60bbcd9a5452478ca0caf7490f4f117b&#45;&gt;8b25a1b49ee74d2b86c75c7d6e8591b9</title><path fill="none" stroke="#7b8894" d="M256.25,-292C256.25,-292 299.9,-292 299.9,-292"/><polygon fill="#7b8894" stroke="#7b8894" points="299.9,-295.5 309.9,-292 299.9,-288.5 299.9,-295.5"/></g><!-- e504fd22ee3f4ba19eae3e3c302792d5 --><g id="node4" class="node"><title>e504fd22ee3f4ba19eae3e3c302792d5</title><image xlink:href="../../../../icons_diagrams/aws_compute_elastic-container-service.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="310" y="-162.5"/><text text-anchor="middle" x="360.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">web2</text></g><!-- 60bbcd9a5452478ca0caf7490f4f117b&#45;&gt;e504fd22ee3f4ba19eae3e3c302792d5 --><g id="edge4" class="edge"><title>60bbcd9a5452478ca0caf7490f4f117b&#45;&gt;e504fd22ee3f4ba19eae3e3c302792d5</title><path fill="none" stroke="#7b8894" d="M206,-223.44C206,-172.57 206,-112 206,-112 206,-112 299.91,-112 299.91,-112"/><polygon fill="#7b8894" stroke="#7b8894" points="299.91,-115.5 309.91,-112 299.91,-108.5 299.91,-115.5"/></g><!-- 7d7ca99aed3d4d0a89d9d94ea5e28b9c --><g id="node5" class="node"><title>7d7ca99aed3d4d0a89d9d94ea5e28b9c</title><image xlink:href="../../../../icons_diagrams/aws_compute_elastic-container-service.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="310" y="-522.5"/><text text-anchor="middle" x="360.5" y="-408.9" font-family="Sans-Serif" font-size="17.00" fill="gray">web3</text></g><!-- 60bbcd9a5452478ca0caf7490f4f117b&#45;&gt;7d7ca99aed3d4d0a89d9d94ea5e28b9c --><g id="edge5" class="edge"><title>60bbcd9a5452478ca0caf7490f4f117b&#45;&gt;7d7ca99aed3d4d0a89d9d94ea5e28b9c</title><path fill="none" stroke="#7b8894" d="M206,-360.56C206,-411.43 206,-472 206,-472 206,-472 299.91,-472 299.91,-472"/><polygon fill="#7b8894" stroke="#7b8894" points="299.91,-475.5 309.91,-472 299.91,-468.5 299.91,-475.5"/></g><!-- 4eac1d52bd14474da8624e8945ac45fb --><g id="node6" class="node"><title>4eac1d52bd14474da8624e8945ac45fb</title><image xlink:href="../../../../icons_diagrams/aws_database_rds.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="465" y="-432.5"/><text text-anchor="middle" x="515.5" y="-318.9" font-family="Sans-Serif" font-size="17.00" fill="gray">userdb</text></g><!-- 8b25a1b49ee74d2b86c75c7d6e8591b9&#45;&gt;4eac1d52bd14474da8624e8945ac45fb --><g id="edge6" class="edge"><title>8b25a1b49ee74d2b86c75c7d6e8591b9&#45;&gt;4eac1d52bd14474da8624e8945ac45fb</title><path fill="none" stroke="#7b8894" d="M411.25,-344.83C411.25,-344.83 454.9,-344.83 454.9,-344.83"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-348.33 464.9,-344.83 454.9,-341.33 454.9,-348.33"/></g><!-- 6791ea50a9514875b73ffc399dbadb35 --><g id="node8" class="node"><title>6791ea50a9514875b73ffc399dbadb35</title><image xlink:href="../../../../icons_diagrams/aws_database_elasticache.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="465" y="-252.5"/><text text-anchor="middle" x="515.5" y="-138.9" font-family="Sans-Serif" font-size="17.00" fill="gray">memcached</text></g><!-- 8b25a1b49ee74d2b86c75c7d6e8591b9&#45;&gt;6791ea50a9514875b73ffc399dbadb35 --><g id="edge9" class="edge"><title>8b25a1b49ee74d2b86c75c7d6e8591b9&#45;&gt;6791ea50a9514875b73ffc399dbadb35</title><path fill="none" stroke="#7b8894" d="M411.25,-239.17C411.25,-239.17 454.9,-239.17 454.9,-239.17"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-242.67 464.9,-239.17 454.9,-235.67 454.9,-242.67"/></g><!-- e504fd22ee3f4ba19eae3e3c302792d5&#45;&gt;4eac1d52bd14474da8624e8945ac45fb --><g id="edge7" class="edge"><title>e504fd22ee3f4ba19eae3e3c302792d5&#45;&gt;4eac1d52bd14474da8624e8945ac45fb</title><path fill="none" stroke="#7b8894" d="M411.07,-164.83C430,-164.83 447,-164.83 447,-164.83 447,-164.83 447,-329.17 447,-329.17 447,-329.17 455,-329.17 455,-329.17"/><polygon fill="#7b8894" stroke="#7b8894" points="455,-332.67 465,-329.17 455,-325.67 455,-332.67"/></g><!-- e504fd22ee3f4ba19eae3e3c302792d5&#45;&gt;6791ea50a9514875b73ffc399dbadb35 --><g id="edge10" class="edge"><title>e504fd22ee3f4ba19eae3e3c302792d5&#45;&gt;6791ea50a9514875b73ffc399dbadb35</title><path fill="none" stroke="#7b8894" d="M411.25,-149.17C411.25,-149.17 454.9,-149.17 454.9,-149.17"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-152.67 464.9,-149.17 454.9,-145.67 454.9,-152.67"/></g><!-- 7d7ca99aed3d4d0a89d9d94ea5e28b9c&#45;&gt;4eac1d52bd14474da8624e8945ac45fb --><g id="edge8" class="edge"><title>7d7ca99aed3d4d0a89d9d94ea5e28b9c&#45;&gt;4eac1d52bd14474da8624e8945ac45fb</title><path fill="none" stroke="#7b8894" d="M411.25,-434.83C411.25,-434.83 454.9,-434.83 454.9,-434.83"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-438.33 464.9,-434.83 454.9,-431.33 454.9,-438.33"/></g><!-- 7d7ca99aed3d4d0a89d9d94ea5e28b9c&#45;&gt;6791ea50a9514875b73ffc399dbadb35 --><g id="edge11" class="edge"><title>7d7ca99aed3d4d0a89d9d94ea5e28b9c&#45;&gt;6791ea50a9514875b73ffc399dbadb35</title><path fill="none" stroke="#7b8894" d="M411,-419.17C421.27,-419.17 429,-419.17 429,-419.17 429,-419.17 429,-254.83 429,-254.83 429,-254.83 454.93,-254.83 454.93,-254.83"/><polygon fill="#7b8894" stroke="#7b8894" points="454.93,-258.33 464.93,-254.83 454.93,-251.33 454.93,-258.33"/></g><!-- a3be245b510842d7a0638affe1c08230 --><g id="node7" class="node"><title>a3be245b510842d7a0638affe1c08230</title><image xlink:href="../../../../icons_diagrams/aws_database_rds.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="620" y="-432.5"/><text text-anchor="middle" x="670.5" y="-318.9" font-family="Sans-Serif" font-size="17.00" fill="gray">userdb ro</text></g><!-- 4eac1d52bd14474da8624e8945ac45fb&#45;&gt;a3be245b510842d7a0638affe1c08230 --><g id="edge1" class="edge"><title>4eac1d52bd14474da8624e8945ac45fb&#45;&gt;a3be245b510842d7a0638affe1c08230</title><path fill="none" stroke="#7b8894" d="M566.25,-382C583.47,-382 602.69,-382 619.9,-382"/></g></g></svg>
+ viewBox="0.00 0.00 1025.00 866.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(144 722)"><title>Clustered Web Services</title><text text-anchor="middle" x="368.5" y="-9.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Clustered Web Services</text><g id="clust1" class="cluster"><title>cluster_Services</title><path fill="#e5f5fd" stroke="#aeb6be" d="M314,-35C314,-35 407,-35 407,-35 413,-35 419,-41 419,-47 419,-47 419,-558 419,-558 419,-564 413,-570 407,-570 407,-570 314,-570 314,-570 308,-570 302,-564 302,-558 302,-558 302,-47 302,-47 302,-41 308,-35 314,-35"/><text text-anchor="middle" x="335.5" y="-556.4" font-family="Sans-Serif" font-size="12.00" fill="gray">Services</text></g><g id="clust2" class="cluster"><title>cluster_DB Cluster</title><path fill="#e5f5fd" stroke="#aeb6be" d="M469,-305C469,-305 717,-305 717,-305 723,-305 729,-311 729,-317 729,-317 729,-468 729,-468 729,-474 723,-480 717,-480 717,-480 469,-480 469,-480 463,-480 457,-474 457,-468 457,-468 457,-317 457,-317 457,-311 463,-305 469,-305"/><text text-anchor="middle" x="497" y="-466.4" font-family="Sans-Serif" font-size="12.00" fill="gray">DB Cluster</text></g><!-- 9474e54bd926432f8ba2ace2e97cee10 --><g id="node1" class="node"><title>9474e54bd926432f8ba2ace2e97cee10</title><image xlink:href="../../../../icons_diagrams/aws_network_route-53.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="0" y="-342.5"/><text text-anchor="middle" x="50.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">dns</text></g><!-- 762780d1ed754d64b07fadd671b894e1 --><g id="node2" class="node"><title>762780d1ed754d64b07fadd671b894e1</title><image xlink:href="../../../../icons_diagrams/aws_network_elastic-load-balancing.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="155" y="-342.5"/><text text-anchor="middle" x="205.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">lb</text></g><!-- 9474e54bd926432f8ba2ace2e97cee10&#45;&gt;762780d1ed754d64b07fadd671b894e1 --><g id="edge2" class="edge"><title>9474e54bd926432f8ba2ace2e97cee10&#45;&gt;762780d1ed754d64b07fadd671b894e1</title><path fill="none" stroke="#7b8894" d="M101.25,-292C101.25,-292 144.9,-292 144.9,-292"/><polygon fill="#7b8894" stroke="#7b8894" points="144.9,-295.5 154.9,-292 144.9,-288.5 144.9,-295.5"/></g><!-- 33994897efde4ed4b5ac75dc1eb07a0e --><g id="node3" class="node"><title>33994897efde4ed4b5ac75dc1eb07a0e</title><image xlink:href="../../../../icons_diagrams/aws_compute_elastic-container-service.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="310" y="-342.5"/><text text-anchor="middle" x="360.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">web1</text></g><!-- 762780d1ed754d64b07fadd671b894e1&#45;&gt;33994897efde4ed4b5ac75dc1eb07a0e --><g id="edge3" class="edge"><title>762780d1ed754d64b07fadd671b894e1&#45;&gt;33994897efde4ed4b5ac75dc1eb07a0e</title><path fill="none" stroke="#7b8894" d="M256.25,-292C256.25,-292 299.9,-292 299.9,-292"/><polygon fill="#7b8894" stroke="#7b8894" points="299.9,-295.5 309.9,-292 299.9,-288.5 299.9,-295.5"/></g><!-- eff1a4c486ee4025ab193de255532987 --><g id="node4" class="node"><title>eff1a4c486ee4025ab193de255532987</title><image xlink:href="../../../../icons_diagrams/aws_compute_elastic-container-service.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="310" y="-162.5"/><text text-anchor="middle" x="360.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">web2</text></g><!-- 762780d1ed754d64b07fadd671b894e1&#45;&gt;eff1a4c486ee4025ab193de255532987 --><g id="edge4" class="edge"><title>762780d1ed754d64b07fadd671b894e1&#45;&gt;eff1a4c486ee4025ab193de255532987</title><path fill="none" stroke="#7b8894" d="M206,-223.44C206,-172.57 206,-112 206,-112 206,-112 299.91,-112 299.91,-112"/><polygon fill="#7b8894" stroke="#7b8894" points="299.91,-115.5 309.91,-112 299.91,-108.5 299.91,-115.5"/></g><!-- ad02bc5bacaa46feacf2c722a59b27b3 --><g id="node5" class="node"><title>ad02bc5bacaa46feacf2c722a59b27b3</title><image xlink:href="../../../../icons_diagrams/aws_compute_elastic-container-service.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="310" y="-522.5"/><text text-anchor="middle" x="360.5" y="-408.9" font-family="Sans-Serif" font-size="17.00" fill="gray">web3</text></g><!-- 762780d1ed754d64b07fadd671b894e1&#45;&gt;ad02bc5bacaa46feacf2c722a59b27b3 --><g id="edge5" class="edge"><title>762780d1ed754d64b07fadd671b894e1&#45;&gt;ad02bc5bacaa46feacf2c722a59b27b3</title><path fill="none" stroke="#7b8894" d="M206,-360.56C206,-411.43 206,-472 206,-472 206,-472 299.91,-472 299.91,-472"/><polygon fill="#7b8894" stroke="#7b8894" points="299.91,-475.5 309.91,-472 299.91,-468.5 299.91,-475.5"/></g><!-- 63272caead1b4266a426b059266c7266 --><g id="node6" class="node"><title>63272caead1b4266a426b059266c7266</title><image xlink:href="../../../../icons_diagrams/aws_database_rds.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="465" y="-432.5"/><text text-anchor="middle" x="515.5" y="-318.9" font-family="Sans-Serif" font-size="17.00" fill="gray">userdb</text></g><!-- 33994897efde4ed4b5ac75dc1eb07a0e&#45;&gt;63272caead1b4266a426b059266c7266 --><g id="edge6" class="edge"><title>33994897efde4ed4b5ac75dc1eb07a0e&#45;&gt;63272caead1b4266a426b059266c7266</title><path fill="none" stroke="#7b8894" d="M411.25,-344.83C411.25,-344.83 454.9,-344.83 454.9,-344.83"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-348.33 464.9,-344.83 454.9,-341.33 454.9,-348.33"/></g><!-- 869dffe6cd544ee499bd39a2dcc3a86b --><g id="node8" class="node"><title>869dffe6cd544ee499bd39a2dcc3a86b</title><image xlink:href="../../../../icons_diagrams/aws_database_elasticache.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="465" y="-252.5"/><text text-anchor="middle" x="515.5" y="-138.9" font-family="Sans-Serif" font-size="17.00" fill="gray">memcached</text></g><!-- 33994897efde4ed4b5ac75dc1eb07a0e&#45;&gt;869dffe6cd544ee499bd39a2dcc3a86b --><g id="edge9" class="edge"><title>33994897efde4ed4b5ac75dc1eb07a0e&#45;&gt;869dffe6cd544ee499bd39a2dcc3a86b</title><path fill="none" stroke="#7b8894" d="M411.25,-239.17C411.25,-239.17 454.9,-239.17 454.9,-239.17"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-242.67 464.9,-239.17 454.9,-235.67 454.9,-242.67"/></g><!-- eff1a4c486ee4025ab193de255532987&#45;&gt;63272caead1b4266a426b059266c7266 --><g id="edge7" class="edge"><title>eff1a4c486ee4025ab193de255532987&#45;&gt;63272caead1b4266a426b059266c7266</title><path fill="none" stroke="#7b8894" d="M411.07,-164.83C430,-164.83 447,-164.83 447,-164.83 447,-164.83 447,-329.17 447,-329.17 447,-329.17 455,-329.17 455,-329.17"/><polygon fill="#7b8894" stroke="#7b8894" points="455,-332.67 465,-329.17 455,-325.67 455,-332.67"/></g><!-- eff1a4c486ee4025ab193de255532987&#45;&gt;869dffe6cd544ee499bd39a2dcc3a86b --><g id="edge10" class="edge"><title>eff1a4c486ee4025ab193de255532987&#45;&gt;869dffe6cd544ee499bd39a2dcc3a86b</title><path fill="none" stroke="#7b8894" d="M411.25,-149.17C411.25,-149.17 454.9,-149.17 454.9,-149.17"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-152.67 464.9,-149.17 454.9,-145.67 454.9,-152.67"/></g><!-- ad02bc5bacaa46feacf2c722a59b27b3&#45;&gt;63272caead1b4266a426b059266c7266 --><g id="edge8" class="edge"><title>ad02bc5bacaa46feacf2c722a59b27b3&#45;&gt;63272caead1b4266a426b059266c7266</title><path fill="none" stroke="#7b8894" d="M411.25,-434.83C411.25,-434.83 454.9,-434.83 454.9,-434.83"/><polygon fill="#7b8894" stroke="#7b8894" points="454.9,-438.33 464.9,-434.83 454.9,-431.33 454.9,-438.33"/></g><!-- ad02bc5bacaa46feacf2c722a59b27b3&#45;&gt;869dffe6cd544ee499bd39a2dcc3a86b --><g id="edge11" class="edge"><title>ad02bc5bacaa46feacf2c722a59b27b3&#45;&gt;869dffe6cd544ee499bd39a2dcc3a86b</title><path fill="none" stroke="#7b8894" d="M411,-419.17C421.27,-419.17 429,-419.17 429,-419.17 429,-419.17 429,-254.83 429,-254.83 429,-254.83 454.93,-254.83 454.93,-254.83"/><polygon fill="#7b8894" stroke="#7b8894" points="454.93,-258.33 464.93,-254.83 454.93,-251.33 454.93,-258.33"/></g><!-- c5f17167e5ae4baaabfed917e49a3bc4 --><g id="node7" class="node"><title>c5f17167e5ae4baaabfed917e49a3bc4</title><image xlink:href="../../../../icons_diagrams/aws_database_rds.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="620" y="-432.5"/><text text-anchor="middle" x="670.5" y="-318.9" font-family="Sans-Serif" font-size="17.00" fill="gray">userdb ro</text></g><!-- 63272caead1b4266a426b059266c7266&#45;&gt;c5f17167e5ae4baaabfed917e49a3bc4 --><g id="edge1" class="edge"><title>63272caead1b4266a426b059266c7266&#45;&gt;c5f17167e5ae4baaabfed917e49a3bc4</title><path fill="none" stroke="#7b8894" d="M566.25,-382C583.47,-382 602.69,-382 619.9,-382"/></g></g></svg>
 </div>
 
 <!-- id: 97aa5932608fd16f937755373e91187a -->
@@ -1680,21 +2414,21 @@ function next_elmt_into_lightbox(id, event) {
 <div class="tabbed-block">
 <p><div class="diagrams_container" id="python_7d29ac45630c68b4e964735aaee24d80">
 <svg width="1275pt" height="881pt"
- viewBox="0.00 0.00 1275.00 881.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(144 737)"><title>Advanced Web Service with On&#45;Premise (colored)</title><text text-anchor="middle" x="493.5" y="-9.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Advanced Web Service with On&#45;Premise (colored)</text><g id="clust1" class="cluster"><title>cluster_Service Cluster</title><path fill="transparent" stroke="#aeb6be" d="M160,-35C160,-35 279,-35 279,-35 285,-35 291,-41 291,-47 291,-47 291,-564 291,-564 291,-570 285,-576 279,-576 279,-576 160,-576 160,-576 154,-576 148,-570 148,-564 148,-564 148,-47 148,-47 148,-41 154,-35 160,-35"/><text text-anchor="middle" x="219.5" y="-558.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Service Cluster</text></g><g id="clust2" class="cluster"><title>cluster_Sessions HA</title><path fill="transparent" stroke="#aeb6be" d="M342,-404C342,-404 627,-404 627,-404 633,-404 639,-410 639,-416 639,-416 639,-573 639,-573 639,-579 633,-585 627,-585 627,-585 342,-585 342,-585 336,-585 330,-579 330,-573 330,-573 330,-416 330,-416 330,-410 336,-404 342,-404"/><text text-anchor="middle" x="390" y="-567.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Sessions HA</text></g><g id="clust3" class="cluster"><title>cluster_Database HA</title><path fill="transparent" stroke="#aeb6be" d="M342,-215C342,-215 627,-215 627,-215 633,-215 639,-221 639,-227 639,-227 639,-384 639,-384 639,-390 633,-396 627,-396 627,-396 342,-396 342,-396 336,-396 330,-390 330,-384 330,-384 330,-227 330,-227 330,-221 336,-215 342,-215"/><text text-anchor="middle" x="394" y="-378.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Database HA</text></g><!-- b20a012da94748b8815348e826ea2583 --><g id="node1" class="node"><title>b20a012da94748b8815348e826ea2583</title><image xlink:href="../../../../icons_diagrams/onprem_network_nginx.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="0" y="-342.5"/><text text-anchor="middle" x="50.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">ingress</text></g><!-- c550506766a240b98710300829e70c99 --><g id="node4" class="node"><title>c550506766a240b98710300829e70c99</title><image xlink:href="../../../../icons_diagrams/onprem_compute_server.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="169" y="-522.5"/><text text-anchor="middle" x="219.5" y="-408.9" font-family="Sans-Serif" font-size="17.00">grpc1</text></g><!-- b20a012da94748b8815348e826ea2583&#45;&gt;c550506766a240b98710300829e70c99 --><g id="edge14" class="edge"><title>b20a012da94748b8815348e826ea2583&#45;&gt;c550506766a240b98710300829e70c99</title><path fill="none" stroke="darkgreen" d="M51,-370.56C51,-370.56 51,-472 51,-472 51,-472 158.94,-472 158.94,-472"/><polygon fill="darkgreen" stroke="darkgreen" points="54.5,-370.56 51,-360.56 47.5,-370.56 54.5,-370.56"/><polygon fill="darkgreen" stroke="darkgreen" points="158.94,-475.5 168.94,-472 158.94,-468.5 158.94,-475.5"/></g><!-- 8ebd1a84fd8849998355899a8bc0b543 --><g id="node5" class="node"><title>8ebd1a84fd8849998355899a8bc0b543</title><image xlink:href="../../../../icons_diagrams/onprem_compute_server.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="169" y="-342.5"/><text text-anchor="middle" x="219.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">grpc2</text></g><!-- b20a012da94748b8815348e826ea2583&#45;&gt;8ebd1a84fd8849998355899a8bc0b543 --><g id="edge15" class="edge"><title>b20a012da94748b8815348e826ea2583&#45;&gt;8ebd1a84fd8849998355899a8bc0b543</title><path fill="none" stroke="darkgreen" d="M111.21,-292C111.21,-292 158.83,-292 158.83,-292"/><polygon fill="darkgreen" stroke="darkgreen" points="158.83,-295.5 168.83,-292 158.83,-288.5 158.83,-295.5"/><polygon fill="darkgreen" stroke="darkgreen" points="111.21,-288.5 101.21,-292 111.21,-295.5 111.21,-288.5"/></g><!-- efbb6c4666f74ab695357c205134ae0e --><g id="node6" class="node"><title>efbb6c4666f74ab695357c205134ae0e</title><image xlink:href="../../../../icons_diagrams/onprem_compute_server.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="169" y="-162.5"/><text text-anchor="middle" x="219.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">grpc3</text></g><!-- b20a012da94748b8815348e826ea2583&#45;&gt;efbb6c4666f74ab695357c205134ae0e --><g id="edge16" class="edge"><title>b20a012da94748b8815348e826ea2583&#45;&gt;efbb6c4666f74ab695357c205134ae0e</title><path fill="none" stroke="darkgreen" d="M51,-213.44C51,-213.44 51,-112 51,-112 51,-112 158.94,-112 158.94,-112"/><polygon fill="darkgreen" stroke="darkgreen" points="47.5,-213.44 51,-223.44 54.5,-213.44 47.5,-213.44"/><polygon fill="darkgreen" stroke="darkgreen" points="158.94,-115.5 168.94,-112 158.94,-108.5 158.94,-115.5"/></g><!-- 8aec0e9415f044deaa4f26d77becf024 --><g id="node2" class="node"><title>8aec0e9415f044deaa4f26d77becf024</title><image xlink:href="../../../../icons_diagrams/onprem_monitoring_prometheus.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="730" y="-437.5"/><text text-anchor="middle" x="780.5" y="-323.9" font-family="Sans-Serif" font-size="17.00" fill="gray">metric</text></g><!-- 4fd6cebd6fab42aa9dcf59d497ef6489 --><g id="node3" class="node"><title>4fd6cebd6fab42aa9dcf59d497ef6489</title><image xlink:href="../../../../icons_diagrams/onprem_monitoring_grafana.png" width="101px" height="104.945px" preserveAspectRatio="xMinYMin meet" x="886" y="-439.473"/><text text-anchor="middle" x="936.5" y="-323.9" font-family="Sans-Serif" font-size="17.00" fill="gray">monitoring</text></g><!-- 8aec0e9415f044deaa4f26d77becf024&#45;&gt;4fd6cebd6fab42aa9dcf59d497ef6489 --><g id="edge1" class="edge"><title>8aec0e9415f044deaa4f26d77becf024&#45;&gt;4fd6cebd6fab42aa9dcf59d497ef6489</title><path fill="none" stroke="firebrick" stroke-dasharray="5,2" d="M841.15,-387C841.15,-387 885.84,-387 885.84,-387"/><polygon fill="firebrick" stroke="firebrick" points="841.15,-383.5 831.15,-387 841.15,-390.5 841.15,-383.5"/></g><!-- fefb52d8960a4783808252055dda77d8 --><g id="node7" class="node"><title>fefb52d8960a4783808252055dda77d8</title><image xlink:href="../../../../icons_diagrams/onprem_inmemory_redis.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="338" y="-531.5"/><text text-anchor="middle" x="388.5" y="-417.9" font-family="Sans-Serif" font-size="17.00" fill="gray">session</text></g><!-- c550506766a240b98710300829e70c99&#45;&gt;fefb52d8960a4783808252055dda77d8 --><g id="edge4" class="edge"><title>c550506766a240b98710300829e70c99&#45;&gt;fefb52d8960a4783808252055dda77d8</title><path fill="none" stroke="brown" d="M270.21,-497.83C270.21,-497.83 327.83,-497.83 327.83,-497.83"/><polygon fill="brown" stroke="brown" points="327.83,-501.33 337.83,-497.83 327.83,-494.33 327.83,-501.33"/></g><!-- 5d001ea5555f4647a57b978cdc5d31f9 --><g id="node9" class="node"><title>5d001ea5555f4647a57b978cdc5d31f9</title><image xlink:href="../../../../icons_diagrams/onprem_database_postgresql.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="338" y="-342.5"/><text text-anchor="middle" x="388.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">users</text></g><!-- c550506766a240b98710300829e70c99&#45;&gt;5d001ea5555f4647a57b978cdc5d31f9 --><g id="edge9" class="edge"><title>c550506766a240b98710300829e70c99&#45;&gt;5d001ea5555f4647a57b978cdc5d31f9</title><path fill="none" stroke="black" d="M270.46,-409.5C325.68,-409.5 406,-409.5 406,-409.5 406,-409.5 406,-370.69 406,-370.69"/><polygon fill="black" stroke="black" points="409.5,-370.69 406,-360.69 402.5,-370.69 409.5,-370.69"/></g><!-- 6aa9e4a8f24340059526aefd7eb0a15d --><g id="node11" class="node"><title>6aa9e4a8f24340059526aefd7eb0a15d</title><image xlink:href="../../../../icons_diagrams/onprem_aggregator_fluentd.png" width="101px" height="83.2461px" preserveAspectRatio="xMinYMin meet" x="338" y="-153.623"/><text text-anchor="middle" x="388.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">logging</text></g><!-- c550506766a240b98710300829e70c99&#45;&gt;6aa9e4a8f24340059526aefd7eb0a15d --><g id="edge17" class="edge"><title>c550506766a240b98710300829e70c99&#45;&gt;6aa9e4a8f24340059526aefd7eb0a15d</title><path fill="none" stroke="darkorange" d="M270.01,-406.5C293.36,-406.5 316,-406.5 316,-406.5 316,-406.5 316,-146.25 316,-146.25 316,-146.25 327.75,-146.25 327.75,-146.25"/><polygon fill="darkorange" stroke="darkorange" points="327.75,-149.75 337.75,-146.25 327.75,-142.75 327.75,-149.75"/></g><!-- 8ebd1a84fd8849998355899a8bc0b543&#45;&gt;fefb52d8960a4783808252055dda77d8 --><g id="edge5" class="edge"><title>8ebd1a84fd8849998355899a8bc0b543&#45;&gt;fefb52d8960a4783808252055dda77d8</title><path fill="none" stroke="brown" d="M220,-360.67C220,-372.99 220,-382 220,-382 220,-382 372,-382 372,-382 372,-382 372,-402.24 372,-402.24"/><polygon fill="brown" stroke="brown" points="368.5,-402.24 372,-412.24 375.5,-402.24 368.5,-402.24"/></g><!-- 8ebd1a84fd8849998355899a8bc0b543&#45;&gt;5d001ea5555f4647a57b978cdc5d31f9 --><g id="edge10" class="edge"><title>8ebd1a84fd8849998355899a8bc0b543&#45;&gt;5d001ea5555f4647a57b978cdc5d31f9</title><path fill="none" stroke="black" d="M270.21,-292C270.21,-292 327.83,-292 327.83,-292"/><polygon fill="black" stroke="black" points="327.83,-295.5 337.83,-292 327.83,-288.5 327.83,-295.5"/></g><!-- 8ebd1a84fd8849998355899a8bc0b543&#45;&gt;6aa9e4a8f24340059526aefd7eb0a15d --><g id="edge18" class="edge"><title>8ebd1a84fd8849998355899a8bc0b543&#45;&gt;6aa9e4a8f24340059526aefd7eb0a15d</title><path fill="none" stroke="darkorange" d="M203,-223.22C203,-214.84 203,-209.17 203,-209.17 203,-209.17 372,-209.17 372,-209.17 372,-209.17 372,-190.54 372,-190.54"/><polygon fill="darkorange" stroke="darkorange" points="375.5,-190.54 372,-180.54 368.5,-190.54 375.5,-190.54"/></g><!-- efbb6c4666f74ab695357c205134ae0e&#45;&gt;fefb52d8960a4783808252055dda77d8 --><g id="edge6" class="edge"><title>efbb6c4666f74ab695357c205134ae0e&#45;&gt;fefb52d8960a4783808252055dda77d8</title><path fill="none" stroke="brown" d="M270.15,-112C282.88,-112 293,-112 293,-112 293,-112 293,-455.17 293,-455.17 293,-455.17 327.95,-455.17 327.95,-455.17"/><polygon fill="brown" stroke="brown" points="327.95,-458.67 337.95,-455.17 327.95,-451.67 327.95,-458.67"/></g><!-- efbb6c4666f74ab695357c205134ae0e&#45;&gt;5d001ea5555f4647a57b978cdc5d31f9 --><g id="edge11" class="edge"><title>efbb6c4666f74ab695357c205134ae0e&#45;&gt;5d001ea5555f4647a57b978cdc5d31f9</title><path fill="none" stroke="black" d="M237,-180.78C237,-189.16 237,-194.83 237,-194.83 237,-194.83 406,-194.83 406,-194.83 406,-194.83 406,-213.46 406,-213.46"/><polygon fill="black" stroke="black" points="402.5,-213.46 406,-223.46 409.5,-213.46 402.5,-213.46"/></g><!-- efbb6c4666f74ab695357c205134ae0e&#45;&gt;6aa9e4a8f24340059526aefd7eb0a15d --><g id="edge19" class="edge"><title>efbb6c4666f74ab695357c205134ae0e&#45;&gt;6aa9e4a8f24340059526aefd7eb0a15d</title><path fill="none" stroke="darkorange" d="M270.21,-77.75C270.21,-77.75 327.83,-77.75 327.83,-77.75"/><polygon fill="darkorange" stroke="darkorange" points="327.83,-81.25 337.83,-77.75 327.83,-74.25 327.83,-81.25"/></g><!-- a8f8cf5363ce43be9219c88d7b85ad68 --><g id="node8" class="node"><title>a8f8cf5363ce43be9219c88d7b85ad68</title><image xlink:href="../../../../icons_diagrams/onprem_inmemory_redis.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="530" y="-531.5"/><text text-anchor="middle" x="580.5" y="-417.9" font-family="Sans-Serif" font-size="17.00" fill="gray">replica</text></g><!-- fefb52d8960a4783808252055dda77d8&#45;&gt;a8f8cf5363ce43be9219c88d7b85ad68 --><g id="edge2" class="edge"><title>fefb52d8960a4783808252055dda77d8&#45;&gt;a8f8cf5363ce43be9219c88d7b85ad68</title><path fill="none" stroke="brown" stroke-dasharray="5,2" d="M439.2,-481C467.19,-481 501.86,-481 529.85,-481"/></g><!-- a8f8cf5363ce43be9219c88d7b85ad68&#45;&gt;8aec0e9415f044deaa4f26d77becf024 --><g id="edge3" class="edge"><title>a8f8cf5363ce43be9219c88d7b85ad68&#45;&gt;8aec0e9415f044deaa4f26d77becf024</title><path fill="none" stroke="#7b8894" d="M641.23,-434C641.23,-434 729.83,-434 729.83,-434"/><polygon fill="#7b8894" stroke="#7b8894" points="641.23,-430.5 631.23,-434 641.23,-437.5 641.23,-430.5"/><text text-anchor="middle" x="680.5" y="-452.6" font-family="Sans-Serif" font-size="13.00" fill="#2d3436">collect</text></g><!-- 911bc009b4f846fe985f9ec37e43d375 --><g id="node10" class="node"><title>911bc009b4f846fe985f9ec37e43d375</title><image xlink:href="../../../../icons_diagrams/onprem_database_postgresql.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="530" y="-342.5"/><text text-anchor="middle" x="580.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">replica</text></g><!-- 5d001ea5555f4647a57b978cdc5d31f9&#45;&gt;911bc009b4f846fe985f9ec37e43d375 --><g id="edge7" class="edge"><title>5d001ea5555f4647a57b978cdc5d31f9&#45;&gt;911bc009b4f846fe985f9ec37e43d375</title><path fill="none" stroke="brown" stroke-dasharray="1,5" d="M439.2,-292C467.19,-292 501.86,-292 529.85,-292"/></g><!-- 911bc009b4f846fe985f9ec37e43d375&#45;&gt;8aec0e9415f044deaa4f26d77becf024 --><g id="edge8" class="edge"><title>911bc009b4f846fe985f9ec37e43d375&#45;&gt;8aec0e9415f044deaa4f26d77becf024</title><path fill="none" stroke="#7b8894" d="M641.23,-339.5C641.23,-339.5 729.83,-339.5 729.83,-339.5"/><polygon fill="#7b8894" stroke="#7b8894" points="641.23,-336 631.23,-339.5 641.23,-343 641.23,-336"/><text text-anchor="middle" x="680.5" y="-327.6" font-family="Sans-Serif" font-size="13.00" fill="#2d3436">collect</text></g><!-- 663cfbf7a1444b9f8ef4d84c4b6cbb6f --><g id="node12" class="node"><title>663cfbf7a1444b9f8ef4d84c4b6cbb6f</title><image xlink:href="../../../../icons_diagrams/onprem_queue_kafka.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="530" y="-162.5"/><text text-anchor="middle" x="580.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">stream</text></g><!-- 6aa9e4a8f24340059526aefd7eb0a15d&#45;&gt;663cfbf7a1444b9f8ef4d84c4b6cbb6f --><g id="edge12" class="edge"><title>6aa9e4a8f24340059526aefd7eb0a15d&#45;&gt;663cfbf7a1444b9f8ef4d84c4b6cbb6f</title><path fill="none" stroke="#7b8894" d="M439.2,-112C439.2,-112 519.85,-112 519.85,-112"/><polygon fill="#7b8894" stroke="#7b8894" points="519.85,-115.5 529.85,-112 519.85,-108.5 519.85,-115.5"/><text text-anchor="middle" x="484.5" y="-115.6" font-family="Sans-Serif" font-size="13.00" fill="#2d3436">parse</text></g><!-- 9615560f1e6944afb8acaa43f0fd3aac --><g id="node13" class="node"><title>9615560f1e6944afb8acaa43f0fd3aac</title><image xlink:href="../../../../icons_diagrams/onprem_analytics_spark.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="730" y="-162.5"/><text text-anchor="middle" x="780.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">analytics</text></g><!-- 663cfbf7a1444b9f8ef4d84c4b6cbb6f&#45;&gt;9615560f1e6944afb8acaa43f0fd3aac --><g id="edge13" class="edge"><title>663cfbf7a1444b9f8ef4d84c4b6cbb6f&#45;&gt;9615560f1e6944afb8acaa43f0fd3aac</title><path fill="none" stroke="black" stroke-width="2" d="M631.23,-112C631.23,-112 719.83,-112 719.83,-112"/><polygon fill="black" stroke="black" stroke-width="2" points="719.83,-115.5 729.83,-112 719.83,-108.5 719.83,-115.5"/></g></g></svg>
+ viewBox="0.00 0.00 1275.00 881.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(144 737)"><title>Advanced Web Service with On&#45;Premise (colored)</title><text text-anchor="middle" x="493.5" y="-9.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Advanced Web Service with On&#45;Premise (colored)</text><g id="clust1" class="cluster"><title>cluster_Service Cluster</title><path fill="transparent" stroke="#aeb6be" d="M160,-35C160,-35 279,-35 279,-35 285,-35 291,-41 291,-47 291,-47 291,-564 291,-564 291,-570 285,-576 279,-576 279,-576 160,-576 160,-576 154,-576 148,-570 148,-564 148,-564 148,-47 148,-47 148,-41 154,-35 160,-35"/><text text-anchor="middle" x="219.5" y="-558.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Service Cluster</text></g><g id="clust2" class="cluster"><title>cluster_Sessions HA</title><path fill="transparent" stroke="#aeb6be" d="M342,-404C342,-404 627,-404 627,-404 633,-404 639,-410 639,-416 639,-416 639,-573 639,-573 639,-579 633,-585 627,-585 627,-585 342,-585 342,-585 336,-585 330,-579 330,-573 330,-573 330,-416 330,-416 330,-410 336,-404 342,-404"/><text text-anchor="middle" x="390" y="-567.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Sessions HA</text></g><g id="clust3" class="cluster"><title>cluster_Database HA</title><path fill="transparent" stroke="#aeb6be" d="M342,-215C342,-215 627,-215 627,-215 633,-215 639,-221 639,-227 639,-227 639,-384 639,-384 639,-390 633,-396 627,-396 627,-396 342,-396 342,-396 336,-396 330,-390 330,-384 330,-384 330,-227 330,-227 330,-221 336,-215 342,-215"/><text text-anchor="middle" x="394" y="-378.4" font-family="Sans-Serif" font-size="17.00" fill="gray">Database HA</text></g><!-- 725630c2d0b045d68e172ef324eba359 --><g id="node1" class="node"><title>725630c2d0b045d68e172ef324eba359</title><image xlink:href="../../../../icons_diagrams/onprem_network_nginx.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="0" y="-342.5"/><text text-anchor="middle" x="50.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">ingress</text></g><!-- 33df6583269044c392f19c012c65f156 --><g id="node4" class="node"><title>33df6583269044c392f19c012c65f156</title><image xlink:href="../../../../icons_diagrams/onprem_compute_server.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="169" y="-522.5"/><text text-anchor="middle" x="219.5" y="-408.9" font-family="Sans-Serif" font-size="17.00">grpc1</text></g><!-- 725630c2d0b045d68e172ef324eba359&#45;&gt;33df6583269044c392f19c012c65f156 --><g id="edge14" class="edge"><title>725630c2d0b045d68e172ef324eba359&#45;&gt;33df6583269044c392f19c012c65f156</title><path fill="none" stroke="darkgreen" d="M51,-370.56C51,-370.56 51,-472 51,-472 51,-472 158.94,-472 158.94,-472"/><polygon fill="darkgreen" stroke="darkgreen" points="54.5,-370.56 51,-360.56 47.5,-370.56 54.5,-370.56"/><polygon fill="darkgreen" stroke="darkgreen" points="158.94,-475.5 168.94,-472 158.94,-468.5 158.94,-475.5"/></g><!-- 6e622b7f3d094671a60284ba05deebf3 --><g id="node5" class="node"><title>6e622b7f3d094671a60284ba05deebf3</title><image xlink:href="../../../../icons_diagrams/onprem_compute_server.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="169" y="-342.5"/><text text-anchor="middle" x="219.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">grpc2</text></g><!-- 725630c2d0b045d68e172ef324eba359&#45;&gt;6e622b7f3d094671a60284ba05deebf3 --><g id="edge15" class="edge"><title>725630c2d0b045d68e172ef324eba359&#45;&gt;6e622b7f3d094671a60284ba05deebf3</title><path fill="none" stroke="darkgreen" d="M111.21,-292C111.21,-292 158.83,-292 158.83,-292"/><polygon fill="darkgreen" stroke="darkgreen" points="158.83,-295.5 168.83,-292 158.83,-288.5 158.83,-295.5"/><polygon fill="darkgreen" stroke="darkgreen" points="111.21,-288.5 101.21,-292 111.21,-295.5 111.21,-288.5"/></g><!-- 10280b64ffda44ec8f4052f0a66d800c --><g id="node6" class="node"><title>10280b64ffda44ec8f4052f0a66d800c</title><image xlink:href="../../../../icons_diagrams/onprem_compute_server.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="169" y="-162.5"/><text text-anchor="middle" x="219.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">grpc3</text></g><!-- 725630c2d0b045d68e172ef324eba359&#45;&gt;10280b64ffda44ec8f4052f0a66d800c --><g id="edge16" class="edge"><title>725630c2d0b045d68e172ef324eba359&#45;&gt;10280b64ffda44ec8f4052f0a66d800c</title><path fill="none" stroke="darkgreen" d="M51,-213.44C51,-213.44 51,-112 51,-112 51,-112 158.94,-112 158.94,-112"/><polygon fill="darkgreen" stroke="darkgreen" points="47.5,-213.44 51,-223.44 54.5,-213.44 47.5,-213.44"/><polygon fill="darkgreen" stroke="darkgreen" points="158.94,-115.5 168.94,-112 158.94,-108.5 158.94,-115.5"/></g><!-- d4075c69f6844203948dd7c3ed008e3a --><g id="node2" class="node"><title>d4075c69f6844203948dd7c3ed008e3a</title><image xlink:href="../../../../icons_diagrams/onprem_monitoring_prometheus.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="730" y="-437.5"/><text text-anchor="middle" x="780.5" y="-323.9" font-family="Sans-Serif" font-size="17.00" fill="gray">metric</text></g><!-- 24cd2456959a4149985a1346fc4be0b7 --><g id="node3" class="node"><title>24cd2456959a4149985a1346fc4be0b7</title><image xlink:href="../../../../icons_diagrams/onprem_monitoring_grafana.png" width="101px" height="104.945px" preserveAspectRatio="xMinYMin meet" x="886" y="-439.473"/><text text-anchor="middle" x="936.5" y="-323.9" font-family="Sans-Serif" font-size="17.00" fill="gray">monitoring</text></g><!-- d4075c69f6844203948dd7c3ed008e3a&#45;&gt;24cd2456959a4149985a1346fc4be0b7 --><g id="edge1" class="edge"><title>d4075c69f6844203948dd7c3ed008e3a&#45;&gt;24cd2456959a4149985a1346fc4be0b7</title><path fill="none" stroke="firebrick" stroke-dasharray="5,2" d="M841.15,-387C841.15,-387 885.84,-387 885.84,-387"/><polygon fill="firebrick" stroke="firebrick" points="841.15,-383.5 831.15,-387 841.15,-390.5 841.15,-383.5"/></g><!-- 564dd25f8e6e46938bace8d661010455 --><g id="node7" class="node"><title>564dd25f8e6e46938bace8d661010455</title><image xlink:href="../../../../icons_diagrams/onprem_inmemory_redis.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="338" y="-531.5"/><text text-anchor="middle" x="388.5" y="-417.9" font-family="Sans-Serif" font-size="17.00" fill="gray">session</text></g><!-- 33df6583269044c392f19c012c65f156&#45;&gt;564dd25f8e6e46938bace8d661010455 --><g id="edge4" class="edge"><title>33df6583269044c392f19c012c65f156&#45;&gt;564dd25f8e6e46938bace8d661010455</title><path fill="none" stroke="brown" d="M270.21,-497.83C270.21,-497.83 327.83,-497.83 327.83,-497.83"/><polygon fill="brown" stroke="brown" points="327.83,-501.33 337.83,-497.83 327.83,-494.33 327.83,-501.33"/></g><!-- ba6045850a164b81b315a2a502c2819d --><g id="node9" class="node"><title>ba6045850a164b81b315a2a502c2819d</title><image xlink:href="../../../../icons_diagrams/onprem_database_postgresql.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="338" y="-342.5"/><text text-anchor="middle" x="388.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">users</text></g><!-- 33df6583269044c392f19c012c65f156&#45;&gt;ba6045850a164b81b315a2a502c2819d --><g id="edge9" class="edge"><title>33df6583269044c392f19c012c65f156&#45;&gt;ba6045850a164b81b315a2a502c2819d</title><path fill="none" stroke="black" d="M270.46,-409.5C325.68,-409.5 406,-409.5 406,-409.5 406,-409.5 406,-370.69 406,-370.69"/><polygon fill="black" stroke="black" points="409.5,-370.69 406,-360.69 402.5,-370.69 409.5,-370.69"/></g><!-- 6870385acb1b4459ac27a40b991640a7 --><g id="node11" class="node"><title>6870385acb1b4459ac27a40b991640a7</title><image xlink:href="../../../../icons_diagrams/onprem_aggregator_fluentd.png" width="101px" height="83.2461px" preserveAspectRatio="xMinYMin meet" x="338" y="-153.623"/><text text-anchor="middle" x="388.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">logging</text></g><!-- 33df6583269044c392f19c012c65f156&#45;&gt;6870385acb1b4459ac27a40b991640a7 --><g id="edge17" class="edge"><title>33df6583269044c392f19c012c65f156&#45;&gt;6870385acb1b4459ac27a40b991640a7</title><path fill="none" stroke="darkorange" d="M270.15,-406.5C282.88,-406.5 293,-406.5 293,-406.5 293,-406.5 293,-146.25 293,-146.25 293,-146.25 327.95,-146.25 327.95,-146.25"/><polygon fill="darkorange" stroke="darkorange" points="327.95,-149.75 337.95,-146.25 327.95,-142.75 327.95,-149.75"/></g><!-- 6e622b7f3d094671a60284ba05deebf3&#45;&gt;564dd25f8e6e46938bace8d661010455 --><g id="edge5" class="edge"><title>6e622b7f3d094671a60284ba05deebf3&#45;&gt;564dd25f8e6e46938bace8d661010455</title><path fill="none" stroke="brown" d="M220,-360.67C220,-372.99 220,-382 220,-382 220,-382 372,-382 372,-382 372,-382 372,-402.24 372,-402.24"/><polygon fill="brown" stroke="brown" points="368.5,-402.24 372,-412.24 375.5,-402.24 368.5,-402.24"/></g><!-- 6e622b7f3d094671a60284ba05deebf3&#45;&gt;ba6045850a164b81b315a2a502c2819d --><g id="edge10" class="edge"><title>6e622b7f3d094671a60284ba05deebf3&#45;&gt;ba6045850a164b81b315a2a502c2819d</title><path fill="none" stroke="black" d="M270.21,-292C270.21,-292 327.83,-292 327.83,-292"/><polygon fill="black" stroke="black" points="327.83,-295.5 337.83,-292 327.83,-288.5 327.83,-295.5"/></g><!-- 6e622b7f3d094671a60284ba05deebf3&#45;&gt;6870385acb1b4459ac27a40b991640a7 --><g id="edge18" class="edge"><title>6e622b7f3d094671a60284ba05deebf3&#45;&gt;6870385acb1b4459ac27a40b991640a7</title><path fill="none" stroke="darkorange" d="M203,-223.22C203,-214.84 203,-209.17 203,-209.17 203,-209.17 372,-209.17 372,-209.17 372,-209.17 372,-190.54 372,-190.54"/><polygon fill="darkorange" stroke="darkorange" points="375.5,-190.54 372,-180.54 368.5,-190.54 375.5,-190.54"/></g><!-- 10280b64ffda44ec8f4052f0a66d800c&#45;&gt;564dd25f8e6e46938bace8d661010455 --><g id="edge6" class="edge"><title>10280b64ffda44ec8f4052f0a66d800c&#45;&gt;564dd25f8e6e46938bace8d661010455</title><path fill="none" stroke="brown" d="M270.01,-112C293.36,-112 316,-112 316,-112 316,-112 316,-455.17 316,-455.17 316,-455.17 327.75,-455.17 327.75,-455.17"/><polygon fill="brown" stroke="brown" points="327.75,-458.67 337.75,-455.17 327.75,-451.67 327.75,-458.67"/></g><!-- 10280b64ffda44ec8f4052f0a66d800c&#45;&gt;ba6045850a164b81b315a2a502c2819d --><g id="edge11" class="edge"><title>10280b64ffda44ec8f4052f0a66d800c&#45;&gt;ba6045850a164b81b315a2a502c2819d</title><path fill="none" stroke="black" d="M237,-180.78C237,-189.16 237,-194.83 237,-194.83 237,-194.83 406,-194.83 406,-194.83 406,-194.83 406,-213.46 406,-213.46"/><polygon fill="black" stroke="black" points="402.5,-213.46 406,-223.46 409.5,-213.46 402.5,-213.46"/></g><!-- 10280b64ffda44ec8f4052f0a66d800c&#45;&gt;6870385acb1b4459ac27a40b991640a7 --><g id="edge19" class="edge"><title>10280b64ffda44ec8f4052f0a66d800c&#45;&gt;6870385acb1b4459ac27a40b991640a7</title><path fill="none" stroke="darkorange" d="M270.21,-77.75C270.21,-77.75 327.83,-77.75 327.83,-77.75"/><polygon fill="darkorange" stroke="darkorange" points="327.83,-81.25 337.83,-77.75 327.83,-74.25 327.83,-81.25"/></g><!-- 57be640514db4d1b9362da9bfc8ef822 --><g id="node8" class="node"><title>57be640514db4d1b9362da9bfc8ef822</title><image xlink:href="../../../../icons_diagrams/onprem_inmemory_redis.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="530" y="-531.5"/><text text-anchor="middle" x="580.5" y="-417.9" font-family="Sans-Serif" font-size="17.00" fill="gray">replica</text></g><!-- 564dd25f8e6e46938bace8d661010455&#45;&gt;57be640514db4d1b9362da9bfc8ef822 --><g id="edge2" class="edge"><title>564dd25f8e6e46938bace8d661010455&#45;&gt;57be640514db4d1b9362da9bfc8ef822</title><path fill="none" stroke="brown" stroke-dasharray="5,2" d="M439.2,-481C467.19,-481 501.86,-481 529.85,-481"/></g><!-- 57be640514db4d1b9362da9bfc8ef822&#45;&gt;d4075c69f6844203948dd7c3ed008e3a --><g id="edge3" class="edge"><title>57be640514db4d1b9362da9bfc8ef822&#45;&gt;d4075c69f6844203948dd7c3ed008e3a</title><path fill="none" stroke="#7b8894" d="M641.23,-434C641.23,-434 729.83,-434 729.83,-434"/><polygon fill="#7b8894" stroke="#7b8894" points="641.23,-430.5 631.23,-434 641.23,-437.5 641.23,-430.5"/><text text-anchor="middle" x="680.5" y="-452.6" font-family="Sans-Serif" font-size="13.00" fill="#2d3436">collect</text></g><!-- 9bcb049044a74939b97bdcc48ed3ce85 --><g id="node10" class="node"><title>9bcb049044a74939b97bdcc48ed3ce85</title><image xlink:href="../../../../icons_diagrams/onprem_database_postgresql.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="530" y="-342.5"/><text text-anchor="middle" x="580.5" y="-228.9" font-family="Sans-Serif" font-size="17.00" fill="gray">replica</text></g><!-- ba6045850a164b81b315a2a502c2819d&#45;&gt;9bcb049044a74939b97bdcc48ed3ce85 --><g id="edge7" class="edge"><title>ba6045850a164b81b315a2a502c2819d&#45;&gt;9bcb049044a74939b97bdcc48ed3ce85</title><path fill="none" stroke="brown" stroke-dasharray="1,5" d="M439.2,-292C467.19,-292 501.86,-292 529.85,-292"/></g><!-- 9bcb049044a74939b97bdcc48ed3ce85&#45;&gt;d4075c69f6844203948dd7c3ed008e3a --><g id="edge8" class="edge"><title>9bcb049044a74939b97bdcc48ed3ce85&#45;&gt;d4075c69f6844203948dd7c3ed008e3a</title><path fill="none" stroke="#7b8894" d="M641.23,-339.5C641.23,-339.5 729.83,-339.5 729.83,-339.5"/><polygon fill="#7b8894" stroke="#7b8894" points="641.23,-336 631.23,-339.5 641.23,-343 641.23,-336"/><text text-anchor="middle" x="680.5" y="-327.6" font-family="Sans-Serif" font-size="13.00" fill="#2d3436">collect</text></g><!-- 101ca3e36eea484a991a520ee1a7393d --><g id="node12" class="node"><title>101ca3e36eea484a991a520ee1a7393d</title><image xlink:href="../../../../icons_diagrams/onprem_queue_kafka.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="530" y="-162.5"/><text text-anchor="middle" x="580.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">stream</text></g><!-- 6870385acb1b4459ac27a40b991640a7&#45;&gt;101ca3e36eea484a991a520ee1a7393d --><g id="edge12" class="edge"><title>6870385acb1b4459ac27a40b991640a7&#45;&gt;101ca3e36eea484a991a520ee1a7393d</title><path fill="none" stroke="#7b8894" d="M439.2,-112C439.2,-112 519.85,-112 519.85,-112"/><polygon fill="#7b8894" stroke="#7b8894" points="519.85,-115.5 529.85,-112 519.85,-108.5 519.85,-115.5"/><text text-anchor="middle" x="484.5" y="-115.6" font-family="Sans-Serif" font-size="13.00" fill="#2d3436">parse</text></g><!-- 5c5b6645083745d3a9d44615a57e4c7e --><g id="node13" class="node"><title>5c5b6645083745d3a9d44615a57e4c7e</title><image xlink:href="../../../../icons_diagrams/onprem_analytics_spark.png" width="101px" height="101px" preserveAspectRatio="xMinYMin meet" x="730" y="-162.5"/><text text-anchor="middle" x="780.5" y="-48.9" font-family="Sans-Serif" font-size="17.00" fill="gray">analytics</text></g><!-- 101ca3e36eea484a991a520ee1a7393d&#45;&gt;5c5b6645083745d3a9d44615a57e4c7e --><g id="edge13" class="edge"><title>101ca3e36eea484a991a520ee1a7393d&#45;&gt;5c5b6645083745d3a9d44615a57e4c7e</title><path fill="none" stroke="black" stroke-width="2" d="M631.23,-112C631.23,-112 719.83,-112 719.83,-112"/><polygon fill="black" stroke="black" stroke-width="2" points="719.83,-115.5 729.83,-112 719.83,-108.5 719.83,-115.5"/></g></g></svg>
 </div></p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code> 
  <span class="err">```</span><span class="n">python</span> <span class="n">lp</span><span class="p">:</span><span class="n">python</span> <span class="n">addsrc</span><span class="o">=</span><span class="s2">&quot;Cloud Computing Example&quot;</span> <span class="nb">eval</span><span class="o">=</span><span class="n">always</span> <span class="n">session</span><span class="o">=</span><span class="n">gvdiag</span>
- <span class="kn">from</span> <span class="nn">diagrams</span> <span class="kn">import</span> <span class="n">Cluster</span><span class="p">,</span> <span class="n">Edge</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.analytics</span> <span class="kn">import</span> <span class="n">Spark</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.compute</span> <span class="kn">import</span> <span class="n">Server</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.database</span> <span class="kn">import</span> <span class="n">PostgreSQL</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.inmemory</span> <span class="kn">import</span> <span class="n">Redis</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.aggregator</span> <span class="kn">import</span> <span class="n">Fluentd</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.monitoring</span> <span class="kn">import</span> <span class="n">Grafana</span><span class="p">,</span> <span class="n">Prometheus</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.network</span> <span class="kn">import</span> <span class="n">Nginx</span>
- <span class="kn">from</span> <span class="nn">diagrams.onprem.queue</span> <span class="kn">import</span> <span class="n">Kafka</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cluster</span><span class="p">,</span> <span class="n">Edge</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.analytics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spark</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.compute</span><span class="w"> </span><span class="kn">import</span> <span class="n">Server</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">PostgreSQL</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.inmemory</span><span class="w"> </span><span class="kn">import</span> <span class="n">Redis</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.aggregator</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fluentd</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.monitoring</span><span class="w"> </span><span class="kn">import</span> <span class="n">Grafana</span><span class="p">,</span> <span class="n">Prometheus</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.network</span><span class="w"> </span><span class="kn">import</span> <span class="n">Nginx</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">diagrams.onprem.queue</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kafka</span>
  
  
  <span class="k">with</span> <span class="n">diagr</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Advanced Web Service with On-Premise (colored)&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">diag</span><span class="p">:</span>
@@ -1760,15 +2494,30 @@ $('.md-content .diagrams_container').css('cursor', 'zoom-in');
 
 
 
-              
-            </article>
-          </div>
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
-            Back to top
-          </a>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
         
       </main>
       
@@ -1801,12 +2550,12 @@ $('.md-content .diagrams_container').css('cursor', 'zoom-in');
 <footer class="md-footer">
   
 
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    <nav class="md-footer__inner md-grid" aria-label="footer.title">
       
         
         <a href="../data_table/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DataTable Rendering Support" rel="prev">
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
           </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
@@ -1860,7 +2609,7 @@ $('.md-content .diagrams_container').css('cursor', 'zoom-in');
           </div>
         </div>
         <div style="margin-left: -2rem" class="md-footer__button md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
         </div>
       </div>
 
@@ -1897,11 +2646,13 @@ $('.md-content .diagrams_container').css('cursor', 'zoom-in');
   
     
     
+    
+    
       
       
     
     <a href="https://github.com/axiros" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
 </div>
@@ -1915,26 +2666,30 @@ $('.md-content .diagrams_container').css('cursor', 'zoom-in');
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.top", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.467223ff.min.js"></script>
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.top", "navigation.tabs", "navigation.sections"], "search": "../../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.50899def.min.js"></script>
       
         <script src="../../../../lcd/lp/javascript/tables.js"></script>
       
-        <script src="../../../../lcd/lp/javascript/Rx.min.js"></script>
+        <script src="../../../../lcd/lp/javascript/xterm-addon-fit.min.js"></script>
+      
+        <script src="../../../../lcd/lp/javascript/xterm-addon-search.min.js"></script>
       
         <script src="../../../../lcd/lp/javascript/tablesort.min.js"></script>
+      
+        <script src="../../../../lcd/lp/javascript/lc.js"></script>
       
         <script src="../../../../lcd/lp/javascript/xterm.4.9.0.min.js"></script>
       
         <script src="../../../../lcd/lp/javascript/fa_all.js"></script>
       
-        <script src="../../../../lcd/lp/javascript/lc.js"></script>
-      
-        <script src="../../../../lcd/lp/javascript/xterm-addon-search.min.js"></script>
-      
-        <script src="../../../../lcd/lp/javascript/xterm-addon-fit.min.js"></script>
+        <script src="../../../../lcd/lp/javascript/Rx.min.js"></script>
       
     
   </body>

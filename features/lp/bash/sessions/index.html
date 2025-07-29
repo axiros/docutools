@@ -12,8 +12,15 @@
       
         <link rel="canonical" href="https://axiros.github.io/docutools/features/lp/bash/sessions/">
       
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../xterm/">
+      
+      
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
     
     
       
@@ -21,17 +28,17 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.2d9f7617.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.e6a45f82.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#546d78">
-        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
       
+      
+
+
     
+    
+      
     
     
       
@@ -45,10 +52,11 @@
     
       <link rel="stylesheet" href="../../../../lcd/lp/css/xterm.min.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -61,7 +69,6 @@
     
     <body dir="ltr" data-md-color-scheme="preference" data-md-color-primary="blue-grey" data-md-color-accent="deep-purple">
   
-    
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -86,11 +93,12 @@
     <a href="../../../.." title="docutools" class="md-header__button md-logo" aria-label="docutools" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5V2M6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -109,47 +117,57 @@
       </div>
     </div>
     
+      
     
     
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
   </div>
 </div>
+      
     
     
       <div class="md-header__source">
-        <a href="https://github.com/axiros/docutools/" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/axiros/docutools" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     docutools
@@ -168,50 +186,23 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
   
   
-
-
-  <li class="md-tabs__item">
-    <a href="../../../.." class="md-tabs__link">
-      Overview
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  
   
   
     <li class="md-tabs__item">
-      <a href="../../../../install/" class="md-tabs__link">
-        Installation
-      </a>
-    </li>
-  
-
-      
+      <a href="../../../.." class="md-tabs__link">
         
   
   
     
   
+  Overview
 
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../../" class="md-tabs__link md-tabs__link--active">
-        Features
       </a>
     </li>
   
@@ -220,16 +211,62 @@
         
   
   
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../install/" class="md-tabs__link">
+          
+  
+  
+  Installation
 
+        </a>
+      </li>
+    
+  
 
+      
+        
   
   
   
-    <li class="md-tabs__item">
-      <a href="../../../../about/coverage/" class="md-tabs__link">
-        About
-      </a>
-    </li>
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+  Features
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../about/coverage/" class="md-tabs__link">
+          
+  
+  
+  About
+
+        </a>
+      </li>
+    
   
 
       
@@ -249,6 +286,7 @@
                   <div class="md-sidebar__inner">
                     
 
+
   
 
 
@@ -257,17 +295,17 @@
     <a href="../../../.." title="docutools" class="md-nav__button md-logo" aria-label="docutools" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5V2M6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
 
     </a>
     docutools
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/axiros/docutools/" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/axiros/docutools" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
   </div>
   <div class="md-source__repository">
     docutools
@@ -279,14 +317,21 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../.." class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -294,377 +339,607 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2">
-          Installation
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Installation" data-md-level="1">
-        <label class="md-nav__title" for="__nav_2">
-          <span class="md-nav__icon md-icon"></span>
-          Installation
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
           
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Installation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../install/" class="md-nav__link">
-        Installation
+        
+  
+  
+  <span class="md-ellipsis">
+    Install
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../dev_install/" class="md-nav__link">
-        Development Installation
+        
+  
+  
+  <span class="md-ellipsis">
+    Development Installation
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../task_runner/" class="md-nav__link">
-        Task Runner
+        
+  
+  
+  <span class="md-ellipsis">
+    Task Runner
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../conda/" class="md-nav__link">
-        About Conda
+        
+  
+  
+  <span class="md-ellipsis">
+    About Conda
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
   
   
     
   
   
+  
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    
+    
+      
+        
+        
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        
       
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-      
-      
-        <label class="md-nav__link" for="__nav_3">
-          Features
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Features" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Features
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Features
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../" class="md-nav__link">
-        Features
+        
+  
+  
+  <span class="md-ellipsis">
+    Index
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+  
+    
+    
+    
     
       
+      
+        
+          
+          
+        
+      
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          Plugins
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Plugins" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          Plugins
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
           
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Plugins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../blacklist/" class="md-nav__link">
-        Blacklist
+        
+  
+  
+  <span class="md-ellipsis">
+    Blacklist
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../find-pages/" class="md-nav__link">
-        Find Pages
+        
+  
+  
+  <span class="md-ellipsis">
+    Find Pages
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_3" type="checkbox" id="__nav_3_2_3" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_3">
-          Literate Programming (LP)
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Literate Programming (LP)" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_3">
-          <span class="md-nav__icon md-icon"></span>
-          Literate Programming (LP)
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" >
+        
           
+          <label class="md-nav__link" for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Literate Programming (LP)
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Literate Programming (LP)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../syntax/" class="md-nav__link">
-        Syntax
+        
+  
+  
+  <span class="md-ellipsis">
+    Syntax
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../parameters/" class="md-nav__link">
-        Parameters
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameters
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../sessions/" class="md-nav__link">
-        Sessions
+        
+  
+  
+  <span class="md-ellipsis">
+    Sessions
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../eval/" class="md-nav__link">
-        Evaluation and Caching
+        
+  
+  
+  <span class="md-ellipsis">
+    Evaluation and Caching
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../async/" class="md-nav__link">
-        Async Fetching
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Fetching
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_4" type="checkbox" id="__nav_3_2_4" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_4">
-          LP Shell Mode
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="LP Shell Mode" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_4">
-          <span class="md-nav__icon md-icon"></span>
-          LP Shell Mode
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_4" checked>
+        
           
+          <label class="md-nav__link" for="__nav_3_2_4" id="__nav_3_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    LP Shell Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            LP Shell Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+  
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Tmux Sessions
+          
+  
+  
+  <span class="md-ellipsis">
+    Tmux Sessions
+    
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Tmux Sessions
+        
+  
+  
+  <span class="md-ellipsis">
+    Tmux Sessions
+    
+  </span>
+  
+
       </a>
       
         
@@ -684,28 +959,36 @@
       
         <li class="md-nav__item">
   <a href="#mechanics" class="md-nav__link">
-    Mechanics
+    <span class="md-ellipsis">
+      Mechanics
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
-    Example
+    <span class="md-ellipsis">
+      Example
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#terminal-output" class="md-nav__link">
-    Terminal Output
+    <span class="md-ellipsis">
+      Terminal Output
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#tmux-base-index" class="md-nav__link">
-    Tmux Base Index
+    <span class="md-ellipsis">
+      Tmux Base Index
+    </span>
   </a>
   
 </li>
@@ -717,726 +1000,1168 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../xterm/" class="md-nav__link">
-        Terminal Colors
+        
+  
+  
+  <span class="md-ellipsis">
+    Terminal Colors
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../examples/" class="md-nav__link">
-        Examples
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../tips/" class="md-nav__link">
-        Tips
+        
+  
+  
+  <span class="md-ellipsis">
+    Tips
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_5" type="checkbox" id="__nav_3_2_5" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_5">
-          LP Python Mode
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="LP Python Mode" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_5">
-          <span class="md-nav__icon md-icon"></span>
-          LP Python Mode
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_5" >
+        
           
+          <label class="md-nav__link" for="__nav_3_2_5" id="__nav_3_2_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    LP Python Mode
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            LP Python Mode
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/_index/" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/_tech/" class="md-nav__link">
-        Mechanics
+        
+  
+  
+  <span class="md-ellipsis">
+    Mechanics
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/call_flow_logging/" class="md-nav__link">
-        Callflow Logging
+        
+  
+  
+  <span class="md-ellipsis">
+    Callflow Logging
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/comments/" class="md-nav__link">
-        Comments
+        
+  
+  
+  <span class="md-ellipsis">
+    Comments
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/convert/" class="md-nav__link">
-        Image Convert
+        
+  
+  
+  <span class="md-ellipsis">
+    Image Convert
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/cov_report/" class="md-nav__link">
-        Coverage Report
+        
+  
+  
+  <span class="md-ellipsis">
+    Coverage Report
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/data_table/" class="md-nav__link">
-        DataTable Rendering Support
+        
+  
+  
+  <span class="md-ellipsis">
+    DataTable Rendering Support
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/diag_diagram/" class="md-nav__link">
-        Diagrams Rendering Support
+        
+  
+  
+  <span class="md-ellipsis">
+    Diagrams Rendering Support
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/git_changelog/" class="md-nav__link">
-        Changelog
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/lprunner/" class="md-nav__link">
-        Local LP Blocks Runner
+        
+  
+  
+  <span class="md-ellipsis">
+    Local LP Blocks Runner
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/mpl_pyplot/" class="md-nav__link">
-        Matplotlib Rendering Support
+        
+  
+  
+  <span class="md-ellipsis">
+    Matplotlib Rendering Support
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/project_dependencies/" class="md-nav__link">
-        Project Dependencies
+        
+  
+  
+  <span class="md-ellipsis">
+    Project Dependencies
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../python/screenshot/" class="md-nav__link">
-        Screenshots
+        
+  
+  
+  <span class="md-ellipsis">
+    Screenshots
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_6" type="checkbox" id="__nav_3_2_6" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2_6">
-          Other LP Plugins
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Other LP Plugins" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_2_6">
-          <span class="md-nav__icon md-icon"></span>
-          Other LP Plugins
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_6" >
+        
           
+          <label class="md-nav__link" for="__nav_3_2_6" id="__nav_3_2_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Other LP Plugins
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            Other LP Plugins
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/_index/" class="md-nav__link">
-        Overview
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/_tech/" class="md-nav__link">
-        Mechanics
+        
+  
+  
+  <span class="md-ellipsis">
+    Mechanics
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/chart/" class="md-nav__link">
-        chart
+        
+  
+  
+  <span class="md-ellipsis">
+    chart
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/chartist/" class="md-nav__link">
-        chartist
+        
+  
+  
+  <span class="md-ellipsis">
+    chartist
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/column/" class="md-nav__link">
-        column
+        
+  
+  
+  <span class="md-ellipsis">
+    column
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/drawio/" class="md-nav__link">
-        drawio
+        
+  
+  
+  <span class="md-ellipsis">
+    drawio
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/flowchart/" class="md-nav__link">
-        flowchart
+        
+  
+  
+  <span class="md-ellipsis">
+    flowchart
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/kroki/" class="md-nav__link">
-        kroki
+        
+  
+  
+  <span class="md-ellipsis">
+    kroki
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/lightbox/" class="md-nav__link">
-        lightbox
+        
+  
+  
+  <span class="md-ellipsis">
+    lightbox
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/make_badges/" class="md-nav__link">
-        make_badges
+        
+  
+  
+  <span class="md-ellipsis">
+    make_badges
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/make_file/" class="md-nav__link">
-        make_file
+        
+  
+  
+  <span class="md-ellipsis">
+    make_file
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/markmap/" class="md-nav__link">
-        markmap
+        
+  
+  
+  <span class="md-ellipsis">
+    markmap
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/mermaid/" class="md-nav__link">
-        mermaid
+        
+  
+  
+  <span class="md-ellipsis">
+    mermaid
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/show_file/" class="md-nav__link">
-        show_file
+        
+  
+  
+  <span class="md-ellipsis">
+    show_file
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../plugs/show_src/" class="md-nav__link">
-        show_src
+        
+  
+  
+  <span class="md-ellipsis">
+    show_src
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../md-replace/" class="md-nav__link">
-        Markdown Replace
+        
+  
+  
+  <span class="md-ellipsis">
+    Markdown Replace
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../page-tree/" class="md-nav__link">
-        Page Tree
+        
+  
+  
+  <span class="md-ellipsis">
+    Page Tree
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../stats/" class="md-nav__link">
-        Stats
+        
+  
+  
+  <span class="md-ellipsis">
+    Stats
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../third/" class="md-nav__link">
-        Third Party
+        
+  
+  
+  <span class="md-ellipsis">
+    Third Party
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../termcasts/" class="md-nav__link">
-        TermCasts
+        
+  
+  
+  <span class="md-ellipsis">
+    TermCasts
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../darkmode/" class="md-nav__link">
-        Darkmode
+        
+  
+  
+  <span class="md-ellipsis">
+    Darkmode
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+    
+    
+      
+      
+        
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4">
-          About
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="About" data-md-level="1">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
-          About
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
           
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/coverage/" class="md-nav__link">
-        Coverage
+        
+  
+  
+  <span class="md-ellipsis">
+    Coverage
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/contributing/" class="md-nav__link">
-        Contributing
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/changelog/" class="md-nav__link">
-        Changelog
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/credits/" class="md-nav__link">
-        Credits
+        
+  
+  
+  <span class="md-ellipsis">
+    Credits
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/navigation/" class="md-nav__link">
-        Navigation
+        
+  
+  
+  <span class="md-ellipsis">
+    Navigation
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../about/todo/" class="md-nav__link">
-        TODO
+        
+  
+  
+  <span class="md-ellipsis">
+    TODO
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1469,28 +2194,36 @@
       
         <li class="md-nav__item">
   <a href="#mechanics" class="md-nav__link">
-    Mechanics
+    <span class="md-ellipsis">
+      Mechanics
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
-    Example
+    <span class="md-ellipsis">
+      Example
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#terminal-output" class="md-nav__link">
-    Terminal Output
+    <span class="md-ellipsis">
+      Terminal Output
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#tmux-base-index" class="md-nav__link">
-    Tmux Base Index
+    <span class="md-ellipsis">
+      Tmux Base Index
+    </span>
   </a>
   
 </li>
@@ -1503,14 +2236,15 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-<a href="git://$repos/docutools/docs/features/lp/bash/sessions.md" title="Edit this page" class="md-content__button md-icon">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
-</a>
+                  
 
+
+  
+  
 
 
 <style>
@@ -1552,43 +2286,1610 @@ or external (e.g. filesystem) state.</p>
 </li>
 </ul>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">¤</a></h2>
-<!-- id: 97b748e533f2a8d80edc89082e377a3f -->
+<!-- id: 5a9e4e145ff20f0bf649e56f3497632d -->
 
 <p>LP Source:</p>
-<div class="highlight"><pre><span></span><code> <span class="sb">```</span>bash lp:bash <span class="nv">session</span><span class="o">=</span>docs addsrc
- ls -lta /etc/systemd
- <span class="sb">```</span>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="sb">```</span>bash<span class="w"> </span>lp:bash<span class="w"> </span><span class="nv">session</span><span class="o">=</span>docs<span class="w"> </span>addsrc
+<span class="w"> </span>ls<span class="w"> </span>-lta<span class="w"> </span>/usr/bin
+<span class="w"> </span><span class="sb">```</span>
 </code></pre></div>
 <p>Result:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cmd</label><label for="__tabbed_1_2">Output</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="gp">$ </span>ls -lta /etc/systemd
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>ls<span class="w"> </span>-lta<span class="w"> </span>/usr/bin
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p><xterm /></p>
-<pre><code>$ ls -lta /etc/systemd                                
-total 64            
-drwxr-xr-x 139 root root 12288 Apr  7 10:17 ..                                  
-drwxr-xr-x  22 root root  4096 Apr  7 10:17 system                              
--rw-r--r--   1 root root  1815 Apr  5 20:22 system.conf                         
-drwxr-xr-x   3 root root  4096 Apr  4 21:40 user                                
-drwxr-xr-x   5 root root  4096 Apr  4 21:39 .                                   
--rw-r--r--   1 root root   642 Jan 10 04:56 resolved.conf                       
--rw-r--r--   1 root root  1042 Apr 22  2020 journald.conf                       
--rw-r--r--   1 root root  1042 Apr 22  2020 logind.conf                         
-drwxr-xr-x   2 root root  4096 Apr 22  2020 network                             
--rw-r--r--   1 root root   604 Apr 22  2020 timesyncd.conf                      
--rw-r--r--   1 root root  1185 Apr 22  2020 user.conf                           
--rw-r--r--   1 root root   584 Apr  1  2020 networkd.conf                       
--rw-r--r--   1 root root   529 Apr  1  2020 pstore.conf                         
--rw-r--r--   1 root root   790 Apr  1  2020 sleep.conf
+<pre><code>vm-18/bin/llvm-dwarfdump
+lrwxrwxrwx  1 root root          33 May 27  2024  llvm-dwarfutil-18 -&gt; ../lib/llvm-18/bin/llvm-dwarfutil
+lrwxrwxrwx  1 root root          27 May 27  2024  llvm-dwp-18 -&gt; ../lib/llvm-18/bin/llvm-dwp
+lrwxrwxrwx  1 root root          32 May 27  2024  llvm-exegesis-18 -&gt; ../lib/llvm-18/bin/llvm-exegesis
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-extract-18 -&gt; ../lib/llvm-18/bin/llvm-extract
+lrwxrwxrwx  1 root root          32 May 27  2024  llvm-gsymutil-18 -&gt; ../lib/llvm-18/bin/llvm-gsymutil
+lrwxrwxrwx  1 root root          27 May 27  2024  llvm-ifs-18 -&gt; ../lib/llvm-18/bin/llvm-ifs
+lrwxrwxrwx  1 root root          41 May 27  2024  llvm-install-name-tool-18 -&gt; ../lib/llvm-18/bin/llvm-install-name-tool
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-jitlink-18 -&gt; ../lib/llvm-18/bin/llvm-jitlink
+lrwxrwxrwx  1 root root          40 May 27  2024  llvm-jitlink-executor-18 -&gt; ../lib/llvm-18/bin/llvm-jitlink-executor
+lrwxrwxrwx  1 root root          27 May 27  2024  llvm-lib-18 -&gt; ../lib/llvm-18/bin/llvm-lib
+lrwxrwxrwx  1 root root          38 May 27  2024  llvm-libtool-darwin-18 -&gt; ../lib/llvm-18/bin/llvm-libtool-darwin
+lrwxrwxrwx  1 root root          28 May 27  2024  llvm-link-18 -&gt; ../lib/llvm-18/bin/llvm-link
+lrwxrwxrwx  1 root root          28 May 27  2024  llvm-lipo-18 -&gt; ../lib/llvm-18/bin/llvm-lipo
+lrwxrwxrwx  1 root root          27 May 27  2024  llvm-lto-18 -&gt; ../lib/llvm-18/bin/llvm-lto
+lrwxrwxrwx  1 root root          28 May 27  2024  llvm-lto2-18 -&gt; ../lib/llvm-18/bin/llvm-lto2
+lrwxrwxrwx  1 root root          26 May 27  2024  llvm-mc-18 -&gt; ../lib/llvm-18/bin/llvm-mc
+lrwxrwxrwx  1 root root          27 May 27  2024  llvm-mca-18 -&gt; ../lib/llvm-18/bin/llvm-mca
+lrwxrwxrwx  1 root root          26 May 27  2024  llvm-ml-18 -&gt; ../lib/llvm-18/bin/llvm-ml
+lrwxrwxrwx  1 root root          34 May 27  2024  llvm-modextract-18 -&gt; ../lib/llvm-18/bin/llvm-modextract
+lrwxrwxrwx  1 root root          26 May 27  2024  llvm-mt-18 -&gt; ../lib/llvm-18/bin/llvm-mt
+lrwxrwxrwx  1 root root          26 May 27  2024  llvm-nm-18 -&gt; ../lib/llvm-18/bin/llvm-nm
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-objcopy-18 -&gt; ../lib/llvm-18/bin/llvm-objcopy
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-objdump-18 -&gt; ../lib/llvm-18/bin/llvm-objdump
+lrwxrwxrwx  1 root root          34 May 27  2024  llvm-opt-report-18 -&gt; ../lib/llvm-18/bin/llvm-opt-report
+lrwxrwxrwx  1 root root          29 May 27  2024  llvm-otool-18 -&gt; ../lib/llvm-18/bin/llvm-otool
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-pdbutil-18 -&gt; ../lib/llvm-18/bin/llvm-pdbutil
+lrwxrwxrwx  1 root root          38 May 27  2024  llvm-PerfectShuffle-18 -&gt; ../lib/llvm-18/bin/llvm-PerfectShuffle
+lrwxrwxrwx  1 root root          32 May 27  2024  llvm-profdata-18 -&gt; ../lib/llvm-18/bin/llvm-profdata
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-profgen-18 -&gt; ../lib/llvm-18/bin/llvm-profgen
+lrwxrwxrwx  1 root root          30 May 27  2024  llvm-ranlib-18 -&gt; ../lib/llvm-18/bin/llvm-ranlib
+lrwxrwxrwx  1 root root          26 May 27  2024  llvm-rc-18 -&gt; ../lib/llvm-18/bin/llvm-rc
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-readelf-18 -&gt; ../lib/llvm-18/bin/llvm-readelf
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-readobj-18 -&gt; ../lib/llvm-18/bin/llvm-readobj
+lrwxrwxrwx  1 root root          32 May 27  2024  llvm-readtapi-18 -&gt; ../lib/llvm-18/bin/llvm-readtapi
+lrwxrwxrwx  1 root root          30 May 27  2024  llvm-reduce-18 -&gt; ../lib/llvm-18/bin/llvm-reduce
+lrwxrwxrwx  1 root root          34 May 27  2024  llvm-remarkutil-18 -&gt; ../lib/llvm-18/bin/llvm-remarkutil
+lrwxrwxrwx  1 root root          30 May 27  2024  llvm-rtdyld-18 -&gt; ../lib/llvm-18/bin/llvm-rtdyld
+lrwxrwxrwx  1 root root          27 May 27  2024  llvm-sim-18 -&gt; ../lib/llvm-18/bin/llvm-sim
+lrwxrwxrwx  1 root root          28 May 27  2024  llvm-size-18 -&gt; ../lib/llvm-18/bin/llvm-size
+lrwxrwxrwx  1 root root          29 May 27  2024  llvm-split-18 -&gt; ../lib/llvm-18/bin/llvm-split
+lrwxrwxrwx  1 root root          30 May 27  2024  llvm-stress-18 -&gt; ../lib/llvm-18/bin/llvm-stress
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-strings-18 -&gt; ../lib/llvm-18/bin/llvm-strings
+lrwxrwxrwx  1 root root          29 May 27  2024  llvm-strip-18 -&gt; ../lib/llvm-18/bin/llvm-strip
+lrwxrwxrwx  1 root root          34 May 27  2024  llvm-symbolizer-18 -&gt; ../lib/llvm-18/bin/llvm-symbolizer
+lrwxrwxrwx  1 root root          30 May 27  2024  llvm-tblgen-18 -&gt; ../lib/llvm-18/bin/llvm-tblgen
+lrwxrwxrwx  1 root root          35 May 27  2024  llvm-tli-checker-18 -&gt; ../lib/llvm-18/bin/llvm-tli-checker
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-undname-18 -&gt; ../lib/llvm-18/bin/llvm-undname
+lrwxrwxrwx  1 root root          31 May 27  2024  llvm-windres-18 -&gt; ../lib/llvm-18/bin/llvm-windres
+lrwxrwxrwx  1 root root          28 May 27  2024  llvm-xray-18 -&gt; ../lib/llvm-18/bin/llvm-xray
+lrwxrwxrwx  1 root root          29 May 27  2024  modularize-18 -&gt; ../lib/llvm-18/bin/modularize
+lrwxrwxrwx  1 root root          22 May 27  2024  not-18 -&gt; ../lib/llvm-18/bin/not
+lrwxrwxrwx  1 root root          29 May 27  2024  nvptx-arch-18 -&gt; ../lib/llvm-18/bin/nvptx-arch
+lrwxrwxrwx  1 root root          27 May 27  2024  obj2yaml-18 -&gt; ../lib/llvm-18/bin/obj2yaml
+lrwxrwxrwx  1 root root          22 May 27  2024  opt-18 -&gt; ../lib/llvm-18/bin/opt
+lrwxrwxrwx  1 root root          27 May 27  2024  pp-trace-18 -&gt; ../lib/llvm-18/bin/pp-trace
+lrwxrwxrwx  1 root root          32 May 27  2024  run-clang-tidy -&gt; /etc/alternatives/run-clang-tidy
+lrwxrwxrwx  1 root root          33 May 27  2024  run-clang-tidy-18 -&gt; ../lib/llvm-18/bin/run-clang-tidy
+lrwxrwxrwx  1 root root          33 May 27  2024  run-clang-tidy-18.py -&gt; ../lib/llvm-18/bin/run-clang-tidy
+lrwxrwxrwx  1 root root          25 May 27  2024  sancov-18 -&gt; ../lib/llvm-18/bin/sancov
+lrwxrwxrwx  1 root root          27 May 27  2024  sanstats-18 -&gt; ../lib/llvm-18/bin/sanstats
+lrwxrwxrwx  1 root root          43 May 27  2024  scan-build-18 -&gt; ../share/clang/scan-build-18/bin/scan-build
+lrwxrwxrwx  1 root root          32 May 27  2024  scan-build-py-18 -&gt; ../lib/llvm-18/bin/scan-build-py
+lrwxrwxrwx  1 root root          41 May 27  2024  scan-view-18 -&gt; ../share/clang/scan-view-18/bin/scan-view
+lrwxrwxrwx  1 root root          29 May 27  2024  split-file-18 -&gt; ../lib/llvm-18/bin/split-file
+lrwxrwxrwx  1 root root          46 May 27  2024  UnicodeNameMappingGenerator-18 -&gt; ../lib/llvm-18/bin/UnicodeNameMappingGenerator
+lrwxrwxrwx  1 root root          38 May 27  2024  verify-uselistorder-18 -&gt; ../lib/llvm-18/bin/verify-uselistorder
+lrwxrwxrwx  1 root root          26 May 27  2024  wasm-ld-18 -&gt; ../lib/llvm-18/bin/wasm-ld
+lrwxrwxrwx  1 root root          27 May 27  2024  yaml2obj-18 -&gt; ../lib/llvm-18/bin/yaml2obj
+lrwxrwxrwx  1 root root          29 May 27  2024  yaml-bench-18 -&gt; ../lib/llvm-18/bin/yaml-bench
+-rwxr-xr-x  1 root root       14488 May 11  2024  acyclic
+-rwxr-xr-x  1 root root       22728 May 11  2024  bcomps
+-rwxr-xr-x  1 root root       26904 May 11  2024  ccomps
+lrwxrwxrwx  1 root root           3 May 11  2024  circo -&gt; dot
+-rwxr-xr-x  1 root root      606072 May 11  2024  cluster
+-rwxr-xr-x  1 root root       14488 May 11  2024  diffimg
+-rwxr-xr-x  1 root root       18696 May 11  2024  dijkstra
+lrwxrwxrwx  1 root root          29 May 11  2024  dot -&gt; ../sbin/libgvc6-config-update
+lrwxrwxrwx  1 root root           6 May 11  2024  dot2gxl -&gt; gxl2gv
+-rwxr-xr-x  1 root root       18712 May 11  2024  dot_builtins
+-rwxr-xr-x  1 root root        2085 May 11  2024  dotty
+-rwxr-xr-x  1 root root       96536 May 11  2024  edgepaint
+lrwxrwxrwx  1 root root           3 May 11  2024  fdp -&gt; dot
+-rwxr-xr-x  1 root root       18632 May 11  2024  gc
+-rwxr-xr-x  1 root root       43440 May 11  2024  gml2gv
+-rwxr-xr-x  1 root root       26888 May 11  2024  graphml2gv
+-rwxr-xr-x  1 root root       22728 May 11  2024  gv2gml
+lrwxrwxrwx  1 root root           6 May 11  2024  gv2gxl -&gt; gxl2gv
+-rwxr-xr-x  1 root root       49576 May 11  2024  gvcolor
+-rwxr-xr-x  1 root root       22688 May 11  2024  gvgen
+-rwxr-xr-x  1 root root      610168 May 11  2024  gvmap
+-rwxr-xr-x  1 root root        2181 May 11  2024  gvmap.sh
+-rwxr-xr-x  1 root root       27016 May 11  2024  gvpack
+-rwxr-xr-x  1 root root       14488 May 11  2024  gvpr
+lrwxrwxrwx  1 root root           6 May 11  2024  gxl2dot -&gt; gxl2gv
+-rwxr-xr-x  1 root root       43400 May 11  2024  gxl2gv
+-rwxr-xr-x  1 root root      295192 May 11  2024  lefty
+-rwxr-xr-x  1 root root        1547 May 11  2024  lneato
+-rwxr-xr-x  1 root root       76144 May 11  2024  mingle
+-rwxr-xr-x  1 root root       35048 May 11  2024  mm2gv
+lrwxrwxrwx  1 root root           3 May 11  2024  neato -&gt; dot
+-rwxr-xr-x  1 root root       14536 May 11  2024  nop
+lrwxrwxrwx  1 root root           3 May 11  2024  osage -&gt; dot
+lrwxrwxrwx  1 root root           3 May 11  2024  patchwork -&gt; dot
+-rwxr-xr-x  1 root root       14536 May 11  2024  prune
+-rwxr-xr-x  1 root root       22728 May 11  2024  sccmap
+lrwxrwxrwx  1 root root           3 May 11  2024  sfdp -&gt; dot
+-rwxr-xr-x  1 root root       14536 May 11  2024  tred
+lrwxrwxrwx  1 root root           3 May 11  2024  twopi -&gt; dot
+-rwxr-xr-x  1 root root       14536 May 11  2024  unflatten
+-rwxr-xr-x  1 root root        1082 May 11  2024  vimdot
+-rwxr-xr-x  1 root root       14656 Apr 28  2024  chattr
+-rwxr-xr-x  1 root root       14656 Apr 28  2024  lsattr
+-rwxr-xr-x  1 root root      194952 Apr 28  2024  less
+-rwxr-xr-x  1 root root       14656 Apr 28  2024  lessecho
+lrwxrwxrwx  1 root root           8 Apr 28  2024  lessfile -&gt; lesspipe
+-rwxr-xr-x  1 root root       24272 Apr 28  2024  lesskey
+-rwxr-xr-x  1 root root       92624 Apr 18  2024  zsync
+-rwxr-xr-x  1 root root       80432 Apr 18  2024  zsyncmake
+-rwxr-xr-x  1 root root        2322 Apr 18  2024  apport-bug
+-rwxr-xr-x  1 root root     2087432 Apr 18  2024  strace
+-rwxr-xr-x  1 root root       14584 Apr 16  2024  aria2c
+lrwxrwxrwx  1 root root          30 Apr 14  2024  amdgpu-arch-17 -&gt; ../lib/llvm-17/bin/amdgpu-arch
+lrwxrwxrwx  1 root root          32 Apr 14  2024  analyze-build-17 -&gt; ../lib/llvm-17/bin/analyze-build
+-rwxr-xr-x  1 root root       42995 Apr 14  2024  asan_symbolize-17
+lrwxrwxrwx  1 root root          27 Apr 14  2024  bugpoint-17 -&gt; ../lib/llvm-17/bin/bugpoint
+lrwxrwxrwx  1 root root          31 Apr 14  2024  c-index-test-17 -&gt; ../lib/llvm-17/bin/c-index-test
+lrwxrwxrwx  1 root root          26 Apr 14  2024  clang++-17 -&gt; ../lib/llvm-17/bin/clang++
+lrwxrwxrwx  1 root root          24 Apr 14  2024  clang-17 -&gt; ../lib/llvm-17/bin/clang
+lrwxrwxrwx  1 root root          43 Apr 14  2024  clang-apply-replacements-17 -&gt; ../lib/llvm-17/bin/clang-apply-replacements
+lrwxrwxrwx  1 root root          41 Apr 14  2024  clang-change-namespace-17 -&gt; ../lib/llvm-17/bin/clang-change-namespace
+lrwxrwxrwx  1 root root          30 Apr 14  2024  clang-check-17 -&gt; ../lib/llvm-17/bin/clang-check
+lrwxrwxrwx  1 root root          27 Apr 14  2024  clang-cl-17 -&gt; ../lib/llvm-17/bin/clang-cl
+lrwxrwxrwx  1 root root          28 Apr 14  2024  clang-cpp-17 -&gt; ../lib/llvm-17/bin/clang-cpp
+lrwxrwxrwx  1 root root          28 Apr 14  2024  clang-doc-17 -&gt; ../lib/llvm-17/bin/clang-doc
+lrwxrwxrwx  1 root root          39 Apr 14  2024  clang-extdef-mapping-17 -&gt; ../lib/llvm-17/bin/clang-extdef-mapping
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-format-17 -&gt; ../lib/llvm-17/bin/clang-format
+-rwxr-xr-x  1 root root        6193 Apr 14  2024  clang-format-diff-17
+lrwxrwxrwx  1 root root          40 Apr 14  2024  clang-include-cleaner-17 -&gt; ../lib/llvm-17/bin/clang-include-cleaner
+lrwxrwxrwx  1 root root          38 Apr 14  2024  clang-include-fixer-17 -&gt; ../lib/llvm-17/bin/clang-include-fixer
+lrwxrwxrwx  1 root root          39 Apr 14  2024  clang-linker-wrapper-17 -&gt; ../lib/llvm-17/bin/clang-linker-wrapper
+lrwxrwxrwx  1 root root          29 Apr 14  2024  clang-move-17 -&gt; ../lib/llvm-17/bin/clang-move
+lrwxrwxrwx  1 root root          40 Apr 14  2024  clang-offload-bundler-17 -&gt; ../lib/llvm-17/bin/clang-offload-bundler
+lrwxrwxrwx  1 root root          41 Apr 14  2024  clang-offload-packager-17 -&gt; ../lib/llvm-17/bin/clang-offload-packager
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-pseudo-17 -&gt; ../lib/llvm-17/bin/clang-pseudo
+lrwxrwxrwx  1 root root          30 Apr 14  2024  clang-query-17 -&gt; ../lib/llvm-17/bin/clang-query
+lrwxrwxrwx  1 root root          33 Apr 14  2024  clang-refactor-17 -&gt; ../lib/llvm-17/bin/clang-refactor
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-rename-17 -&gt; ../lib/llvm-17/bin/clang-rename
+lrwxrwxrwx  1 root root          39 Apr 14  2024  clang-reorder-fields-17 -&gt; ../lib/llvm-17/bin/clang-reorder-fields
+lrwxrwxrwx  1 root root          29 Apr 14  2024  clang-repl-17 -&gt; ../lib/llvm-17/bin/clang-repl
+lrwxrwxrwx  1 root root          34 Apr 14  2024  clang-scan-deps-17 -&gt; ../lib/llvm-17/bin/clang-scan-deps
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-tblgen-17 -&gt; ../lib/llvm-17/bin/clang-tblgen
+lrwxrwxrwx  1 root root          29 Apr 14  2024  clang-tidy-17 -&gt; ../lib/llvm-17/bin/clang-tidy
+lrwxrwxrwx  1 root root          45 Apr 14  2024  clang-tidy-diff-17.py -&gt; ../lib/llvm-17/share/clang/clang-tidy-diff.py
+lrwxrwxrwx  1 root root          24 Apr 14  2024  count-17 -&gt; ../lib/llvm-17/bin/count
+lrwxrwxrwx  1 root root          27 Apr 14  2024  diagtool-17 -&gt; ../lib/llvm-17/bin/diagtool
+lrwxrwxrwx  1 root root          27 Apr 14  2024  dsymutil-17 -&gt; ../lib/llvm-17/bin/dsymutil
+lrwxrwxrwx  1 root root          28 Apr 14  2024  FileCheck-17 -&gt; ../lib/llvm-17/bin/FileCheck
+lrwxrwxrwx  1 root root          35 Apr 14  2024  find-all-symbols-17 -&gt; ../lib/llvm-17/bin/find-all-symbols
+lrwxrwxrwx  1 root root          35 Apr 14  2024  git-clang-format-17 -&gt; ../lib/llvm-17/bin/git-clang-format
+lrwxrwxrwx  1 root root          27 Apr 14  2024  hmaptool-17 -&gt; ../lib/llvm-17/bin/hmaptool
+lrwxrwxrwx  1 root root          48 Apr 14  2024  hwasan_symbolize-17 -&gt; ../lib/llvm-17/lib/clang/17/bin/hwasan_symbolize
+lrwxrwxrwx  1 root root          34 Apr 14  2024  intercept-build-17 -&gt; ../lib/llvm-17/bin/intercept-build
+lrwxrwxrwx  1 root root          27 Apr 14  2024  ld64.lld-17 -&gt; ../lib/llvm-17/bin/ld64.lld
+lrwxrwxrwx  1 root root          25 Apr 14  2024  ld.lld-17 -&gt; ../lib/llvm-17/bin/ld.lld
+lrwxrwxrwx  1 root root          22 Apr 14  2024  llc-17 -&gt; ../lib/llvm-17/bin/llc
+lrwxrwxrwx  1 root root          22 Apr 14  2024  lld-17 -&gt; ../lib/llvm-17/bin/lld
+lrwxrwxrwx  1 root root          27 Apr 14  2024  lld-link-17 -&gt; ../lib/llvm-17/bin/lld-link
+lrwxrwxrwx  1 root root          22 Apr 14  2024  lli-17 -&gt; ../lib/llvm-17/bin/lli
+lrwxrwxrwx  1 root root          35 Apr 14  2024  lli-child-target-17 -&gt; ../lib/llvm-17/bin/lli-child-target
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-addr2line-17 -&gt; ../lib/llvm-17/bin/llvm-addr2line
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-ar-17 -&gt; ../lib/llvm-17/bin/llvm-ar
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-as-17 -&gt; ../lib/llvm-17/bin/llvm-as
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-bcanalyzer-17 -&gt; ../lib/llvm-17/bin/llvm-bcanalyzer
+lrwxrwxrwx  1 root root          37 Apr 14  2024  llvm-bitcode-strip-17 -&gt; ../lib/llvm-17/bin/llvm-bitcode-strip
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-cat-17 -&gt; ../lib/llvm-17/bin/llvm-cat
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-cfi-verify-17 -&gt; ../lib/llvm-17/bin/llvm-cfi-verify
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-config-17 -&gt; ../lib/llvm-17/bin/llvm-config
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-cov-17 -&gt; ../lib/llvm-17/bin/llvm-cov
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-c-test-17 -&gt; ../lib/llvm-17/bin/llvm-c-test
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-cvtres-17 -&gt; ../lib/llvm-17/bin/llvm-cvtres
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-cxxdump-17 -&gt; ../lib/llvm-17/bin/llvm-cxxdump
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-cxxfilt-17 -&gt; ../lib/llvm-17/bin/llvm-cxxfilt
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-cxxmap-17 -&gt; ../lib/llvm-17/bin/llvm-cxxmap
+lrwxrwxrwx  1 root root          42 Apr 14  2024  llvm-debuginfo-analyzer-17 -&gt; ../lib/llvm-17/bin/llvm-debuginfo-analyzer
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-debuginfod-17 -&gt; ../lib/llvm-17/bin/llvm-debuginfod
+lrwxrwxrwx  1 root root          39 Apr 14  2024  llvm-debuginfod-find-17 -&gt; ../lib/llvm-17/bin/llvm-debuginfod-find
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-diff-17 -&gt; ../lib/llvm-17/bin/llvm-diff
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-dis-17 -&gt; ../lib/llvm-17/bin/llvm-dis
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-dlltool-17 -&gt; ../lib/llvm-17/bin/llvm-dlltool
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-dwarfdump-17 -&gt; ../lib/llvm-17/bin/llvm-dwarfdump
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-dwarfutil-17 -&gt; ../lib/llvm-17/bin/llvm-dwarfutil
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-dwp-17 -&gt; ../lib/llvm-17/bin/llvm-dwp
+lrwxrwxrwx  1 root root          32 Apr 14  2024  llvm-exegesis-17 -&gt; ../lib/llvm-17/bin/llvm-exegesis
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-extract-17 -&gt; ../lib/llvm-17/bin/llvm-extract
+lrwxrwxrwx  1 root root          32 Apr 14  2024  llvm-gsymutil-17 -&gt; ../lib/llvm-17/bin/llvm-gsymutil
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-ifs-17 -&gt; ../lib/llvm-17/bin/llvm-ifs
+lrwxrwxrwx  1 root root          41 Apr 14  2024  llvm-install-name-tool-17 -&gt; ../lib/llvm-17/bin/llvm-install-name-tool
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-jitlink-17 -&gt; ../lib/llvm-17/bin/llvm-jitlink
+lrwxrwxrwx  1 root root          40 Apr 14  2024  llvm-jitlink-executor-17 -&gt; ../lib/llvm-17/bin/llvm-jitlink-executor
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-lib-17 -&gt; ../lib/llvm-17/bin/llvm-lib
+lrwxrwxrwx  1 root root          38 Apr 14  2024  llvm-libtool-darwin-17 -&gt; ../lib/llvm-17/bin/llvm-libtool-darwin
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-link-17 -&gt; ../lib/llvm-17/bin/llvm-link
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-lipo-17 -&gt; ../lib/llvm-17/bin/llvm-lipo
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-lto-17 -&gt; ../lib/llvm-17/bin/llvm-lto
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-lto2-17 -&gt; ../lib/llvm-17/bin/llvm-lto2
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-mc-17 -&gt; ../lib/llvm-17/bin/llvm-mc
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-mca-17 -&gt; ../lib/llvm-17/bin/llvm-mca
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-ml-17 -&gt; ../lib/llvm-17/bin/llvm-ml
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-modextract-17 -&gt; ../lib/llvm-17/bin/llvm-modextract
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-mt-17 -&gt; ../lib/llvm-17/bin/llvm-mt
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-nm-17 -&gt; ../lib/llvm-17/bin/llvm-nm
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-objcopy-17 -&gt; ../lib/llvm-17/bin/llvm-objcopy
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-objdump-17 -&gt; ../lib/llvm-17/bin/llvm-objdump
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-opt-report-17 -&gt; ../lib/llvm-17/bin/llvm-opt-report
+lrwxrwxrwx  1 root root          29 Apr 14  2024  llvm-otool-17 -&gt; ../lib/llvm-17/bin/llvm-otool
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-pdbutil-17 -&gt; ../lib/llvm-17/bin/llvm-pdbutil
+lrwxrwxrwx  1 root root          38 Apr 14  2024  llvm-PerfectShuffle-17 -&gt; ../lib/llvm-17/bin/llvm-PerfectShuffle
+lrwxrwxrwx  1 root root          32 Apr 14  2024  llvm-profdata-17 -&gt; ../lib/llvm-17/bin/llvm-profdata
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-profgen-17 -&gt; ../lib/llvm-17/bin/llvm-profgen
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-ranlib-17 -&gt; ../lib/llvm-17/bin/llvm-ranlib
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-rc-17 -&gt; ../lib/llvm-17/bin/llvm-rc
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-readelf-17 -&gt; ../lib/llvm-17/bin/llvm-readelf
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-readobj-17 -&gt; ../lib/llvm-17/bin/llvm-readobj
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-reduce-17 -&gt; ../lib/llvm-17/bin/llvm-reduce
+lrwxrwxrwx  1 root root          40 Apr 14  2024  llvm-remark-size-diff-17 -&gt; ../lib/llvm-17/bin/llvm-remark-size-diff
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-remarkutil-17 -&gt; ../lib/llvm-17/bin/llvm-remarkutil
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-rtdyld-17 -&gt; ../lib/llvm-17/bin/llvm-rtdyld
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-sim-17 -&gt; ../lib/llvm-17/bin/llvm-sim
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-size-17 -&gt; ../lib/llvm-17/bin/llvm-size
+lrwxrwxrwx  1 root root          29 Apr 14  2024  llvm-split-17 -&gt; ../lib/llvm-17/bin/llvm-split
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-stress-17 -&gt; ../lib/llvm-17/bin/llvm-stress
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-strings-17 -&gt; ../lib/llvm-17/bin/llvm-strings
+lrwxrwxrwx  1 root root          29 Apr 14  2024  llvm-strip-17 -&gt; ../lib/llvm-17/bin/llvm-strip
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-symbolizer-17 -&gt; ../lib/llvm-17/bin/llvm-symbolizer
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-tapi-diff-17 -&gt; ../lib/llvm-17/bin/llvm-tapi-diff
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-tblgen-17 -&gt; ../lib/llvm-17/bin/llvm-tblgen
+lrwxrwxrwx  1 root root          35 Apr 14  2024  llvm-tli-checker-17 -&gt; ../lib/llvm-17/bin/llvm-tli-checker
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-undname-17 -&gt; ../lib/llvm-17/bin/llvm-undname
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-windres-17 -&gt; ../lib/llvm-17/bin/llvm-windres
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-xray-17 -&gt; ../lib/llvm-17/bin/llvm-xray
+lrwxrwxrwx  1 root root          29 Apr 14  2024  modularize-17 -&gt; ../lib/llvm-17/bin/modularize
+lrwxrwxrwx  1 root root          22 Apr 14  2024  not-17 -&gt; ../lib/llvm-17/bin/not
+lrwxrwxrwx  1 root root          29 Apr 14  2024  nvptx-arch-17 -&gt; ../lib/llvm-17/bin/nvptx-arch
+lrwxrwxrwx  1 root root          27 Apr 14  2024  obj2yaml-17 -&gt; ../lib/llvm-17/bin/obj2yaml
+lrwxrwxrwx  1 root root          22 Apr 14  2024  opt-17 -&gt; ../lib/llvm-17/bin/opt
+lrwxrwxrwx  1 root root          27 Apr 14  2024  pp-trace-17 -&gt; ../lib/llvm-17/bin/pp-trace
+lrwxrwxrwx  1 root root          33 Apr 14  2024  run-clang-tidy-17 -&gt; ../lib/llvm-17/bin/run-clang-tidy
+lrwxrwxrwx  1 root root          33 Apr 14  2024  run-clang-tidy-17.py -&gt; ../lib/llvm-17/bin/run-clang-tidy
+lrwxrwxrwx  1 root root          25 Apr 14  2024  sancov-17 -&gt; ../lib/llvm-17/bin/sancov
+lrwxrwxrwx  1 root root          27 Apr 14  2024  sanstats-17 -&gt; ../lib/llvm-17/bin/sanstats
+lrwxrwxrwx  1 root root          43 Apr 14  2024  scan-build-17 -&gt; ../share/clang/scan-build-17/bin/scan-build
+lrwxrwxrwx  1 root root          32 Apr 14  2024  scan-build-py-17 -&gt; ../lib/llvm-17/bin/scan-build-py
+lrwxrwxrwx  1 root root          41 Apr 14  2024  scan-view-17 -&gt; ../share/clang/scan-view-17/bin/scan-view
+lrwxrwxrwx  1 root root          29 Apr 14  2024  split-file-17 -&gt; ../lib/llvm-17/bin/split-file
+lrwxrwxrwx  1 root root          46 Apr 14  2024  UnicodeNameMappingGenerator-17 -&gt; ../lib/llvm-17/bin/UnicodeNameMappingGenerator
+lrwxrwxrwx  1 root root          38 Apr 14  2024  verify-uselistorder-17 -&gt; ../lib/llvm-17/bin/verify-uselistorder
+lrwxrwxrwx  1 root root          26 Apr 14  2024  wasm-ld-17 -&gt; ../lib/llvm-17/bin/wasm-ld
+lrwxrwxrwx  1 root root          27 Apr 14  2024  yaml2obj-17 -&gt; ../lib/llvm-17/bin/yaml2obj
+lrwxrwxrwx  1 root root          29 Apr 14  2024  yaml-bench-17 -&gt; ../lib/llvm-17/bin/yaml-bench
+lrwxrwxrwx  1 root root          30 Apr 14  2024  amdgpu-arch-16 -&gt; ../lib/llvm-16/bin/amdgpu-arch
+lrwxrwxrwx  1 root root          32 Apr 14  2024  analyze-build-16 -&gt; ../lib/llvm-16/bin/analyze-build
+-rwxr-xr-x  1 root root       38155 Apr 14  2024  asan_symbolize-16
+lrwxrwxrwx  1 root root          27 Apr 14  2024  bugpoint-16 -&gt; ../lib/llvm-16/bin/bugpoint
+lrwxrwxrwx  1 root root          31 Apr 14  2024  c-index-test-16 -&gt; ../lib/llvm-16/bin/c-index-test
+lrwxrwxrwx  1 root root          26 Apr 14  2024  clang++-16 -&gt; ../lib/llvm-16/bin/clang++
+lrwxrwxrwx  1 root root          24 Apr 14  2024  clang-16 -&gt; ../lib/llvm-16/bin/clang
+lrwxrwxrwx  1 root root          43 Apr 14  2024  clang-apply-replacements-16 -&gt; ../lib/llvm-16/bin/clang-apply-replacements
+lrwxrwxrwx  1 root root          41 Apr 14  2024  clang-change-namespace-16 -&gt; ../lib/llvm-16/bin/clang-change-namespace
+lrwxrwxrwx  1 root root          30 Apr 14  2024  clang-check-16 -&gt; ../lib/llvm-16/bin/clang-check
+lrwxrwxrwx  1 root root          27 Apr 14  2024  clang-cl-16 -&gt; ../lib/llvm-16/bin/clang-cl
+lrwxrwxrwx  1 root root          28 Apr 14  2024  clang-cpp-16 -&gt; ../lib/llvm-16/bin/clang-cpp
+lrwxrwxrwx  1 root root          28 Apr 14  2024  clang-doc-16 -&gt; ../lib/llvm-16/bin/clang-doc
+lrwxrwxrwx  1 root root          39 Apr 14  2024  clang-extdef-mapping-16 -&gt; ../lib/llvm-16/bin/clang-extdef-mapping
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-format-16 -&gt; ../lib/llvm-16/bin/clang-format
+-rwxr-xr-x  1 root root        5638 Apr 14  2024  clang-format-diff-16
+lrwxrwxrwx  1 root root          40 Apr 14  2024  clang-include-cleaner-16 -&gt; ../lib/llvm-16/bin/clang-include-cleaner
+lrwxrwxrwx  1 root root          38 Apr 14  2024  clang-include-fixer-16 -&gt; ../lib/llvm-16/bin/clang-include-fixer
+lrwxrwxrwx  1 root root          39 Apr 14  2024  clang-linker-wrapper-16 -&gt; ../lib/llvm-16/bin/clang-linker-wrapper
+lrwxrwxrwx  1 root root          29 Apr 14  2024  clang-move-16 -&gt; ../lib/llvm-16/bin/clang-move
+lrwxrwxrwx  1 root root          40 Apr 14  2024  clang-offload-bundler-16 -&gt; ../lib/llvm-16/bin/clang-offload-bundler
+lrwxrwxrwx  1 root root          41 Apr 14  2024  clang-offload-packager-16 -&gt; ../lib/llvm-16/bin/clang-offload-packager
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-pseudo-16 -&gt; ../lib/llvm-16/bin/clang-pseudo
+lrwxrwxrwx  1 root root          30 Apr 14  2024  clang-query-16 -&gt; ../lib/llvm-16/bin/clang-query
+lrwxrwxrwx  1 root root          33 Apr 14  2024  clang-refactor-16 -&gt; ../lib/llvm-16/bin/clang-refactor
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-rename-16 -&gt; ../lib/llvm-16/bin/clang-rename
+lrwxrwxrwx  1 root root          39 Apr 14  2024  clang-reorder-fields-16 -&gt; ../lib/llvm-16/bin/clang-reorder-fields
+lrwxrwxrwx  1 root root          29 Apr 14  2024  clang-repl-16 -&gt; ../lib/llvm-16/bin/clang-repl
+lrwxrwxrwx  1 root root          34 Apr 14  2024  clang-scan-deps-16 -&gt; ../lib/llvm-16/bin/clang-scan-deps
+lrwxrwxrwx  1 root root          31 Apr 14  2024  clang-tblgen-16 -&gt; ../lib/llvm-16/bin/clang-tblgen
+lrwxrwxrwx  1 root root          29 Apr 14  2024  clang-tidy-16 -&gt; ../lib/llvm-16/bin/clang-tidy
+lrwxrwxrwx  1 root root          45 Apr 14  2024  clang-tidy-diff-16.py -&gt; ../lib/llvm-16/share/clang/clang-tidy-diff.py
+lrwxrwxrwx  1 root root          24 Apr 14  2024  count-16 -&gt; ../lib/llvm-16/bin/count
+lrwxrwxrwx  1 root root          27 Apr 14  2024  diagtool-16 -&gt; ../lib/llvm-16/bin/diagtool
+lrwxrwxrwx  1 root root          27 Apr 14  2024  dsymutil-16 -&gt; ../lib/llvm-16/bin/dsymutil
+lrwxrwxrwx  1 root root          28 Apr 14  2024  FileCheck-16 -&gt; ../lib/llvm-16/bin/FileCheck
+lrwxrwxrwx  1 root root          35 Apr 14  2024  find-all-symbols-16 -&gt; ../lib/llvm-16/bin/find-all-symbols
+lrwxrwxrwx  1 root root          35 Apr 14  2024  git-clang-format-16 -&gt; ../lib/llvm-16/bin/git-clang-format
+lrwxrwxrwx  1 root root          27 Apr 14  2024  hmaptool-16 -&gt; ../lib/llvm-16/bin/hmaptool
+lrwxrwxrwx  1 root root          48 Apr 14  2024  hwasan_symbolize-16 -&gt; ../lib/llvm-16/lib/clang/16/bin/hwasan_symbolize
+lrwxrwxrwx  1 root root          34 Apr 14  2024  intercept-build-16 -&gt; ../lib/llvm-16/bin/intercept-build
+lrwxrwxrwx  1 root root          27 Apr 14  2024  ld64.lld-16 -&gt; ../lib/llvm-16/bin/ld64.lld
+lrwxrwxrwx  1 root root          25 Apr 14  2024  ld.lld-16 -&gt; ../lib/llvm-16/bin/ld.lld
+lrwxrwxrwx  1 root root          22 Apr 14  2024  llc-16 -&gt; ../lib/llvm-16/bin/llc
+lrwxrwxrwx  1 root root          22 Apr 14  2024  lld-16 -&gt; ../lib/llvm-16/bin/lld
+lrwxrwxrwx  1 root root          27 Apr 14  2024  lld-link-16 -&gt; ../lib/llvm-16/bin/lld-link
+lrwxrwxrwx  1 root root          22 Apr 14  2024  lli-16 -&gt; ../lib/llvm-16/bin/lli
+lrwxrwxrwx  1 root root          35 Apr 14  2024  lli-child-target-16 -&gt; ../lib/llvm-16/bin/lli-child-target
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-addr2line-16 -&gt; ../lib/llvm-16/bin/llvm-addr2line
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-ar-16 -&gt; ../lib/llvm-16/bin/llvm-ar
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-as-16 -&gt; ../lib/llvm-16/bin/llvm-as
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-bcanalyzer-16 -&gt; ../lib/llvm-16/bin/llvm-bcanalyzer
+lrwxrwxrwx  1 root root          37 Apr 14  2024  llvm-bitcode-strip-16 -&gt; ../lib/llvm-16/bin/llvm-bitcode-strip
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-cat-16 -&gt; ../lib/llvm-16/bin/llvm-cat
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-cfi-verify-16 -&gt; ../lib/llvm-16/bin/llvm-cfi-verify
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-config-16 -&gt; ../lib/llvm-16/bin/llvm-config
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-cov-16 -&gt; ../lib/llvm-16/bin/llvm-cov
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-c-test-16 -&gt; ../lib/llvm-16/bin/llvm-c-test
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-cvtres-16 -&gt; ../lib/llvm-16/bin/llvm-cvtres
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-cxxdump-16 -&gt; ../lib/llvm-16/bin/llvm-cxxdump
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-cxxfilt-16 -&gt; ../lib/llvm-16/bin/llvm-cxxfilt
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-cxxmap-16 -&gt; ../lib/llvm-16/bin/llvm-cxxmap
+lrwxrwxrwx  1 root root          42 Apr 14  2024  llvm-debuginfo-analyzer-16 -&gt; ../lib/llvm-16/bin/llvm-debuginfo-analyzer
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-debuginfod-16 -&gt; ../lib/llvm-16/bin/llvm-debuginfod
+lrwxrwxrwx  1 root root          39 Apr 14  2024  llvm-debuginfod-find-16 -&gt; ../lib/llvm-16/bin/llvm-debuginfod-find
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-diff-16 -&gt; ../lib/llvm-16/bin/llvm-diff
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-dis-16 -&gt; ../lib/llvm-16/bin/llvm-dis
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-dlltool-16 -&gt; ../lib/llvm-16/bin/llvm-dlltool
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-dwarfdump-16 -&gt; ../lib/llvm-16/bin/llvm-dwarfdump
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-dwarfutil-16 -&gt; ../lib/llvm-16/bin/llvm-dwarfutil
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-dwp-16 -&gt; ../lib/llvm-16/bin/llvm-dwp
+lrwxrwxrwx  1 root root          32 Apr 14  2024  llvm-exegesis-16 -&gt; ../lib/llvm-16/bin/llvm-exegesis
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-extract-16 -&gt; ../lib/llvm-16/bin/llvm-extract
+lrwxrwxrwx  1 root root          32 Apr 14  2024  llvm-gsymutil-16 -&gt; ../lib/llvm-16/bin/llvm-gsymutil
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-ifs-16 -&gt; ../lib/llvm-16/bin/llvm-ifs
+lrwxrwxrwx  1 root root          41 Apr 14  2024  llvm-install-name-tool-16 -&gt; ../lib/llvm-16/bin/llvm-install-name-tool
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-jitlink-16 -&gt; ../lib/llvm-16/bin/llvm-jitlink
+lrwxrwxrwx  1 root root          40 Apr 14  2024  llvm-jitlink-executor-16 -&gt; ../lib/llvm-16/bin/llvm-jitlink-executor
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-lib-16 -&gt; ../lib/llvm-16/bin/llvm-lib
+lrwxrwxrwx  1 root root          38 Apr 14  2024  llvm-libtool-darwin-16 -&gt; ../lib/llvm-16/bin/llvm-libtool-darwin
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-link-16 -&gt; ../lib/llvm-16/bin/llvm-link
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-lipo-16 -&gt; ../lib/llvm-16/bin/llvm-lipo
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-lto-16 -&gt; ../lib/llvm-16/bin/llvm-lto
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-lto2-16 -&gt; ../lib/llvm-16/bin/llvm-lto2
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-mc-16 -&gt; ../lib/llvm-16/bin/llvm-mc
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-mca-16 -&gt; ../lib/llvm-16/bin/llvm-mca
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-ml-16 -&gt; ../lib/llvm-16/bin/llvm-ml
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-modextract-16 -&gt; ../lib/llvm-16/bin/llvm-modextract
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-mt-16 -&gt; ../lib/llvm-16/bin/llvm-mt
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-nm-16 -&gt; ../lib/llvm-16/bin/llvm-nm
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-objcopy-16 -&gt; ../lib/llvm-16/bin/llvm-objcopy
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-objdump-16 -&gt; ../lib/llvm-16/bin/llvm-objdump
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-opt-report-16 -&gt; ../lib/llvm-16/bin/llvm-opt-report
+lrwxrwxrwx  1 root root          29 Apr 14  2024  llvm-otool-16 -&gt; ../lib/llvm-16/bin/llvm-otool
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-pdbutil-16 -&gt; ../lib/llvm-16/bin/llvm-pdbutil
+lrwxrwxrwx  1 root root          38 Apr 14  2024  llvm-PerfectShuffle-16 -&gt; ../lib/llvm-16/bin/llvm-PerfectShuffle
+lrwxrwxrwx  1 root root          32 Apr 14  2024  llvm-profdata-16 -&gt; ../lib/llvm-16/bin/llvm-profdata
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-profgen-16 -&gt; ../lib/llvm-16/bin/llvm-profgen
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-ranlib-16 -&gt; ../lib/llvm-16/bin/llvm-ranlib
+lrwxrwxrwx  1 root root          26 Apr 14  2024  llvm-rc-16 -&gt; ../lib/llvm-16/bin/llvm-rc
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-readelf-16 -&gt; ../lib/llvm-16/bin/llvm-readelf
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-readobj-16 -&gt; ../lib/llvm-16/bin/llvm-readobj
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-reduce-16 -&gt; ../lib/llvm-16/bin/llvm-reduce
+lrwxrwxrwx  1 root root          40 Apr 14  2024  llvm-remark-size-diff-16 -&gt; ../lib/llvm-16/bin/llvm-remark-size-diff
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-remarkutil-16 -&gt; ../lib/llvm-16/bin/llvm-remarkutil
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-rtdyld-16 -&gt; ../lib/llvm-16/bin/llvm-rtdyld
+lrwxrwxrwx  1 root root          27 Apr 14  2024  llvm-sim-16 -&gt; ../lib/llvm-16/bin/llvm-sim
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-size-16 -&gt; ../lib/llvm-16/bin/llvm-size
+lrwxrwxrwx  1 root root          29 Apr 14  2024  llvm-split-16 -&gt; ../lib/llvm-16/bin/llvm-split
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-stress-16 -&gt; ../lib/llvm-16/bin/llvm-stress
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-strings-16 -&gt; ../lib/llvm-16/bin/llvm-strings
+lrwxrwxrwx  1 root root          29 Apr 14  2024  llvm-strip-16 -&gt; ../lib/llvm-16/bin/llvm-strip
+lrwxrwxrwx  1 root root          34 Apr 14  2024  llvm-symbolizer-16 -&gt; ../lib/llvm-16/bin/llvm-symbolizer
+lrwxrwxrwx  1 root root          33 Apr 14  2024  llvm-tapi-diff-16 -&gt; ../lib/llvm-16/bin/llvm-tapi-diff
+lrwxrwxrwx  1 root root          30 Apr 14  2024  llvm-tblgen-16 -&gt; ../lib/llvm-16/bin/llvm-tblgen
+lrwxrwxrwx  1 root root          35 Apr 14  2024  llvm-tli-checker-16 -&gt; ../lib/llvm-16/bin/llvm-tli-checker
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-undname-16 -&gt; ../lib/llvm-16/bin/llvm-undname
+lrwxrwxrwx  1 root root          31 Apr 14  2024  llvm-windres-16 -&gt; ../lib/llvm-16/bin/llvm-windres
+lrwxrwxrwx  1 root root          28 Apr 14  2024  llvm-xray-16 -&gt; ../lib/llvm-16/bin/llvm-xray
+lrwxrwxrwx  1 root root          29 Apr 14  2024  modularize-16 -&gt; ../lib/llvm-16/bin/modularize
+lrwxrwxrwx  1 root root          22 Apr 14  2024  not-16 -&gt; ../lib/llvm-16/bin/not
+lrwxrwxrwx  1 root root          29 Apr 14  2024  nvptx-arch-16 -&gt; ../lib/llvm-16/bin/nvptx-arch
+lrwxrwxrwx  1 root root          27 Apr 14  2024  obj2yaml-16 -&gt; ../lib/llvm-16/bin/obj2yaml
+lrwxrwxrwx  1 root root          22 Apr 14  2024  opt-16 -&gt; ../lib/llvm-16/bin/opt
+lrwxrwxrwx  1 root root          27 Apr 14  2024  pp-trace-16 -&gt; ../lib/llvm-16/bin/pp-trace
+lrwxrwxrwx  1 root root          33 Apr 14  2024  run-clang-tidy-16 -&gt; ../lib/llvm-16/bin/run-clang-tidy
+lrwxrwxrwx  1 root root          33 Apr 14  2024  run-clang-tidy-16.py -&gt; ../lib/llvm-16/bin/run-clang-tidy
+lrwxrwxrwx  1 root root          25 Apr 14  2024  sancov-16 -&gt; ../lib/llvm-16/bin/sancov
+lrwxrwxrwx  1 root root          27 Apr 14  2024  sanstats-16 -&gt; ../lib/llvm-16/bin/sanstats
+lrwxrwxrwx  1 root root          43 Apr 14  2024  scan-build-16 -&gt; ../share/clang/scan-build-16/bin/scan-build
+lrwxrwxrwx  1 root root          32 Apr 14  2024  scan-build-py-16 -&gt; ../lib/llvm-16/bin/scan-build-py
+lrwxrwxrwx  1 root root          41 Apr 14  2024  scan-view-16 -&gt; ../share/clang/scan-view-16/bin/scan-view
+lrwxrwxrwx  1 root root          29 Apr 14  2024  split-file-16 -&gt; ../lib/llvm-16/bin/split-file
+lrwxrwxrwx  1 root root          46 Apr 14  2024  UnicodeNameMappingGenerator-16 -&gt; ../lib/llvm-16/bin/UnicodeNameMappingGenerator
+lrwxrwxrwx  1 root root          38 Apr 14  2024  verify-uselistorder-16 -&gt; ../lib/llvm-16/bin/verify-uselistorder
+lrwxrwxrwx  1 root root          26 Apr 14  2024  wasm-ld-16 -&gt; ../lib/llvm-16/bin/wasm-ld
+lrwxrwxrwx  1 root root          27 Apr 14  2024  yaml2obj-16 -&gt; ../lib/llvm-16/bin/yaml2obj
+lrwxrwxrwx  1 root root          29 Apr 14  2024  yaml-bench-16 -&gt; ../lib/llvm-16/bin/yaml-bench
+-rwxr-xr-x  1 root root        2870 Apr 12  2024  debconf
+-rwxr-xr-x  1 root root       11846 Apr 12  2024  debconf-apt-progress
+-rwxr-xr-x  1 root root         623 Apr 12  2024  debconf-communicate
+-rwxr-xr-x  1 root root        1718 Apr 12  2024  debconf-copydb
+-rwxr-xr-x  1 root root         668 Apr 12  2024  debconf-escape
+-rwxr-xr-x  1 root root        3216 Apr 12  2024  debconf-set-selections
+-rwxr-xr-x  1 root root        1825 Apr 12  2024  debconf-show
+-rwxr-xr-x  1 root root          38 Apr 11  2024  7z
+-rwxr-xr-x  1 root root          39 Apr 11  2024  7za
+-rwxr-xr-x  1 root root          39 Apr 11  2024  7zr
+-rwxr-xr-x  1 root root        4754 Apr 11  2024  p7zip
+lrwxrwxrwx  1 root root          23 Apr  9  2024  pager -&gt; /etc/alternatives/pager
+-rwxr-xr-x  1 root root        2806 Apr  8  2024  eatmydata
+lrwxrwxrwx  1 root root           1 Apr  8  2024  X11 -&gt; .
+-rwxr-xr-x  1 root root       43272 Apr  8  2024  bdftopcf
+-rwxr-xr-x  1 root root       14488 Apr  8  2024  bdftruncate
+-rwxr-xr-x  1 root root       39080 Apr  8  2024  fonttosfnt
+-rwxr-xr-x  1 root root          65 Apr  8  2024  mkfontdir
+-rwxr-xr-x  1 root root       43696 Apr  8  2024  mkfontscale
+-rwxr-xr-x  1 root root       26776 Apr  8  2024  ucs2any
+-rwxr-xr-x  1 root root         234 Apr  8  2024  xdg-user-dir
+-rwxr-xr-x  1 root root       26856 Apr  8  2024  xdg-user-dirs-update
+-rwxr-xr-x  1 root root       56280 Apr  8  2024  xauth
+-rwxr-xr-x  1 root root      252432 Apr  8  2024  lsusb
+-rwxr-xr-x  1 root root        4944 Apr  8  2024  usb-devices
+-rwxr-xr-x  1 root root       31112 Apr  8  2024  usbhid-dump
+-rwxr-xr-x  1 root root       14640 Apr  8  2024  usbreset
+-rwxr-xr-x  1 root root       27160 Apr  8  2024  time
+-rwxr-xr-x  1 root root      432048 Apr  8  2024  tar
+lrwxrwxrwx  1 root root          16 Apr  8  2024  pidof -&gt; ../sbin/killall5
+-rwxr-xr-x  1 root root      293832 Apr  8  2024  mksquashfs
+lrwxrwxrwx  1 root root          10 Apr  8  2024  sqfscat -&gt; unsquashfs
+lrwxrwxrwx  1 root root          10 Apr  8  2024  sqfstar -&gt; mksquashfs
+-rwxr-xr-x  1 root root      151448 Apr  8  2024  unsquashfs
+-rwxr-xr-x  1 root root       38964 Apr  8  2024  rescan-scsi-bus.sh
+-rwxr-xr-x  1 root root        8585 Apr  8  2024  scsi_logging_level
+-rwxr-xr-x  1 root root        3602 Apr  8  2024  scsi_mandat
+-rwxr-xr-x  1 root root        1327 Apr  8  2024  scsi_readcap
+-rwxr-xr-x  1 root root        1121 Apr  8  2024  scsi_ready
+-rwxr-xr-x  1 root root        3830 Apr  8  2024  scsi_satl
+-rwxr-xr-x  1 root root        1285 Apr  8  2024  scsi_start
+-rwxr-xr-x  1 root root        1474 Apr  8  2024  scsi_stop
+-rwxr-xr-x  1 root root         936 Apr  8  2024  scsi_temperature
+-rwxr-xr-x  1 root root       14856 Apr  8  2024  sg_bg_ctl
+-rwxr-xr-x  1 root root       27560 Apr  8  2024  sg_compare_and_write
+-rwxr-xr-x  1 root root       23856 Apr  8  2024  sg_copy_results
+-rwxr-xr-x  1 root root       55632 Apr  8  2024  sg_dd
+-rwxr-xr-x  1 root root       15112 Apr  8  2024  sg_decode_sense
+-rwxr-xr-x  1 root root       14648 Apr  8  2024  sg_emc_trespass
+-rwxr-xr-x  1 root root       40296 Apr  8  2024  sg_format
+-rwxr-xr-x  1 root root       36224 Apr  8  2024  sg_get_config
+-rwxr-xr-x  1 root root       27432 Apr  8  2024  sg_get_elem_status
+-rwxr-xr-x  1 root root       23496 Apr  8  2024  sg_get_lba_status
+-rwxr-xr-x  1 root root       14952 Apr  8  2024  sg_ident
+-rwxr-xr-x  1 root root       77832 Apr  8  2024  sginfo
+-rwxr-xr-x  1 root root      118384 Apr  8  2024  sg_inq
+-rwxr-xr-x  1 root root      150456 Apr  8  2024  sg_logs
+-rwxr-xr-x  1 root root       23336 Apr  8  2024  sg_luns
+-rwxr-xr-x  1 root root       18744 Apr  8  2024  sg_map
+-rwxr-xr-x  1 root root       27344 Apr  8  2024  sg_map26
+-rwxr-xr-x  1 root root       35136 Apr  8  2024  sgm_dd
+-rwxr-xr-x  1 root root       47184 Apr  8  2024  sg_modes
+-rwxr-xr-x  1 root root       35848 Apr  8  2024  sg_opcodes
+-rwxr-xr-x  1 root root       47424 Apr  8  2024  sgp_dd
+-rwxr-xr-x  1 root root       36944 Apr  8  2024  sg_persist
+-rwxr-xr-x  1 root root       14856 Apr  8  2024  sg_prevent
+-rwxr-xr-x  1 root root       27560 Apr  8  2024  sg_raw
+-rwxr-xr-x  1 root root       23272 Apr  8  2024  sg_rbuf
+-rwxr-xr-x  1 root root       18744 Apr  8  2024  sg_rdac
+-rwxr-xr-x  1 root root       26944 Apr  8  2024  sg_read
+-rwxr-xr-x  1 root root       37528 Apr  8  2024  sg_read_attr
+-rwxr-xr-x  1 root root       14888 Apr  8  2024  sg_read_block_limits
+-rwxr-xr-x  1 root root       28224 Apr  8  2024  sg_read_buffer
+-rwxr-xr-x  1 root root       23336 Apr  8  2024  sg_readcap
+-rwxr-xr-x  1 root root       15048 Apr  8  2024  sg_read_long
+-rwxr-xr-x  1 root root       19112 Apr  8  2024  sg_reassign
+-rwxr-xr-x  1 root root       15016 Apr  8  2024  sg_referrals
+-rwxr-xr-x  1 root root       14920 Apr  8  2024  sg_rep_pip
+-rwxr-xr-x  1 root root       27440 Apr  8  2024  sg_rep_zones
+-rwxr-xr-x  1 root root       23304 Apr  8  2024  sg_requests
+-rwxr-xr-x  1 root root       15016 Apr  8  2024  sg_reset
+-rwxr-xr-x  1 root root       14952 Apr  8  2024  sg_reset_wp
+-rwxr-xr-x  1 root root       14856 Apr  8  2024  sg_rmsn
+-rwxr-xr-x  1 root root       14952 Apr  8  2024  sg_rtpg
+-rwxr-xr-x  1 root root       23240 Apr  8  2024  sg_safte
+-rwxr-xr-x  1 root root       27656 Apr  8  2024  sg_sanitize
+-rwxr-xr-x  1 root root       19176 Apr  8  2024  sg_sat_identify
+-rwxr-xr-x  1 root root       19464 Apr  8  2024  sg_sat_phy_event
+-rwxr-xr-x  1 root root       19176 Apr  8  2024  sg_sat_read_gplog
+-rwxr-xr-x  1 root root       19144 Apr  8  2024  sg_sat_set_features
+-rwxr-xr-x  1 root root       18824 Apr  8  2024  sg_scan
+-rwxr-xr-x  1 root root       19336 Apr  8  2024  sg_seek
+-rwxr-xr-x  1 root root       27848 Apr  8  2024  sg_senddiag
+-rwxr-xr-x  1 root root      122848 Apr  8  2024  sg_ses
+-rwxr-xr-x  1 root root       28016 Apr  8  2024  sg_ses_microcode
+-rwxr-xr-x  1 root root       19304 Apr  8  2024  sg_start
+-rwxr-xr-x  1 root root       23272 Apr  8  2024  sg_stpg
+-rwxr-xr-x  1 root root       19144 Apr  8  2024  sg_stream_ctl
+-rwxr-xr-x  1 root root       15016 Apr  8  2024  sg_sync
+-rwxr-xr-x  1 root root       19048 Apr  8  2024  sg_test_rwbuf
+-rwxr-xr-x  1 root root       23376 Apr  8  2024  sg_timestamp
+-rwxr-xr-x  1 root root       27336 Apr  8  2024  sg_turs
+-rwxr-xr-x  1 root root       23304 Apr  8  2024  sg_unmap
+-rwxr-xr-x  1 root root       23464 Apr  8  2024  sg_verify
+-rwxr-xr-x  1 root root      121264 Apr  8  2024  sg_vpd
+-rwxr-xr-x  1 root root       27888 Apr  8  2024  sg_write_buffer
+-rwxr-xr-x  1 root root       15112 Apr  8  2024  sg_write_long
+-rwxr-xr-x  1 root root       27592 Apr  8  2024  sg_write_same
+-rwxr-xr-x  1 root root       27432 Apr  8  2024  sg_write_verify
+-rwxr-xr-x  1 root root       56936 Apr  8  2024  sg_write_x
+-rwxr-xr-x  1 root root       23272 Apr  8  2024  sg_wr_mode
+-rwxr-xr-x  1 root root       43336 Apr  8  2024  sg_xcopy
+-rwxr-xr-x  1 root root       15216 Apr  8  2024  sg_zone
+-rwxr-xr-x  1 root root      113224 Apr  8  2024  sed
+-rwxr-xr-x  1 root root      489720 Apr  8  2024  screen
+-rwxr-xr-x  1 root root       96864 Apr  8  2024  rpcgen
+-rwxr-xr-x  1 root root       45168 Apr  8  2024  pkgconf
+lrwxrwxrwx  1 root root           7 Apr  8  2024  pkg-config -&gt; pkgconf
+lrwxrwxrwx  1 root root           7 Apr  8  2024  x86_64-linux-gnu-pkgconf -&gt; pkgconf
+lrwxrwxrwx  1 root root           7 Apr  8  2024  x86_64-linux-gnu-pkg-config -&gt; pkgconf
+-rwxr-xr-x  1 root root      102512 Apr  8  2024  lspci
+-rwxr-xr-x  1 root root       31112 Apr  8  2024  setpci
+-rwxr-xr-x  1 root root      186896 Apr  8  2024  patch
+-rwxr-xr-x  1 root root       14768 Apr  8  2024  memhog
+-rwxr-xr-x  1 root root       14720 Apr  8  2024  migratepages
+-rwxr-xr-x  1 root root       14648 Apr  8  2024  migspeed
+-rwxr-xr-x  1 root root       36080 Apr  8  2024  numactl
+-rwxr-xr-x  1 root root       36416 Apr  8  2024  numastat
+lrwxrwxrwx  1 root root          20 Apr  8  2024  nc -&gt; /etc/alternatives/nc
+-rwxr-xr-x  1 root root       39560 Apr  8  2024  nc.openbsd
+lrwxrwxrwx  1 root root          24 Apr  8  2024  netcat -&gt; /etc/alternatives/netcat
+lrwxrwxrwx  1 root root           3 Apr  8  2024  captoinfo -&gt; tic
+-rwxr-xr-x  1 root root       14656 Apr  8  2024  clear
+-rwxr-xr-x  1 root root       67968 Apr  8  2024  infocmp
+lrwxrwxrwx  1 root root           3 Apr  8  2024  infotocap -&gt; tic
+-rwxr-xr-x  1 root root        8480 Apr  8  2024  ncurses6-config
+-rwxr-xr-x  1 root root        8483 Apr  8  2024  ncursesw6-config
+lrwxrwxrwx  1 root root           4 Apr  8  2024  reset -&gt; tset
+-rwxr-xr-x  1 root root       18744 Apr  8  2024  tabs
+-rwxr-xr-x  1 root root       92584 Apr  8  2024  tic
+-rwxr-xr-x  1 root root       22840 Apr  8  2024  toe
+-rwxr-xr-x  1 root root       26968 Apr  8  2024  tput
+-rwxr-xr-x  1 root root       26944 Apr  8  2024  tset
+-rwxr-xr-x  1 root root      445856 Apr  8  2024  trace-cmd
+lrwxrwxrwx  1 root root          21 Apr  8  2024  awk -&gt; /etc/alternatives/awk
+-rwxr-xr-x  1 root root      244088 Apr  8  2024  m4
+-rwxr-xr-x  1 root root      170768 Apr  8  2024  mawk
+lrwxrwxrwx  1 root root          22 Apr  8  2024  nawk -&gt; /etc/alternatives/nawk
+lrwxrwxrwx  1 root root           4 Apr  8  2024  gmake -&gt; make
+-rwxr-xr-x  1 root root      259808 Apr  8  2024  make
+-rwxr-xr-x  1 root root        4905 Apr  8  2024  make-first-existing-target
+-rwxr-xr-x  1 root root       89280 Apr  8  2024  lsscsi
+-rwxr-xr-x  1 root root      136308 Apr  8  2024  libtoolize
+-rwxr-xr-x  1 root root       14488 Apr  8  2024  paperconf
+-rwxr-xr-x  1 root root       63928 Apr  8  2024  keyctl
+-rwxr-xr-x  1 root root       89768 Apr  8  2024  ping
+lrwxrwxrwx  1 root root           4 Apr  8  2024  ping4 -&gt; ping
+lrwxrwxrwx  1 root root           4 Apr  8  2024  ping6 -&gt; ping
+-rwxr-xr-x  1 root root       18584 Apr  8  2024  tracepath
+lrwxrwxrwx  1 root root          28 Apr  8  2024  iptables-xml -&gt; ../sbin/xtables-legacy-multi
+-rwxr-xr-x  1 root root      379216 Apr  8  2024  htop
+lrwxrwxrwx  1 root root           8 Apr  8  2024  dnsdomainname -&gt; hostname
+lrwxrwxrwx  1 root root           8 Apr  8  2024  domainname -&gt; hostname
+-rwxr-xr-x  1 root root       22760 Apr  8  2024  hostname
+lrwxrwxrwx  1 root root           8 Apr  8  2024  nisdomainname -&gt; hostname
+lrwxrwxrwx  1 root root           8 Apr  8  2024  ypdomainname -&gt; hostname
+-rwxr-xr-x  1 root root          41 Apr  8  2024  egrep
+-rwxr-xr-x  1 root root          41 Apr  8  2024  fgrep
+-rwxr-xr-x  1 root root      186824 Apr  8  2024  grep
+-rwxr-xr-x  1 root root       35200 Apr  8  2024  envsubst
+-rwxr-xr-x  1 root root       35200 Apr  8  2024  gettext
+-rwxr-xr-x  1 root root        5188 Apr  8  2024  gettext.sh
+-rwxr-xr-x  1 root root       35200 Apr  8  2024  ngettext
+lrwxrwxrwx  1 root root          11 Apr  8  2024  fusermount -&gt; fusermount3
+-rwsr-xr-x  1 root root       39296 Apr  8  2024  fusermount3
+-rwxr-xr-x  1 root root      423096 Apr  8  2024  flex
+lrwxrwxrwx  1 root root           4 Apr  8  2024  flex++ -&gt; flex
+lrwxrwxrwx  1 root root           4 Apr  8  2024  lex -&gt; flex
+-rwxr-xr-x  1 root root      204264 Apr  8  2024  find
+-rwxr-xr-x  1 root root       63912 Apr  8  2024  xargs
+-rwxr-xr-x  1 root root       31696 Apr  8  2024  debian-distro-info
+lrwxrwxrwx  1 root root          18 Apr  8  2024  distro-info -&gt; ubuntu-distro-info
+-rwxr-xr-x  1 root root       27536 Apr  8  2024  ubuntu-distro-info
+-rwxr-xr-x  1 root root       43408 Apr  8  2024  cmp
+-rwxr-xr-x  1 root root      137776 Apr  8  2024  diff
+-rwxr-xr-x  1 root root       59920 Apr  8  2024  diff3
+-rwxr-xr-x  1 root root       51600 Apr  8  2024  sdiff
+-rwxr-xr-x  1 root root      140976 Apr  8  2024  cpio
+lrwxrwxrwx  1 root root          20 Apr  8  2024  mt -&gt; /etc/alternatives/mt
+-rwxr-xr-x  1 root root       72432 Apr  8  2024  mt-gnu
+-rwxr-xr-x  1 root root      504656 Apr  8  2024  bison
+-rwxr-xr-x  1 root root        4214 Apr  8  2024  bison.yacc
+lrwxrwxrwx  1 root root          22 Apr  8  2024  yacc -&gt; /etc/alternatives/yacc
+lrwxrwxrwx  1 root root          21 Apr  8  2024  ftp -&gt; /etc/alternatives/ftp
+-rwxr-xr-x  1 root root      187288 Apr  8  2024  tnftp
+-rwxr-xr-x  1 root root     1273976 Apr  8  2024  tcpdump
+-rwxr-xr-x  1 root root       18888 Apr  8  2024  kmodsign
+-rwxr-xr-x  1 root root       23080 Apr  8  2024  sbattach
+-rwxr-xr-x  1 root root       35576 Apr  8  2024  sbkeysync
+-rwxr-xr-x  1 root root       14952 Apr  8  2024  sbsiglist
+-rwxr-xr-x  1 root root       35536 Apr  8  2024  sbsign
+-rwxr-xr-x  1 root root       23280 Apr  8  2024  sbvarsign
+-rwxr-xr-x  1 root root       31344 Apr  8  2024  sbverify
+-rwxr-xr-x  1 root root      121832 Apr  8  2024  lowntfs-3g
+-rwxr-xr-x  1 root root      162824 Apr  8  2024  ntfs-3g
+-rwxr-xr-x  1 root root       14720 Apr  8  2024  ntfs-3g.probe
+-rwxr-xr-x  1 root root       27008 Apr  8  2024  ntfscat
+-rwxr-xr-x  1 root root       39304 Apr  8  2024  ntfscluster
+-rwxr-xr-x  1 root root       31104 Apr  8  2024  ntfscmp
+-rwxr-xr-x  1 root root       43400 Apr  8  2024  ntfsdecrypt
+-rwxr-xr-x  1 root root       27016 Apr  8  2024  ntfsfallocate
+-rwxr-xr-x  1 root root       35208 Apr  8  2024  ntfsfix
+-rwxr-xr-x  1 root root       55688 Apr  8  2024  ntfsinfo
+-rwxr-xr-x  1 root root       28112 Apr  8  2024  ntfsls
+-rwxr-xr-x  1 root root       31112 Apr  8  2024  ntfsmove
+-rwxr-xr-x  1 root root      104832 Apr  8  2024  ntfsrecover
+-rwxr-xr-x  1 root root       80752 Apr  8  2024  ntfssecaudit
+-rwxr-xr-x  1 root root       26936 Apr  8  2024  ntfstruncate
+-rwxr-xr-x  1 root root       18736 Apr  8  2024  ntfsusermap
+-rwxr-xr-x  1 root root       48032 Apr  8  2024  ntfswipe
+-rwxr-xr-x  1 root root       60904 Apr  8  2024  mokutil
+lrwxrwxrwx  1 root root           6 Apr  8  2024  apropos -&gt; whatis
+-rwxr-xr-x  1 root root       31504 Apr  8  2024  catman
+-rwxr-xr-x  1 root root      101896 Apr  8  2024  lexgrog
+-rwxr-xr-x  1 root root      128416 Apr  8  2024  man
+-rwxr-xr-x  1 root root      147120 Apr  8  2024  mandb
+-rwxr-xr-x  1 root root       27424 Apr  8  2024  manpath
+-rwxr-xr-x  1 root root       36248 Apr  8  2024  man-recode
+-rwxr-xr-x  1 root root       48416 Apr  8  2024  whatis
+-rwxr-xr-x  1 root root      141544 Apr  8  2024  appstreamcli
+-rwxr-xr-x  1 root root       93000 Apr  8  2024  bc
+-rwxr-xr-x  1 root root       85400 Apr  8  2024  tree
+-rwxr-xr-x  1 root root         125 Apr  5  2024  perldoc
+-rwxr-xr-x  1 root root       55744 Apr  5  2024 '['
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  arch
+-rwxr-xr-x  1 root root       55816 Apr  5  2024  b2sum
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  base32
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  base64
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  basename
+-rwxr-xr-x  1 root root       47624 Apr  5  2024  basenc
+-rwxr-xr-x  1 root root       39384 Apr  5  2024  cat
+-rwxr-xr-x  1 root root       59912 Apr  5  2024  chcon
+-rwxr-xr-x  1 root root       59912 Apr  5  2024  chgrp
+-rwxr-xr-x  1 root root       55816 Apr  5  2024  chmod
+-rwxr-xr-x  1 root root       59912 Apr  5  2024  chown
+-rwxr-xr-x  1 root root      104984 Apr  5  2024  cksum
+-rwxr-xr-x  1 root root       39440 Apr  5  2024  comm
+-rwxr-xr-x  1 root root      141848 Apr  5  2024  cp
+-rwxr-xr-x  1 root root       51720 Apr  5  2024  csplit
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  cut
+-rwxr-xr-x  1 root root      109064 Apr  5  2024  date
+-rwxr-xr-x  1 root root       72232 Apr  5  2024  dd
+-rwxr-xr-x  1 root root       89168 Apr  5  2024  df
+-rwxr-xr-x  1 root root      142312 Apr  5  2024  dir
+-rwxr-xr-x  1 root root       47632 Apr  5  2024  dircolors
+-rwxr-xr-x  1 root root       35208 Apr  5  2024  dirname
+-rwxr-xr-x  1 root root      100872 Apr  5  2024  du
+-rwxr-xr-x  1 root root       35208 Apr  5  2024  echo
+-rwxr-xr-x  1 root root       48072 Apr  5  2024  env
+-rwxr-xr-x  1 root root       35360 Apr  5  2024  expand
+-rwxr-xr-x  1 root root       43432 Apr  5  2024  expr
+-rwxr-xr-x  1 root root       64008 Apr  5  2024  factor
+-rwxr-xr-x  1 root root       26936 Apr  5  2024  false
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  fmt
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  fold
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  groups
+-rwxr-xr-x  1 root root       43528 Apr  5  2024  head
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  hostid
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  id
+-rwxr-xr-x  1 root root      145944 Apr  5  2024  install
+-rwxr-xr-x  1 root root       51760 Apr  5  2024  join
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  link
+-rwxr-xr-x  1 root root       55816 Apr  5  2024  ln
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  logname
+-rwxr-xr-x  1 root root      142312 Apr  5  2024  ls
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  md5sum
+lrwxrwxrwx  1 root root           6 Apr  5  2024  md5sum.textutils -&gt; md5sum
+-rwxr-xr-x  1 root root       76296 Apr  5  2024  mkdir
+-rwxr-xr-x  1 root root       43528 Apr  5  2024  mkfifo
+-rwxr-xr-x  1 root root       43528 Apr  5  2024  mknod
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  mktemp
+-rwxr-xr-x  1 root root      137752 Apr  5  2024  mv
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  nice
+-rwxr-xr-x  1 root root       39528 Apr  5  2024  nl
+-rwxr-xr-x  1 root root       35240 Apr  5  2024  nohup
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  nproc
+-rwxr-xr-x  1 root root       59944 Apr  5  2024  numfmt
+-rwxr-xr-x  1 root root       72200 Apr  5  2024  od
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  paste
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  pathchk
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  pinky
+-rwxr-xr-x  1 root root       72272 Apr  5  2024  pr
+-rwxr-xr-x  1 root root       35208 Apr  5  2024  printenv
+-rwxr-xr-x  1 root root       55744 Apr  5  2024  printf
+-rwxr-xr-x  1 root root       55848 Apr  5  2024  ptx
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  pwd
+-rwxr-xr-x  1 root root       43432 Apr  5  2024  readlink
+-rwxr-xr-x  1 root root       43432 Apr  5  2024  realpath
+-rwxr-xr-x  1 root root       59912 Apr  5  2024  rm
+-rwxr-xr-x  1 root root       47528 Apr  5  2024  rmdir
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  runcon
+-rwxr-xr-x  1 root root       51720 Apr  5  2024  seq
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  sha1sum
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  sha224sum
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  sha256sum
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  sha384sum
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  sha512sum
+-rwxr-xr-x  1 root root       55816 Apr  5  2024  shred
+-rwxr-xr-x  1 root root       47624 Apr  5  2024  shuf
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  sleep
+-rwxr-xr-x  1 root root      105272 Apr  5  2024  sort
+-rwxr-xr-x  1 root root       56256 Apr  5  2024  split
+-rwxr-xr-x  1 root root       88592 Apr  5  2024  stat
+-rwxr-xr-x  1 root root       51720 Apr  5  2024  stdbuf
+-rwxr-xr-x  1 root root       80408 Apr  5  2024  stty
+-rwxr-xr-x  1 root root       35240 Apr  5  2024  sum
+-rwxr-xr-x  1 root root       35240 Apr  5  2024  sync
+-rwxr-xr-x  1 root root       39336 Apr  5  2024  tac
+-rwxr-xr-x  1 root root       64032 Apr  5  2024  tail
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  tee
+-rwxr-xr-x  1 root root       47552 Apr  5  2024  test
+-rwxr-xr-x  1 root root       39880 Apr  5  2024  timeout
+-rwxr-xr-x  1 root root       96776 Apr  5  2024  touch
+-rwxr-xr-x  1 root root       47624 Apr  5  2024  tr
+-rwxr-xr-x  1 root root       26936 Apr  5  2024  true
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  truncate
+-rwxr-xr-x  1 root root       47624 Apr  5  2024  tsort
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  tty
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  uname
+-rwxr-xr-x  1 root root       39456 Apr  5  2024  unexpand
+-rwxr-xr-x  1 root root       39432 Apr  5  2024  uniq
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  unlink
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  users
+-rwxr-xr-x  1 root root      142312 Apr  5  2024  vdir
+-rwxr-xr-x  1 root root       55824 Apr  5  2024  wc
+-rwxr-xr-x  1 root root       59928 Apr  5  2024  who
+-rwxr-xr-x  1 root root       35336 Apr  5  2024  whoami
+-rwxr-xr-x  1 root root       35208 Apr  5  2024  yes
+-rwxr-xr-x  1 root root       65912 Apr  4  2024  debugedit
+-rwxr-xr-x  1 root root       21781 Apr  4  2024  find-debuginfo
+-rwxr-xr-x  1 root root       18928 Apr  4  2024  sepdebugcrcfix
+lrwxrwxrwx  1 root root          23 Apr  3  2024  cpp-12 -&gt; x86_64-linux-gnu-cpp-12
+lrwxrwxrwx  1 root root          23 Apr  3  2024  g++-12 -&gt; x86_64-linux-gnu-g++-12
+lrwxrwxrwx  1 root root          23 Apr  3  2024  gcc-12 -&gt; x86_64-linux-gnu-gcc-12
+lrwxrwxrwx  1 root root          26 Apr  3  2024  gcc-ar-12 -&gt; x86_64-linux-gnu-gcc-ar-12
+lrwxrwxrwx  1 root root          26 Apr  3  2024  gcc-nm-12 -&gt; x86_64-linux-gnu-gcc-nm-12
+lrwxrwxrwx  1 root root          30 Apr  3  2024  gcc-ranlib-12 -&gt; x86_64-linux-gnu-gcc-ranlib-12
+lrwxrwxrwx  1 root root          24 Apr  3  2024  gcov-12 -&gt; x86_64-linux-gnu-gcov-12
+lrwxrwxrwx  1 root root          29 Apr  3  2024  gcov-dump-12 -&gt; x86_64-linux-gnu-gcov-dump-12
+lrwxrwxrwx  1 root root          29 Apr  3  2024  gcov-tool-12 -&gt; x86_64-linux-gnu-gcov-tool-12
+lrwxrwxrwx  1 root root          28 Apr  3  2024  gfortran-12 -&gt; x86_64-linux-gnu-gfortran-12
+lrwxrwxrwx  1 root root          28 Apr  3  2024  lto-dump-12 -&gt; x86_64-linux-gnu-lto-dump-12
+-rwxr-xr-x  1 root root     1391912 Apr  3  2024  x86_64-linux-gnu-cpp-12
+-rwxr-xr-x  1 root root     1396008 Apr  3  2024  x86_64-linux-gnu-g++-12
+-rwxr-xr-x  1 root root     1391912 Apr  3  2024  x86_64-linux-gnu-gcc-12
+-rwxr-xr-x  1 root root       35448 Apr  3  2024  x86_64-linux-gnu-gcc-ar-12
+-rwxr-xr-x  1 root root       35448 Apr  3  2024  x86_64-linux-gnu-gcc-nm-12
+-rwxr-xr-x  1 root root       35448 Apr  3  2024  x86_64-linux-gnu-gcc-ranlib-12
+-rwxr-xr-x  1 root root      758056 Apr  3  2024  x86_64-linux-gnu-gcov-12
+-rwxr-xr-x  1 root root      589952 Apr  3  2024  x86_64-linux-gnu-gcov-dump-12
+-rwxr-xr-x  1 root root      614624 Apr  3  2024  x86_64-linux-gnu-gcov-tool-12
+-rwxr-xr-x  1 root root     1396008 Apr  3  2024  x86_64-linux-gnu-gfortran-12
+-rwxr-xr-x  1 root root    32588848 Apr  3  2024  x86_64-linux-gnu-lto-dump-12
+-rwxr-xr-x  1 root root      125792 Apr  1  2024  boltctl
+-rwxr-xr-x  1 root root       76112 Apr  1  2024  update-mime-database
+-rwxr-xr-x  1 root root       64440 Apr  1  2024  slirp4netns
+-rwxr-xr-x  1 root root      252256 Apr  1  2024  patchelf
+-rwxr-sr-x  1 root mail       14488 Apr  1  2024  mlock
+-rwxr-xr-x  1 root root         503 Apr  1  2024  gendiff
+-rwxr-xr-x  1 root root       23400 Apr  1  2024  rpm
+-rwxr-xr-x  1 root root       23072 Apr  1  2024  rpm2archive
+-rwxr-xr-x  1 root root       14720 Apr  1  2024  rpm2cpio
+-rwxr-xr-x  1 root root       33824 Apr  1  2024  rpmbuild
+-rwxr-xr-x  1 root root       19416 Apr  1  2024  rpmdb
+-rwxr-xr-x  1 root root       19112 Apr  1  2024  rpmgraph
+-rwxr-xr-x  1 root root       15160 Apr  1  2024  rpmkeys
+-rwxr-xr-x  1 root root       15016 Apr  1  2024  rpmlua
+lrwxrwxrwx  1 root root           3 Apr  1  2024  rpmquery -&gt; rpm
+-rwxr-xr-x  1 root root       19608 Apr  1  2024  rpmsign
+-rwxr-xr-x  1 root root       19512 Apr  1  2024  rpmspec
+lrwxrwxrwx  1 root root           3 Apr  1  2024  rpmverify -&gt; rpm
+-rwxr-xr-x  1 root root       31440 Mar 31  2024  setxkbmap
+-rwxr-xr-x  1 root root       14664 Mar 31  2024  xkbbell
+-rwxr-xr-x  1 root root      221288 Mar 31  2024  xkbcomp
+-rwxr-xr-x  1 root root       39304 Mar 31  2024  xkbevd
+-rwxr-xr-x  1 root root       96608 Mar 31  2024  xkbprint
+-rwxr-xr-x  1 root root       23656 Mar 31  2024  xkbvleds
+-rwxr-xr-x  1 root root       23720 Mar 31  2024  xkbwatch
+lrwxrwxrwx  1 root root           8 Mar 31  2024  tclsh -&gt; tclsh8.6
+lrwxrwxrwx  1 root root           7 Mar 31  2024  wish -&gt; wish8.6
+-rwxr-xr-x  1 root root       40288 Mar 31  2024  fuser
+-rwxr-xr-x  1 root root       32096 Mar 31  2024  killall
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  peekfd
+-rwxr-xr-x  1 root root       18816 Mar 31  2024  prtstat
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pslog
+-rwxr-xr-x  1 root root       36168 Mar 31  2024  pstree
+lrwxrwxrwx  1 root root           6 Mar 31  2024  pstree.x11 -&gt; pstree
+lrwxrwxrwx  1 root root          26 Mar 31  2024  pinentry -&gt; /etc/alternatives/pinentry
+-rwxr-xr-x  1 root root       60056 Mar 31  2024  pinentry-curses
+-rwxr-xr-x  1 root root       47352 Mar 31  2024  mediainfo
+-rwxr-xr-x  1 root root      175784 Mar 31  2024  lsof
+-rwxr-xr-x  1 root root      980168 Mar 31  2024  lshw
+-rwxr-xr-x  1 root root       14712 Mar 31  2024  chvt
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  codepage
+-rwxr-xr-x  1 root root       14712 Mar 31  2024  deallocvt
+-rwxr-xr-x  1 root root      166760 Mar 31  2024  dumpkeys
+-rwxr-xr-x  1 root root       14712 Mar 31  2024  fgconsole
+-rwxr-xr-x  1 root root       14712 Mar 31  2024  getkeycodes
+-rwxr-xr-x  1 root root       18808 Mar 31  2024  kbdinfo
+-rwxr-xr-x  1 root root       15016 Mar 31  2024  kbd_mode
+-rwxr-xr-x  1 root root      207768 Mar 31  2024  loadkeys
+-rwxr-xr-x  1 root root       35288 Mar 31  2024  loadunimap
+-rwxr-xr-x  1 root root       31192 Mar 31  2024  mapscrn
+-rwxr-xr-x  1 root root       16163 Mar 31  2024  mk_modmap
+-rwxr-xr-x  1 root root       23272 Mar 31  2024  openvt
+lrwxrwxrwx  1 root root           9 Mar 31  2024  psfaddtable -&gt; psfxtable
+lrwxrwxrwx  1 root root           9 Mar 31  2024  psfgettable -&gt; psfxtable
+lrwxrwxrwx  1 root root           9 Mar 31  2024  psfstriptable -&gt; psfxtable
+-rwxr-xr-x  1 root root       22904 Mar 31  2024  psfxtable
+-rwxr-xr-x  1 root root       27096 Mar 31  2024  resizecons
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  screendump
+-rwxr-xr-x  1 root root       55768 Mar 31  2024  setfont
+-rwxr-xr-x  1 root root       14712 Mar 31  2024  setkeycodes
+-rwxr-xr-x  1 root root       18872 Mar 31  2024  setleds
+-rwxr-xr-x  1 root root       14712 Mar 31  2024  setlogcons
+-rwxr-xr-x  1 root root       14752 Mar 31  2024  setmetamode
+-rwxr-xr-x  1 root root       18808 Mar 31  2024  showconsolefont
+-rwxr-xr-x  1 root root       18808 Mar 31  2024  showkey
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  splitfont
+-rwxr-xr-x  1 root root        2772 Mar 31  2024  unicode_start
+-rwxr-xr-x  1 root root         528 Mar 31  2024  unicode_stop
+lrwxrwxrwx  1 root root           6 Mar 31  2024  ctstat -&gt; lnstat
+-rwxr-xr-x  1 root root      772856 Mar 31  2024  ip
+-rwxr-xr-x  1 root root       23200 Mar 31  2024  lnstat
+-rwxr-xr-x  1 root root       31104 Mar 31  2024  nstat
+-rwxr-xr-x  1 root root      104976 Mar 31  2024  rdma
+-rwxr-xr-x  1 root root        1658 Mar 31  2024  routel
+lrwxrwxrwx  1 root root           6 Mar 31  2024  rtstat -&gt; lnstat
+-rwxr-xr-x  1 root root      132168 Mar 31  2024  ss
+-rwxr-xr-x  1 root root      192968 Mar 31  2024  eqn
+lrwxrwxrwx  1 root root           3 Mar 31  2024  geqn -&gt; eqn
+lrwxrwxrwx  1 root root           3 Mar 31  2024  gpic -&gt; pic
+-rwxr-xr-x  1 root root       96776 Mar 31  2024  groff
+-rwxr-xr-x  1 root root       19195 Mar 31  2024  grog
+-rwxr-xr-x  1 root root      166456 Mar 31  2024  grops
+-rwxr-xr-x  1 root root      121352 Mar 31  2024  grotty
+lrwxrwxrwx  1 root root           3 Mar 31  2024  gtbl -&gt; tbl
+-rwxr-xr-x  1 root root         913 Mar 31  2024  neqn
+-rwxr-xr-x  1 root root        5718 Mar 31  2024  nroff
+-rwxr-xr-x  1 root root      200768 Mar 31  2024  pic
+-rwxr-xr-x  1 root root       59880 Mar 31  2024  preconv
+-rwxr-xr-x  1 root root       35304 Mar 31  2024  soelim
+-rwxr-xr-x  1 root root      137704 Mar 31  2024  tbl
+-rwxr-xr-x  1 root root      744056 Mar 31  2024  troff
+-rwxr-xr-x  1 root root       22840 Mar 31  2024  efibootdump
+-rwxr-xr-x  1 root root       48832 Mar 31  2024  efibootmgr
+-rwxr-xr-x  1 root root       14824 Mar 31  2024  ischroot
+-rwxr-xr-x  1 root root       27464 Mar 31  2024  run-parts
+-rwxr-xr-x  1 root root       10487 Mar 31  2024  savelog
+-rwxr-xr-x  1 root root       14648 Mar 31  2024  tempfile
+lrwxrwxrwx  1 root root          23 Mar 31  2024  which -&gt; /etc/alternatives/which
+-rwxr-xr-x  1 root root        1080 Mar 31  2024  which.debianutils
+-rwxr-xr-x  1 root root      129784 Mar 31  2024  dash
+lrwxrwxrwx  1 root root           4 Mar 31  2024  sh -&gt; dash
+-rwxr-xr-x  1 root root     1025280 Mar 31  2024  btrfs
+lrwxrwxrwx  1 root root           5 Mar 31  2024  btrfsck -&gt; btrfs
+-rwxr-xr-x  1 root root      590128 Mar 31  2024  btrfs-convert
+-rwxr-xr-x  1 root root      532784 Mar 31  2024  btrfs-find-root
+-rwxr-xr-x  1 root root      565552 Mar 31  2024  btrfs-image
+-rwxr-xr-x  1 root root      532784 Mar 31  2024  btrfs-map-logical
+-rwxr-xr-x  1 root root      528688 Mar 31  2024  btrfs-select-super
+-rwxr-xr-x  1 root root      557360 Mar 31  2024  btrfstune
+-rwxr-xr-x  1 root root     1446024 Mar 31  2024  bash
+-rwxr-xr-x  1 root root        6988 Mar 31  2024  bashbug
+-rwxr-xr-x  1 root root       14568 Mar 31  2024  clear_console
+lrwxrwxrwx  1 root root           4 Mar 31  2024  rbash -&gt; bash
+-rwxr-xr-x  1 root root       14488 Mar 31  2024  wish8.6
+-rwxr-xr-x  1 root root       14488 Mar 31  2024  tclsh8.6
+-rwxr-xr-x  1 root root       30888 Mar 31  2024  whiptail
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  411toppm
+-rwxr-xr-x  1 root root       12556 Mar 31  2024  anytopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  asciitopgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  atktopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  avstopam
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  bioradtopgm
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  bmptopnm
+lrwxrwxrwx  1 root root           8 Mar 31  2024  bmptoppm -&gt; bmptopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  brushtopbm
+-rwxr-xr-x  1 root root      113024 Mar 31  2024  cameratopam
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  cistopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  cmuwmtopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ddbugtopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  escp2topbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  eyuvtoppm
+-rwxr-xr-x  1 root root       97432 Mar 31  2024  fiascotopnm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  fitstopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  fstopgm
+-rwxr-xr-x  1 root root       19592 Mar 31  2024  g3topbm
+lrwxrwxrwx  1 root root           8 Mar 31  2024  gemtopbm -&gt; gemtopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  gemtopnm
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  giftopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  gouldtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  hdifftopam
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  hipstopgm
+-rwxr-xr-x  1 root root         798 Mar 31  2024  hpcdtoppm
+lrwxrwxrwx  1 root root          12 Mar 31  2024  icontopbm -&gt; sunicontopnm
+-rwxr-xr-x  1 root root       39296 Mar 31  2024  ilbmtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  imgtoppm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  infotopam
+-rwxr-xr-x  1 root root       58512 Mar 31  2024  jbigtopnm
+-rwxr-xr-x  1 root root      213832 Mar 31  2024  jpeg2ktopam
+-rwxr-xr-x  1 root root       39296 Mar 31  2024  jpegtopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  leaftoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  lispmtopgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  macptopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  mdatopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  mgrtopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  mrftopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  mtvtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  neotoppm
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  palmtopnm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamaddnoise
+-rwxr-xr-x  1 root root       14688 Mar 31  2024  pamaltsat
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  pamarith
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pambackground
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  pambayer
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pambrighten
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  pamcat
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamchannel
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamcomp
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamcrater
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamcut
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamdeinterlace
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamdepth
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamdice
+-rwxr-xr-x  1 root root       26936 Mar 31  2024  pamditherbw
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamedge
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamendian
+-rwxr-xr-x  1 root root       18816 Mar 31  2024  pamenlarge
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamexec
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamfile
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamfind
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamfix
+-rwxr-xr-x  1 root root        2062 Mar 31  2024  pamfixtrunc
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  pamflip
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamfunc
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamgauss
+-rwxr-xr-x  1 root root       18816 Mar 31  2024  pamgetcolor
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamgradient
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamhomography
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamhue
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamlevels
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamlookup
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pammasksharpen
+-rwxr-xr-x  1 root root       14728 Mar 31  2024  pammixinterlace
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pammixmulti
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pammosaicknit
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamoil
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pampaintspill
+-rwxr-xr-x  1 root root       31104 Mar 31  2024  pamperspective
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pampick
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pampop9
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamrecolor
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamrestack
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pamrgbatopng -&gt; pamtopng
+-rwxr-xr-x  1 root root       35120 Mar 31  2024  pamrubber
+-rwxr-xr-x  1 root root       35200 Mar 31  2024  pamscale
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamseq
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamshadedrelief
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamsharpmap
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamsharpness
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamshuffle
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamsistoaglyph
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamslice
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamsplit
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamstack
+-rwxr-xr-x  1 root root       31024 Mar 31  2024  pamstereogram
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamstretch
+-rwxr-xr-x  1 root root        3926 Mar 31  2024  pamstretch-gen
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamsumm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamsummcol
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtable
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamthreshold
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamtilt
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtoavs
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtodjvurle
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtofits
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  pamtogif
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtohdiff
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtohtmltbl
+-rwxr-xr-x  1 root root      217928 Mar 31  2024  pamtojpeg2k
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtompfont
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtooctaveimg
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtopam
+-rwxr-xr-x  1 root root       18816 Mar 31  2024  pamtopdbimg
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtopfm
+-rwxr-xr-x  1 root root       35120 Mar 31  2024  pamtopng
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtopnm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamtoqoi
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamtosrf
+-rwxr-xr-x  1 root root       71832 Mar 31  2024  pamtosvg
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamtotga
+-rwxr-xr-x  1 root root       47488 Mar 31  2024  pamtotiff
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtouil
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamtowinicon
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamtoxvmini
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  pamtris
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pamundice
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamunlookup
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamvalidate
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pamwipeout
+-rwxr-xr-x  1 root root       43392 Mar 31  2024  pamx
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pbmclean
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmlife
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmmake
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmmask
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmminkowski
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmnoise
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmpage
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmpscale
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmreduce
+-rwxr-xr-x  1 root root       31216 Mar 31  2024  pbmtext
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  pbmtextps
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmto10x
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmto4425
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoascii
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoatk
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtobbnbg
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtocis
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtocmuwm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtodjvurle
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoepsi
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoepson
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoescp2
+-rwxr-xr-x  1 root root       19592 Mar 31  2024  pbmtog3
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtogem
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtogo
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoibm23xx
+lrwxrwxrwx  1 root root          12 Mar 31  2024  pbmtoicon -&gt; pbmtosunicon
+-rwxr-xr-x  1 root root       18744 Mar 31  2024  pbmtolj
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoln03
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtolps
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtomacp
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtomatrixorbital
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtomda
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtomgr
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtomrf
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtonokia
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtopgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtopi3
+-rwxr-xr-x  1 root root       27240 Mar 31  2024  pbmtopk
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoplot
+-rwxr-xr-x  1 root root       31104 Mar 31  2024  pbmtoppa
+-rwxr-xr-x  1 root root       16320 Mar 31  2024  pbmtopsg3
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoptx
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtosunicon
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtowbmp
+-rwxr-xr-x  1 root root        2901 Mar 31  2024  pbmtox10bm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoxbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtoybm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pbmtozinc
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  pbmupc
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pc1toppm
+lrwxrwxrwx  1 root root          10 Mar 31  2024  pcdindex -&gt; pcdovtoppm
+-rwxr-xr-x  1 root root        6721 Mar 31  2024  pcdovtoppm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pcxtoppm
+-rwxr-xr-x  1 root root       18816 Mar 31  2024  pdbimgtopam
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pfmtopam
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pgmabel
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmbentley
+-rwxr-xr-x  1 root root        3571 Mar 31  2024  pgmcrater
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmdeshadow
+lrwxrwxrwx  1 root root           7 Mar 31  2024  pgmedge -&gt; pamedge
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmenhance
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pgmhist
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmkernel
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmmake
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pgmmedian
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmminkowski
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmmorphconv
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmnoise
+lrwxrwxrwx  1 root root           7 Mar 31  2024  pgmnorm -&gt; pnmnorm
+lrwxrwxrwx  1 root root           6 Mar 31  2024  pgmoil -&gt; pamoil
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmramp
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pgmslice -&gt; pamslice
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  pgmtexture
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmtofs
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmtolispm
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  pgmtopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmtopgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmtosbig
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pgmtost4
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pi1toppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pi3topbm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pjtoppm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pktopbm
+-rwxr-xr-x  1 root root       35200 Mar 31  2024  pngtopam
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pngtopnm -&gt; pngtopam
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmalias
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pnmarith -&gt; pamarith
+lrwxrwxrwx  1 root root           6 Mar 31  2024  pnmcat -&gt; pamcat
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmcolormap
+lrwxrwxrwx  1 root root           7 Mar 31  2024  pnmcomp -&gt; pamcomp
+-rwxr-xr-x  1 root root       35120 Mar 31  2024  pnmconvol
+-rwxr-xr-x  1 root root       27008 Mar 31  2024  pnmcrop
+lrwxrwxrwx  1 root root           6 Mar 31  2024  pnmcut -&gt; pamcut
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pnmdepth -&gt; pamdepth
+lrwxrwxrwx  1 root root          10 Mar 31  2024  pnmenlarge -&gt; pamenlarge
+lrwxrwxrwx  1 root root           7 Mar 31  2024  pnmfile -&gt; pamfile
+-rwxr-xr-x  1 root root        3719 Mar 31  2024  pnmflip
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmgamma
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnmhisteq
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmhistmap
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmindex
+lrwxrwxrwx  1 root root          10 Mar 31  2024  pnminterp -&gt; pamstretch
+lrwxrwxrwx  1 root root          14 Mar 31  2024  pnminterp-gen -&gt; pamstretch-gen
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnminvert
+-rwxr-xr-x  1 root root        2480 Mar 31  2024  pnmmargin
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnmmercator
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmmontage
+-rwxr-xr-x  1 root root       22896 Mar 31  2024  pnmnlfilt
+lrwxrwxrwx  1 root root          13 Mar 31  2024  pnmnoraw -&gt; pnmtoplainpnm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmnorm
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  pnmpad
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmpaste
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmpsnr
+-rwxr-xr-x  1 root root       10889 Mar 31  2024  pnmquant
+-rwxr-xr-x  1 root root        7000 Mar 31  2024  pnmquantall
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmremap
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmrotate
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pnmscale -&gt; pamscale
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmscalefixed
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnmshear
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnmsmooth
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pnmsplit -&gt; pamsplit
+-rwxr-xr-x  1 root root       35808 Mar 31  2024  pnmstitch
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnmtile
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmtoddif
+-rwxr-xr-x  1 root root      168152 Mar 31  2024  pnmtofiasco
+lrwxrwxrwx  1 root root           9 Mar 31  2024  pnmtofits -&gt; pamtofits
+-rwxr-xr-x  1 root root       62608 Mar 31  2024  pnmtojbig
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  pnmtojpeg
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  pnmtopalm
+-rwxr-xr-x  1 root root       23360 Mar 31  2024  pnmtopclxl
+-rwxr-xr-x  1 root root          31 Mar 31  2024  pnmtoplainpnm
+-rwxr-xr-x  1 root root       55600 Mar 31  2024  pnmtopng
+lrwxrwxrwx  1 root root           8 Mar 31  2024  pnmtopnm -&gt; pamtopnm
+-rwxr-xr-x  1 root root       35120 Mar 31  2024  pnmtops
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmtorast
+-rwxr-xr-x  1 root root       35376 Mar 31  2024  pnmtorle
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnmtosgi
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  pnmtosir
+lrwxrwxrwx  1 root root           9 Mar 31  2024  pnmtotiff -&gt; pamtotiff
+-rwxr-xr-x  1 root root       39296 Mar 31  2024  pnmtotiffcmyk
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  pnmtoxwd
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppm3d
+-rwxr-xr-x  1 root root        2044 Mar 31  2024  ppmbrighten
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmchange
+-rwxr-xr-x  1 root root       27104 Mar 31  2024  ppmcie
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmcolormask
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmcolors
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmdcfont
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmddumpfont
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmdim
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmdist
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmdither
+-rwxr-xr-x  1 root root       22544 Mar 31  2024  ppmdmkfont
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  ppmdraw
+-rwxr-xr-x  1 root root       15116 Mar 31  2024  ppmfade
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmflash
+-rwxr-xr-x  1 root root       22840 Mar 31  2024  ppmforge
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmglobe
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmhist
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmlabel
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmmake
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmmix
+lrwxrwxrwx  1 root root           7 Mar 31  2024  ppmnorm -&gt; pnmnorm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmntsc
+-rwxr-xr-x  1 root root       31024 Mar 31  2024  ppmpat
+-rwxr-xr-x  1 root root        2352 Mar 31  2024  ppmquant
+lrwxrwxrwx  1 root root          11 Mar 31  2024  ppmquantall -&gt; pnmquantall
+-rwxr-xr-x  1 root root        3564 Mar 31  2024  ppmrainbow
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmrelief
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmrough
+-rwxr-xr-x  1 root root       11107 Mar 31  2024  ppmshadow
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmshift
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmspread
+-rwxr-xr-x  1 root root       19608 Mar 31  2024  ppmtoacad
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoapplevol
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmtoarbtxt
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  ppmtoascii
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmtobmp
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmtoeyuv
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtogif
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoicr
+-rwxr-xr-x  1 root root       43408 Mar 31  2024  ppmtoilbm
+lrwxrwxrwx  1 root root           9 Mar 31  2024  ppmtojpeg -&gt; pnmtojpeg
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoleaf
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtolj
+-rwxr-xr-x  1 root root          82 Mar 31  2024  ppmtomap
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  ppmtomitsu
+-rwxr-xr-x  1 root root      505952 Mar 31  2024  ppmtompeg
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoneo
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmtopcx
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmtopgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtopi1
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtopict
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  ppmtopj
+-rwxr-xr-x  1 root root       18816 Mar 31  2024  ppmtopjxl
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtopuzz
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtorgb3
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtosixel
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtospu
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoterm
+lrwxrwxrwx  1 root root           8 Mar 31  2024  ppmtotga -&gt; pamtotga
+lrwxrwxrwx  1 root root           8 Mar 31  2024  ppmtouil -&gt; pamtouil
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmtowinicon
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  ppmtoxpm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoyuv
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtoyuvsplit
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmtv
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ppmwheel
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  psidtopgm
+-rwxr-xr-x  1 root root       22912 Mar 31  2024  pstopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  qoitopam
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  qrttoppm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  rasttopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  rawtopgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  rawtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  rgb3toppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  rlatopam
+-rwxr-xr-x  1 root root       39472 Mar 31  2024  rletopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  sbigtopgm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  sgitopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  sirtopnm
+-rwxr-xr-x  1 root root       18792 Mar 31  2024  sldtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  spctoppm
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  spottopgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  sputoppm
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  srftopam
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  st4topgm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  sunicontopnm
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  svgtopam
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  tgatoppm
+-rwxr-xr-x  1 root root       18744 Mar 31  2024  thinkjettopbm
+-rwxr-xr-x  1 root root       43392 Mar 31  2024  tifftopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  wbmptopbm
+-rwxr-xr-x  1 root root       22832 Mar 31  2024  winicontopam
+-rwxr-xr-x  1 root root       18736 Mar 31  2024  winicontoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  xbmtopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ximtoppm
+-rwxr-xr-x  1 root root       18792 Mar 31  2024  xpmtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  xvminitoppm
+-rwxr-xr-x  1 root root       26928 Mar 31  2024  xwdtopnm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  ybmtopbm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  yuvsplittoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  yuvtoppm
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  yuy2topam
+-rwxr-xr-x  1 root root       14640 Mar 31  2024  zeisstopnm
+-rwxr-xr-x  1 root root        7013 Mar 31  2024  json_xs
+-rwxr-xr-x  1 root root       27008 Mar 31  2024  JxrDecApp
+-rwxr-xr-x  1 root root       28440 Mar 31  2024  JxrEncApp
+-rwxr-xr-x  1 root root       30872 Mar 31  2024  jq
+-rwxr-xr-x  1 root root       31560 Mar 31  2024  delaunay
+-rwxr-xr-x  1 root root       14648 Mar 31  2024  gts2dxf
+-rwxr-xr-x  1 root root       31912 Mar 31  2024  gts2oogl
+-rwxr-xr-x  1 root root       14792 Mar 31  2024  gts2stl
+-rwxr-xr-x  1 root root       14648 Mar 31  2024  gts2xyz
+-rwxr-xr-x  1 root root       14760 Mar 31  2024  gtscheck
+-rwxr-xr-x  1 root root       27240 Mar 31  2024  gtscompare
+-rwxr-xr-x  1 root root        2748 Mar 31  2024  gts-config
+-rwxr-xr-x  1 root root        6110 Mar 31  2024  gtstemplate
+-rwxr-xr-x  1 root root       23016 Mar 31  2024  stl2gts
+-rwxr-xr-x  1 root root       15144 Mar 31  2024  transform
+-rwxr-xr-x  1 root root       31336 Mar 31  2024  file
+-rwxr-xr-x  1 root root      162024 Mar 31  2024  brotli
+-rwxr-xr-x  1 root root      739840 Mar 31  2024  gawk
+-rwxr-xr-x  1 root root        6900 Mar 31  2024  gawkbug
+-rwxr-xr-x  1 root root      280512 Mar 31  2024  mmcli
+-rwxr-xr-x  1 root root      600928 Mar 31  2024  qmicli
+-rwxr-xr-x  1 root root      172128 Mar 31  2024  qmi-firmware-update
+-rwxr-xr-x  1 root root       16428 Mar 31  2024  qmi-network
+-rwxr-xr-x  1 root root      221848 Mar 31  2024  mbimcli
+-rwxr-xr-x  1 root root       11342 Mar 31  2024  mbim-network
+lrwxrwxrwx  1 root root          25 Mar 31  2024  animate -&gt; /etc/alternatives/animate
+lrwxrwxrwx  1 root root          29 Mar 31  2024  animate-im6 -&gt; /etc/alternatives/animate-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  animate-im6.q16
+lrwxrwxrwx  1 root root          25 Mar 31  2024  compare -&gt; /etc/alternatives/compare
+lrwxrwxrwx  1 root root          29 Mar 31  2024  compare-im6 -&gt; /etc/alternatives/compare-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  compare-im6.q16
+lrwxrwxrwx  1 root root          27 Mar 31  2024  composite -&gt; /etc/alternatives/composite
+lrwxrwxrwx  1 root root          31 Mar 31  2024  composite-im6 -&gt; /etc/alternatives/composite-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  composite-im6.q16
+lrwxrwxrwx  1 root root          25 Mar 31  2024  conjure -&gt; /etc/alternatives/conjure
+lrwxrwxrwx  1 root root          29 Mar 31  2024  conjure-im6 -&gt; /etc/alternatives/conjure-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  conjure-im6.q16
+lrwxrwxrwx  1 root root          25 Mar 31  2024  convert -&gt; /etc/alternatives/convert
+lrwxrwxrwx  1 root root          29 Mar 31  2024  convert-im6 -&gt; /etc/alternatives/convert-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  convert-im6.q16
+lrwxrwxrwx  1 root root          25 Mar 31  2024  display -&gt; /etc/alternatives/display
+lrwxrwxrwx  1 root root          29 Mar 31  2024  display-im6 -&gt; /etc/alternatives/display-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  display-im6.q16
+lrwxrwxrwx  1 root root          26 Mar 31  2024  identify -&gt; /etc/alternatives/identify
+lrwxrwxrwx  1 root root          30 Mar 31  2024  identify-im6 -&gt; /etc/alternatives/identify-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  identify-im6.q16
+lrwxrwxrwx  1 root root          24 Mar 31  2024  import -&gt; /etc/alternatives/import
+lrwxrwxrwx  1 root root          28 Mar 31  2024  import-im6 -&gt; /etc/alternatives/import-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  import-im6.q16
+lrwxrwxrwx  1 root root          25 Mar 31  2024  mogrify -&gt; /etc/alternatives/mogrify
+lrwxrwxrwx  1 root root          29 Mar 31  2024  mogrify-im6 -&gt; /etc/alternatives/mogrify-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  mogrify-im6.q16
+lrwxrwxrwx  1 root root          25 Mar 31  2024  montage -&gt; /etc/alternatives/montage
+lrwxrwxrwx  1 root root          29 Mar 31  2024  montage-im6 -&gt; /etc/alternatives/montage-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  montage-im6.q16
+lrwxrwxrwx  1 root root          24 Mar 31  2024  stream -&gt; /etc/alternatives/stream
+lrwxrwxrwx  1 root root          28 Mar 31  2024  stream-im6 -&gt; /etc/alternatives/stream-im6
+-rwxr-xr-x  1 root root       14656 Mar 31  2024  stream-im6.q16
+-rwxr-xr-x  1 root root       22912 Mar 31  2024  fc-cache
+-rwxr-xr-x  1 root root       18816 Mar 31  2024  fc-cat
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  fc-conflist
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  fc-list
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  fc-match
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  fc-pattern
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  fc-query
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  fc-scan
+-rwxr-xr-x  1 root root       14720 Mar 31  2024  fc-validate
+-rwxr-xr-x  1 root root      148048 Mar 31  2024  conmon
+lrwxrwxrwx  1 root root          24 Mar 31  2024  editor -&gt; /etc/alternatives/editor
+lrwxrwxrwx  1 root root          20 Mar 31  2024  ex -&gt; /etc/alternatives/ex
+lrwxrwxrwx  1 root root          23 Mar 31  2024  rview -&gt; /etc/alternatives/rview
+lrwxrwxrwx  1 root root          20 Mar 31  2024  vi -&gt; /etc/alternatives/vi
+lrwxrwxrwx  1 root root          22 Mar 31  2024  view -&gt; /etc/alternatives/view
+-rwxr-xr-x  1 root root      182120 Mar 31  2024  inetutils-telnet
+lrwxrwxrwx  1 root root          24 Mar 31  2024  telnet -&gt; /etc/alternatives/telnet
+-rwxr-sr-x  1 root crontab    39664 Mar 31  2024  crontab
+lrwxrwxrwx  1 root root          12 Mar 30  2024  ginstall-info -&gt; install-info
+-rwxr-xr-x  1 root root      247536 Mar 30  2024  info
+lrwxrwxrwx  1 root root          29 Mar 30  2024  infobrowser -&gt; /etc/alternatives/infobrowser
+-rwxr-xr-x  1 root root       48376 Mar 30  2024  install-info
+lrwxrwxrwx  1 root root           8 Mar 30  2024  makeinfo -&gt; texi2any
+-rwxr-xr-x  1 root root        1163 Mar 30  2024  pdftexi2dvi
+-rwxr-xr-x  1 root root       25537 Mar 30  2024  pod2texi
+-rwxr-xr-x  1 root root       71989 Mar 30  2024  texi2any
+-rwxr-xr-x  1 root root       57036 Mar 30  2024  texi2dvi
+-rwxr-xr-x  1 root root        1163 Mar 30  2024  texi2pdf
+-rwxr-xr-x  1 root root        4005 Mar 30  2024  texindex
+-rwxr-xr-x  1 root root       20920 Mar 30  2024  txixml2texi
+-rwxr-xr-x  1 root root        3093 Mar  1  2024  migrate-pubring-from-classic-gpg
+-rwxr-xr-x  1 root root      150674 Feb 26  2024  ckbcomp
+-rwxr-xr-x  1 root root       41025 Feb 26  2024  setupcon
+lrwxrwxrwx  1 root root          14 Feb 21  2024  ccache-swig -&gt; ccache-swig4.0
+-rwxr-xr-x  1 root root       55528 Feb 21  2024  ccache-swig4.0
+lrwxrwxrwx  1 root root           7 Feb 21  2024  swig -&gt; swig4.0
+-rwxr-xr-x  1 root root     1954744 Feb 21  2024  swig4.0
+-rwxr-xr-x  2 root root      169936 Feb 20  2024  passt
+-rwxr-xr-x  2 root root      194512 Feb 20  2024  passt.avx2
+-rwxr-xr-x  2 root root      169936 Feb 20  2024  pasta
+-rwxr-xr-x  2 root root      194512 Feb 20  2024  pasta.avx2
+-rwxr-xr-x  1 root root       22968 Feb 20  2024  qrap
+lrwxrwxrwx  1 root root           6 Feb 19  2024  erb -&gt; erb3.2
+lrwxrwxrwx  1 root root           6 Feb 19  2024  irb -&gt; irb3.2
+lrwxrwxrwx  1 root root           7 Feb 19  2024  rdoc -&gt; rdoc3.2
+lrwxrwxrwx  1 root root           5 Feb 19  2024  ri -&gt; ri3.2
+lrwxrwxrwx  1 root root           7 Feb 19  2024  ruby -&gt; ruby3.2
+-rwxr-xr-x  1 root root       59960 Feb 17  2024  ed
+-rwxr-xr-x  1 root root          89 Feb 17  2024  red
+-rwxr-xr-x  1 root root      424112 Feb 12  2024  crun
+-rwxr-xr-x  1 root root        8703 Feb 10  2024  byobu
+-rwxr-xr-x  1 root root         996 Feb 10  2024  byobu-config
+-rwxr-xr-x  1 root root        4774 Feb 10  2024  byobu-ctrl-a
+-rwxr-xr-x  1 root root        1295 Feb 10  2024  byobu-disable
+-rwxr-xr-x  1 root root        1341 Feb 10  2024  byobu-disable-prompt
+-rwxr-xr-x  1 root root        1182 Feb 10  2024  byobu-enable
+-rwxr-xr-x  1 root root        1453 Feb 10  2024  byobu-enable-prompt
+-rwxr-xr-x  1 root root        1421 Feb 10  2024  byobu-export
+-rwxr-xr-x  1 root root        7209 Feb 10  2024  byobu-janitor
+-rwxr-xr-x  1 root root        1506 Feb 10  2024  byobu-keybindings
+-rwxr-xr-x  1 root root        3329 Feb 10  2024  byobu-launch
+-rwxr-xr-x  1 root root        1910 Feb 10  2024  byobu-launcher
+-rwxr-xr-x  1 root root        2529 Feb 10  2024  byobu-launcher-install
+-rwxr-xr-x  1 root root        1561 Feb 10  2024  byobu-launcher-uninstall
+-rwxr-xr-x  1 root root        3348 Feb 10  2024  byobu-layout
+-rwxr-xr-x  1 root root        1156 Feb 10  2024  byobu-prompt
+-rwxr-xr-x  1 root root        1410 Feb 10  2024  byobu-quiet
+-rwxr-xr-x  1 root root        3298 Feb 10  2024  byobu-reconnect-sockets
+lrwxrwxrwx  1 root root           5 Feb 10  2024  byobu-screen -&gt; byobu
+-rwxr-xr-x  1 root root        1452 Feb 10  2024  byobu-select-backend
+-rwxr-xr-x  1 root root        5180 Feb 10  2024  byobu-select-profile
+-rwxr-xr-x  1 root root        1012 Feb 10  2024  byobu-select-session
+-rwxr-xr-x  1 root root        1697 Feb 10  2024  byobu-shell
+-rwxr-xr-x  1 root root        1306 Feb 10  2024  byobu-silent
+-rwxr-xr-x  1 root root        6015 Feb 10  2024  byobu-status
+-rwxr-xr-x  1 root root        1207 Feb 10  2024  byobu-status-detail
+lrwxrwxrwx  1 root root           5 Feb 10  2024  byobu-tmux -&gt; byobu
+-rwxr-xr-x  1 root root        4667 Feb 10  2024  byobu-ugraph
+-rwxr-xr-x  1 root root       11996 Feb 10  2024  byobu-ulevel
+-rwxr-xr-x  1 root root         963 Feb 10  2024  col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col2 -&gt; col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col3 -&gt; col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col4 -&gt; col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col5 -&gt; col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col6 -&gt; col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col7 -&gt; col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col8 -&gt; col1
+lrwxrwxrwx  1 root root           4 Feb 10  2024  col9 -&gt; col1
+-rwxr-xr-x  1 root root         960 Feb 10  2024  ctail
+-rwxr-xr-x  1 root root        1942 Feb 10  2024  manifest
+lrwxrwxrwx  1 root root           4 Feb 10  2024  NF -&gt; col1
+-rwxr-xr-x  1 root root        1149 Feb 10  2024  purge-old-kernels
+-rwxr-xr-x  1 root root        2640 Feb 10  2024  vigpg
+-rwxr-xr-x  1 root root        2107 Feb 10  2024  wifi-status
+-rwxr-xr-x  1 root root        2450 Feb  4  2024  select-editor
+-rwxr-xr-x  1 root root        1583 Feb  4  2024  sensible-browser
+-rwxr-xr-x  1 root root        1556 Feb  4  2024  sensible-editor
+-rwxr-xr-x  1 root root         921 Feb  4  2024  sensible-pager
+-rwxr-xr-x  1 root root        1176 Feb  4  2024  sensible-terminal
+-rwxr-xr-x  1 root root         215 Feb  2  2024  pygmentize
+lrwxrwxrwx  1 root root          25 Feb  1  2024  aclocal -&gt; /etc/alternatives/aclocal
+-rwxr-xr-x  1 root root       36020 Feb  1  2024  aclocal-1.16
+lrwxrwxrwx  1 root root          26 Feb  1  2024  automake -&gt; /etc/alternatives/automake
+-rwxr-xr-x  1 root root      262055 Feb  1  2024  automake-1.16
+lrwxrwxrwx  1 root root          21 Jan 31  2024  c++ -&gt; /etc/alternatives/c++
+lrwxrwxrwx  1 root root          20 Jan 31  2024  cc -&gt; /etc/alternatives/cc
+lrwxrwxrwx  1 root root           6 Jan 31  2024  cpp -&gt; cpp-13
+lrwxrwxrwx  1 root root          21 Jan 31  2024  f77 -&gt; /etc/alternatives/f77
+lrwxrwxrwx  1 root root          21 Jan 31  2024  f95 -&gt; /etc/alternatives/f95
+lrwxrwxrwx  1 root root           6 Jan 31  2024  g++ -&gt; g++-13
+lrwxrwxrwx  1 root root           6 Jan 31  2024  gcc -&gt; gcc-13
+lrwxrwxrwx  1 root root           9 Jan 31  2024  gcc-ar -&gt; gcc-ar-13
+lrwxrwxrwx  1 root root           9 Jan 31  2024  gcc-nm -&gt; gcc-nm-13
+lrwxrwxrwx  1 root root          13 Jan 31  2024  gcc-ranlib -&gt; gcc-ranlib-13
+lrwxrwxrwx  1 root root           7 Jan 31  2024  gcov -&gt; gcov-13
+lrwxrwxrwx  1 root root          12 Jan 31  2024  gcov-dump -&gt; gcov-dump-13
+lrwxrwxrwx  1 root root          12 Jan 31  2024  gcov-tool -&gt; gcov-tool-13
+lrwxrwxrwx  1 root root          11 Jan 31  2024  gfortran -&gt; gfortran-13
+lrwxrwxrwx  1 root root          11 Jan 31  2024  lto-dump -&gt; lto-dump-13
+lrwxrwxrwx  1 root root          23 Jan 31  2024  x86_64-linux-gnu-cpp -&gt; x86_64-linux-gnu-cpp-13
+lrwxrwxrwx  1 root root          23 Jan 31  2024  x86_64-linux-gnu-g++ -&gt; x86_64-linux-gnu-g++-13
+lrwxrwxrwx  1 root root          23 Jan 31  2024  x86_64-linux-gnu-gcc -&gt; x86_64-linux-gnu-gcc-13
+lrwxrwxrwx  1 root root          26 Jan 31  2024  x86_64-linux-gnu-gcc-ar -&gt; x86_64-linux-gnu-gcc-ar-13
+lrwxrwxrwx  1 root root          26 Jan 31  2024  x86_64-linux-gnu-gcc-nm -&gt; x86_64-linux-gnu-gcc-nm-13
+lrwxrwxrwx  1 root root          30 Jan 31  2024  x86_64-linux-gnu-gcc-ranlib -&gt; x86_64-linux-gnu-gcc-ranlib-13
+lrwxrwxrwx  1 root root          24 Jan 31  2024  x86_64-linux-gnu-gcov -&gt; x86_64-linux-gnu-gcov-13
+lrwxrwxrwx  1 root root          29 Jan 31  2024  x86_64-linux-gnu-gcov-dump -&gt; x86_64-linux-gnu-gcov-dump-13
+lrwxrwxrwx  1 root root          29 Jan 31  2024  x86_64-linux-gnu-gcov-tool -&gt; x86_64-linux-gnu-gcov-tool-13
+lrwxrwxrwx  1 root root          28 Jan 31  2024  x86_64-linux-gnu-gfortran -&gt; x86_64-linux-gnu-gfortran-13
+lrwxrwxrwx  1 root root          28 Jan 31  2024  x86_64-linux-gnu-lto-dump -&gt; x86_64-linux-gnu-lto-dump-13
+-rwxr-xr-x  1 root root       31120 Jan 21  2024  faked-sysv
+-rwxr-xr-x  1 root root       35208 Jan 21  2024  faked-tcp
+lrwxrwxrwx  1 root root          26 Jan 21  2024  fakeroot -&gt; /etc/alternatives/fakeroot
+-rwxr-xr-x  1 root root        3995 Jan 21  2024  fakeroot-sysv
+-rwxr-xr-x  1 root root        3990 Jan 21  2024  fakeroot-tcp
+lrwxrwxrwx  1 root root          21 Jan 18  2024  upx -&gt; /etc/alternatives/upx
+-rwxr-xr-x  1 root root     2521832 Jan 18  2024  upx-ucl
+-rwxr-xr-x  1 root root     5257872 Jan 12  2024  rg
+-rwxr-xr-x  1 root root       27080 Jan  9  2024  cifsiostat
+-rwxr-xr-x  1 root root       55744 Jan  9  2024  iostat
+-rwxr-xr-x  1 root root       51656 Jan  9  2024  mpstat
+-rwxr-xr-x  1 root root       51656 Jan  9  2024  pidstat
+-rwxr-xr-x  1 root root      391488 Jan  9  2024  sadf
+lrwxrwxrwx  1 root root          21 Jan  9  2024  sar -&gt; /etc/alternatives/sar
+-rwxr-xr-x  1 root root      140680 Jan  9  2024  sar.sysstat
+-rwxr-xr-x  1 root root       27072 Jan  9  2024  tapestat
+-rwxr-xr-x  1 root root         984 Jan  2  2024  automat-visualize3
+lrwxrwxrwx  1 root root          19 Dec 30  2023  fdfind -&gt; ../lib/cargo/bin/fd
+-rwxr-xr-x  1 root root        1241 Dec 30  2023  imagetops
+-rwxr-xr-x  1 root root       13078 Dec 18  2023  ssh-copy-id
+-rwxr-xr-x  1 root root        4942 Dec 14  2023  env_parallel
+-rwxr-xr-x  1 root root       14056 Dec 14  2023  env_parallel.bash
+-rwxr-xr-x  1 root root        5382 Dec 14  2023  env_parallel.csh
+-rwxr-xr-x  1 root root       13838 Dec 14  2023  env_parallel.dash
+-rwxr-xr-x  1 root root        6648 Dec 14  2023  env_parallel.fish
+-rwxr-xr-x  1 root root       13143 Dec 14  2023  env_parallel.ksh
+-rwxr-xr-x  1 root root       13174 Dec 14  2023  env_parallel.mksh
+-rwxr-xr-x  1 root root       13831 Dec 14  2023  env_parallel.sh
+-rwxr-xr-x  1 root root        5385 Dec 14  2023  env_parallel.tcsh
+-rwxr-xr-x  1 root root       13154 Dec 14  2023  env_parallel.zsh
+-rwxr-xr-x  1 root root       33291 Dec 14  2023  niceload
+-rwxr-xr-x  1 root root      451517 Dec 14  2023  parallel
+-rwxr-xr-x  1 root root        5017 Dec 14  2023  parcat
+-rwxr-xr-x  1 root root        4490 Dec 14  2023  parset
+-rwxr-xr-x  1 root root       12314 Dec 14  2023  parsort
+lrwxrwxrwx  1 root root           8 Dec 14  2023  sem -&gt; parallel
+-rwxr-xr-x  1 root root       36665 Dec 14  2023  sql
+-rwxr-xr-x  1 root root        9444 Dec 12  2023  dh_installxmlcatalogs
+-rwxr-xr-x  1 root root        7135 Dec  6  2023  deb-systemd-invoke
+-rwxr-xr-x  1 root root       24358 Dec  6  2023  deb-systemd-helper
+-rwxr-xr-x  1 root root      101096 Nov 27  2023  fuse-overlayfs
+-rwxr-xr-x  1 root root         975 Nov 24  2023  pyserial-miniterm
+-rwxr-xr-x  1 root root         969 Nov 24  2023  pyserial-ports
+lrwxrwxrwx  1 root root          25 Nov 24  2023  pybabel -&gt; /etc/alternatives/pybabel
+-rwxr-xr-x  1 root root         956 Nov 24  2023  pybabel-python3
+-rwxr-xr-x  1 root root         253 Oct 19  2023  gem
+-rwxr-xr-x  1 root root         593 Oct 19  2023  update_rubygems
+lrwxrwxrwx  1 root root          20 Sep 25  2023  ant -&gt; ../share/ant/bin/ant
+-rwxr-xr-x  1 root root         959 Sep 21  2023  netaddr
+-rwxr-xr-x  1 root root        7222 Sep  7  2023  ispell-wrapper
+-rwxr-xr-x  1 root root         474 Sep  7  2023  select-default-iwrap
+-rwxr-xr-x  2 root root      133496 Aug 22  2023  pigz
+-rwxr-xr-x  2 root root      133496 Aug 22  2023  unpigz
+lrwxrwxrwx  1 root root          26 Aug 21  2023  jsondiff -&gt; /etc/alternatives/jsondiff
+-rwxr-xr-x  1 root root        3859 Aug 21  2023  jsonpatch
+-rwxr-xr-x  1 root root        1004 Aug 21  2023  json-patch-jsondiff
+lrwxrwxrwx  1 root root          10 Aug 20  2023  chardet -&gt; chardetect
+-rwxr-xr-x  1 root root         221 Aug 20  2023  chardetect
+-rwxr-xr-x  1 root root         213 Aug 14  2023  jsonschema
+-rwxr-xr-x  1 root root          30 Jul 21  2023  rgrep
+-rwxr-xr-x  1 root root        2651 Jul  5  2023  lsb_release
+-rwxr-xr-x  1 root root         220 Jun 19  2023  markdown-it
+lrwxrwxrwx  1 root root           6 Jun 13  2023  pydoc -&gt; pydoc3
+lrwxrwxrwx  1 root root           7 Jun 13  2023  python -&gt; python3
+-rwxr-xr-x  1 root root         793 May 19  2023  pear
+-rwxr-xr-x  1 root root         814 May 19  2023  peardev
+-rwxr-xr-x  1 root root         727 May 19  2023  pecl
+-rwxr-xr-x  1 root root       20362 Apr 24  2023  networkd-dispatcher
+-rwxr-xr-x  1 root root        4527 Apr 17  2023  dh_bash-completion
+-rwxr-xr-x  1 root root        1081 Apr  4  2023  lspgpot
+-rwxr-xr-x  1 root root        1577 Mar  7  2023  linux-boot-prober
+-rwxr-xr-x  1 root root        4527 Mar  7  2023  os-prober
+-rwxr-xr-x  1 root root        9047 Feb 12  2023  lesspipe
+-rwxr-xr-x  1 root root     2001640 Feb  4  2023  indexer
+-rwxr-xr-x  1 root root     2119400 Feb  4  2023  indextool
+-rwxr-xr-x  1 root root     3773576 Feb  4  2023  searchd
+-rwxr-xr-x  1 root root       59880 Feb  4  2023  spelldump
+-rwxr-xr-x  1 root root       47592 Feb  4  2023  wordbreaker
+-rwxr-xr-x  1 root root        7784 Jan 27  2023  lcf
+-rwxr-xr-x  1 root root       41657 Jan 27  2023  ucf
+-rwxr-xr-x  1 root root       19367 Jan 27  2023  ucfq
+-rwxr-xr-x  1 root root       11111 Jan 27  2023  ucfr
+-rwxr-xr-x  1 root root       15204 Jan 14  2023  autoconf
+-rwxr-xr-x  1 root root        9034 Jan 14  2023  autoheader
+-rwxr-xr-x  1 root root       33475 Jan 14  2023  autom4te
+-rwxr-xr-x  1 root root       26934 Jan 14  2023  autoreconf
+-rwxr-xr-x  1 root root       17177 Jan 14  2023  autoscan
+-rwxr-xr-x  1 root root       34017 Jan 14  2023  autoupdate
+-rwxr-xr-x  1 root root        4183 Jan 14  2023  ifnames
+-rwxr-xr-x  1 root root    19420144 Dec 18  2022  shellcheck
+lrwxrwxrwx  1 root root           5 Nov 14  2022  pbget -&gt; pbput
+lrwxrwxrwx  1 root root           5 Nov 14  2022  pbputs -&gt; pbput
+-rwxr-xr-x  1 root root       16706 Nov 14  2022  pastebinit
+-rwxr-xr-x  1 root root        2569 Nov 14  2022  pbput
+-rwxr-xr-x  1 root root       18392 Oct 12  2022  dh_installtex
+lrwxrwxrwx  1 root root          17 Aug 20  2022  on_ac_power -&gt; /sbin/on_ac_power
+-rwxr-xr-x  1 root root        1207 Aug 20  2022  lspower
+lrwxrwxrwx  1 root root           8 Aug  1  2022  browse -&gt; xdg-open
+lrwxrwxrwx  1 root root          22 Aug  1  2022  open -&gt; /etc/alternatives/open
+-rwxr-xr-x  1 root root       20642 Aug  1  2022  xdg-desktop-icon
+-rwxr-xr-x  1 root root       43280 Aug  1  2022  xdg-desktop-menu
+-rwxr-xr-x  1 root root       26934 Aug  1  2022  xdg-email
+-rwxr-xr-x  1 root root       30032 Aug  1  2022  xdg-icon-resource
+-rwxr-xr-x  1 root root       42126 Aug  1  2022  xdg-mime
+-rwxr-xr-x  1 root root       26075 Aug  1  2022  xdg-open
+-rwxr-xr-x  1 root root       38003 Aug  1  2022  xdg-screensaver
+-rwxr-xr-x  1 root root       38417 Aug  1  2022  xdg-settings
+lrwxrwxrwx  1 root root           7 Jul 29  2022  keep-one-running -&gt; run-one
+-rwxr-xr-x  1 root root        3592 Jul 29  2022  run-one
+lrwxrwxrwx  1 root root           7 Jul 29  2022  run-one-constantly -&gt; run-one
+lrwxrwxrwx  1 root root           7 Jul 29  2022  run-one-until-failure -&gt; run-one
+lrwxrwxrwx  1 root root           7 Jul 29  2022  run-one-until-success -&gt; run-one
+lrwxrwxrwx  1 root root           7 Jul 29  2022  run-this-one -&gt; run-one
+-rwxr-xr-x  1 root root        8583 Jun  3  2022  ec2metadata
+-rwxr-xr-x  1 root root       29895 Jun  3  2022  growpart
+-rwxr-xr-x  1 root root        6912 Jun  3  2022  vcs-run
+-rwxr-xr-x  1 root root         527 Mar 12  2022  rake
+-rwxr-xr-x  1 root root        2112 Feb 16  2022  finalrd
+-rwxr-xr-x  1 root root        1836 Jan 31  2022  dh_autotools-dev_restoreconfig
+-rwxr-xr-x  1 root root        1850 Jan 31  2022  dh_autotools-dev_updateconfig
+-rwxr-xr-x  1 root root        4893 Nov 27  2021  bzexe
+-rwxr-xr-x  1 root root      831944 Nov  4  2021  catatonit
+-rwxr-xr-x  1 root root        6177 Sep  4  2021  update-perl-sax-parsers
+-rwxr-xr-x  1 root root        1821 Feb 16  2021  strace-log-merge
+-rwxr-xr-x  1 root root       18600 Jan 29  2021  sshpass
+-rwxr-xr-x  1 root root         785 Dec  7  2020  ssh-import-id-gh
+-rwxr-xr-x  1 root root         785 Dec  7  2020  ssh-import-id-lp
+lrwxrwxrwx  1 root root          21 Nov 17  2020  c89 -&gt; /etc/alternatives/c89
+-rwxr-xr-x  1 root root         428 Nov 17  2020  c89-gcc
+lrwxrwxrwx  1 root root          21 Nov 17  2020  c99 -&gt; /etc/alternatives/c99
+-rwxr-xr-x  1 root root         454 Nov 17  2020  c99-gcc
+-rwxr-xr-x  1 root root       50250 Feb  3  2020  git-ftp
+-rwxr-xr-x  1 root root        1838 Jan 24  2020  jsonpointer
+-rwxr-xr-x  1 root root      142086 Dec 23  2019  shtool
+-rwxr-xr-x  1 root root       15521 Dec 23  2019  shtoolize
+-rwxr-xr-x  1 root root        8744 May 29  2018  pollinate
 </code></pre>
 </div>
 </div>
 </div>
-<!-- id: 97b748e533f2a8d80edc89082e377a3f -->
+<!-- id: 5a9e4e145ff20f0bf649e56f3497632d -->
 
 <p>Note that a <code>--colors=always</code> is not necessary here - the commands are run as if you would type them
 into a tmux window - in fact they are, using <code>tmux send-keys</code>.</p>
@@ -1624,14 +3925,14 @@ liking, except setting the base index to a different value than 1).</p>
 or the environment ($PATH).</p>
 </div>
 <!-- id: 7e968f12a0fe4d892ed04a279b69f61c -->
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Code</label><label for="__tabbed_2_2"><a href="https://github.com/axiros/docutools/blob/master/src/lcdoc/lp_session.py#L76"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg></span></a></label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Code</label><label for="__tabbed_2_2"><a href="https://github.com/axiros/docutools/blob/main/src/lcdoc/lp_session.py#L76"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg></span></a></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">configure_tmux_base_index_1</span><span class="p">(</span><span class="n">session_name</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">configure_tmux_base_index_1</span><span class="p">(</span><span class="n">session_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Seems everybody really using it has 1 (on normal keyboards 0 is far away)</span>
 <span class="sd">    and its a hard to detect or change, especially when the messed with it outside of</span>
-<span class="sd">    our control. </span>
+<span class="sd">    our control.</span>
 
 <span class="sd">    On clean systems it will be just missing or: the user / runner does not care.</span>
 
@@ -1658,7 +3959,7 @@ or the environment ($PATH).</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p><a href="https://github.com/axiros/docutools/blob/master/src/lcdoc/lp_session.py#L76">https://github.com/axiros/docutools/blob/master/src/lcdoc/lp_session.py#L76</a></p>
+<p><a href="https://github.com/axiros/docutools/blob/main/src/lcdoc/lp_session.py#L76">https://github.com/axiros/docutools/blob/main/src/lcdoc/lp_session.py#L76</a></p>
 </div>
 </div>
 </div>
@@ -1667,15 +3968,30 @@ or the environment ($PATH).</p>
 <script>typeof start_lc === "undefined" ? 0 : start_lc() </script>
 
 
-              
-            </article>
-          </div>
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
-            Back to top
-          </a>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
         
       </main>
       
@@ -1708,12 +4024,12 @@ or the environment ($PATH).</p>
 <footer class="md-footer">
   
 
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
+    <nav class="md-footer__inner md-grid" aria-label="footer.title">
       
         
         <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview" rel="prev">
           <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
           </div>
           <div class="md-footer__title">
             <div class="md-ellipsis">
@@ -1767,7 +4083,7 @@ or the environment ($PATH).</p>
           </div>
         </div>
         <div style="margin-left: -2rem" class="md-footer__button md-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
         </div>
       </div>
 
@@ -1804,11 +4120,13 @@ or the environment ($PATH).</p>
   
     
     
+    
+    
       
       
     
     <a href="https://github.com/axiros" target="_blank" rel="noopener" title="github.com" class="md-social__link">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
 </div>
@@ -1822,26 +4140,30 @@ or the environment ($PATH).</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.top", "navigation.tabs", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.467223ff.min.js"></script>
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.top", "navigation.tabs", "navigation.sections"], "search": "../../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.50899def.min.js"></script>
       
         <script src="../../../../lcd/lp/javascript/tables.js"></script>
       
-        <script src="../../../../lcd/lp/javascript/Rx.min.js"></script>
+        <script src="../../../../lcd/lp/javascript/xterm-addon-fit.min.js"></script>
+      
+        <script src="../../../../lcd/lp/javascript/xterm-addon-search.min.js"></script>
       
         <script src="../../../../lcd/lp/javascript/tablesort.min.js"></script>
+      
+        <script src="../../../../lcd/lp/javascript/lc.js"></script>
       
         <script src="../../../../lcd/lp/javascript/xterm.4.9.0.min.js"></script>
       
         <script src="../../../../lcd/lp/javascript/fa_all.js"></script>
       
-        <script src="../../../../lcd/lp/javascript/lc.js"></script>
-      
-        <script src="../../../../lcd/lp/javascript/xterm-addon-search.min.js"></script>
-      
-        <script src="../../../../lcd/lp/javascript/xterm-addon-fit.min.js"></script>
+        <script src="../../../../lcd/lp/javascript/Rx.min.js"></script>
       
     
   </body>
