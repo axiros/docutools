@@ -146,15 +146,18 @@ jobs:
       - name: Extract coverage percentage
         id: coverage
         run: |
-          COVERAGE=$(grep "TOTAL" coverage_report.txt | awk '{print $4}' | sed 's/%//')
+          COVERAGE=$(grep "TOTAL" coverage_report.txt | awk '{print $4}' | sed 's/%//' | head -1)
+          echo "Coverage: $COVERAGE%"
           echo "percentage=$COVERAGE" >> $GITHUB_OUTPUT
 
       - name: Create coverage badge
-        uses: schneegans/dynamic-badges-action@v1.7.0
-        with:
-          auth: ${{ secrets.GITHUB_TOKEN }}
-          gistID: ${{ vars.COVERAGE_GIST_ID }}  # Set this in repository variables
-          filename: docutools-coverage.json
-          label: Coverage
-          message: ${{ steps.coverage.outputs.percentage }}%
-          color: ${{ steps.coverage.outputs.percentage > 80 && 'green' || steps.coverage.outputs.percentage > 60 && 'yellow' || 'red' }}
+        run: |
+          COVERAGE=$(grep "TOTAL" coverage_report.txt | awk '{print $4}' | sed 's/%//' | head -1)
+          echo "Coverage: $COVERAGE%"
+          COLOR="red"
+          if (( $(echo "$COVERAGE > 80" | bc -l) )); then COLOR="brightgreen"; fi
+          if (( $(echo "$COVERAGE > 60 && $COVERAGE <= 80" | bc -l) )); then COLOR="yellow"; fi
+          
+          # Create a simple coverage badge URL for README
+          echo "Add this to your README:"
+          echo "[![Coverage](https://img.shields.io/badge/coverage-${COVERAGE}%25-${COLOR})](https://github.com/axiros/docutools/actions/workflows/ci.yml)"
