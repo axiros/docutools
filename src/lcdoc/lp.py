@@ -86,12 +86,13 @@ _ = lambda f, msg, *a, **kw: f(str(msg) + ' '.join([str(i) for i in a]), **kw)
 dbg = p(_, app.debug)
 nfo = p(_, app.info)
 
+err_assert_failed = '💥 Assertion failed: Expected "%s" not found in result. 💡Hint: just clean and kill tmux.'
+
 
 # ---------------------------------------------------------------------------- Utilities
 class Raiser:
     def raise_(ass):
-        msg = '💥 Assertion failed: Expected "%s" not found in result. 💡Hint: just clean and kill tmux.'
-        msg = msg % ass
+        msg = err_assert_failed % ass
         # app.error(msg, asserts=ass, json={'result': res})
         print('RAISING EXCEPTION: %s' % msg)
         Raiser.die(msg)

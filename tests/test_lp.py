@@ -13,7 +13,7 @@ import time
 import unittest
 
 import pytest
-
+from lcdoc.lp import err_assert_failed
 from lcdoc.mkdocs.lp import LP, LPPlugin, split_off_fenced_blocks
 from lcdoc.mkdocs.markdown import deindent
 
@@ -550,10 +550,11 @@ class embedded_sessions(unittest.TestCase):
         ```
         """
         res = run_lp(md1)
-        assert (
-            '!!! error "LP error: Assertion failed: Expected "[\'XXX\']" not found in result'
-            in res
-        )
+        # res = res.replace("'", 'APO')
+        s = err_assert_failed % "[\\'XXX\\']"
+        assert s in res
+        s = err_assert_failed % "['XXX']"
+        assert f'!!! error "{LP.err_admon}: {s}' in res
 
         md1 = """
         ```bash lp session=test1 asserts=foo
