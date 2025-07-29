@@ -75,7 +75,7 @@ def run(cmd, kw):
     server = d['server']
     server = server[:-1] if server[-1] == '/' else server
     server += '/%s/svg' % typ
-    res = httpx.post(server, data=data)
+    res = httpx.post(server, content=data)
     if res.status_code > 299:
         return lp.err(
             'Server returned error',
