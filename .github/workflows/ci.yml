@@ -95,7 +95,12 @@ jobs:
         run: uv sync
 
       - name: Build documentation
-        run: just docs
+        run: |
+          just docs
+          # Ensure badge files are in the site directory
+          mkdir -p ./site/img
+          cp docs/img/badge_*.svg ./site/img/ 2>/dev/null || true
+          ls -la ./site/img/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -161,3 +166,12 @@ jobs:
           # Create a simple coverage badge URL for README
           echo "Add this to your README:"
           echo "[![Coverage](https://img.shields.io/badge/coverage-${COVERAGE}%25-${COLOR})](https://github.com/axiros/docutools/actions/workflows/ci.yml)"
+
+      - name: Commit coverage files
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f coverage.xml coverage_report.txt || true
+          git diff --staged --quiet || git commit -m "Update coverage reports" || true
+          git push || true

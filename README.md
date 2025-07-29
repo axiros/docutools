@@ -8,7 +8,7 @@
 [gh-ci]: https://github.com/axiros/docutools/actions/workflows/ci.yml
 [gh-ci_img]: https://github.com/axiros/docutools/actions/workflows/ci.yml/badge.svg
 [coverage]: https://github.com/axiros/docutools/actions/workflows/ci.yml
-[coverage_img]: https://img.shields.io/badge/dynamic/xml?color=brightgreen&label=coverage&query=%2F%2F%40line-rate&suffix=%25&url=https%3A%2F%2Fraw.githubusercontent.com%2Faxiros%2Fdocutools%2Fmain%2Fcoverage.xml
+[coverage_img]: https://img.shields.io/github/actions/workflow/status/axiros/docutools/ci.yml?label=coverage&logo=codecov
 [pkg]: https://pypi.org/project/docutools/2022.04.11/
 [pkg_img]: https://axiros.github.io/docutools/img/badge_pypi.svg
 [code_style]: https://github.com/astral-sh/ruff
