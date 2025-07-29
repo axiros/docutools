@@ -1,164 +1,128 @@
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+[project]
 name = "docutools"
 version = "2022.04.11"
 description = "Documentation Tools for the Mkdocs Material Framework"
-authors = ["Gunther Klessinger <gkle_ss_ing_er@gmx.de>"]
-license = "BSD 2-Clause Simplified License"
+authors = [
+    {name = "Gunther Klessinger", email = "gkle_ss_ing_er@gmx.de"}
+]
+license = {text = "BSD 2-Clause Simplified License"}
 readme = "README.md"
-repository = "https://github.com/axiros/docutools"
-homepage = "https://axiros.github.io/docutools/"
+requires-python = ">=3.8"
 keywords = []
-packages = [ { include = "lcdoc", from = "src" } ]
-include = []
-exclude = [ "**/docs/**/*" ]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8", 
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
 
+dependencies = [
+    "pycond>=2.0.0",
+    "anybadge>=1.7.0",
+    "git-changelog",
+    "httpx>=0.17.1",
+    "markdown-include>=0.6.0",
+    "markupsafe==2.0.1",
+    "mkdocs>=1.1.2",
+    "mkdocs-material>=8.0.0",
+    "mkdocs-macros-plugin>=0.5.12",
+    "mkdocs-exclude>=1.0.2",
+    "mkdocs-pymdownx-material-extras>=1.1.3",
+    "pytest>=6.0.1",
+    "pytest-cov>=2.10.1", 
+    "pytest-randomly>=3.4.1",
+    "pytest-sugar>=0.9.4",
+    "pytest-xdist>=2.1.0",
+    "toml>=0.10.1",
+    "diagrams",
+    "imagesize>=1.0.0",
+    "inflection>=0.5.1",
+    "coverage>=6.0.2",
+]
 
-# [[tool.poetry.source]]
-# name = "ax"
-# url = "https://artifacts.github.com/artifactory/api/pypi/pypi-ax-sources/simple/"
-# secondary = true
+[project.optional-dependencies]
+dev = [
+    "autoflake>=1.4",
+    "black>=22.0.0",
+    "isort>=5.0.0",
+    "numpy>=1.0.0",
+    "matplotlib>=3.0.0",
+    "mypy>=0.900",
+    "flake8>=4.0.0",
+]
 
 [project.urls]
-# packagehome = "https://pypi.org/project/docutools" # default is pypi, no need to declare
-# discusshome = "https://join.skype.com/foobarbaz"
+Repository = "https://github.com/axiros/docutools"
+Homepage = "https://axiros.github.io/docutools/"
 
-[tool.poetry.dependencies]
-#python = "^3.6"
-#python = "~3.8"
-python = "^3.7"
-# lp conditions and assertions matching:
-pycond = "^2*"
-anybadge = "^1.7.0"
-git-changelog = "*"
-# for duty (an invoke clone) pulling async pypi data and kroki
-httpx = "^0.17.1"
-# TODO: accept v5 once https://github.com/wemake-services/wemake-python-styleguide/issues/1584 is resolved
-# making trouble when poetry installing lc-devapp with us as depency. Unsure why a dev dep matters ...
-# lc-devapp = { path = "build/lc-devapp" } # see above and .gitlab-ci.yaml
-markdown-include = "^0.6.0"
-# have to pin(https://github.com/pallets/markupsafe/issues/284):
-markupsafe = "2.0.1"
-mkdocs = "^1.1.2"
-mkdocs-material = "^8"
-# Optional:
-mkdocs-macros-plugin = "^0.5.12"
-mkdocs-exclude = "^1.0.2"
-mkdocs-pymdownx-material-extras = "^1.1.3"
-# great one, optional:
-#mkdocstrings = "^0.13.6"
-#plantuml-markdown = "^3.4.2"
-pytest = "^6.0.1"
-pytest-cov = "^2.10.1"
-pytest-randomly = "^3.4.1"
-pytest-sugar = "^0.9.4"
-pytest-xdist = "^2.1.0"
-toml = "^0.10.1"
-
-# this would require to  export POETRY_HTTP_BASIC_AX_USERNAME=... and pw on gitlab runner
-# since we are on same gitlab server for lc-devapp we install from there using the token, see below
-diagrams = "*"
-imagesize = "^1.*"
-inflection = "^0.5.1"
-coverage = "^6.0.2"
-
-[tool.poetry.dev-dependencies]
-autoflake = "^1.4"
-axblack = "^20201010"
-isort = {version = "<5", extras = ["pyproject"]}
-numpy = "^1*"
-matplotlib = "^3*"
-# one of last versions with site-packages/black.py - overridden by axblack:
-#black = "18.6b4"
-
-[tool.poetry.scripts]
+# [project.entry-points."mkdocs.plugins"]
+# Since uv doesn't support plugin entry points in the same way, 
+# we'll use the setuptools-compatible format for now
+[project.scripts]
 mdrun = "lcdoc.lprunner:main"
 
-[tool.poetry.plugins."mkdocs.plugins"]
+# Plugin entry points for mkdocs - handled differently in modern packaging
+[project.entry-points."mkdocs.plugins"]
 "lcd-find-pages" = "lcdoc.mkdocs.find_pages:MDFindPagesPlugin"
 "lcd-custom-dir" = "lcdoc.mkdocs.custom_dir:CustomDirPlugin"
-"lcd-blacklist"  = "lcdoc.mkdocs.blacklist:BlacklistPlugin"
-"lcd-lp"         = "lcdoc.mkdocs.lp:LPPlugin"
+"lcd-blacklist" = "lcdoc.mkdocs.blacklist:BlacklistPlugin"
+"lcd-lp" = "lcdoc.mkdocs.lp:LPPlugin"
 "lcd-md-replace" = "lcdoc.mkdocs.replace:MDReplacePlugin"
-"lcd-page-tree"  = "lcdoc.mkdocs.page_tree:PageTreePlugin"
-"lcd-stats"      = "lcdoc.mkdocs.stats:StatsPlugin"
+"lcd-page-tree" = "lcdoc.mkdocs.page_tree:PageTreePlugin"
+"lcd-stats" = "lcdoc.mkdocs.stats:StatsPlugin"
 
+# Tool configurations
 [tool.black]
 line-length = 90
 exclude = "tests/fixtures"
 
-[tool.pyright]
-reportSelfClsParameterName = false
-pythonPlatform = "Linux"
-executionEnvironments = [{ root = "src" }]
-typeCheckingMode = "off"
-
 [tool.isort]
 line_length = 90
-not_skip = "__init__.py"
 multi_line_output = 3
 force_single_line = false
 balanced_wrapping = true
 default_section = "THIRDPARTY"
-known_first_party = "lcdoc"
+known_first_party = ["lcdoc"]
 include_trailing_comma = true
 
-[tool.flakehell]
-format = "colored"
-max_line_length = 132
-show_source = false
-exclude = ["tests/fixtures"]
-# create baseline first for legacy code:https://wemake-python-stylegui.de/en/latest/pages/usage/integrations/flakehell.html
+[tool.mypy]
+python_version = "3.7"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
 
-[tool.flakehell.plugins]
-"*" = [
-    "+*",
-    "-RST*",  # we write docstrings in markdown, not rst
-    "-A001",  # redundant with W0622 (builtin override), which is more precise about line number
-    "-D105",  # missing docstring in magic method
-    "-D212",  # multi-line docstring summary should start at the first line
-    "-E203",  # whitespace before ‘:’ (incompatible with Black)
-    "-F821",  # redundant with E0602 (undefined variable)
-    "-Q000",  # black already deals with quoting
-    "-S101",  # use of assert
-    "-W503",  # line break before binary operator (incompatible with Black)
-    "-C0103", # two-lowercase-letters variable DO conform to snake_case naming style
-    "-C0116",  # redunant with D102 (missing docstring)
-    "-C0301",  # line too long
-    "-R0902",  # too many instance attributes
-    "-R0903",  # too few public methods
-    "-R0904",  # too many public methods
-    "-R0912",  # too many branches
-    "-R0913",  # too many methods
-    "-R0914",  # too many local variables
-    "-R0915",  # too many statements
-    "-W0212",  # redundant with WPS437 (access to protected attribute)
-    "-W0611",  # redundant with F401 (unused import)
-    "-W1203",  # lazy formatting for logging calls
-    "-WPS305",  # f-strings
-    "-WPS110",  # common variable names (too annoying)
-    "-WPS125",  # redundant with W0622 (builtin override), which is more precise about line number
-    "-WPS201",  # too many imports
-    "-WPS202",  # too many module members
-    "-WPS210",  # too many local variables
-    "-WPS211",  # too many arguments
-    "-WPS213",  # too many expressions
-    "-WPS214",  # too many methods
-    "-WPS220",  # too deep nesting
-    "-WPS223",  # too many elif branches
-    "-WPS226",  # string over-use: can't disable it per file?
-    "-WPS230",  # too many public instance attributes
-    "-WPS306",  # too cumbersome, asks to write class A(object)
-    "-WPS317",  # multi-line paramaters (incompatible with Black)
-    "-WPS322",  # multi-line strings (incompatible with attributes docstrings)
-    "-WPS326",  # implicit string concatenation
-    "-WPS336",  # explicit string concatenation
-    "-WPS402",  # nosa overuse
-    "-WPS412",  # __init__ modules with logic
-    "-WPS428",  # statement with no effect (not compatible with attribute docstrings)
-    "-WPS433",  # redundant with C0415 (not top-level import)
-    "-WPS529",  # implicit dict.get usage (generally false-positive)
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+
+[tool.coverage.html]
+directory = "build/coverage/overall"
+
+# Hatch configuration for package discovery
+[tool.hatch.build]
+include = [
+    "src/lcdoc/**/*.py",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lcdoc"]
