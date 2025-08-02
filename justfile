@@ -53,7 +53,7 @@ docs:
 docs-serve PORT="2222":
     @echo "Serving docs on http://127.0.0.1:{{PORT}}"
     @pkill -f "mkdocs serve.*{{PORT}}" || true
-    uv run mkdocs serve -a "127.0.0.1:{{PORT}}"
+    lp_eval=on_page_change uv run mkdocs serve -a "127.0.0.1:{{PORT}}"
 
 # Check documentation links
 docs-checklinks:
@@ -86,23 +86,19 @@ doctest:
 new-version VERSION="": 
     #!/usr/bin/env bash
     set -euo pipefail
-    
     VERSION_ARG="{{VERSION}}"
     if [ -z "$VERSION_ARG" ]; then
         # Use calendar versioning by default
         VERSION_ARG=$(date "+%Y.%m.%d")
         echo "Using calendar version: $VERSION_ARG"
     fi
-    
     echo "Releasing version $VERSION_ARG"
     sed -i '' "s/^version = .*/version = \"$VERSION_ARG\"/" pyproject.toml
     git commit -am "chore: Prepare release {{VERSION}}" || true
     git tag "{{VERSION}}"
-    git push --tags
-
-
 
 publish: 
+    git push --tags
     just clean
     just build
     uv publish --token "$(pass pypitoken)"

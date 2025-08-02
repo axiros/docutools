@@ -7,7 +7,7 @@
 [docs pages_img]: https://axiros.github.io/docutools/img/badge_docs.svg
 [gh-ci]: https://github.com/axiros/docutools/actions/workflows/ci.yml
 [gh-ci_img]: https://github.com/axiros/docutools/actions/workflows/ci.yml/badge.svg
-[pkg]: https://pypi.org/project/docutools/2025.07.30/
+[pkg]: https://pypi.org/project/docutools/2025.08.01/
 [pkg_img]: https://axiros.github.io/docutools/img/badge_pypi.svg
 [code_style]: https://github.com/astral-sh/ruff
 [code_style_img]: https://axiros.github.io/docutools/img/badge_ruff.svg

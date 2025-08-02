@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "docutools"
-version = "2025.08.01"
+version = "2025.08.02"
 description = "Documentation Tools for the Mkdocs Material Framework"
 authors = [{ name = "Gunther Klessinger", email = "gkle_ss_ing_er@gmx.de" }]
 license = "BSD-2-Clause"
@@ -121,17 +121,15 @@ skip_covered = false
 [tool.coverage.html]
 directory = "build/coverage/overall"
 
-# Hatch configuration for package discovery
-[tool.hatch.build]
-include = ["src/lcdoc/**/*"]
-exclude = [
-  "src/lcdoc/**/__pycache__",
-  "src/lcdoc/**/*.pyc",
-  "src/lcdoc/**/*.pyo",
-]
-
+# Hatch configuration for package discovery  
 [tool.hatch.build.targets.wheel]
 packages = ["src/lcdoc"]
+# Here a css and js files we need in the wheels:
+force-include = { "src/lcdoc/mkdocs/lp/assets" = "lcdoc/mkdocs/lp/assets" }
+
+[tool.hatch.build.targets.sdist]
+include = ["src/lcdoc", "README.md", "LICENSE"]
+force-include = { "src/lcdoc/mkdocs/lp/assets" = "src/lcdoc/mkdocs/lp/assets" }
 
 [dependency-groups]
 dev = ["matplotlib>=3.0.0", "mypy>=1.14.1"]

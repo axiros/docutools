@@ -91,7 +91,9 @@ err_assert_failed = 'ğŸ’¥ Assertion failed: Expected "%s" not found in result. ğ
 
 # ---------------------------------------------------------------------------- Utilities
 class Raiser:
-    def raise_(ass):
+    def raise_(ass, got=None):
+        if got:
+            print(f'Actual output: {got}', file=sys.stderr)
         msg = err_assert_failed % ass
         # app.error(msg, asserts=ass, json={'result': res})
         print('RAISING EXCEPTION: %s' % msg)
@@ -127,7 +129,7 @@ def check_assert(ass, res):
 
     for a in ass:
         if a not in s:
-            Raiser.raise_(ass)
+            Raiser.raise_(ass, got=s)
 
 
 # aliases = {}
