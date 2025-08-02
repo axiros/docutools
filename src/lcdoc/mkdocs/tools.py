@@ -354,7 +354,7 @@ class MDPlugin(BasePlugin):
         r = reset_if_is_first_loaded_plugin_and_hash_changed(self)
         app.setup_logging(mkdlog, name='lcd')
         if r:
-            d = datetime.datetime.now(datetime.UTC).strftime('%Y%m%dT%H%M%SZ')
+            d = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')
             app.info('Ran reset, cleared stats', reset=r, utc=d, unix=int(time.time()))
         Stats[clsn(self)] = {}
         PageStats[clsn(self)] = {}
