@@ -94,8 +94,8 @@ new-version VERSION="":
     fi
     echo "Releasing version $VERSION"
     sed -i '' "s/^version = .*/version = \"$VERSION\"/" pyproject.toml
-    git commit -am "chore: Prepare release {{VERSION}}" || true
-    git tag "{{VERSION}}"
+    git commit -am "chore: Prepare release $VERSION" || true
+    git tag "$VERSION"
 
 publish: 
     git push --tags
