@@ -87,11 +87,7 @@ new-version VERSION="":
     #!/usr/bin/env bash
     set -xeuo pipefail
     VERSION="{{VERSION}}"
-    if [ -z "$VERSION" ]; then
-        # Use calendar versioning by default
-        VERSION=$(date "+%Y.%m.%d")
-        echo "Using calendar version: $VERSION"
-    fi
+    if [ -z "$VERSION" ]; then VERSION=$(date "+%Y.%m.%d"); fi
     echo "Releasing version $VERSION"
     sed -i '' "s/^version = .*/version = \"$VERSION\"/" pyproject.toml
     git commit -am "chore: Prepare release $VERSION" || true
