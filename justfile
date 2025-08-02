@@ -86,14 +86,14 @@ doctest:
 new-version VERSION="": 
     #!/usr/bin/env bash
     set -xeuo pipefail
-    VERSION_ARG="{{VERSION}}"
-    if [ -z "$VERSION_ARG" ]; then
+    VERSION="{{VERSION}}"
+    if [ -z "$VERSION" ]; then
         # Use calendar versioning by default
-        VERSION_ARG=$(date "+%Y.%m.%d")
-        echo "Using calendar version: $VERSION_ARG"
+        VERSION=$(date "+%Y.%m.%d")
+        echo "Using calendar version: $VERSION"
     fi
-    echo "Releasing version $VERSION_ARG"
-    sed -i '' "s/^version = .*/version = \"$VERSION_ARG\"/" pyproject.toml
+    echo "Releasing version $VERSION"
+    sed -i '' "s/^version = .*/version = \"$VERSION\"/" pyproject.toml
     git commit -am "chore: Prepare release {{VERSION}}" || true
     git tag "{{VERSION}}"
 
