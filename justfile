@@ -82,7 +82,7 @@ doctest:
     just test
     just docs
 
-# Calcs a version, adds to pyproject, git tags, calls publish <version>
+# Calcs a version, adds it to pyproject, git tags
 new-version VERSION="": 
     #!/usr/bin/env bash
     set -xeuo pipefail
@@ -94,7 +94,9 @@ new-version VERSION="":
     git tag -d "$VERSION" 2>/dev/null || true
     git tag "$VERSION"
 
+# Pushes the tag, publishes to pypi
 publish: 
+    git pull
     git push --tags
     just clean
     just build
