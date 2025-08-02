@@ -2632,7 +2632,7 @@
 <details class="hint" open="open">
 <summary>Adds the lp source into the rendered page</summary>
 <p>All examples on this page use that header, set on page level.</p>
-<p>See <a href="https://github.com/axiros/docutools/blob/main/src/lcdoc/lp.py#L897">AddSrcFormats <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg></span></a> regarding available formats.</p>
+<p>See <a href="https://github.com/axiros/docutools/blob/main/src/lcdoc/lp.py#L899">AddSrcFormats <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg></span></a> regarding available formats.</p>
 <p>When you say <code>addsrc=&lt;a string&gt;</code> then we'll use format number 4 and set that string as the title.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code> ```bash lp addsrc=Example fmt=mk_console
@@ -2880,9 +2880,9 @@ command will be running even after <code>mkdocs build</code>.</p>
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>[1m[32mrunner@pkrvmjbmru5nbw0[0m:[1m[34m~/work/docutools/docutools[0m$ while true; do date; sleep 0.05; done
-Tue Jul 29 10:31:54 PM UTC 2025
-Tue Jul 29 10:31:54 PM UTC 2025
-Tue Jul 29 10:31:54 PM UTC 2025
+Sat Aug  2 07:29:15 PM UTC 2025
+Sat Aug  2 07:29:15 PM UTC 2025
+Sat Aug  2 07:29:15 PM UTC 2025
 </code></pre>
 </div>
 </div>
@@ -3061,7 +3061,7 @@ printenv
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ tmux list-sessions | grep kill_test
-kill_test: 1 windows (created Tue Jul 29 22:31:54 2025)
+kill_test: 1 windows (created Sat Aug  2 19:29:16 2025)
 $ ls . | grep hosts
 </code></pre>
 </div>
@@ -3084,7 +3084,7 @@ $ ls . | grep hosts
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ tmux list-sessions | grep test || true
-test: 1 windows (created Tue Jul 29 22:31:53 2025)
+test: 1 windows (created Sat Aug  2 19:29:15 2025)
 </code></pre>
 </div>
 </div>
@@ -3141,9 +3141,9 @@ E.g. for <a href="../plugs/show_src/">srcrefs</a>:</p>
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ date
-Tue Jul 29 10:31:55 PM UTC 2025
+Sat Aug  2 07:29:16 PM UTC 2025
 $ tmux list-sessions | grep docutest
-docutest: 1 windows (created Tue Jul 29 22:31:54 2025)
+docutest: 1 windows (created Sat Aug  2 19:29:16 2025)
 </code></pre>
 </div>
 </div>
@@ -3323,7 +3323,7 @@ URL with the <a href="../python/lprunner/"><code>mdrun</code> script</a>.</p>
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ tmux list-sessions | grep docutest
-docutest: 1 windows (created Tue Jul 29 22:31:54 2025)
+docutest: 1 windows (created Sat Aug  2 19:29:16 2025)
 </code></pre>
 </div>
 </div>
@@ -3386,7 +3386,7 @@ nothing is shown for block execution but the command was executed:</p>
 <div class="tabbed-block">
 <p><xterm /></p>
 <pre><code>$ ls -lta /tmp/silent_test
--rw-r--r-- 1 runner docker 0 Jul 29 22:31 /tmp/silent_test
+-rw-r--r-- 1 runner docker 0 Aug  2 19:29 /tmp/silent_test
 </code></pre>
 </div>
 </div>
