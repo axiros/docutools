@@ -85,7 +85,7 @@ doctest:
 # Calcs a version, adds to pyproject, git tags, calls publish <version>
 new-version VERSION="": 
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -xeuo pipefail
     VERSION_ARG="{{VERSION}}"
     if [ -z "$VERSION_ARG" ]; then
         # Use calendar versioning by default
