@@ -124,12 +124,9 @@ directory = "build/coverage/overall"
 # Hatch configuration for package discovery  
 [tool.hatch.build.targets.wheel]
 packages = ["src/lcdoc"]
-# Here a css and js files we need in the wheels:
-force-include = { "src/lcdoc/mkdocs/lp/assets" = "lcdoc/mkdocs/lp/assets" }
 
 [tool.hatch.build.targets.sdist]
 include = ["src/lcdoc", "README.md", "LICENSE"]
-force-include = { "src/lcdoc/mkdocs/lp/assets" = "src/lcdoc/mkdocs/lp/assets" }
 
 [dependency-groups]
 dev = ["matplotlib>=3.0.0", "mypy>=1.14.1"]
