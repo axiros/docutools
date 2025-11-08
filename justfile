@@ -97,7 +97,7 @@ new-version VERSION="":
 # Pushes the tag, publishes to pypi
 publish: 
     git pull
-    git push --tags
+    git push --tags || true
     just clean
     just build
     uv publish --token "$(pass pypitoken)"
