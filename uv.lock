@@ -565,7 +565,7 @@ wheels = [
 
 [[package]]
 name = "docutools"
-version = "2025.8.1"
+version = "2025.8.3"
 source = { editable = "." }
 dependencies = [
     { name = "anybadge" },

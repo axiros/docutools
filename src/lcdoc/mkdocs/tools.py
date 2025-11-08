@@ -261,7 +261,8 @@ def run_docs_hooks(hookname, config):
 
 
 def page_dir(kw):
-    page = kw.get('page') or kw['LP'].page
+    # page = kw.get('page') or kw['LP'].page
+    page = kw['LP'].page
     return dirname(page.file.abs_src_path) + '/'
 
 
@@ -286,7 +287,8 @@ def make_img(create_func, fn=None, kw=None):
     if isinstance(f, str):
         create_func = lambda fn, s=f: write_file(fn, s)
     LP = kw['LP']
-    page = kw.get('page') or LP.page
+    # page = kw.get('page') or LP.page
+    page = LP.page
     config = LP.config
 
     def make(fn_abs, copy_frm=None, kw=kw):
