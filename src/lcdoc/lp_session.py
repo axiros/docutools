@@ -29,22 +29,22 @@ def tmux_ver_check(checked=[0]):
     checked[0] = 1
 
 
-def init_prompt(n, kw):
+def init_prompt(sess_name, kw):
     """run before each command"""
     if not is_lprunner[0]:
-        lp.sprun('tmux send-keys -R -t %s:1' % n)  # -R reset terminal state
-        lp.sprun('tmux clear-history -t %s:1' % n)
-    lp.sprun("tmux send-keys -t %s:1 '' Enter" % n)
+        lp.sprun('tmux send-keys -R -t %s:1' % sess_name)  # -R reset terminal state
+        lp.sprun('tmux clear-history -t %s:1' % sess_name)
+    lp.sprun("tmux send-keys -t %s:1 '' Enter" % sess_name)
+    p, r = prompt(kw), ''
     t0 = now()
-    p = prompt(kw)
     while now() - t0 < 2:
-        res = lp.sprun('tmux capture-pane -epJS -1000000 -t %s:1' % n)
+        res = lp.sprun('tmux capture-pane -epJS -1000000 -t %s:1' % sess_name)
         r = res.decode('utf-8').rstrip()
         if r and (r.endswith(p) or r[-1] in {'#', '$'}):
             return
         dbg('waiting for prompt...', have=r, want=p)
         wait(0.1)
-    raise Exception('No Prompt; Have so far: %s' % r)
+    raise Exception('No prompt in session %s; Have so far: %s' % (sess_name, r))
 
 
 def get_cwd(session_name):
